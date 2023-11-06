@@ -23,13 +23,16 @@ export default function Register(props) {
 
     return (
         <Center>
-            <Card w='50vw' variant='elevated' size='sm' boxShadow='dark-lg' px='5' py='5' m='10'>
+            <Card w='50vw' variant='elevated' size='sm' boxShadow='lg' px='5' py='5' m='10'>
                 <CardBody>
                     <Text fontSize='4xl'>Register</Text>
                     <Flex>
-                        <Text fontSize='1xl' mr='1'>Don't have an account yet?</Text>
-                        <Link onClick={() => { navigate('/register') }}>
-                            Register <ExternalLinkIcon mx='2px' />
+                        <Text fontSize='1xl' mr='1'>Already have an account?</Text>
+                        <Link onClick={() => {
+                            navigate('/login');
+                            props.pageUpdate();
+                        }}>
+                            Login <ExternalLinkIcon mx='2px' />
                         </Link>
                     </Flex>
                     <FormControl isRequired>
