@@ -1,0 +1,5 @@
+Folder Relative Path : src/Logic/Controller
+
+Folder for all js files concerning Controllers
+
+Controllers are used to listen to event listeners and triggers from the UI to call methods from the models.

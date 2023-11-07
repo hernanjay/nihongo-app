@@ -1,0 +1,5 @@
+Folder Relative Path : src/Logic/Model
+
+Folder for all js files concerning Models
+
+Models handles how data is presented to the to the users. create an object like a POJO (Plain-old-java-object) to hold data from the API. 
