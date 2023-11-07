@@ -1,9 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
-import { Box, Spinner, AbsoluteCenter } from '@chakra-ui/react'
+import { useState } from 'react';
 import NavBar from '../../Components/NavBar'
 import Login from '../Login/Login.Jsx';
-import Register from '../Login/Register';
+import Register from '../Register/Register';
+import HomePage from '../Home/Home';
 
 export default function Home() {
     const [hasChanged, setHasChanged] = useState(false);
@@ -20,15 +20,7 @@ export default function Home() {
         } else if (currentPath === '/#/register') {
             return <Register pageUpdate={updatePage} />
         } else {
-            return (
-                <>
-                    <Box position='relative' h='80vh'>
-                        <AbsoluteCenter p='4' color='white' axis='both'>
-                            <Spinner size='xl' color='blue.500' />
-                        </AbsoluteCenter>
-                    </Box>
-                </>
-            )
+            return <HomePage />
         }
     }
 
