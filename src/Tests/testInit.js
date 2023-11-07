@@ -1,5 +1,11 @@
-function initialize(check) {
-    return check ? true : false;
+function loginButton(userName, passWord) {
+    if (userName === "admin" && passWord === "admin") {
+        return 200;
+    } else if (userName !== "admin" || passWord !== "admin") {
+        return 404;
+    } else {
+        return 500;
+    }
 }
 
-module.exports = initialize;
+module.exports = loginButton;
