@@ -1,7 +1,6 @@
 //Tester Name Here
 
 const loginButton = require('./testInit');
-const registerBut = require('../../src/Logic/Controller/registerController');
 
 describe('Initialization', () => {
     test('Check if user is valid and returns 200', () => {
