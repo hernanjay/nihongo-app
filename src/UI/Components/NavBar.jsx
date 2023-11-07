@@ -107,8 +107,8 @@ export default function NavBar(props) {
     return (
         <Flex boxShadow='lg' bg='dark.100' w='100%' p={4} color='white' alignItems='center' gap='2'>
             <Box />
-            <Image mx={5} boxSize='50px' objectFit='cover' src='https://media.tenor.com/WBFzeBqRZgYAAAAi/gudetama-busy.gif' alt='logo' />
-            <Text fontSize='3xl'>N4・日本語・練習用・ツール</Text>
+            <Image boxSize='40px' objectFit='cover' src='https://1.bp.blogspot.com/-0wXC6MMwTqs/Xrea7O9QSuI/AAAAAAABY1U/apyEhwKBcTws66j3jFVmQUD0dMvIO7GRwCNcBGAsYHQ/s400/study_school_jugyou_boy.png' alt='logo' />
+            <Text fontSize='2xl'>N4・日本語・練習用・ツール</Text>
             <Spacer />
             <Stack direction='row' spacing={4} align='center' justify="center">
                 <ButtonGroup>

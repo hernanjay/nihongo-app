@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+//Comment For Testing
+
 import {
     Box, Flex, Stack, AbsoluteCenter, FormControl, FormLabel, Input, FormHelperText, Button, IconButton, Spacer, Card, CardHeader, CardBody, Text, Link, InputRightElement, InputLeftAddon, InputGroup
 } from '@chakra-ui/react'
@@ -24,7 +26,7 @@ export default function Login(props) {
     return (
         <Box position='relative' h='80vh'>
             <AbsoluteCenter w='30vw' axis='both'>
-                <Card variant='elevated' size='sm' boxShadow='dark-lg' px='5' py='5' >
+                <Card variant='elevated' size='sm' boxShadow='lg' px='5' py='5' >
                     <CardBody>
 
                         {/* Header */}
