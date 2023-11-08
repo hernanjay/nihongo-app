@@ -1,0 +1,22 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 66.73px; /* to check navbar height use developer tools of google */
+}
+
+body {
+    margin: 0 auto;
+    background-color: #e4e2fc;
+    font-family: "Montserrat", sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #55535e;
+}
