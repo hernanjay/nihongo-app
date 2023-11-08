@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useColorModeValue } from '@chakra-ui/react';
 
 //Comment For Testing
 
@@ -22,11 +23,13 @@ export default function Login(props) {
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate();
+    const bg = useColorModeValue('light.400', 'dark.100');
+    const border = useColorModeValue('dark.100', 'light.400');
 
     return (
         <Box position='relative' h='80vh'>
             <AbsoluteCenter w='30vw' axis='both'>
-                <Card variant='elevated' size='sm' boxShadow='lg' px='5' py='5' >
+                <Card bg={bg} variant='elevated' size='sm' boxShadow='lg' px='5' py='5' >
                     <CardBody>
 
                         {/* Header */}
@@ -80,7 +83,7 @@ export default function Login(props) {
                             </Flex>
                             <Flex>
                                 <Spacer />
-                                <Button leftIcon={<CheckIcon />} colorScheme='gray' variant='outline' borderColor='dark.100' mt={5}
+                                <Button leftIcon={<CheckIcon />} variant='outline' borderColor={border} mt={5}
                                     onClick={() => {
                                         showAlertMsgLogin();
                                         props.setIsLoggedIn(true);

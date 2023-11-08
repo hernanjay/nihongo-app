@@ -1,9 +1,10 @@
 export default class User {
-    constructor(id, userName, passWord, email) {
+    constructor(id, userName, passWord, email, studentSheet) {
         this.id = id;
         this.userName = userName;
         this.passWord = passWord;
         this.email = email;
+        this.studentSheet = studentSheet;
     }
 
     getId() {
