@@ -7,23 +7,35 @@ import {
 } from '@chakra-ui/react'
 
 import { CheckIcon, ViewIcon, ViewOffIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { createUser } from '../../../Logic/Controller/userController';
+import { useColorModeValue } from '@chakra-ui/react';
 
-function showAlertMsgRegister() {
-    Swal.fire(
-        'User Registered!',
-        'You will be redirected',
-        'success'
-    )
+function showAlertMsgRegister(status) {
+    if (status) {
+        Swal.fire(
+            'User Registed!',
+            'You will be redirected',
+            'success'
+        )
+    } else {
+        Swal.fire(
+            'User was not Registered!',
+            'Please check if username or password is correct',
+            'error'
+        )
+    }
 }
 
 export default function Register(props) {
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate();
+    const bg = useColorModeValue('light.400', 'dark.100');
+    const border = useColorModeValue('dark.100', 'light.400');
 
     return (
         <Center>
-            <Card w='50vw' variant='elevated' size='sm' boxShadow='lg' px='5' py='5' m='10'>
+            <Card bg={bg} w='50vw' variant='elevated' size='sm' boxShadow='lg' px='5' py='5' m='10'>
                 <CardBody>
                     <Text fontSize='4xl'>Register</Text>
                     <Flex>
@@ -90,11 +102,23 @@ export default function Register(props) {
                         </FormHelperText>
                         <Flex>
                             <Spacer />
-                            <Button leftIcon={<CheckIcon />} colorScheme='gray' variant='outline' borderColor='dark.100' mt={3}
+                            <Button leftIcon={<CheckIcon />} colorScheme='gray' variant='outline' borderColor={border} mt={3}
                                 onClick={() => {
-                                    showAlertMsgRegister();
-                                    navigate('/login');
-                                    props.pageUpdate();
+                                    let userName = document.getElementById('register-username-input').value;
+                                    let email = document.getElementById('register-email-input').value;
+                                    let passWord = document.getElementById('register-password-input').value;
+                                    let verifyPassword = document.getElementById('register-verify-password-input').value;
+                                    if (passWord === verifyPassword && (passWord.length > 0 && passWord.length > 0)) {
+                                        if (createUser(userName, passWord, email)) {
+                                            showAlertMsgRegister(true);
+                                            navigate('/login');
+                                            props.pageUpdate();
+                                        } else {
+                                            showAlertMsgRegister(false);
+                                        }
+                                    } else {
+                                        alert('Password not match');
+                                    }
                                 }}>
                                 Register
                             </Button>
