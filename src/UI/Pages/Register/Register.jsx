@@ -2,30 +2,30 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-    Flex,
-    Center,
-    FormControl,
-    FormLabel,
-    Input,
-    FormHelperText,
-    Button,
-    IconButton,
-    Spacer,
-    Card,
-    InputRightAddon,
-    CardBody,
-    Text,
-    Link,
-    InputRightElement,
-    InputLeftAddon,
-    InputGroup,
+  Flex,
+  Center,
+  FormControl,
+  FormLabel,
+  Input,
+  FormHelperText,
+  Button,
+  IconButton,
+  Spacer,
+  Card,
+  InputRightAddon,
+  CardBody,
+  Text,
+  Link,
+  InputRightElement,
+  InputLeftAddon,
+  InputGroup,
 } from "@chakra-ui/react";
 
 import {
-    CheckIcon,
-    ViewIcon,
-    ViewOffIcon,
-    ExternalLinkIcon,
+  CheckIcon,
+  ViewIcon,
+  ViewOffIcon,
+  ExternalLinkIcon,
 } from "@chakra-ui/icons";
 import { useColorModeValue } from "@chakra-ui/react";
 import { useSignup } from "../../../Logic/hooks/useSignup";

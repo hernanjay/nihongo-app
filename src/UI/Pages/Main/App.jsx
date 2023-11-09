@@ -33,15 +33,19 @@ function App() {
                             element={!user ? <Login /> : <Navigate to="/" />}
                         />
 
-                        <Route
-                            path="/register"
-                            element={!user ? <Register /> : <Navigate to="/" />}
-                        />
-                    </Routes>
-                </BrowserRouter>
-            </>
-        </ChakraProvider>
-    );
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/register"
+              element={!user ? <Register /> : <Navigate to="/" />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </>
+    </ChakraProvider>
+  );
 }
 
 export default App;
