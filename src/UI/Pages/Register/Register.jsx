@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 import {
   Flex,
@@ -28,163 +27,197 @@ import {
   ViewOffIcon,
   ExternalLinkIcon,
 } from "@chakra-ui/icons";
-import { createUser } from "../../../Logic/controller/userController";
 import { useColorModeValue } from "@chakra-ui/react";
+import { useSignup } from "../../../Logic/hooks/useSignup";
 
-function showAlertMsgRegister(status) {
-  if (status) {
-    Swal.fire("User Registed!", "You will be redirected", "success");
-  } else {
-    Swal.fire(
-      "User was not Registered!",
-      "Please check if username or password is correct",
-      "error"
-    );
-  }
-}
+export default function Register() {
+    const [show, setShow] = React.useState(false);
+    const handleClick = () => setShow(!show);
+    const navigate = useNavigate();
+    const bg = useColorModeValue("light.400", "dark.100");
+    const border = useColorModeValue("dark.100", "light.400");
 
-export default function Register(props) {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
-  const navigate = useNavigate();
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
 
-  return (
-    <Center>
-      <Card
-        bg={bg}
-        w="50vw"
-        variant="elevated"
-        size="sm"
-        boxShadow="lg"
-        px="5"
-        py="5"
-        m="10"
-      >
-        <CardBody>
-          <Text fontSize="4xl">Register</Text>
-          <Flex>
-            <Text fontSize="1xl" mr="1">
-              Already have an account?
-            </Text>
-            <Link
-              onClick={() => {
-                navigate("/login");
-                props.pageUpdate();
-              }}
+    const { signup, isLoading } = useSignup();
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setFormData((prevFormData) => {
+            return {
+                ...prevFormData,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await signup(
+            formData.firstName,
+            formData.lastName,
+            formData.cellNumber,
+            formData.gender,
+            formData.street,
+            formData.barangay,
+            formData.municipality,
+            formData.province,
+            formData.region,
+            formData.username,
+            formData.email,
+            formData.password,
+            formData.confirmPassword
+        );
+    };
+
+    return (
+        <Center>
+            <Card
+                bg={bg}
+                w="50vw"
+                variant="elevated"
+                size="sm"
+                boxShadow="lg"
+                px="5"
+                py="5"
+                m="10"
             >
-              Login <ExternalLinkIcon mx="2px" />
-            </Link>
-          </Flex>
-          <FormControl isRequired>
-            {/* Username input Form */}
-            <FormLabel mt="3">Username</FormLabel>
-            <InputGroup size="sm">
-              <InputLeftAddon children="@" />
-              <Input
-                id="register-username-input"
-                placeholder="Username"
-                colorScheme="blackAlpha"
-                type="text"
-              />
-            </InputGroup>
-            <FormHelperText>Enter your username.</FormHelperText>
+                <CardBody>
+                    <Text fontSize="4xl">Register</Text>
+                    <Flex>
+                        <Text fontSize="1xl" mr="1">
+                            Already have an account?
+                        </Text>
+                        <Link
+                            onClick={() => {
+                                navigate("/login");
+                            }}
+                        >
+                            Login <ExternalLinkIcon mx="2px" />
+                        </Link>
+                    </Flex>
+                    <form onSubmit={handleSubmit}>
+                        <FormControl isRequired>
+                            {/* Username input Form */}
+                            <FormLabel mt="3">Username</FormLabel>
+                            <InputGroup size="sm">
+                                <InputLeftAddon children="@" />
+                                <Input
+                                    id="register-username-input"
+                                    type="text"
+                                    placeholder="Username"
+                                    colorScheme="blackAlpha"
+                                    name="username"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                />
+                            </InputGroup>
+                            <FormHelperText>
+                                Enter your username.
+                            </FormHelperText>
 
-            {/*Email Input Form*/}
-            <FormLabel mt="3">Email</FormLabel>
-            <InputGroup size="sm">
-              <Input
-                id="register-email-input"
-                placeholder="Email"
-                colorScheme="blackAlpha"
-                type="email"
-              />
-              <InputRightAddon children="@awsys-i.com" />
-            </InputGroup>
-            <FormHelperText>Enter your email.</FormHelperText>
+                            {/*Email Input Form*/}
+                            <FormLabel mt="3">Email</FormLabel>
+                            <InputGroup size="sm">
+                                <Input
+                                    id="register-email-input"
+                                    placeholder="Email"
+                                    colorScheme="blackAlpha"
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                                <InputRightAddon children="@awsys-i.com" />
+                            </InputGroup>
+                            <FormHelperText>Enter your email.</FormHelperText>
 
-            {/* Password Input Form */}
-            <FormLabel mt="3">Password</FormLabel>
-            <InputGroup size="sm">
-              <Input
-                id="register-password-input"
-                type={show ? "text" : "password"}
-                placeholder="*******"
-              />
-              <InputRightElement mr={3}>
-                <IconButton
-                  icon={show ? <ViewOffIcon /> : <ViewIcon />}
-                  size="sm"
-                  variant="unstyled"
-                  isRound={true}
-                  onClick={handleClick}
-                />
-              </InputRightElement>
-            </InputGroup>
-            <FormHelperText>Enter your password.</FormHelperText>
-            {/* Password Input Form */}
-            <FormLabel mt="3">Verify Password</FormLabel>
-            <InputGroup size="sm">
-              <Input
-                id="register-verify-password-input"
-                type={show ? "text" : "password"}
-                placeholder="*******"
-              />
-              <InputRightElement mr={3}>
-                <IconButton
-                  icon={show ? <ViewOffIcon /> : <ViewIcon />}
-                  size="sm"
-                  variant="unstyled"
-                  isRound={true}
-                  onClick={handleClick}
-                />
-              </InputRightElement>
-            </InputGroup>
-            <FormHelperText>Enter your password again.</FormHelperText>
-            <Flex>
-              <Spacer />
-              <Button
-                leftIcon={<CheckIcon />}
-                colorScheme="gray"
-                variant="outline"
-                borderColor={border}
-                mt={3}
-                onClick={() => {
-                  let userName = document.getElementById(
-                    "register-username-input"
-                  ).value;
-                  let email = document.getElementById(
-                    "register-email-input"
-                  ).value;
-                  let passWord = document.getElementById(
-                    "register-password-input"
-                  ).value;
-                  let verifyPassword = document.getElementById(
-                    "register-verify-password-input"
-                  ).value;
-                  if (
-                    passWord === verifyPassword &&
-                    passWord.length > 0 &&
-                    passWord.length > 0
-                  ) {
-                    if (createUser(userName, passWord, email)) {
-                      showAlertMsgRegister(true);
-                      navigate("/login");
-                    } else {
-                      showAlertMsgRegister(false);
-                    }
-                  } else {
-                    alert("Password not match");
-                  }
-                }}
-              >
-                Register
-              </Button>
-            </Flex>
-          </FormControl>
-        </CardBody>
-      </Card>
-    </Center>
-  );
+                            {/* Password Input Form */}
+                            <FormLabel mt="3">Password</FormLabel>
+                            <InputGroup size="sm">
+                                <Input
+                                    id="register-password-input"
+                                    type={show ? "text" : "password"}
+                                    placeholder="Enter Password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                />
+                                <InputRightElement mr={3}>
+                                    <IconButton
+                                        icon={
+                                            show ? (
+                                                <ViewOffIcon />
+                                            ) : (
+                                                <ViewIcon />
+                                            )
+                                        }
+                                        size="sm"
+                                        variant="unstyled"
+                                        isRound={true}
+                                        onClick={handleClick}
+                                    />
+                                </InputRightElement>
+                            </InputGroup>
+                            <FormHelperText>
+                                Password must be eight-character that contains
+                                at least one uppercase, lowercase, number,
+                                special character
+                            </FormHelperText>
+                            {/* Password Input Form */}
+                            <FormLabel mt="3">Verify Password</FormLabel>
+                            <InputGroup size="sm">
+                                <Input
+                                    id="register-verify-password-input"
+                                    type={show ? "text" : "password"}
+                                    placeholder="*******"
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                />
+                                <InputRightElement mr={3}>
+                                    <IconButton
+                                        icon={
+                                            show ? (
+                                                <ViewOffIcon />
+                                            ) : (
+                                                <ViewIcon />
+                                            )
+                                        }
+                                        size="sm"
+                                        variant="unstyled"
+                                        isRound={true}
+                                        onClick={handleClick}
+                                    />
+                                </InputRightElement>
+                            </InputGroup>
+                            <FormHelperText>
+                                Enter your password again.
+                            </FormHelperText>
+                            <Flex>
+                                <Spacer />
+                                <Button
+                                    leftIcon={<CheckIcon />}
+                                    colorScheme="gray"
+                                    variant="outline"
+                                    borderColor={border}
+                                    mt={3}
+                                    type="submit"
+                                    isDisabled={isLoading}
+                                >
+                                    Register
+                                </Button>
+                            </Flex>
+                        </FormControl>
+                    </form>
+                </CardBody>
+            </Card>
+        </Center>
+    );
 }

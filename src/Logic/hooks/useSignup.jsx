@@ -5,8 +5,8 @@ import { useRetrieveProfile } from "./useRetrieveProfile";
 
 export const useSignup = () => {
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(null);
-    const { retrieveProfile } = useRetrieveProfile();
+    const [isLoading, setIsLoading] = useState(false);
+    // const { retrieveProfile } = useRetrieveProfile();
 
     const signup = async (
         firstName,
@@ -23,6 +23,7 @@ export const useSignup = () => {
         password,
         confirmPassword
     ) => {
+        setIsLoading(true);
         const response = await fetch(
             `${import.meta.env.VITE_LOCALHOST_API}/api/users/signup`,
             {
@@ -49,16 +50,16 @@ export const useSignup = () => {
         const json = await response.json();
 
         if (!response.ok) {
-            setIsLoading(false);
             setError(json.error);
             Swal.fire(`Somethings Not Right!`, `${json.error}`, "error");
+            setIsLoading(false);
         }
 
         if (response.ok) {
             // save the user to local storage
             localStorage.setItem("token", JSON.stringify(json));
 
-            retrieveProfile(json);
+            // retrieveProfile(json);
             Swal.fire(
                 `Welcome ${username}`,
                 `Please enjoy shopping 🤗`,

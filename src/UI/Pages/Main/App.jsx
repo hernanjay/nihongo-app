@@ -14,15 +14,24 @@ import theme from "./Theme";
 import { useAuthContext } from "../../../Logic/hooks/useAuthContext";
 
 function App() {
-  const { user } = useAuthContext();
-  // 4. Wrap ChakraProvider at the root of your app
-  return (
-    <ChakraProvider theme={theme}>
-      <>
-        <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route path="*" element={user ? <HomePage /> : <Login />} />
+    const { user } = useAuthContext();
+    // 4. Wrap ChakraProvider at the root of your app
+    return (
+        <ChakraProvider theme={theme}>
+            <>
+                <BrowserRouter>
+                    <NavBar />
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                user ? <HomePage /> : <Navigate to="/login" />
+                            }
+                        />
+                        <Route
+                            path="/login"
+                            element={!user ? <Login /> : <Navigate to="/" />}
+                        />
 
             <Route
               path="/login"
