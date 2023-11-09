@@ -30,7 +30,6 @@ import {
 
 import { useAuthContext } from "../../logic/hooks/useAuthContext";
 import { useLogout } from "../../logic/hooks/useLogout";
-// import { getloginState, setloginState } from '../../Logic/LocalStorageManager';
 
 export default function NavBar() {
   const { user } = useAuthContext();
@@ -76,15 +75,10 @@ export default function NavBar() {
                   }
                 />
                 <MenuList>
-                  <MenuItem icon={<InfoOutlineIcon />} command="⌘T">
-                    User Profile
-                  </MenuItem>
-                  <MenuItem icon={<SettingsIcon />} command="⌘N">
-                    User Settings
-                  </MenuItem>
-                  <MenuItem icon={<ExternalLinkIcon />} command="⌘⇧N">
-                    Grades
-                  </MenuItem>
+                  <MenuItem icon={<InfoOutlineIcon />}>user.</MenuItem>
+                  <MenuItem icon={<InfoOutlineIcon />}>User Profile</MenuItem>
+                  <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>
+                  <MenuItem icon={<ExternalLinkIcon />}>Grades</MenuItem>
                 </MenuList>
               </Menu>
               <Button variant="solid" bg="transparent" onClick={logout}>
