@@ -2,27 +2,38 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useColorModeValue } from '@chakra-ui/react';
+import { loginUser } from '../../../Logic/Controller/userController';
 
 //Comment For Testing
 
 import {
-    Box, Flex, Stack, AbsoluteCenter, FormControl, FormLabel, Input, FormHelperText, Button, IconButton, Spacer, Card, CardHeader, CardBody, Text, Link, InputRightElement, InputLeftAddon, InputGroup
+    Box, Flex, AbsoluteCenter, FormControl, FormLabel, Input, FormHelperText, Button, IconButton, Spacer, Card, CardBody, Text, Link, InputRightElement, InputLeftAddon, InputGroup
 } from '@chakra-ui/react'
 
 import { CheckIcon, ViewIcon, ViewOffIcon, ExternalLinkIcon, QuestionOutlineIcon, AtSignIcon } from '@chakra-ui/icons';
+import { setloginState } from '../../../Logic/LocalStorageManager';
 
-function showAlertMsgLogin() {
-    Swal.fire(
-        'User Logged In!',
-        'You will be redirected',
-        'success'
-    )
+function showAlertMsgLogin(status) {
+    if (status) {
+        setloginState(true);
+        Swal.fire(
+            'User Logged In!',
+            'You will be redirected',
+            'success'
+        )
+    } else {
+        Swal.fire(
+            'User Does not Exist!',
+            'Please check if username or password is correct',
+            'error'
+        )
+    }
 }
 
-export default function Login(props) {
+export default function Login() {
+    const navigate = useNavigate();
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
-    const navigate = useNavigate();
     const bg = useColorModeValue('light.400', 'dark.100');
     const border = useColorModeValue('dark.100', 'light.400');
 
@@ -38,7 +49,6 @@ export default function Login(props) {
                             <Text fontSize='1xl' mr='1'>Don't have an account yet?</Text>
                             <Link onClick={() => {
                                 navigate('/register');
-                                props.pageUpdate();
                             }}>
                                 Register <ExternalLinkIcon mx='2px' />
                             </Link>
@@ -76,7 +86,6 @@ export default function Login(props) {
                                 <Spacer />
                                 <Link onClick={() => {
                                     navigate('/recovery');
-                                    props.pageUpdate();
                                 }}>
                                     Forgot Password <QuestionOutlineIcon />
                                 </Link>
@@ -85,10 +94,14 @@ export default function Login(props) {
                                 <Spacer />
                                 <Button leftIcon={<CheckIcon />} variant='outline' borderColor={border} mt={5}
                                     onClick={() => {
-                                        showAlertMsgLogin();
-                                        props.setIsLoggedIn(true);
-                                        navigate('/home');
-                                        props.pageUpdate();
+                                        let userName = document.getElementById('login-username-input').value;
+                                        let passWord = document.getElementById('login-password-input').value;
+                                        if (loginUser(userName, passWord) !== 404) {
+                                            showAlertMsgLogin(true);
+                                            navigate('/home');
+                                        } else {
+                                            showAlertMsgLogin(false);
+                                        }
                                     }}>
                                     Login
                                 </Button>
