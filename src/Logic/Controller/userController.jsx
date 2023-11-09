@@ -1,18 +1,29 @@
-// import User from "../Model/userModel";
+import User from "../Model/userModel";
 
-// const users = [];
+const admin = new User('1', 'admin', 'admin', 'admin@awsys-i.com', []);
+const users = [admin];
 
-// export default function getUser(id) {
-//     let user;
-//     for (const x of users) {
-//         x.
-//     }
-// }
+export function getUser(id) {
+    for (const user of users) {
+        if (user.id === id) {
+            return user;
+        }
+    }
+}
 
-// export default function createUser(userName, passWord, email) {
-//     const studentSheet = [];
-//     const userId = users[users.length - 1] + 1;
-//     const newUser = new User(userId, 'admin', 'admin', 'admin@awsys-i.com', studentSheet);
-//     users.push(newUser);
-//     return newUser;
-// }
+export function createUser(userName, passWord, email) {
+    const studentSheet = [];
+    const userId = String(users.length + 1);
+    const newUser = new User(userId, userName, passWord, email, studentSheet);
+    users.push(newUser);
+    return newUser;
+}
+
+export function loginUser(userName, passWord) {
+    for (const user of users) {
+        if (user.userName === userName && user.passWord === passWord) {
+            return user;
+        }
+    }
+    return 404;
+}

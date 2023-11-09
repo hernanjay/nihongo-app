@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Icon, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import Swal from 'sweetalert2'
@@ -6,9 +6,10 @@ import {
     Flex, Box, Spacer, Stack, Text, Image, Avatar, AvatarBadge, Button, ButtonGroup, Menu, MenuButton, MenuList, MenuItem, IconButton
 } from '@chakra-ui/react'
 
-import { InfoOutlineIcon, SettingsIcon, ExternalLinkIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
+import { InfoOutlineIcon, SettingsIcon, ExternalLinkIcon, SunIcon, MoonIcon } from '@chakra-ui/icons';
+import { getloginState, setloginState } from '../../Logic/LocalStorageManager';
 
-function showAlertMsgLogout(props, navigate, isLoggedIn) {
+function showAlertMsgLogout(navigate) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You will be logged out form your account!",
@@ -25,35 +26,33 @@ function showAlertMsgLogout(props, navigate, isLoggedIn) {
                 'success'
             ).then(() => {
                 navigate('/login');
-                props.pageUpdate();
-                isLoggedIn(false);
+                setloginState(false);
             })
         }
     })
 }
 
-export default function NavBar(props) {
+export default function NavBar() {
     const navigate = useNavigate();
     const { toggleColorMode } = useColorMode();
-    const colorMode = useColorMode().colorMode.toString();
 
+    const colorMode = useColorMode().colorMode.toString();
     const bg = useColorModeValue('light.400', 'dark.100');
 
     function userLoginButtonGroup() {
-        if (props.isLoggedIn) {
+        if (getloginState()) {
             return (
                 <>
                     <Menu id='nav-bar-menu'>
                         <MenuButton
                             id='nav-bar-menu-button'
                             as={IconButton}
+                            bg='transparent'
                             icon={
                                 <Avatar size='sm' m={1}>
                                     <AvatarBadge boxSize='1.25em' bg='green.500' />
                                 </Avatar>
                             }
-                            bg='transparent'
-
                         />
                         <MenuList >
                             <MenuItem icon={<InfoOutlineIcon />} command='⌘T'>
@@ -69,12 +68,18 @@ export default function NavBar(props) {
                     </Menu>
                     <Button variant='solid'
                         bg='transparent'
-
-
                         onClick={() => {
-                            showAlertMsgLogout(props, navigate, props.setIsLoggedIn);
+                            showAlertMsgLogout(navigate);
                         }}>
                         Logout
+                    </Button>
+                    <Button variant='solid'
+                        bg='transparent'
+                        onClick={() => {
+                            toggleColorMode();
+                        }}
+                    >
+                        {colorMode === 'light' ? <Icon as={SunIcon} /> : <Icon as={MoonIcon} />}
                     </Button>
                 </>
 
@@ -86,7 +91,6 @@ export default function NavBar(props) {
                         bg='transparent'
                         onClick={() => {
                             navigate('/register');
-                            props.pageUpdate();
                         }}>
                         Register
                     </Button>
@@ -94,7 +98,6 @@ export default function NavBar(props) {
                         bg='transparent'
                         onClick={() => {
                             navigate('/login');
-                            props.pageUpdate();
                         }}>
                         Login
                     </Button>
@@ -102,7 +105,6 @@ export default function NavBar(props) {
                         bg='transparent'
                         onClick={() => {
                             toggleColorMode();
-                            props.pageUpdate();
                         }}
                     >
                         {colorMode === 'light' ? <Icon as={SunIcon} /> : <Icon as={MoonIcon} />}
