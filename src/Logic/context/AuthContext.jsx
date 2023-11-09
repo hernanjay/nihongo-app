@@ -17,32 +17,9 @@ const authReducer = (state, action) => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, { user: null });
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    useEffect(() => {
-        userLoggedIn && dispatch({ type: "LOGIN", payload: user });
-        // const fetchUser = async () => {
-        //     const response = await fetch(
-        //         `${import.meta.env.VITE_LOCALHOST_API}/api/users/profile`,
-        //         {
-        //             headers: { Authorization: `Bearer ${token}` },
-        //         }
-        //     );
-
-        //     const json = await response.json();
-
-        //     if (!response.ok) {
-        //         console.log(json.error);
-        //     }
-
-        //     if (response.ok) {
-        //         dispatch({ type: "LOGIN", payload: json });
-        //     }
-        // };
-        // token && fetchUser();
-    }, []);
+    const [state, dispatch] = useReducer(authReducer, {
+        user: userLoggedIn || null,
+    });
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
