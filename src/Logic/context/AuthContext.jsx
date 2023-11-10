@@ -3,31 +3,57 @@ import PropTypes from "prop-types";
 
 export const AuthContext = createContext();
 
-const userLoggedIn = JSON.parse(localStorage.getItem("user"));
+const initialAuthState = {
+    user: null,
+
+    // set the status if loading, error, ready
+    isLoading: true,
+};
 
 const authReducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN":
-      return { user: action.payload };
-    case "LOGOUT":
-      return { user: null };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case "LOADED":
+            return {
+                ...state,
+                isLoading: false,
+            };
+        case "LOGIN":
+            return { user: action.payload, isLoading: false };
+        case "LOGOUT":
+            return { user: null, isLoading: false };
+        default:
+            return state;
+    }
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    user: userLoggedIn || null,
-  });
+    const token = JSON.parse(localStorage.getItem("token"));
+    const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
-  return (
-    <AuthContext.Provider value={{ ...state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    useEffect(() => {
+        const retrieveProfile = async (token) => {
+            const response = await fetch(
+                `${import.meta.env.VITE_LOCALHOST_API}/api/users/profile`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            const json = await response.json();
+
+            dispatch({ type: "LOGIN", payload: json });
+        };
+
+        token ? retrieveProfile(token) : dispatch({ type: "LOADED" });
+    }, [token]);
+
+    return (
+        <AuthContext.Provider value={{ ...state, dispatch }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 AuthContextProvider.propTypes = {
-  children: PropTypes.object,
+    children: PropTypes.object,
 };
