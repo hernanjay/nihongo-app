@@ -12,6 +12,7 @@ import Register from "../register/Register";
 import HomePage from "../home/Home";
 import theme from "./Theme";
 import { useAuthContext } from "../../../logic/hooks/useAuthContext";
+import LandingPage from "../landingPage/LandingPage";
 
 function App() {
   const { user } = useAuthContext();
@@ -24,7 +25,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={user ? <HomePage /> : <Navigate to="/login" />}
+              element={user ? <LandingPage /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"
