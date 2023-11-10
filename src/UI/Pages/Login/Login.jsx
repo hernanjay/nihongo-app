@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useColorModeValue } from "@chakra-ui/react";
+import { InputRightAddon, useColorModeValue } from "@chakra-ui/react";
 // import { loginUser } from "../../../Logic/controller/userController";
 
 //Comment For Testing
@@ -22,25 +22,19 @@ import {
   Text,
   Link,
   InputRightElement,
-  InputLeftAddon,
   InputGroup,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Spinner,
 } from "@chakra-ui/react";
 
 import {
-  CheckIcon,
   ViewIcon,
   ViewOffIcon,
   ExternalLinkIcon,
   QuestionOutlineIcon,
-  AtSignIcon,
 } from "@chakra-ui/icons";
 import { useLogin } from "../../../logic/hooks/useLogin";
 
@@ -58,7 +52,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await login(email, password);
+    await login(email + "@awsys-i.com", password);
   };
 
   return (
@@ -66,7 +60,6 @@ export default function Login() {
       <Modal isOpen={isLoading} size="full" bg="gray.100">
         <ModalOverlay />
         <ModalContent bg="blackAlpha.100">
-          <ModalCloseButton />
           <ModalBody>
             <AbsoluteCenter>
               <Spinner color="white" size="xl" />
@@ -105,7 +98,6 @@ export default function Login() {
                 <FormControl isRequired>
                   <FormLabel mt="5">Email</FormLabel>
                   <InputGroup size="sm">
-                    <InputLeftAddon children={<AtSignIcon />} />
                     <Input
                       id="login-username-input"
                       placeholder="Email"
@@ -114,6 +106,7 @@ export default function Login() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    <InputRightAddon children="@awsys-i.com" />
                   </InputGroup>
                   <FormHelperText>Enter your email.</FormHelperText>
 
@@ -157,6 +150,7 @@ export default function Login() {
                       borderColor={border}
                       mt={5}
                       type="submit"
+                      isDisabled={isLoading}
                     >
                       Login
                     </Button>

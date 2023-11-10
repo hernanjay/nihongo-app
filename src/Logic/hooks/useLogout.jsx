@@ -1,11 +1,13 @@
 import Swal from "sweetalert2";
 import { useAuthContext } from "./useAuthContext";
 import { setloginState } from "../LocalStorageManager";
+import { useToast } from "@chakra-ui/react";
 // import { useCartContext } from "./useCartContext";
 
 export const useLogout = () => {
   const { dispatch: authDispatch } = useAuthContext();
   // const { dispatch: cartDispatch } = useCartContext();
+  const toast = useToast();
 
   const logout = () => {
     // remove user from local storage
@@ -14,10 +16,12 @@ export const useLogout = () => {
     authDispatch({ type: "LOGOUT" });
     // cartDispatch({ type: "CHECKOUT" });
 
-    Swal.fire({
-      title: "Thank you for using our App",
-      icon: "info",
-      text: "Comeback again 😇",
+    toast({
+      title: "User Logged Out",
+      position: "top-right",
+      status: "info",
+      duration: 2500,
+      isClosable: true,
     });
   };
 

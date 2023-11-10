@@ -39,7 +39,6 @@ export default function NavBar() {
 
   const colorMode = useColorMode().colorMode.toString();
   const bg = useColorModeValue("light.400", "dark.100");
-
   return (
     <Flex bg={bg} boxShadow="lg" w="100%" p={4} alignItems="center" gap="2">
       <Box />
@@ -69,13 +68,15 @@ export default function NavBar() {
                   as={IconButton}
                   bg="transparent"
                   icon={
-                    <Avatar size="sm" m={1}>
+                    <Avatar name={user.username} size="sm" m={1}>
                       <AvatarBadge boxSize="1.25em" bg="green.500" />
                     </Avatar>
                   }
                 />
                 <MenuList>
-                  <MenuItem icon={<InfoOutlineIcon />}>user.</MenuItem>
+                  <MenuItem icon={<InfoOutlineIcon />}>
+                    {user.username}
+                  </MenuItem>
                   <MenuItem icon={<InfoOutlineIcon />}>User Profile</MenuItem>
                   <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>
                   <MenuItem icon={<ExternalLinkIcon />}>Grades</MenuItem>
