@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Icon, useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 import {
@@ -40,7 +40,16 @@ export default function NavBar() {
   const colorMode = useColorMode().colorMode.toString();
   const bg = useColorModeValue("light.400", "dark.100");
   return (
-    <Flex bg={bg} boxShadow="lg" w="100%" p={4} alignItems="center" gap="2">
+    <Flex
+      position="fixed"
+      bg={bg}
+      boxShadow="lg"
+      w="100%"
+      p={4}
+      alignItems="center"
+      gap="2"
+      zIndex="5"
+    >
       <Box />
       <Image
         boxSize="40px"
