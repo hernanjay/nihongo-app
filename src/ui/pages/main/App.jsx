@@ -15,7 +15,7 @@ import { useAuthContext } from "../../../logic/hooks/useAuthContext";
 import LandingPage from "../landingPage/LandingPage";
 
 function App() {
-  const { user } = useAuthContext();
+  const { user, isLoading } = useAuthContext();
   // 4. Wrap ChakraProvider at the root of your app
   return (
     <ChakraProvider theme={theme}>
