@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -43,12 +43,13 @@ export default function Register() {
   const navigate = useNavigate();
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
-  const [isPassFormatValid, setIsPassFormatValid] = useState(false);
+  const [isPassValidFormat, setIsPassValidFormat] = useState(false);
   const [isPassValidLength, setIsPassValidLength] = useState(false);
   const [isPassContainUpper, setIsPassContainUpper] = useState(false);
   const [isPassContainLower, setIsPassContainLower] = useState(false);
   const [isPassContainSpecial, setIsPassContainSpecial] = useState(false);
   const [isPassContainNumber, setIsPassContainNumber] = useState(false);
+  const [isSamePassword, setIsSamePassword] = useState(false);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -59,7 +60,7 @@ export default function Register() {
 
   const { signup, isLoading, error } = useSignup();
 
-  function handleChange(e) {
+  function handleChangeFormData(e) {
     const { name, value } = e.target;
 
     setFormData((prevFormData) => {
@@ -68,20 +69,20 @@ export default function Register() {
         [name]: value,
       };
     });
+    if (name === "password") {
+      passwordChecker(e.target.value);
+    }
+
+    if (name === "confirmPassword") {
+      formData.password === e.target.value
+        ? setIsSamePassword(true)
+        : setIsSamePassword(false);
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(
-      formData.firstName,
-      formData.lastName,
-      formData.cellNumber,
-      formData.gender,
-      formData.street,
-      formData.barangay,
-      formData.municipality,
-      formData.province,
-      formData.region,
       formData.username,
       formData.email + "@awsys-i.com",
       formData.password,
@@ -89,40 +90,55 @@ export default function Register() {
     );
   };
 
-  function checkStrForCase(str) {
+  function passwordChecker(str) {
+    const strNumChars = /[0-9]/;
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+    // Check if contains 1 uppercase
     str !== str.toLowerCase()
       ? setIsPassContainUpper(true)
       : setIsPassContainUpper(false);
 
+    // Check if contains 1 lowercase
     str !== str.toUpperCase()
       ? setIsPassContainLower(true)
       : setIsPassContainLower(false);
-  }
 
-  function checkStrForNumber(str) {
-    const strNumChars = /[0-9]/;
+    // Check if contains 1 number
     strNumChars.test(str)
       ? setIsPassContainNumber(true)
       : setIsPassContainNumber(false);
-  }
 
-  function containsSpecialChars(str) {
-    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    // Check if contains 1 special character
     specialChars.test(str)
       ? setIsPassContainSpecial(true)
       : setIsPassContainSpecial(false);
-  }
 
-  function checkStrIfProperLength(str) {
+    // Check if lenth greater or equal to 8
     str.length >= 8 ? setIsPassValidLength(true) : setIsPassValidLength(false);
   }
 
-  function checkPassFormat(e) {
-    checkStrIfProperLength(e.target.value);
-    checkStrForCase(e.target.value);
-    containsSpecialChars(e.target.value);
-    checkStrForNumber(e.target.value);
-  }
+  useEffect(() => {
+    function passwordValidChecker() {
+      isPassValidLength &&
+      isPassContainUpper &&
+      isPassContainLower &&
+      isPassContainSpecial &&
+      isPassContainNumber
+        ? setIsPassValidFormat(true)
+        : setIsPassValidFormat(false);
+    }
+    passwordValidChecker();
+
+    () => {};
+  }, [
+    isPassValidFormat,
+    isPassValidLength,
+    isPassContainUpper,
+    isPassContainLower,
+    isPassContainSpecial,
+    isPassContainNumber,
+  ]);
 
   return (
     <Center>
@@ -173,7 +189,7 @@ export default function Register() {
                   colorScheme="blackAlpha"
                   name="username"
                   value={formData.username}
-                  onChange={handleChange}
+                  onChange={handleChangeFormData}
                 />
               </InputGroup>
               <FormHelperText>Enter your username.</FormHelperText>
@@ -188,7 +204,7 @@ export default function Register() {
                   type="text"
                   name="email"
                   value={formData.email}
-                  onChange={handleChange}
+                  onChange={handleChangeFormData}
                 />
                 <InputRightAddon children="@awsys-i.com" />
               </InputGroup>
@@ -203,10 +219,7 @@ export default function Register() {
                   placeholder="Enter Password"
                   name="password"
                   value={formData.password}
-                  onChange={(e) => {
-                    handleChange(e);
-                    checkPassFormat(e);
-                  }}
+                  onChange={(e) => handleChangeFormData(e)}
                 />
                 <InputRightElement mr={3}>
                   <IconButton
@@ -258,7 +271,8 @@ export default function Register() {
                   placeholder="*******"
                   name="confirmPassword"
                   value={formData.confirmPassword}
-                  onChange={handleChange}
+                  onChange={handleChangeFormData}
+                  isDisabled={!isPassValidFormat}
                 />
                 <InputRightElement mr={3}>
                   <IconButton
@@ -266,23 +280,22 @@ export default function Register() {
                     size="sm"
                     variant="unstyled"
                     isRound={true}
+                    isDisabled={!isPassValidFormat}
                     onClick={handleClick}
                   />
                 </InputRightElement>
               </InputGroup>
               <FormHelperText>Enter your password again.</FormHelperText>
-              <Flex></Flex>
-              {/* <FormHelperText>Enter your password again.</FormHelperText>
               <FormHelperText
-                hidden={formData.password === formData.confirmPassword}
+                hidden={
+                  isSamePassword ||
+                  formData.password === "" ||
+                  formData.confirmPassword === ""
+                }
                 color="red.300"
               >
                 <ChevronRightIcon />
-                Passwords do not match.
-              </FormHelperText> */}
-              <FormHelperText hidden={error === null} color="red.300">
-                <ChevronRightIcon />
-                {error}
+                {!isSamePassword && "Password does not match"}
               </FormHelperText>
               <Flex>
                 <Spacer />
@@ -293,7 +306,7 @@ export default function Register() {
                   borderColor={border}
                   mt={3}
                   type="submit"
-                  isDisabled={isLoading}
+                  isDisabled={isLoading || !isPassValidFormat || !formData}
                 >
                   Register
                 </Button>
