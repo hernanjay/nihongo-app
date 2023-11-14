@@ -141,7 +141,7 @@ export default function Register() {
   ]);
 
   return (
-    <Center>
+    <Center h="fit-content" p="5%">
       <Modal isOpen={isLoading} size="full" bg="gray.100">
         <ModalOverlay />
         <ModalContent bg="blackAlpha.100">
@@ -306,7 +306,13 @@ export default function Register() {
                   borderColor={border}
                   mt={3}
                   type="submit"
-                  isDisabled={isLoading || !isPassValidFormat || !formData}
+                  isDisabled={
+                    isLoading ||
+                    !isSamePassword ||
+                    formData.confirmPassword === "" ||
+                    !isPassValidFormat ||
+                    !formData
+                  }
                 >
                   Register
                 </Button>

@@ -30,7 +30,10 @@ export const useSignup = () => {
     const json = await response.json();
 
     if (!response.ok) {
-      setError(response.status);
+      setError({
+        stauts: response.status,
+        error: json.error,
+      });
       // Swal.fire(`Somethings Not Right!`, `${json.error}`, "error");
       toast({
         title: "Signup Failed",
