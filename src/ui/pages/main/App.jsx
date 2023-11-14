@@ -13,6 +13,7 @@ import HomePage from "../home/Home";
 import theme from "./Theme";
 import { useAuthContext } from "../../../logic/hooks/useAuthContext";
 import LandingPage from "../landingPage/LandingPage";
+import Loader from "../../components/Loader";
 
 function App() {
   const { user, isLoading } = useAuthContext();
@@ -21,31 +22,36 @@ function App() {
     <ChakraProvider theme={theme}>
       <>
         <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route
-              path="/"
-              element={user ? <LandingPage /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
-            />
+          {isLoading && <Loader isLoading={isLoading} />}
+          {!isLoading && (
+            <>
+              <NavBar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={user ? <LandingPage /> : <Navigate to="/login" />}
+                />
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to="/" />}
+                />
 
-            <Route
-              path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
-            />
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to="/" />}
+                />
 
-            <Route
-              path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/register"
-              element={!user ? <Register /> : <Navigate to="/" />}
-            />
-          </Routes>
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/register"
+                  element={!user ? <Register /> : <Navigate to="/" />}
+                />
+              </Routes>
+            </>
+          )}
         </BrowserRouter>
       </>
     </ChakraProvider>
