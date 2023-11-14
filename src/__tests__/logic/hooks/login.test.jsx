@@ -1,4 +1,8 @@
+// import React from "react";
 import {describe,expect,it} from "vitest";
+// import {render,screen,logRoles} from "@testing-library/react"
+// import Login from '../../ui/pages/login/Login';
+// import { AuthContextProvider } from "../context/AuthContext";
 
     const login = async (email, password) => {
 
@@ -13,6 +17,8 @@ import {describe,expect,it} from "vitest";
                 }),
             }
         );
+
+        // const json = await response.json();
 
         if (!response.ok) {
             return response.status;
@@ -32,7 +38,7 @@ describe("Login UT Cases v1", () => {
     }, 1000);
     it("UT1-002 - Empty login credentials ((_) email ; (_) password)", async() => {
         const user = await login(null,null);
-        expect(user).toBe(200);
+        expect(user).toBe(400);
     }, 1000);
     it("UT1-003 - User not exist/Invalid login credential (✕ email ; ✕ password)", async() => {
         const user = await login("james.aljecera@awsys-i.com","@Alje999");
