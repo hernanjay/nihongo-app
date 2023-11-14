@@ -2,6 +2,8 @@
 
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
+// 3. CSS for admin dashboard design
+import '../styles/globals.css';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -12,6 +14,10 @@ import Register from "../register/Register";
 import HomePage from "../home/Home";
 import theme from "./Theme";
 import { useAuthContext } from "../../../Logic/hooks/useAuthContext";
+import Admindashboard from "../admin/Admindashboard";
+import User from "../admin/user";
+import AdminChart from "../admin/AdminChart";
+// import Chart from "../../Components/chartComponent/Chart";
 
 function App() {
     const { user } = useAuthContext();
@@ -31,6 +37,15 @@ function App() {
                         <Route
                             path="/register"
                             element={!user ? <Register /> : <Navigate to="/" />}
+                        />
+                        <Route
+                            path="/admin" element={<Admindashboard />}
+                        />
+                         <Route
+                            path="/user" element={<User />}
+                        />
+                        <Route
+                            path="/chart" element={<AdminChart />}
                         />
                     </Routes>
                 </BrowserRouter>
