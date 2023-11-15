@@ -12,16 +12,13 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchQuestions() {
-            console.log("hello");
             const response = await fetch(
                 `${import.meta.env.VITE_LOCALHOST_API}/api/questions/type-set`
             );
-            console.log("hello12312");
 
             const json = await response.json();
 
             if (!response.ok) {
-                console.log("first");
                 console.log(json.error);
             }
 
