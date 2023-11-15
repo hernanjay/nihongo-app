@@ -1,10 +1,8 @@
-import Swal from "sweetalert2";
-import { useAuthContext } from "./useAuthContext";
-import { setloginState } from "../LocalStorageManager";
+import { useUserContext } from "./UserContext";
 import { useToast } from "@chakra-ui/react";
 
 export const useLogout = () => {
-    const { dispatch: authDispatch } = useAuthContext();
+    const { dispatch: authDispatch } = useUserContext();
     const toast = useToast();
 
     const logout = () => {

@@ -1,9 +1,8 @@
-import Swal from "sweetalert2";
-import { useAuthContext } from "./useAuthContext";
+import { useUserContext } from "./UserContext";
 import { useToast } from "@chakra-ui/react";
 
 export const useRetrieveProfile = () => {
-    const { dispatch } = useAuthContext();
+    const { dispatch } = useUserContext();
     const toast = useToast();
 
     const retrieveProfile = async (token) => {

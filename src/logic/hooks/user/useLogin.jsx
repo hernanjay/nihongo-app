@@ -1,14 +1,11 @@
 import { useState } from "react";
-import Swal from "sweetalert2";
 import { useRetrieveProfile } from "./useRetrieveProfile";
 import { useToast } from "@chakra-ui/react";
 
 export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    // const { dispatch: authDispatch } = useAuthContext();
     const { retrieveProfile } = useRetrieveProfile();
-    // const { user } = useAuthContext();
     const toast = useToast();
 
     const login = async (email, password) => {

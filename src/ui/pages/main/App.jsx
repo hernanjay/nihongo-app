@@ -9,53 +9,68 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "../../Components/NavBar";
 import Login from "../login/Login.Jsx";
 import Register from "../register/Register";
-import HomePage from "../home/Home";
+import Home from "../home/Home";
 import theme from "./Theme";
-import { useAuthContext } from "../../../logic/hooks/useAuthContext";
+import { useUserContext } from "../../../logic/hooks/user/UserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
 
 function App() {
-  const { user, isLoading } = useAuthContext();
-  // 4. Wrap ChakraProvider at the root of your app
-  return (
-    <ChakraProvider theme={theme}>
-      <>
-        <BrowserRouter>
-          {isLoading && <Loader isLoading={isLoading} />}
-          {!isLoading && (
+    const { user, isLoading } = useUserContext();
+    // 4. Wrap ChakraProvider at the root of your app
+    return (
+        <ChakraProvider theme={theme}>
             <>
-              <NavBar />
-              <Routes>
-                <Route
-                  path="/"
-                  element={user ? <LandingPage /> : <Navigate to="/login" />}
-                />
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
+                <BrowserRouter>
+                    {isLoading && <Loader isLoading={isLoading} />}
+                    {!isLoading && (
+                        <>
+                            <NavBar />
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={
+                                        !user ? (
+                                            <LandingPage />
+                                        ) : (
+                                            <Navigate to="/home" />
+                                        )
+                                    }
+                                />
+                                <Route
+                                    path="/home"
+                                    element={
+                                        user ? (
+                                            <Home />
+                                        ) : (
+                                            <Navigate to="/login" />
+                                        )
+                                    }
+                                />
+                                <Route
+                                    path="/login"
+                                    element={
+                                        !user ? <Login /> : <Navigate to="/" />
+                                    }
+                                />
 
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
-
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
-                <Route
-                  path="/register"
-                  element={!user ? <Register /> : <Navigate to="/" />}
-                />
-              </Routes>
+                                <Route
+                                    path="/register"
+                                    element={
+                                        !user ? (
+                                            <Register />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
+                            </Routes>
+                        </>
+                    )}
+                </BrowserRouter>
             </>
-          )}
-        </BrowserRouter>
-      </>
-    </ChakraProvider>
-  );
+        </ChakraProvider>
+    );
 }
 
 export default App;
