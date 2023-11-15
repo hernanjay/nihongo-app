@@ -27,7 +27,7 @@ import {
     MoonIcon,
 } from "@chakra-ui/icons";
 
-import { useUserContext } from "../../logic/hooks/user/UserContext";
+import { useUserContext } from "../../logic/hooks/user/useUserContext";
 import { useLogout } from "../../logic/hooks/user/useLogout";
 
 export default function NavBar() {

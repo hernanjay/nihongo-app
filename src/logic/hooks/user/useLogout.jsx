@@ -1,4 +1,4 @@
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "./useUserContext";
 import { useToast } from "@chakra-ui/react";
 
 export const useLogout = () => {
