@@ -98,8 +98,8 @@ function KanjiQuestionSample() {
             </CardBody>
           </Card>
         </GridItem>
+        {/* Question Window */}
         <GridItem colSpan={"2"}>
-          {/* Question Window */}
           <Container
             maxW={"50vw"}
             mb={"10"}
@@ -126,8 +126,8 @@ function KanjiQuestionSample() {
             {/* Question */}
           </Container>
         </GridItem>
-        <GridItem colSpan={"1"}>
-          {/* Question List */}
+        {/* Question List */}
+        {/* <GridItem colSpan={"1"}>
           <Card boxShadow="lg" bgColor={bg}>
             <CardHeader>
               <Text fontSize={"1.5vw"}>Questions</Text>
@@ -163,7 +163,8 @@ function KanjiQuestionSample() {
               </Button>
             </CardFooter>
           </Card>
-        </GridItem>
+        </GridItem> */}
+        {/* Question List */}
       </Grid>
     </>
   );

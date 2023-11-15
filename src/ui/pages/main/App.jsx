@@ -1,5 +1,3 @@
-//
-
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
 

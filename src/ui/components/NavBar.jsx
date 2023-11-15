@@ -36,7 +36,7 @@ export default function NavBar() {
   const navigate = useNavigate();
   const { toggleColorMode } = useColorMode();
 
-  const colorMode = useColorMode().colorMode.toString();
+  const colorMode = useColorMode().colorMode;
   const bg = useColorModeValue("light.400", "dark.100");
   return (
     <Flex
@@ -133,6 +133,7 @@ export default function NavBar() {
                 Login
               </Button>
               <Button
+                data-testid="ColorMode"
                 variant="solid"
                 bg="transparent"
                 onClick={() => {
