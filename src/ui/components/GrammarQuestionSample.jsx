@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-function kanjiQuestionSample() {
+function GrammarQuestionSample() {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   return (
@@ -33,7 +33,6 @@ function kanjiQuestionSample() {
         <GridItem colSpan={"1"}>
           <Card boxShadow="lg" bgColor={bg}>
             <CardHeader>
-              {" "}
               <Text fontSize={"1.5vw"}>Question Set</Text>
             </CardHeader>
             <CardBody>
@@ -155,4 +154,4 @@ function kanjiQuestionSample() {
   );
 }
 
-export default kanjiQuestionSample;
+export default GrammarQuestionSample;

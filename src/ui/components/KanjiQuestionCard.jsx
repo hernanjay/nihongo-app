@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-function kanjiQuestionCard(index, question, handleUserHasAnswered) {
+function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
   const border = useColorModeValue("dark.100", "light.400");
   const bg = useColorModeValue("light.400", "dark.100");
   const [isChosen, setIsChosen] = useState("");
@@ -18,7 +18,7 @@ function kanjiQuestionCard(index, question, handleUserHasAnswered) {
   }
 
   return (
-    <Box key={question.q}>
+    <Box>
       <Text fontSize={"1.25vw"} py={"5"}>
         {question.q}
       </Text>
@@ -69,4 +69,4 @@ function kanjiQuestionCard(index, question, handleUserHasAnswered) {
   );
 }
 
-export default kanjiQuestionCard;
+export default KanjiQuestionCard;

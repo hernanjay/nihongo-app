@@ -1,16 +1,14 @@
-import Swal from "sweetalert2";
-import { useAuthContext } from "./useAuthContext";
-import { setloginState } from "../LocalStorageManager";
+import { useUserContext } from "./useUserContext";
 import { useToast } from "@chakra-ui/react";
 
 export const useLogout = () => {
-    const { dispatch: authDispatch } = useAuthContext();
+    const { dispatch } = useUserContext();
     const toast = useToast();
 
     const logout = () => {
         // remove token from local storage
         localStorage.removeItem("token");
-        authDispatch({ type: "LOGOUT" });
+        dispatch({ type: "LOGOUT" });
 
         toast({
             title: "User Logged Out",

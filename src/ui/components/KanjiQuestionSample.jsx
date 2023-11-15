@@ -4,25 +4,21 @@ import {
   GridItem,
   Text,
   Container,
-  SimpleGrid,
   Button,
-  Box,
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Flex,
-  Tag,
-  TagLabel,
   VStack,
   StackDivider,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-import kanjiQuestionCard from "./kanjiQuestionCard";
-import kanjiQuestionList from "./questionList";
+import KanjiQuestionCard from "./KanjiQuestionCard";
+import KanjiQuestionList from "./QuestionList";
 
-function kanjiQuestionSample() {
+function KanjiQuestionSample() {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const [userHasAnswered, setUserHasAnswered] = useState([
@@ -102,8 +98,8 @@ function kanjiQuestionSample() {
             </CardBody>
           </Card>
         </GridItem>
+        {/* Question Window */}
         <GridItem colSpan={"2"}>
-          {/* Question Window */}
           <Container
             maxW={"50vw"}
             mb={"10"}
@@ -119,17 +115,20 @@ function kanjiQuestionSample() {
             </Text>
             {/* Question */}
             {questions.map((question, index) => {
-              return kanjiQuestionCard(
-                index + 1,
-                question,
-                handleUserHasAnswered
+              return (
+                <KanjiQuestionCard
+                  key={index}
+                  index={index + 1}
+                  question={question}
+                  handleUserHasAnswered={handleUserHasAnswered}
+                />
               );
             })}
             {/* Question */}
           </Container>
         </GridItem>
+        {/* Question List */}
         <GridItem colSpan={"1"}>
-          {/* Question List */}
           <Card boxShadow="lg" bgColor={bg}>
             <CardHeader>
               <Text fontSize={"1.5vw"}>Questions</Text>
@@ -138,7 +137,13 @@ function kanjiQuestionSample() {
               <Flex>
                 <>
                   {questions.map((question, index) => {
-                    return kanjiQuestionList(index + 1, userHasAnswered);
+                    return (
+                      <KanjiQuestionList
+                        key={index}
+                        questionNo={index + 1}
+                        userHasAnswered={userHasAnswered}
+                      />
+                    );
                   })}
                 </>
               </Flex>
@@ -148,7 +153,12 @@ function kanjiQuestionSample() {
                 borderColor={border}
                 variant="outline"
                 onClick={() => {
-                  alert("Try it for real");
+                  const element = document.getElementById("tryItOutScrollLoc");
+                  element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "nearest",
+                  });
                 }}
               >
                 Submit
@@ -156,9 +166,10 @@ function kanjiQuestionSample() {
             </CardFooter>
           </Card>
         </GridItem>
+        {/* Question List */}
       </Grid>
     </>
   );
 }
 
-export default kanjiQuestionSample;
+export default KanjiQuestionSample;

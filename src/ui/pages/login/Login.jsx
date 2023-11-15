@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import { InputRightAddon, useColorModeValue } from "@chakra-ui/react";
 // import { loginUser } from "../../../Logic/controller/userController";
 
@@ -23,11 +22,6 @@ import {
   Link,
   InputRightElement,
   InputGroup,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  Spinner,
 } from "@chakra-ui/react";
 
 import {
@@ -36,7 +30,7 @@ import {
   ExternalLinkIcon,
   QuestionOutlineIcon,
 } from "@chakra-ui/icons";
-import { useLogin } from "../../../logic/hooks/useLogin";
+import { useLogin } from "../../../logic/hooks/user/useLogin";
 import Loader from "../../components/Loader";
 
 export default function Login() {
@@ -138,6 +132,7 @@ export default function Login() {
                   <Flex>
                     <Spacer />
                     <Button
+                      data-testid="login-button"
                       variant="outline"
                       borderColor={border}
                       mt={5}
