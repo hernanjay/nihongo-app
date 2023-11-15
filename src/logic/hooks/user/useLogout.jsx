@@ -2,13 +2,13 @@ import { useUserContext } from "./UserContext";
 import { useToast } from "@chakra-ui/react";
 
 export const useLogout = () => {
-    const { dispatch: authDispatch } = useUserContext();
+    const { dispatch } = useUserContext();
     const toast = useToast();
 
     const logout = () => {
         // remove token from local storage
         localStorage.removeItem("token");
-        authDispatch({ type: "LOGOUT" });
+        dispatch({ type: "LOGOUT" });
 
         toast({
             title: "User Logged Out",

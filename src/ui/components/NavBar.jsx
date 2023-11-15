@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon, useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 import {
@@ -59,13 +59,18 @@ export default function NavBar() {
             <Text
                 fontSize="2xl"
                 onClick={() => {
-                    navigate("/home");
+                    navigate("/");
                 }}
                 style={{ cursor: "pointer" }}
             >
                 N4・日本語・練習用・ツール
             </Text>
             <Spacer />
+            <Spacer />
+            <Spacer />
+            <Text fontSize="xl" as={Link} to="/home">
+                Home
+            </Text>
             <Stack direction="row" spacing={4} align="center" justify="center">
                 <ButtonGroup>
                     {user ? (
