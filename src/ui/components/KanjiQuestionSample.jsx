@@ -15,8 +15,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-import kanjiQuestionCard from "./KanjiQuestionCard";
-import kanjiQuestionList from "./QuestionList";
+import KanjiQuestionCard from "./KanjiQuestionCard";
+import KanjiQuestionList from "./QuestionList";
 
 function KanjiQuestionSample() {
   const bg = useColorModeValue("light.400", "dark.100");
@@ -115,10 +115,12 @@ function KanjiQuestionSample() {
             </Text>
             {/* Question */}
             {questions.map((question, index) => {
-              return kanjiQuestionCard(
-                index + 1,
-                question,
-                handleUserHasAnswered
+              return (
+                <KanjiQuestionCard
+                  index={index + 1}
+                  question={question}
+                  handleUserHasAnswered={handleUserHasAnswered}
+                />
               );
             })}
             {/* Question */}
@@ -134,7 +136,12 @@ function KanjiQuestionSample() {
               <Flex>
                 <>
                   {questions.map((question, index) => {
-                    return kanjiQuestionList(index + 1, userHasAnswered);
+                    return (
+                      <KanjiQuestionList
+                        questionNo={index + 1}
+                        userHasAnswered={userHasAnswered}
+                      />
+                    );
                   })}
                 </>
               </Flex>

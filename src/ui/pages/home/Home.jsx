@@ -26,7 +26,6 @@ import {
 
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useColorModeValue } from "@chakra-ui/react";
-import { useAuthContext } from "../../../logic/hooks/useAuthContext";
 
 function setQuestionStatus() {
   let x = Math.round(Math.random() * (2 - 0) + 0);
@@ -132,13 +131,13 @@ function createItem(amount) {
   return item;
 }
 
-export default function HomePage() {
+export default function Home() {
   const bg = useColorModeValue("light.400", "dark.100");
   return (
     <>
-      <Box pt={"5vw"} pb={50}>
+      <Box pt={"10vw"} pb={"5vw"}>
         <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
-          <Heading m="10">Kanji Questions</Heading>
+          <Heading m="10">Kanji Questions</Heading>{" "}
           <Accordion allowToggle m="10" bg={bg} variant="outline">
             {createItem(5)}
           </Accordion>

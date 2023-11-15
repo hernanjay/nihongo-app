@@ -1,12 +1,10 @@
 import { createContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 
-export const AuthContext = createContext();
+export const UserContext = createContext();
 
 const initialAuthState = {
     user: null,
-
-    // set the status if loading, error, ready
     isLoading: true,
 };
 
@@ -26,7 +24,7 @@ const authReducer = (state, action) => {
     }
 };
 
-export const AuthContextProvider = ({ children }) => {
+export const UserContextProvider = ({ children }) => {
     const token = JSON.parse(localStorage.getItem("token"));
     const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
@@ -48,12 +46,12 @@ export const AuthContextProvider = ({ children }) => {
     }, [token]);
 
     return (
-        <AuthContext.Provider value={{ ...state, dispatch }}>
+        <UserContext.Provider value={{ ...state, dispatch }}>
             {children}
-        </AuthContext.Provider>
+        </UserContext.Provider>
     );
 };
 
-AuthContextProvider.propTypes = {
+UserContextProvider.propTypes = {
     children: PropTypes.object,
 };

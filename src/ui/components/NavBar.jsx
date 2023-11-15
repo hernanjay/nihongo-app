@@ -1,5 +1,4 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon, useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 import {
@@ -28,11 +27,11 @@ import {
   MoonIcon,
 } from "@chakra-ui/icons";
 
-import { useAuthContext } from "../../logic/hooks/useAuthContext";
-import { useLogout } from "../../logic/hooks/useLogout";
+import { useUserContext } from "../../logic/hooks/user/UserContext";
+import { useLogout } from "../../logic/hooks/user/useLogout";
 
 export default function NavBar() {
-  const { user } = useAuthContext();
+  const { user } = useUserContext();
   const { logout } = useLogout();
   const navigate = useNavigate();
   const { toggleColorMode } = useColorMode();
@@ -60,12 +59,14 @@ export default function NavBar() {
       <Text
         fontSize="2xl"
         onClick={() => {
-          navigate("/home");
+          navigate("/");
         }}
         style={{ cursor: "pointer" }}
       >
         N4・日本語・練習用・ツール
       </Text>
+      <Spacer />
+      <Spacer />
       <Spacer />
       <Stack direction="row" spacing={4} align="center" justify="center">
         <ButtonGroup>
@@ -83,8 +84,16 @@ export default function NavBar() {
                   }
                 />
                 <MenuList>
-                  <MenuItem icon={<InfoOutlineIcon />}>
-                    {user.username}
+                  <MenuItem
+                    icon={
+                      <InfoOutlineIcon
+                        onClick={() => {
+                          navigate("/home");
+                        }}
+                      />
+                    }
+                  >
+                    Home
                   </MenuItem>
                   <MenuItem icon={<InfoOutlineIcon />}>User Profile</MenuItem>
                   <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>

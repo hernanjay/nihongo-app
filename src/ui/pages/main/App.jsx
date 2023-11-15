@@ -9,15 +9,15 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "../../Components/NavBar";
 import Login from "../login/Login.Jsx";
 import Register from "../register/Register";
-import HomePage from "../home/Home";
+import Home from "../home/Home";
 import theme from "./Theme";
-import { useAuthContext } from "../../../logic/hooks/useAuthContext";
+import { useUserContext } from "../../../logic/hooks/user/UserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
 
 function App() {
-  const { user, isLoading } = useAuthContext();
+  const { user, isLoading } = useUserContext();
   // 4. Wrap ChakraProvider at the root of your app
   return (
     <ChakraProvider theme={theme}>
@@ -31,9 +31,14 @@ function App() {
                 <Route path="*" element={<Navigate to="/" />} />
                 <Route path="/" element={<LandingPage />} />
                 <Route
+                  path="/home"
+                  element={user ? <Home /> : <Navigate to="/login" />}
+                />
+                <Route
                   path="/login"
                   element={!user ? <Login /> : <Navigate to="/" />}
                 />
+
                 <Route
                   path="/register"
                   element={!user ? <Register /> : <Navigate to="/" />}

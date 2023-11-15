@@ -28,8 +28,8 @@ import CharacterPracticeTest from "../../components/CharacterPracticeTest";
 import KanjiQuestionSample from "../../components/KanjiQuestionSample";
 import VocabQuestionSample from "../../components/VocabQuestionSample";
 import GrammarQuestionSample from "../../components/GrammarQuestionSample";
-import { useAuthContext } from "../../../logic/hooks/useAuthContext";
 import Loader from "../../components/Loader";
+import { useUserContext } from "../../../logic/hooks/user/UserContext";
 
 export default function LandingPage() {
   const bg = useColorModeValue("light.400", "dark.100");
@@ -37,7 +37,7 @@ export default function LandingPage() {
   const element = document.getElementById("sampleQuestions");
   const navigate = useNavigate();
 
-  const { user, isLoading } = useAuthContext();
+  const { user, isLoading } = useUserContext();
 
   return (
     <>

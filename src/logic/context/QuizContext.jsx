@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 
-export const QuizContext = createContext();
+export const QuestionContext = createContext();
 
 const initialQuestionState = {
     questions: null,
@@ -16,11 +16,11 @@ const questionReducer = (state, action) => {
     }
 };
 
-export const QuizContextProvider = ({ children }) => {
+export const QuestionContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(questionReducer, initialQuestionState);
     return (
-        <QuizContext.Provider value={{ ...state, dispatch }}>
+        <QuestionContext.Provider value={{ ...state, dispatch }}>
             {children}
-        </QuizContext.Provider>
+        </QuestionContext.Provider>
     );
 };
