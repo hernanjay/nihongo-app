@@ -18,7 +18,8 @@ import {
   Td,
   Divider,
   // Link,
-  // Box,
+  Box,
+  Grid,
   // Button,
   Input,
   InputGroup,
@@ -36,11 +37,25 @@ import {
   FiSearch,
   FiBell,
 } from "react-icons/fi";
-import Chart from "../../Components/chartComponent/Chart.jsx";
+// import Chart from "../../Components/chartComponent/Chart.jsx";
 // import { color } from "framer-motion";
 
 export default function Admindashboard() {
   const [display, changeDisplay] = useState("hide");
+  const boxStyle = {
+    w: "100%",
+    h: "100",
+    bgColor: "gray.400",
+  }
+  const headStyle = {
+    color: "blackAlpha.900",
+    textAlign: "center",
+    pt: 3,
+  }
+  const textStyle = {
+    pt: 3,
+    textAlign: "center"
+  }
   return (
     <Flex
       h={[null, null, "100vh"]}
@@ -133,7 +148,7 @@ export default function Admindashboard() {
         </Flex>
       </Flex>
       {/* Column 2 */}
-      <Flex w="40%" p="3%" flexDir="column" overflow="auto" minH="100vh">
+      <Flex w="85%" p="3%" flexDir="column" overflow="auto" minH="100vh">
         {" "}
         <Heading
           fontWeight="normal"
@@ -147,13 +162,20 @@ export default function Admindashboard() {
           </Flex>
           !
         </Heading>{" "}
-        <Text fontWeight="bold" fontSize="1xl">
+        {/* <Text fontWeight="bold" fontSize="1xl">
           List of Students
         </Text>
         <Text color="gray" fontSize="xs">
           November 2023
-        </Text>{" "}
-        <Chart />
+        </Text>{" "} */}
+        {/* <Chart /> */}
+        <Grid templateColumns="repeat(5, 1fr)" gap={6} pt="2%" wrap="wrap">
+        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N1</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N2</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N3</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N4</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N5</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+        </Grid>
         <Flex justifyContent="space-between" mt={8}>
           <Flex align="flex-end">
             {/* <Heading as="h2" size="lg" letterSpacing="tight">
@@ -163,13 +185,10 @@ export default function Admindashboard() {
               November 2023
             </Text> */}
           </Flex>
-          <IconButton icon={<FiCalendar />} />
+          {/* <IconButton icon={<FiCalendar />} /> */}
           {/* CONTENT HERE */}
         </Flex>
-      </Flex>
-      {/* Column 3 */}
-      <Flex w="45%" bgColor="#f5f5f5" p="3%" flexDir="column" overflow="auto">
-        <Flex alignContent="center">
+        <Flex alignContent="center" p={5} m={10}>
           <InputGroup
             bgColor="#fff"
             mb={4}
@@ -371,6 +390,10 @@ export default function Admindashboard() {
           </Flex>
         </Flex>
       </Flex>
+      {/* Column 3 */}
+      {/* <Flex w="45%" bgColor="#f5f5f5" p="3%" flexDir="column" overflow="auto">
+        
+      </Flex> */}
     </Flex>
   );
 }

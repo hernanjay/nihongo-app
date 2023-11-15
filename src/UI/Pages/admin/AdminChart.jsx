@@ -45,6 +45,7 @@ import {
 } from "react-icons/fi";
 // import { color } from "framer-motion";
 import Chart from "../../Components/chartComponent/Chart";
+// import BarChart from "../../Components/chartComponent/BarChart";
 
 export default function AdminChart() {
   // const [display, changeDisplay] = useState("hide");
@@ -171,6 +172,9 @@ export default function AdminChart() {
         <Container bgColor="blackAlpha.100" p={5} mt="10%" marginStart={0}>
           <Chart/>
         </Container>
+        {/* <Container>
+          <BarChart/>
+        </Container> */}
         {/* <Flex p={5} mt={10} flexDir="column" overflow="auto">
         <Chart />
         </Flex> */}

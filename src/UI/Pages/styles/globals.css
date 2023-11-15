@@ -16,9 +16,9 @@ a {
 }
 
 /* hide scrollbar for chrome, safari and opera */
-/* *::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
-} */
+}
 
 .active {
     color: #fff;
