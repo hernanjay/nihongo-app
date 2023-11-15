@@ -11,7 +11,7 @@ import Login from "../login/Login.Jsx";
 import Register from "../register/Register";
 import Home from "../home/Home";
 import theme from "./Theme";
-import { useUserContext } from "../../../logic/hooks/user/UserContext";
+import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
