@@ -18,7 +18,7 @@ function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
   }
 
   return (
-    <Box key={question.q + index}>
+    <Box>
       <Text fontSize={"1.25vw"} py={"5"}>
         {question.q}
       </Text>

@@ -117,6 +117,7 @@ function KanjiQuestionSample() {
             {questions.map((question, index) => {
               return (
                 <KanjiQuestionCard
+                  key={index}
                   index={index + 1}
                   question={question}
                   handleUserHasAnswered={handleUserHasAnswered}
@@ -127,7 +128,7 @@ function KanjiQuestionSample() {
           </Container>
         </GridItem>
         {/* Question List */}
-        {/* <GridItem colSpan={"1"}>
+        <GridItem colSpan={"1"}>
           <Card boxShadow="lg" bgColor={bg}>
             <CardHeader>
               <Text fontSize={"1.5vw"}>Questions</Text>
@@ -138,6 +139,7 @@ function KanjiQuestionSample() {
                   {questions.map((question, index) => {
                     return (
                       <KanjiQuestionList
+                        key={index}
                         questionNo={index + 1}
                         userHasAnswered={userHasAnswered}
                       />
@@ -163,7 +165,7 @@ function KanjiQuestionSample() {
               </Button>
             </CardFooter>
           </Card>
-        </GridItem> */}
+        </GridItem>
         {/* Question List */}
       </Grid>
     </>

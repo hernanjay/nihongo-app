@@ -1,14 +1,9 @@
-import { it, describe, expect } from "vitest";
-import {
-  fireEvent,
-  getByText,
-  logRoles,
-  render,
-  screen,
-} from "@testing-library/react";
+import { it, describe, expect, beforeEach } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { UserContextProvider } from "../../../logic/context/UserContext";
 import "@testing-library/jest-dom";
 import App from "../../../ui/pages/main/App";
+import { prettyDOM } from "@testing-library/dom";
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -25,6 +20,13 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 describe("Check if App renders properly", () => {
+  beforeEach(async () => {
+    render(
+      <UserContextProvider>
+        <App />
+      </UserContextProvider>
+    );
+  });
   it("Should Show the entire App Bar", () => {
     const { container } = render(
       <UserContextProvider>
@@ -32,16 +34,23 @@ describe("Check if App renders properly", () => {
       </UserContextProvider>
     );
     // logRoles(container);
+    // console.log(prettyDOM(container));
+    // screen.logTestingPlaygroundURL();
   });
   it("Go to login page on login button click", () => {
-    render(
-      <UserContextProvider>
-        <App />
-      </UserContextProvider>
-    );
-    const loginButton = screen.getByText(/login/i);
+    const loginButton = screen.getByRole("button", { name: /login/i });
     fireEvent.click(loginButton);
     const textDisplay = screen.getByText(/Don't have an account yet?/i);
     expect(textDisplay).toBeInTheDocument();
+  });
+  it("Should login and redirect to homepage ", async () => {
+    const emailField = screen.getByPlaceholderText(/Email/i);
+    const passField = screen.getByPlaceholderText(/Enter password/i);
+    expect(emailField).toBeInTheDocument();
+    expect(passField).toBeInTheDocument();
+    fireEvent.change(emailField, { target: { value: "nan" } });
+    fireEvent.change(passField, { target: { value: "Wew@123321" } });
+    const loginButton = screen.getByTestId("login-button");
+    fireEvent.click(loginButton);
   });
 });

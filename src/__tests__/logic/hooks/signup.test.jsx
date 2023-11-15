@@ -158,14 +158,12 @@ describe("User Registration UT/IT v1", () => {
     if (ifUserExists) {
       await deleteUser(ifUserExists._id);
     }
-    console.log(ifUserExists);
     const user = await signup(
       "junrel",
       "jun@awsys-i.com",
       "June@123",
       "June@123"
     );
-    console.log(user);
     expect(user).toBe(200);
   });
   it("UT2-011 - User's record already exist", async () => {

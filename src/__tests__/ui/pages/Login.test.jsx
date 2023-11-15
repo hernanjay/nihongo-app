@@ -1,5 +1,5 @@
 import { it, describe } from "vitest";
-import { logRoles, render } from "@testing-library/react";
+import { logRoles, render, screen } from "@testing-library/react";
 import { UserContextProvider } from "../../../logic/context/UserContext";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
@@ -14,6 +14,7 @@ describe("Check if login page renders properly", () => {
         </UserContextProvider>
       </BrowserRouter>
     );
-    logRoles(container);
+    // logRoles(container);
+    screen.logTestingPlaygroundURL();
   });
 });
