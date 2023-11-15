@@ -33,7 +33,6 @@ function GrammarQuestionSample() {
         <GridItem colSpan={"1"}>
           <Card boxShadow="lg" bgColor={bg}>
             <CardHeader>
-              {" "}
               <Text fontSize={"1.5vw"}>Question Set</Text>
             </CardHeader>
             <CardBody>
