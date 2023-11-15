@@ -15,6 +15,7 @@ import { useUserContext } from "../../../logic/hooks/user/UserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
+import Userlist from "../dummies/userlist";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -30,6 +31,7 @@ function App() {
               <Routes>
                 <Route path="*" element={<Navigate to="/" />} />
                 <Route path="/" element={<LandingPage />} />
+                <Route path="/users" element={<Userlist />} />
                 <Route
                   path="/home"
                   element={user ? <Home /> : <Navigate to="/login" />}

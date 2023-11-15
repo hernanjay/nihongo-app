@@ -84,16 +84,11 @@ export default function NavBar() {
                   }
                 />
                 <MenuList>
-                  <MenuItem
-                    icon={
-                      <InfoOutlineIcon
-                        onClick={() => {
-                          navigate("/home");
-                        }}
-                      />
-                    }
-                  >
-                    Home
+                  <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/home">
+                    <Text>Home</Text>
+                  </MenuItem>
+                  <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/users">
+                    Users
                   </MenuItem>
                   <MenuItem icon={<InfoOutlineIcon />}>User Profile</MenuItem>
                   <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>
