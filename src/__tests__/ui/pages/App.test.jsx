@@ -1,9 +1,16 @@
-import { it, describe, expect, beforeEach } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { it, describe, expect, beforeEach, vi } from "vitest";
+import {
+  act,
+  fireEvent,
+  getByText,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { UserContextProvider } from "../../../logic/context/UserContext";
 import "@testing-library/jest-dom";
 import App from "../../../ui/pages/main/App";
-import { prettyDOM } from "@testing-library/dom";
+import { QuestionContextProvider } from "../../../logic/context/QuestionContext";
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -19,23 +26,32 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
-describe("Check if App renders properly", () => {
+describe("Check if App renders properly", async () => {
   beforeEach(async () => {
     render(
-      <UserContextProvider>
-        <App />
-      </UserContextProvider>
+      <QuestionContextProvider>
+        <UserContextProvider>
+          <App />
+        </UserContextProvider>
+      </QuestionContextProvider>
     );
   });
-  it("Should Show the entire App Bar", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+  it("Should Show the entire App Bar", async () => {
     const { container } = render(
-      <UserContextProvider>
-        <App />
-      </UserContextProvider>
+      <QuestionContextProvider>
+        <UserContextProvider>
+          <App />
+        </UserContextProvider>
+      </QuestionContextProvider>
     );
     // logRoles(container);
-    // console.log(prettyDOM(container));
-    // screen.logTestingPlaygroundURL();
   });
   it("Go to login page on login button click", () => {
     const loginButton = screen.getByRole("button", { name: /login/i });
@@ -48,9 +64,18 @@ describe("Check if App renders properly", () => {
     const passField = screen.getByPlaceholderText(/Enter password/i);
     expect(emailField).toBeInTheDocument();
     expect(passField).toBeInTheDocument();
-    fireEvent.change(emailField, { target: { value: "nan" } });
-    fireEvent.change(passField, { target: { value: "Wew@123321" } });
+    await fireEvent.change(emailField, { target: { value: "nan" } });
+    await fireEvent.change(passField, { target: { value: "Wew@123321" } });
     const loginButton = screen.getByTestId("login-button");
-    fireEvent.click(loginButton);
+    await waitFor(() => {
+      const loader = screen.getByTestId("loader");
+      expect(loader).toBeInTheDocument();
+      fireEvent.click(loginButton);
+    });
+    act(() => vi.advanceTimersByTime(4000));
+    expect;
+  }, 1000);
+  it("shoulb be logged in and inside home page", () => {
+    // screen.logTestingPlaygroundURL();
   });
 });

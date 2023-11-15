@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "./useUserContext";
 import { useToast } from "@chakra-ui/react";
 
 export const useRetrieveProfile = () => {

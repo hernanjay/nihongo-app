@@ -29,7 +29,7 @@ import KanjiQuestionSample from "../../components/KanjiQuestionSample";
 import VocabQuestionSample from "../../components/VocabQuestionSample";
 import GrammarQuestionSample from "../../components/GrammarQuestionSample";
 import Loader from "../../components/Loader";
-import { useUserContext } from "../../../logic/hooks/user/UserContext";
+import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 
 export default function LandingPage() {
   const bg = useColorModeValue("light.400", "dark.100");

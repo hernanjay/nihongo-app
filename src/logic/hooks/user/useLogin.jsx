@@ -10,6 +10,7 @@ export const useLogin = () => {
 
   const login = async (email, password) => {
     setIsLoading(true);
+
     const response = await fetch(
       `${import.meta.env.VITE_LOCALHOST_API}/api/users/login`,
       {
@@ -21,7 +22,6 @@ export const useLogin = () => {
         }),
       }
     );
-
     const json = await response.json();
 
     if (!response.ok) {
@@ -40,7 +40,6 @@ export const useLogin = () => {
     if (response.ok) {
       // save the token to local storage
       localStorage.setItem("token", JSON.stringify(json));
-
       retrieveProfile(json);
       setIsLoading(false);
     }

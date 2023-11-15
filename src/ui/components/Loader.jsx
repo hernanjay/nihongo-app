@@ -9,7 +9,7 @@ function Loader({ isLoading }) {
       <ModalContent bg="blackAlpha.100">
         <ModalBody>
           <AbsoluteCenter>
-            <Spinner color="white" size="xl" />
+            <Spinner data-testid="loader" color="white" size="xl" />
           </AbsoluteCenter>
         </ModalBody>
       </ModalContent>
