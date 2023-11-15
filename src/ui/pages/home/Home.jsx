@@ -134,23 +134,24 @@ function createItem(amount) {
 
 export default function HomePage() {
   const bg = useColorModeValue("light.400", "dark.100");
-  const { user } = useAuthContext();
   return (
     <>
-      <Container maxW="container.xl" bg={bg} p="5" my="10" borderRadius="10">
-        <Heading m="10">Kanji Questions</Heading>{" "}
-        <Accordion allowToggle m="10" bg={bg} variant="outline">
-          {createItem(5)}
-        </Accordion>
-        <Heading m="10">Vocab Questions</Heading>
-        <Accordion allowToggle m="10" bg={bg} variant="outline">
-          {createItem(5)}
-        </Accordion>
-        <Heading m="10">Grammar Questions</Heading>
-        <Accordion allowToggle m="10" bg={bg} variant="outline">
-          {createItem(5)}
-        </Accordion>
-      </Container>
+      <Box pt={"5vw"} pb={50}>
+        <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
+          <Heading m="10">Kanji Questions</Heading>
+          <Accordion allowToggle m="10" bg={bg} variant="outline">
+            {createItem(5)}
+          </Accordion>
+          <Heading m="10">Vocab Questions</Heading>
+          <Accordion allowToggle m="10" bg={bg} variant="outline">
+            {createItem(5)}
+          </Accordion>
+          <Heading m="10">Grammar Questions</Heading>
+          <Accordion allowToggle m="10" bg={bg} variant="outline">
+            {createItem(5)}
+          </Accordion>
+        </Container>
+      </Box>
     </>
   );
 }

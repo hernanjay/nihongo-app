@@ -4,25 +4,21 @@ import {
   GridItem,
   Text,
   Container,
-  SimpleGrid,
   Button,
-  Box,
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Flex,
-  Tag,
-  TagLabel,
   VStack,
   StackDivider,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-import kanjiQuestionCard from "./kanjiQuestionCard";
-import kanjiQuestionList from "./questionList";
+import kanjiQuestionCard from "./KanjiQuestionCard";
+import kanjiQuestionList from "./QuestionList";
 
-function kanjiQuestionSample() {
+function KanjiQuestionSample() {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const [userHasAnswered, setUserHasAnswered] = useState([
@@ -148,7 +144,12 @@ function kanjiQuestionSample() {
                 borderColor={border}
                 variant="outline"
                 onClick={() => {
-                  alert("Try it for real");
+                  const element = document.getElementById("tryItOutScrollLoc");
+                  element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "nearest",
+                  });
                 }}
               >
                 Submit
@@ -161,4 +162,4 @@ function kanjiQuestionSample() {
   );
 }
 
-export default kanjiQuestionSample;
+export default KanjiQuestionSample;

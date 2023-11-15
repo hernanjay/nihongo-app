@@ -14,6 +14,7 @@ import theme from "./Theme";
 import { useAuthContext } from "../../../logic/hooks/useAuthContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
+import Footer from "../../components/Footer";
 
 function App() {
   const { user, isLoading } = useAuthContext();
@@ -27,20 +28,8 @@ function App() {
             <>
               <NavBar />
               <Routes>
-                <Route
-                  path="/"
-                  element={user ? <LandingPage /> : <Navigate to="/login" />}
-                />
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
-
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
-
+                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/" element={<LandingPage />} />
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Navigate to="/" />}
@@ -50,6 +39,7 @@ function App() {
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
               </Routes>
+              <Footer />
             </>
           )}
         </BrowserRouter>

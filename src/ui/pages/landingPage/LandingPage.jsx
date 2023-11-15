@@ -1,4 +1,4 @@
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   Grid,
   GridItem,
@@ -6,7 +6,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Text,
   Heading,
   Button,
@@ -22,21 +21,28 @@ import {
   SimpleGrid,
   Box,
   Container,
-  Stack,
-  ButtonGroup,
 } from "@chakra-ui/react";
 import React from "react";
-import kanjiQuestionSample from "../../components/kanjiQuestionSample";
-import vocabQuestionSample from "../../components/vocabQuestionSample";
-import grammarQuestionSample from "../../components/grammarQuestionSample";
+import { useNavigate } from "react-router-dom";
+import CharacterPracticeTest from "../../components/CharacterPracticeTest";
+import KanjiQuestionSample from "../../components/KanjiQuestionSample";
+import VocabQuestionSample from "../../components/VocabQuestionSample";
+import GrammarQuestionSample from "../../components/GrammarQuestionSample";
+import { useAuthContext } from "../../../logic/hooks/useAuthContext";
+import Loader from "../../components/Loader";
 
 export default function LandingPage() {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const element = document.getElementById("sampleQuestions");
+  const navigate = useNavigate();
+
+  const { user, isLoading } = useAuthContext();
 
   return (
     <>
+      {isLoading && <Loader isLoading={isLoading} />}
+      {/* Banner */}
       <Grid
         h="100vh"
         templateRows="repeat(5, 1fr)"
@@ -89,7 +95,7 @@ export default function LandingPage() {
                     onClick={() => {
                       element.scrollIntoView({
                         behavior: "smooth",
-                        block: "start",
+                        block: "center",
                         inline: "nearest",
                       });
                     }}
@@ -106,7 +112,9 @@ export default function LandingPage() {
         <GridItem rowSpan={3} />
         <GridItem rowSpan={1} colSpan={8} />
       </Grid>
+      {/* Banner */}
       <Divider />
+      {/* Sample Questions */}
       <Center id="sampleQuestions" pt={"10"} pb={"5"} bg={bg}>
         <Heading fontSize="3vw">Sample Questions</Heading>
       </Center>
@@ -127,12 +135,15 @@ export default function LandingPage() {
         </TabList>
         <TabIndicator mt="-4" height="2px" bg={border} borderRadius="1px" />
         <TabPanels>
-          <TabPanel>{kanjiQuestionSample()}</TabPanel>
-          <TabPanel>{vocabQuestionSample()}</TabPanel>
-          <TabPanel>{grammarQuestionSample()}</TabPanel>
+          <TabPanel>{<KanjiQuestionSample />}</TabPanel>
+          <TabPanel>{<VocabQuestionSample />}</TabPanel>
+          <TabPanel>{<GrammarQuestionSample />}</TabPanel>
         </TabPanels>
       </Tabs>
-      <Box maxW="100vw" bg={bg}>
+      {/* Sample Questions */}
+      {/* Try out Questions Card */}
+      <Divider />
+      <Box id="tryItOutScrollLoc" maxW="100vw" bg={bg}>
         <Container maxW="80vw" py="10">
           <SimpleGrid columns={3} spacing={10}>
             <Box minH="25vh">
@@ -151,6 +162,10 @@ export default function LandingPage() {
                     variant={"ghost"}
                     bg={"transparent"}
                     borderColor={border}
+                    onClick={() => {
+                      user ? navigate("/Kanji") : navigate("/login");
+                    }}
+                    rightIcon={<ExternalLinkIcon ml={"2"} />}
                   >
                     Try it out
                   </Button>
@@ -173,6 +188,10 @@ export default function LandingPage() {
                     variant={"ghost"}
                     bg={"transparent"}
                     borderColor={border}
+                    onClick={() => {
+                      user ? navigate("/vocab") : navigate("/login");
+                    }}
+                    rightIcon={<ExternalLinkIcon ml={"2"} />}
                   >
                     Try it out
                   </Button>
@@ -195,6 +214,10 @@ export default function LandingPage() {
                     variant={"ghost"}
                     bg={"transparent"}
                     borderColor={border}
+                    onClick={() => {
+                      user ? navigate("/grammar") : navigate("/login");
+                    }}
+                    rightIcon={<ExternalLinkIcon ml={"2"} />}
                   >
                     Try it out
                   </Button>
@@ -205,6 +228,90 @@ export default function LandingPage() {
         </Container>
       </Box>
       <Divider />
+      {/* Try out Questions Card */}
+      <Center id="sampleQuestions" pt={"10"} pb={"5"} bg={bg}>
+        <Heading fontSize="3vw">Sample Exercises</Heading>
+      </Center>
+      <Tabs isFitted variant={"line"} colorScheme="white">
+        <TabList mb="1em" bg={bg}>
+          <Tab>
+            <InfoOutlineIcon mx={"2"} />
+            Hiragana Exercise
+          </Tab>
+          <Tab>
+            <InfoOutlineIcon mx={"2"} />
+            Katakana Exercise
+          </Tab>
+        </TabList>
+        <TabIndicator mt="-4" height="2px" bg={border} borderRadius="1px" />
+        <TabPanels>
+          <TabPanel>{<CharacterPracticeTest mode="hir" />}</TabPanel>
+          <TabPanel>{<CharacterPracticeTest mode="kat" />}</TabPanel>
+        </TabPanels>
+      </Tabs>
+      {/* Try out Questions Card */}
+      <Divider />
+      <Box id="tryItOutScrollLoc" maxW="100vw" bg={bg}>
+        <Container maxW="80vw" py="10">
+          <SimpleGrid columns={2} spacing={10}>
+            <Box minH="25vh">
+              <Card maxW="sm" bg={bg} variant="unstyled">
+                <CardBody>
+                  <Heading size="md" py="2">
+                    Hiragana Exercise
+                  </Heading>
+                  <Text>
+                    Cras a risus ex. In auctor faucibus dolor sit amet
+                    condimentum. Maecenas sed orci vitae ligula commodo dictum
+                    sit amet quis tellus.
+                  </Text>
+                  <Button
+                    mt={"5"}
+                    variant={"ghost"}
+                    bg={"transparent"}
+                    borderColor={border}
+                    onClick={() => {
+                      navigate("/hiragana");
+                    }}
+                    rightIcon={<ExternalLinkIcon ml={"2"} />}
+                  >
+                    Try it out
+                  </Button>
+                </CardBody>
+              </Card>
+            </Box>
+            <Box minH="25vh">
+              <Card maxW="sm" bg={bg} variant="unstyled">
+                <CardBody>
+                  <Heading size="md" py="2">
+                    Katakana Exercise
+                  </Heading>
+                  <Text>
+                    Cras a risus ex. In auctor faucibus dolor sit amet
+                    condimentum. Maecenas sed orci vitae ligula commodo dictum
+                    sit amet quis tellus.
+                  </Text>
+                  <Button
+                    mt={"5"}
+                    variant={"ghost"}
+                    bg={"transparent"}
+                    borderColor={border}
+                    onClick={() => {
+                      navigate("/katakana");
+                    }}
+                    rightIcon={<ExternalLinkIcon ml={"2"} />}
+                  >
+                    Try it out
+                  </Button>
+                </CardBody>
+              </Card>
+            </Box>
+          </SimpleGrid>
+        </Container>
+      </Box>
+      <Divider />
+      {/* Try out Questions Card */}
+      {/* Banner */}
       <Grid
         h="100vh"
         templateRows="repeat(5, 1fr)"
@@ -257,7 +364,7 @@ export default function LandingPage() {
                     onClick={() => {
                       element.scrollIntoView({
                         behavior: "smooth",
-                        block: "start",
+                        block: "center",
                         inline: "nearest",
                       });
                     }}
@@ -274,6 +381,7 @@ export default function LandingPage() {
         <GridItem rowSpan={3} />
         <GridItem rowSpan={1} colSpan={8} />
       </Grid>
+      {/* Banner */}
     </>
   );
 }
