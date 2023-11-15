@@ -11,7 +11,7 @@ export const useLogin = () => {
   const login = async (email, password) => {
     setIsLoading(true);
     const response = await fetch(
-      `https://aws-nihongo-api.onrender.com/api/users/login`,
+      `${import.meta.env.VITE_LOCALHOST_API}/api/users/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,7 +25,6 @@ export const useLogin = () => {
     const json = await response.json();
 
     if (!response.ok) {
-      console.log(json.error);
       setError(json.error);
       toast({
         title: "Login Failed",

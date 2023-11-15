@@ -16,41 +16,64 @@ import Footer from "../../components/Footer";
 import Userlist from "../dummies/userlist";
 
 function App() {
-  const { user, isLoading } = useUserContext();
-  // 4. Wrap ChakraProvider at the root of your app
-  return (
-    <ChakraProvider theme={theme}>
-      <>
-        <BrowserRouter>
-          {isLoading && <Loader isLoading={isLoading} />}
-          {!isLoading && (
+    const { user, isLoading } = useUserContext();
+    // 4. Wrap ChakraProvider at the root of your app
+    return (
+        <ChakraProvider theme={theme}>
             <>
-              <NavBar />
-              <Routes>
-                <Route path="*" element={<Navigate to="/" />} />
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/users" element={<Userlist />} />
-                <Route
-                  path="/home"
-                  element={user ? <Home /> : <Navigate to="/login" />}
-                />
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
+                <BrowserRouter>
+                    {isLoading && <Loader isLoading={isLoading} />}
+                    {!isLoading && (
+                        <>
+                            <NavBar />
+                            <Routes>
+                                <Route path="*" element={<Navigate to="/" />} />
+                                <Route path="/" element={<LandingPage />} />
+                                <Route
+                                    path="/users"
+                                    element={
+                                        user?.role === "admin" ? (
+                                            <Userlist />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
+                                <Route
+                                    path="/home"
+                                    element={
+                                        user ? (
+                                            <Home />
+                                        ) : (
+                                            <Navigate to="/login" />
+                                        )
+                                    }
+                                />
+                                <Route
+                                    path="/login"
+                                    element={
+                                        !user ? <Login /> : <Navigate to="/" />
+                                    }
+                                />
 
-                <Route
-                  path="/register"
-                  element={!user ? <Register /> : <Navigate to="/" />}
-                />
-              </Routes>
-              <Footer />
+                                <Route
+                                    path="/register"
+                                    element={
+                                        !user ? (
+                                            <Register />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
+                            </Routes>
+                            <Footer />
+                        </>
+                    )}
+                </BrowserRouter>
             </>
-          )}
-        </BrowserRouter>
-      </>
-    </ChakraProvider>
-  );
+        </ChakraProvider>
+    );
 }
 
 export default App;
