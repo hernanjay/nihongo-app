@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTQzOTJkYWQ2MzdjYTdjMGE1MGI0NCIsImVtYWlsIjoiYWRtaW5AYXdzeXMtaS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDAwMjIwNDYsImV4cCI6MTcwMDEwODQ0Nn0.Gtoywtr2cOqgZC4m5SdcBOtopsfprMnOi6nGExXVyDU";
 
 const signup = async (username, email, password, confirmPassword) => {
-  // setIsLoading(true);
   const response = await fetch(
     `${import.meta.env.VITE_LOCALHOST_API}/api/users/signup`,
     {
@@ -16,7 +17,7 @@ const signup = async (username, email, password, confirmPassword) => {
     }
   );
 
-  // const json = await response.json();
+  const json = await response.json();
 
   if (!response.ok) {
     return response.status;
@@ -26,6 +27,54 @@ const signup = async (username, email, password, confirmPassword) => {
     return 200;
   }
 };
+
+const checkUser = async (email) => {
+  const resUser = await fetch(
+    `${import.meta.env.VITE_LOCALHOST_API}/api/users/get-by-email`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    }
+  );
+
+  const user = await resUser.json();
+
+  return user;
+};
+
+const deleteUser = async (userId) => {
+  const resDel = await fetch(
+    `${import.meta.env.VITE_LOCALHOST_API}/api/users/delete`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+      }),
+    }
+  );
+
+  const json = await resDel.json();
+
+  if (!resDel.ok) {
+    return resDel.status;
+  }
+
+  if (resDel.ok) {
+    return 200;
+  }
+};
+
+// Delete
 
 describe("User Registration UT/IT v1", () => {
   it("UT2-001 - Empty one or more user's credentials (username: null,email: null, password: null, and/or verify password: null)", async () => {
@@ -104,10 +153,21 @@ describe("User Registration UT/IT v1", () => {
     );
     expect(user).toBe(400);
   }, 500);
-  // it("UT2-0010 - User's registered successfully", async () => {
-  //     const user = await signup("junrel","jun@awsys-i.com","June@123","Jun@123");
-  //     expect(user).toBe(200);
-  // })
+  it("UT2-0010 - User's registered successfully", async () => {
+    const ifUserExists = await checkUser("jun@awsys-i.com");
+    if (ifUserExists) {
+      await deleteUser(ifUserExists._id);
+    }
+    console.log(ifUserExists);
+    const user = await signup(
+      "junrel",
+      "jun@awsys-i.com",
+      "June@123",
+      "June@123"
+    );
+    console.log(user);
+    expect(user).toBe(200);
+  });
   it("UT2-011 - User's record already exist", async () => {
     const user = await signup(
       "james.alwin",
