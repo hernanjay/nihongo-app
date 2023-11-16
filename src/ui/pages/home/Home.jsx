@@ -4,6 +4,7 @@ import { useColorModeValue } from "@chakra-ui/react";
 import Level from "../../components/Level";
 import { useEffect } from "react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   const bg = useColorModeValue("light.400", "dark.100");
@@ -52,6 +53,7 @@ export default function Home() {
           </Accordion>
         </Container>
       </Box>
+      <Footer />
     </>
   );
 }

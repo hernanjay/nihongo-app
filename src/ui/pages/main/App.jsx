@@ -12,8 +12,9 @@ import theme from "./Theme";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
-import Footer from "../../components/Footer";
 import Userlist from "../dummies/userlist";
+import RegisterStepper from "../register/RegisterStepper";
+import MissingPage from "../../components/MissingPage";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -27,7 +28,8 @@ function App() {
             <>
               <NavBar />
               <Routes>
-                <Route path="*" element={<Navigate to="/" />} />
+                {/* <Route path="*" element={<Navigate to="/" />} /> */}
+                <Route path="*" element={<MissingPage />} />
                 <Route path="/" element={user ? <Home /> : <LandingPage />} />
                 <Route
                   path="/users"
@@ -45,7 +47,6 @@ function App() {
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
               </Routes>
-              <Footer />
             </>
           )}
         </BrowserRouter>
