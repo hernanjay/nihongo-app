@@ -1,10 +1,9 @@
 import { it, describe, expect, beforeEach, vi } from "vitest";
 import {
-  act,
   fireEvent,
-  getByText,
   render,
   screen,
+  act,
   waitFor,
 } from "@testing-library/react";
 import { UserContextProvider } from "../../../logic/context/UserContext";
@@ -26,6 +25,20 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+//simulate logged in user
+const retrieveProfile = async (token) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_LOCALHOST_API}/api/users/profile`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  const json = await response.json();
+
+  return json;
+};
+
 describe("Check if App renders properly", async () => {
   beforeEach(async () => {
     render(
@@ -36,13 +49,13 @@ describe("Check if App renders properly", async () => {
       </QuestionContextProvider>
     );
   });
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
+  // beforeEach(() => {
+  //   vi.useFakeTimers();
+  // });
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
+  // afterEach(() => {
+  //   vi.useRealTimers();
+  // });
   it("Should Show the entire App Bar", async () => {
     const { container } = render(
       <QuestionContextProvider>
@@ -59,23 +72,42 @@ describe("Check if App renders properly", async () => {
     const textDisplay = screen.getByText(/Don't have an account yet?/i);
     expect(textDisplay).toBeInTheDocument();
   });
-  it("Should login and redirect to homepage ", async () => {
+  it("Should fill up login form and login user", async () => {
+    //User Data to Use
+    const emailInput = "nan";
+    const passInput = "Wew@123321";
+    //Set User's Data inside Input Fields
     const emailField = screen.getByPlaceholderText(/Email/i);
     const passField = screen.getByPlaceholderText(/Enter password/i);
     expect(emailField).toBeInTheDocument();
     expect(passField).toBeInTheDocument();
-    await fireEvent.change(emailField, { target: { value: "nan" } });
-    await fireEvent.change(passField, { target: { value: "Wew@123321" } });
+    fireEvent.change(emailField, { target: { value: emailInput } });
+    fireEvent.change(passField, { target: { value: passInput } });
+    //Simulate user clicking the button
     const loginButton = screen.getByTestId("login-button");
+    //Token is null
+    fireEvent.click(loginButton);
+    //Token is null
+    //Wait for loading to finish
+    const loader = await screen.findByTestId("loader");
     await waitFor(() => {
-      const loader = screen.getByTestId("loader");
-      expect(loader).toBeInTheDocument();
-      fireEvent.click(loginButton);
+      expect(loader).not.toBeInTheDocument();
     });
-    act(() => vi.advanceTimersByTime(4000));
-    expect;
-  }, 1000);
-  it("shoulb be logged in and inside home page", () => {
-    // screen.logTestingPlaygroundURL();
+    //Token is set
+  });
+  it("Login button should change to logout and user token should be set", async () => {
+    //Wait for loading to finish
+    const loader = await screen.findByTestId("loader");
+    await waitFor(() => {
+      expect(loader).not.toBeInTheDocument();
+    });
+    //Check if user can see the logout button
+    const logoutButton = await screen.findByText("Logout");
+    await waitFor(() => {
+      expect(logoutButton).toBeInTheDocument();
+    });
+    const token = localStorage.getItem("token");
+    expect(token).not.toBeNull();
+    screen.logTestingPlaygroundURL();
   });
 });
