@@ -1,15 +1,10 @@
 import { it, describe, expect, beforeEach, vi } from "vitest";
-import {
-  fireEvent,
-  render,
-  screen,
-  act,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { UserContextProvider } from "../../../logic/context/UserContext";
 import "@testing-library/jest-dom";
 import App from "../../../ui/pages/main/App";
 import { QuestionContextProvider } from "../../../logic/context/QuestionContext";
+import ContextWrapper from "../../../ui/components/ContextWrapper";
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -25,29 +20,9 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
-//simulate logged in user
-const retrieveProfile = async (token) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_LOCALHOST_API}/api/users/profile`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-
-  const json = await response.json();
-
-  return json;
-};
-
 describe("Check if App renders properly", async () => {
   beforeEach(async () => {
-    render(
-      <QuestionContextProvider>
-        <UserContextProvider>
-          <App />
-        </UserContextProvider>
-      </QuestionContextProvider>
-    );
+    render(<ContextWrapper app={<App />} />);
   });
   // beforeEach(() => {
   //   vi.useFakeTimers();
@@ -57,13 +32,8 @@ describe("Check if App renders properly", async () => {
   //   vi.useRealTimers();
   // });
   it("Should Show the entire App Bar", async () => {
-    const { container } = render(
-      <QuestionContextProvider>
-        <UserContextProvider>
-          <App />
-        </UserContextProvider>
-      </QuestionContextProvider>
-    );
+    const { container } = render(<ContextWrapper app={<App />} />);
+    expect(container).not.toBeNull();
     // logRoles(container);
   });
   it("Go to login page on login button click", () => {
