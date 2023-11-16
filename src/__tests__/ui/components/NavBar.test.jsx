@@ -1,19 +1,33 @@
-import { it, describe } from "vitest";
-import { logRoles, render } from "@testing-library/react";
+import { it, describe, beforeEach, expect } from "vitest";
+import { logRoles, render, screen } from "@testing-library/react";
 import { UserContextProvider } from "../../../logic/context/UserContext";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
-import Register from "../../../ui/pages/register/Register";
+import NavBar from "../../../ui/Components/NavBar";
 
-describe("Check if login page renders properly", () => {
-  it("Should Show the entire login page", () => {
+describe("Check if Navigation Bar renders properly", () => {
+  beforeEach(() => {
+    <BrowserRouter>
+      <UserContextProvider>
+        <NavBar />
+      </UserContextProvider>
+    </BrowserRouter>;
+  });
+
+  it("Should Show the entire Navigation Bar", () => {
     const { container } = render(
       <BrowserRouter>
         <UserContextProvider>
-          <Register />
+          <NavBar />
         </UserContextProvider>
       </BrowserRouter>
     );
     logRoles(container);
+  });
+  it("Should Show register and login button if user not logged in", async () => {
+    const registerButton = await screen.findByText(/register/i);
+    const loginButton = await screen.findByText(/login/i);
+    expect(registerButton).toBeInTheDocument();
+    expect(loginButton).toBeInTheDocument();
   });
 });

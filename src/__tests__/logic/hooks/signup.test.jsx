@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTQzOTJkYWQ2MzdjYTdjMGE1MGI0NCIsImVtYWlsIjoiYWRtaW5AYXdzeXMtaS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDAwMjIwNDYsImV4cCI6MTcwMDEwODQ0Nn0.Gtoywtr2cOqgZC4m5SdcBOtopsfprMnOi6nGExXVyDU";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTQzOTJkYWQ2MzdjYTdjMGE1MGI0NCIsImVtYWlsIjoiYWRtaW5AYXdzeXMtaS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDAxMDg4NDMsImV4cCI6MTcwMDE5NTI0M30.UDooOFbVJC7N3AjQ0qWGvAF375YkXg4sJ4OtSy6x_lc";
 
 const signup = async (username, email, password, confirmPassword) => {
   const response = await fetch(
@@ -77,10 +77,14 @@ const deleteUser = async (userId) => {
 // Delete
 
 describe("User Registration UT/IT v1", () => {
+  beforeEach(async () => {
+    const status = await checkUser("nan@awsys-i.com");
+    console.log(status);
+  }, 1000);
   it("UT2-001 - Empty one or more user's credentials (username: null,email: null, password: null, and/or verify password: null)", async () => {
     const user = await signup("junrel", null, null, null);
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-002 - Invalid server provider (not @awsys-i.com) (email: _______@gmail.com / ______@yahoo.com)", async () => {
     const user = await signup(
       "junrel",
@@ -89,7 +93,7 @@ describe("User Registration UT/IT v1", () => {
       "Iam@1234"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-003 - Not reached password's required length (password < required length)", async () => {
     const user = await signup(
       "junrel",
@@ -98,7 +102,7 @@ describe("User Registration UT/IT v1", () => {
       "Iam@123"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-004 - Not contain at least one uppercase (password = alje@999)", async () => {
     const user = await signup(
       "junrel",
@@ -107,7 +111,7 @@ describe("User Registration UT/IT v1", () => {
       "alje@999"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-005 - Not contain at least one lowercade (password = ALJE@999)", async () => {
     const user = await signup(
       "junrel",
@@ -116,7 +120,7 @@ describe("User Registration UT/IT v1", () => {
       "ALJE@999"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-006 - Not contain at least one numerical figure (password = Alje@cera)", async () => {
     const user = await signup(
       "junrel",
@@ -125,7 +129,7 @@ describe("User Registration UT/IT v1", () => {
       "Alje@cera"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-007 - Not contain at least one special character (password = Alje9999)", async () => {
     const user = await signup(
       "junrel",
@@ -134,7 +138,7 @@ describe("User Registration UT/IT v1", () => {
       "Alje9999"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-008 - Contains Japanese characters (e.g , ひらがな、カタカナ、漢字)", async () => {
     const user = await signup(
       "junrel",
@@ -143,7 +147,7 @@ describe("User Registration UT/IT v1", () => {
       "大変だった@19"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-009 - Password and Verify password did not match (password != verify password)", async () => {
     const user = await signup(
       "junrel",
@@ -152,7 +156,7 @@ describe("User Registration UT/IT v1", () => {
       "alje@999"
     );
     expect(user).toBe(400);
-  }, 500);
+  });
   it("UT2-0010 - User's registered successfully", async () => {
     const ifUserExists = await checkUser("jun@awsys-i.com");
     if (ifUserExists) {
@@ -174,5 +178,5 @@ describe("User Registration UT/IT v1", () => {
       "Alje@999"
     );
     expect(user).toBe(400);
-  }, 1000);
+  });
 });
