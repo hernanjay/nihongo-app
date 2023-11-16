@@ -28,16 +28,12 @@ function App() {
               <NavBar />
               <Routes>
                 <Route path="*" element={<Navigate to="/" />} />
-                <Route path="/" element={<LandingPage />} />
+                <Route path="/" element={user ? <Home /> : <LandingPage />} />
                 <Route
                   path="/users"
                   element={
                     user?.role === "admin" ? <Userlist /> : <Navigate to="/" />
                   }
-                />
-                <Route
-                  path="/home"
-                  element={user ? <Home /> : <Navigate to="/login" />}
                 />
                 <Route
                   path="/login"
