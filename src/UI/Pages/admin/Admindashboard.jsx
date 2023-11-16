@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 // import { Chart } from 'react-chartjs-2';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Flex,
   Heading,
@@ -68,8 +68,8 @@ export default function Admindashboard() {
             >
               Admin Dashboard
             </Heading>
-            <Flex
-              flexDir={["row", "row", "column", "column", "column"]}
+            <Flex   
+              flexDir={["row", "row", "row", "column", "column"]}
               align={["center", "center", "center", "flex-start", "flex-start"]}
               wrap="wrap"
               justifyContent="center"
@@ -178,7 +178,6 @@ export default function Admindashboard() {
             borderRadius="10px"
             mr={2}
           >
-       
             <InputLeftElement
               pointerEvents="none"
               children={<FiSearch color="gray" />}

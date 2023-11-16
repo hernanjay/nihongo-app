@@ -45,6 +45,7 @@ import {
 } from "react-icons/fi";
 // import { color } from "framer-motion";
 import Chart from "../../Components/chartComponent/Chart";
+// import Bar from "../../Components/chartComponent/bar";
 
 export default function AdminChart() {
   // const [display, changeDisplay] = useState("hide");
@@ -52,16 +53,16 @@ export default function AdminChart() {
     w: "100%",
     h: "100",
     bgColor: "gray.400",
-  }
+  };
   const headStyle = {
     color: "blackAlpha.900",
     textAlign: "center",
     pt: 3,
-  }
+  };
   const textStyle = {
     pt: 3,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  };
   return (
     <Flex
       h={[null, null, "100vh"]}
@@ -162,15 +163,43 @@ export default function AdminChart() {
         overflow="auto"
       >
         <Grid templateColumns="repeat(5, 1fr)" gap={6} pt="2%" wrap="wrap">
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N1</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N2</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N3</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N4</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N5</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N1
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N2
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N3
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N4
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N5
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
         </Grid>
         <Container bgColor="blackAlpha.100" p={5} mt="10%" marginStart={0}>
-          <Chart/>
+          <Chart />
         </Container>
+        {/* <Container>
+          <Bar />
+        </Container> */}
         {/* <Flex p={5} mt={10} flexDir="column" overflow="auto">
         <Chart />
         </Flex> */}
