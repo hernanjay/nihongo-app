@@ -1,5 +1,3 @@
-import React from "react";
-import { useState } from "react";
 // import { Chart } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
 import {
@@ -45,6 +43,10 @@ import {
 } from "react-icons/fi";
 // import { color } from "framer-motion";
 import Chart from "../../Components/chartComponent/Chart";
+import BarChart from "../../Components/chartComponent/BarChart";
+import DoughnutChart from "../../Components/chartComponent/DoughnutChart";
+import StackedBar from "../../Components/chartComponent/StackedBar";
+import CalendarComponent from "../../Components/chartComponent/Calendar";
 
 export default function AdminChart() {
   // const [display, changeDisplay] = useState("hide");
@@ -193,12 +195,25 @@ export default function AdminChart() {
             <Text sx={textStyle}>Percentage Context</Text>
           </Box>
         </Grid>
-        <Container bgColor="blackAlpha.100" p={5} mt="10%" marginStart={0}>
-          <Chart />
-        </Container>
-        {/* <Flex p={5} mt={10} flexDir="column" overflow="auto">
-        <Chart />
-        </Flex> */}
+        <Grid
+          h="25vh"
+          templateRows="repeat(2, 1fr)"
+          templateColumns="repeat(3, 1fr)"
+          gap={5}
+        >
+          <GridItem colSpan={2} bgColor="blackAlpha.100" p={5} mt="10%">
+            <StackedBar />
+          </GridItem>
+          <GridItem colSpan={1} bgColor="blackAlpha.100" p={5} mt="20%">
+            <CalendarComponent />
+          </GridItem>
+          <GridItem rowSpan={1} bgColor="blackAlpha.100" p={5}>
+            <DoughnutChart />
+          </GridItem>
+          <GridItem colSpan={2} bgColor="blackAlpha.100" p={5}>
+            <BarChart />
+          </GridItem>
+        </Grid>
       </Flex>
     </Flex>
   );

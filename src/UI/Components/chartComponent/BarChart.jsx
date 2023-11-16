@@ -1,46 +1,46 @@
-import React from 'react';
-import { Bar, Utils } from 'react-chartjs-2';
-import 'chart.js/auto';
+//import React from 'react';
+import { Bar } from "react-chartjs-2";
+import "chart.js/auto";
 
-const DATA_COUNT = 7;
-const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+//const DATA_COUNT = 7;
+//const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
 
-const labels = Utils.months({count: 7});
+//const labels = Utils.months({count: 7});
 const data = {
-  labels: labels,
+  labels: ["Jan", "Feb", "Mar"],
   datasets: [
     {
-      label: 'Dataset 1',
-      data: Utils.numbers(NUMBER_CFG),
-      borderColor: Utils.CHART_COLORS.red,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      axis: "y",
+      label: "369",
+      data: [10, 12, 14],
+      backgroundColor: "aqua",
+      borderColor: "black",
+      borderWidth: 1,
     },
-    {
-      label: 'Dataset 2',
-      data: Utils.numbers(NUMBER_CFG),
-      borderColor: Utils.CHART_COLORS.blue,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-    }
-  ]
+    // {
+    //   label: 'Dataset 2',
+    //   data: Utils.numbers(NUMBER_CFG),
+    //   borderColor: Utils.CHART_COLORS.blue,
+    //   backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+    // }
+  ],
 };
 
-const config = {
-    type: 'bar',
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Chart.js Bar Chart'
-        }
-      }
+const options = {
+  // type: "bar",
+  // data: data,
+  indexAxis: "y",
+  plugins: {
+    legend: {
+      position: "right",
     },
-  };
+    title: {
+      display: true,
+      text: "Chart.js Bar Chart",
+    },
+  },
+};
 
-const BarChart = () => <Bar data={data} options={config} />;
+const BarChart = () => <Bar data={data} options={options} />;
 
 export default BarChart;
