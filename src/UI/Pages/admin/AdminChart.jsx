@@ -164,7 +164,7 @@ export default function AdminChart() {
         overflow="auto"
       >
         <Grid templateColumns="repeat(5, 1fr)" gap={6} pt="2%" wrap="wrap">
-          <Box sx={boxStyle}>
+          {/* <Box sx={boxStyle}>
             <Heading sx={headStyle} size="md">
               N1
             </Heading>
@@ -193,27 +193,10 @@ export default function AdminChart() {
               N5
             </Heading>
             <Text sx={textStyle}>Percentage Context</Text>
-          </Box>
+          </Box> */}
         </Grid>
-        <Grid
-          h="25vh"
-          templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(3, 1fr)"
-          gap={5}
-        >
-          <GridItem colSpan={2} bgColor="blackAlpha.100" p={5} mt="10%">
-            <StackedBar />
-          </GridItem>
-          <GridItem colSpan={1} bgColor="blackAlpha.100" p={5} mt="20%">
-            <CalendarComponent />
-          </GridItem>
-          <GridItem rowSpan={1} bgColor="blackAlpha.100" p={5}>
-            <DoughnutChart />
-          </GridItem>
-          <GridItem colSpan={2} bgColor="blackAlpha.100" p={5}>
-            <BarChart />
-          </GridItem>
-        </Grid>
+        {/* 
+         */}
       </Flex>
     </Flex>
   );
