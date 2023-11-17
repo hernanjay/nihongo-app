@@ -17,7 +17,8 @@ import {
 } from "@chakra-ui/table";
 import QuestionSets from "./QuestionSets";
 
-const Level = ({ index }) => {
+const QuestionLevel = ({ index, vocabCount, kanjiCount, grammarCount }) => {
+    vocabCount && console.log(vocabCount);
     return (
         <AccordionItem key={index} my="1">
             <h2>
@@ -27,7 +28,9 @@ const Level = ({ index }) => {
                         {`N${index}`}
                     </Box>
                     <Box as="span" flex="1" textAlign="right" mx="5">
-                        25/100
+                        {vocabCount && 0 / vocabCount?.length}
+                        {kanjiCount && 0 / kanjiCount?.length}
+                        {grammarCount && 0 / grammarCount?.length}
                     </Box>
                     <AccordionIcon />
                 </AccordionButton>
@@ -43,19 +46,13 @@ const Level = ({ index }) => {
                                 <Th isNumeric>Status</Th>
                             </Tr>
                         </Thead>
-                        <Tbody>{<QuestionSets index={20} />}</Tbody>
-                        <Tfoot>
-                            <Tr>
-                                <Th>Question #</Th>
-                                <Th>Number of Items</Th>
-                                <Th isNumeric>Score</Th>
-                                <Th isNumeric>Status</Th>
-                            </Tr>
-                        </Tfoot>
+                        <Tbody>
+                            <QuestionSets index={index} />
+                        </Tbody>
                     </Table>
                 </TableContainer>
             </AccordionPanel>
         </AccordionItem>
     );
 };
-export default Level;
+export default QuestionLevel;
