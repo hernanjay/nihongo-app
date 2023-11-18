@@ -3,15 +3,23 @@ import { createContext, useReducer } from "react";
 export const QuestionContext = createContext();
 
 const initialQuestionState = {
-    questions: null,
+    vocabQuestions: null,
+    grammarQuestions: null,
+    kanjiQuestions: null,
+    countBySetVocab: null,
+    countBySetGrammar: null,
+    countBySetKanji: null,
 };
 
 const questionReducer = (state, action) => {
     switch (action.type) {
-        case "dataReceive":
+        case "dataReceived":
+            console.log(action.payload);
             return {
                 ...state,
-                questions: action.payload,
+                countBySetVocab: action.payload.vocabQuestions,
+                countBySetGrammar: action.payload.grammarQuestions,
+                countBySetKanji: action.payload.kanjiQuestions,
             };
     }
 };

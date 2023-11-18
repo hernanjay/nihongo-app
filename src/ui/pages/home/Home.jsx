@@ -1,17 +1,14 @@
-import { Box, Container, Heading, Accordion } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
 import { useColorModeValue } from "@chakra-ui/react";
 import QuestionLevel from "../../components/QuestionLevel";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import QuestionType from "../../components/QuestionType";
 
 export default function Home() {
     const bg = useColorModeValue("light.400", "dark.100");
     const { dispatch: questionDispatch } = useQuestionContext();
-    const [vocabCount, setVocabCount] = useState(null);
-    const [grammarCount, setGrammarCount] = useState(null);
-    const [kanjiCount, setKanjiCount] = useState(null);
     const numberOfLevel = [1, 2, 3, 4, 5];
     useEffect(() => {
         async function fetchQuestions() {
@@ -28,33 +25,31 @@ export default function Home() {
             }
 
             if (response.ok) {
-                console.log(json);
-                setVocabCount(json.vocabQuestions);
-                setGrammarCount(json.grammarQuestions);
-                setKanjiCount(json.kanjiQuestions);
+                questionDispatch({ type: "dataReceived", payload: json });
             }
         }
         fetchQuestions();
-    }, []);
+    }, [questionDispatch]);
+
     return (
         <>
-            <Box data-testid="home-container" pt={"10vw"} pb={"5vw"}>
+            <Box data-testid="home-container" pt={"7vw"} pb={"5vw"}>
                 <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
                     <QuestionType type="Kanji" bg={bg}>
                         {numberOfLevel.map((num, index) => (
                             <QuestionLevel
                                 index={index + 1}
-                                key={num}
-                                kanjiCount={kanjiCount}
-                            />
+                                key={index}
+                                type="Kanji"
+                            ></QuestionLevel>
                         ))}
                     </QuestionType>
                     <QuestionType type="Vocab" bg={bg}>
                         {numberOfLevel.map((num, index) => (
                             <QuestionLevel
                                 index={index + 1}
-                                key={num}
-                                vocabCount={vocabCount}
+                                key={index}
+                                type="Vocab"
                             />
                         ))}
                     </QuestionType>
@@ -63,7 +58,7 @@ export default function Home() {
                             <QuestionLevel
                                 index={index + 1}
                                 key={num}
-                                grammarCount={grammarCount}
+                                type="Grammar"
                             />
                         ))}
                     </QuestionType>
