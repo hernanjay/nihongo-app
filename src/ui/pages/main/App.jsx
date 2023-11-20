@@ -15,6 +15,7 @@ import Loader from "../../components/Loader";
 import Userlist from "../dummies/userlist";
 import RegisterStepper from "../register/RegisterStepper";
 import MissingPage from "../../components/MissingPage";
+import KanjiQuestionPage from "../kanjiQuestionPage/KanjiQuestionPage";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -36,6 +37,10 @@ function App() {
                   element={
                     user?.role === "admin" ? <Userlist /> : <Navigate to="/" />
                   }
+                />
+                <Route
+                  path="/kanji"
+                  element={!user ? <Login /> : <KanjiQuestionPage />}
                 />
                 <Route
                   path="/login"

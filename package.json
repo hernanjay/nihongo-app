@@ -23,6 +23,7 @@
     "sweetalert2": "^11.9.0"
   },
   "devDependencies": {
+    "@fontsource/raleway": "^5.0.15",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.0",
     "@types/react": "^18.2.15",
