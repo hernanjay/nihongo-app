@@ -1,57 +1,69 @@
-import { Box, Container, Heading, Accordion } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
 import { useColorModeValue } from "@chakra-ui/react";
-import Level from "../../components/Level";
+import QuestionLevel from "../../components/QuestionLevel";
 import { useEffect } from "react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import QuestionType from "../../components/QuestionType";
 
 export default function Home() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const { dispatch: questionDispatch } = useQuestionContext();
-  const numberOfLevel = [1, 2, 3, 4, 5];
+    const bg = useColorModeValue("light.400", "dark.100");
+    const { dispatch: questionDispatch } = useQuestionContext();
+    const numberOfLevel = [1, 2, 3, 4, 5];
+    useEffect(() => {
+        async function fetchQuestions() {
+            const response = await fetch(
+                `${
+                    import.meta.env.VITE_LOCALHOST_API
+                }/api/questions/count-type-level`
+            );
 
-  useEffect(() => {
-    async function fetchQuestions() {
-      const response = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/type-set`
-      );
+            const json = await response.json();
 
-      const json = await response.json();
+            if (!response.ok) {
+                console.log(json.error);
+            }
 
-      if (!response.ok) {
-        console.log(json.error);
-      }
+            if (response.ok) {
+                questionDispatch({ type: "dataReceived", payload: json });
+            }
+        }
+        fetchQuestions();
+    }, [questionDispatch]);
 
-      if (response.ok) {
-        console.log(json);
-      }
-    }
-    fetchQuestions();
-  }, []);
-  return (
-    <>
-      <Box data-testid="home-container" pt={"10vw"} pb={"5vw"}>
-        <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
-          <Heading m="10">Kanji Questions</Heading>
-          <Accordion allowToggle m="10" bg={bg} variant="outline">
-            {numberOfLevel.map((num, index) => (
-              <Level index={index + 1} key={num} />
-            ))}
-          </Accordion>
-          <Heading m="10">Vocab Questions</Heading>
-          <Accordion allowToggle m="10" bg={bg} variant="outline">
-            {numberOfLevel.map((num, index) => (
-              <Level index={index + 1} key={num} />
-            ))}
-          </Accordion>
-          <Heading m="10">Grammar Questions</Heading>
-          <Accordion allowToggle m="10" bg={bg} variant="outline">
-            {numberOfLevel.map((num, index) => (
-              <Level index={index + 1} key={num} />
-            ))}
-          </Accordion>
-        </Container>
-      </Box>
-    </>
-  );
+    return (
+        <>
+            <Box data-testid="home-container" pt={"7vw"} pb={"5vw"}>
+                <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
+                    <QuestionType type="Kanji" bg={bg}>
+                        {numberOfLevel.map((num, index) => (
+                            <QuestionLevel
+                                index={index + 1}
+                                key={index}
+                                type="Kanji"
+                            ></QuestionLevel>
+                        ))}
+                    </QuestionType>
+                    <QuestionType type="Vocab" bg={bg}>
+                        {numberOfLevel.map((num, index) => (
+                            <QuestionLevel
+                                index={index + 1}
+                                key={index}
+                                type="Vocab"
+                            />
+                        ))}
+                    </QuestionType>
+                    <QuestionType type="Grammar" bg={bg}>
+                        {numberOfLevel.map((num, index) => (
+                            <QuestionLevel
+                                index={index + 1}
+                                key={num}
+                                type="Grammar"
+                            />
+                        ))}
+                    </QuestionType>
+                </Container>
+            </Box>
+        </>
+    );
 }
