@@ -20,7 +20,7 @@ export const useRetrieveProfile = () => {
 
     dispatch({ type: "LOGIN", payload: json });
 
-    navigate("/home");
+    navigate("/");
     toast({
       title: "User Logged In",
       position: "top",

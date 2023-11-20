@@ -30,6 +30,7 @@ import VocabQuestionSample from "../../components/VocabQuestionSample";
 import GrammarQuestionSample from "../../components/GrammarQuestionSample";
 import Loader from "../../components/Loader";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import Footer from "../../components/Footer";
 
 export default function LandingPage() {
   const bg = useColorModeValue("light.400", "dark.100");
@@ -382,6 +383,7 @@ export default function LandingPage() {
         <GridItem rowSpan={1} colSpan={8} />
       </Grid>
       {/* Banner */}
+      <Footer />
     </>
   );
 }
