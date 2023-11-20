@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTQzOTJkYWQ2MzdjYTdjMGE1MGI0NCIsImVtYWlsIjoiYWRtaW5AYXdzeXMtaS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDAxMDg4NDMsImV4cCI6MTcwMDE5NTI0M30.UDooOFbVJC7N3AjQ0qWGvAF375YkXg4sJ4OtSy6x_lc";
+import { describe, it, expect, beforeAll } from "vitest";
+let token = "";
 
 const signup = async (username, email, password, confirmPassword) => {
   const response = await fetch(
@@ -25,6 +24,28 @@ const signup = async (username, email, password, confirmPassword) => {
 
   if (response.ok) {
     return 200;
+  }
+};
+
+const setTokenToAdmin = async (email, password) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_LOCALHOST_API}/api/users/login`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }
+  );
+  const json = await response.json();
+  if (!response.ok) {
+    return json.error;
+  }
+
+  if (response.ok) {
+    return json;
   }
 };
 
@@ -77,10 +98,12 @@ const deleteUser = async (userId) => {
 // Delete
 
 describe("User Registration UT/IT v1", () => {
-  beforeEach(async () => {
-    const status = await checkUser("nan@awsys-i.com");
-    console.log(status);
-  }, 1000);
+  // beforeEach(async () => {
+  //   const status = await checkUser("nan@awsys-i.com");
+  // }, 1000);
+  beforeAll(async () => {
+    token = await setTokenToAdmin("admin@awsys-i.com", "Admin@123");
+  });
   it("UT2-001 - Empty one or more user's credentials (username: null,email: null, password: null, and/or verify password: null)", async () => {
     const user = await signup("junrel", null, null, null);
     expect(user).toBe(400);

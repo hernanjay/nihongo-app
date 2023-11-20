@@ -17,42 +17,14 @@ function Footer() {
   return (
     <>
       <Divider />
-      <Box id="tryItOutScrollLoc" maxW="100vw" bg={bg} boxShadow={"lg"}>
-        <Container maxW="80vw" py="10">
-          <SimpleGrid columns={3} gap={10}>
-            <List spacing={3}>
-              <ListItem>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                Lorem ipsum dolor sit amet, consectetur
-              </ListItem>
-              <ListItem>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                Assumenda, quia temporibus eveniet a libero incidunt suscipit
-              </ListItem>
-            </List>
-            <List spacing={3}>
-              <ListItem>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                Lorem ipsum dolor sit amet, consectetur
-              </ListItem>
-              <ListItem>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                Assumenda, quia temporibus eveniet a libero incidunt suscipit
-              </ListItem>
-            </List>
-            <List spacing={3}>
-              <ListItem>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                Lorem ipsum dolor sit amet, consectetur
-              </ListItem>
-              <ListItem>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                Assumenda, quia temporibus eveniet a libero incidunt suscipit
-              </ListItem>
-            </List>
-          </SimpleGrid>
-        </Container>
-      </Box>
+      <Box
+        id="tryItOutScrollLoc"
+        maxW="100vw"
+        minH="5vh"
+        maxH="10vh"
+        bg={bg}
+        boxShadow={"lg"}
+      ></Box>
       <Divider />
     </>
   );
