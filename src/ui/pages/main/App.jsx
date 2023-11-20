@@ -23,6 +23,7 @@ import KanjiQuestionPage from "../kanjiQuestionPage/KanjiQuestionPage";
 import Admindashboard from "../admin/Admindashboard";
 import User from "../admin/user";
 import AdminChart from "../admin/AdminChart";
+import UserProfile from "../userProfile/UserProfile";
 // import Chart from "../../Components/chartComponent/Chart";
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/admin" element={<Admindashboard />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/chart" element={<AdminChart />} />
+                <Route path="/userprofile" element={<UserProfile />} />
               </Routes>
             </>
           )}
