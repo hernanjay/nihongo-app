@@ -2,7 +2,7 @@ import { Badge } from "@chakra-ui/layout";
 import { Progress } from "@chakra-ui/progress";
 import { Stat, StatArrow, StatLabel } from "@chakra-ui/stat";
 import { Td, Tr } from "@chakra-ui/table";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const QuestionSets = ({ index, type, level, set }) => {
     const navigate = useNavigate();

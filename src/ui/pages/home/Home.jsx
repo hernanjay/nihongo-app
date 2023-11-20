@@ -2,13 +2,10 @@ import { Box, Container } from "@chakra-ui/react";
 
 import { useColorModeValue } from "@chakra-ui/react";
 import QuestionLevel from "../../components/QuestionLevel";
-import { useEffect } from "react";
-import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import QuestionType from "../../components/QuestionType";
 
 export default function Home() {
     const bg = useColorModeValue("light.400", "dark.100");
-    // const { dispatch: questionDispatch } = useQuestionContext();
     const numberOfLevel = [1, 2, 3, 4, 5];
 
     return (
