@@ -17,7 +17,7 @@ import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
 import Userlist from "../dummies/userlist";
-import RegisterStepper from "../register/RegisterStepper";
+// import RegisterStepper from "../register/RegisterStepper";
 import MissingPage from "../../components/MissingPage";
 import KanjiQuestionPage from "../kanjiQuestionPage/KanjiQuestionPage";
 import Admindashboard from "../admin/Admindashboard";
