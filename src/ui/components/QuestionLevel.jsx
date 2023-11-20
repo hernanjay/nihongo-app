@@ -80,7 +80,7 @@ const QuestionLevel = ({ index, type }) => {
                 countBySetKanji?.map((kanji) =>
                   kanji._id.level == index ? (
                     <QuestionSets
-                      key={kanji._id.question}
+                      key={kanji._id.level + kanji._id.type + kanji._id.set}
                       index={ctr++}
                       type={kanji._id.type}
                       level={kanji._id.level}
@@ -91,13 +91,27 @@ const QuestionLevel = ({ index, type }) => {
               {type === "Vocab" &&
                 countBySetVocab?.map((vocab) =>
                   vocab._id.level == index ? (
-                    <QuestionSets key={vocab._id.question} index={ctr++} />
+                    <QuestionSets
+                      key={vocab._id.level + vocab._id.type + vocab._id.set}
+                      index={ctr++}
+                      type={vocab._id.type}
+                      level={vocab._id.level}
+                      set={vocab._id.set}
+                    />
                   ) : null
                 )}
               {type === "Grammar" &&
                 countBySetGrammar?.map((grammar) =>
                   grammar._id.level == index ? (
-                    <QuestionSets key={grammar._id.question} index={ctr++} />
+                    <QuestionSets
+                      key={
+                        grammar._id.level + grammar._id.type + grammar._id.set
+                      }
+                      index={ctr++}
+                      type={grammar._id.type}
+                      level={grammar._id.level}
+                      set={grammar._id.set}
+                    />
                   ) : null
                 )}
             </Tbody>
