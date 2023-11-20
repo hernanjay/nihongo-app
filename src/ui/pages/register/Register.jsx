@@ -25,6 +25,12 @@ import {
   ModalContent,
   ModalBody,
   Spinner,
+  useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
 } from "@chakra-ui/react";
 
 import {
@@ -43,6 +49,7 @@ export default function Register() {
   const navigate = useNavigate();
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
+  const highlight = useColorModeValue("gray.200", "dark.200");
   const [isPassValidFormat, setIsPassValidFormat] = useState(false);
   const [isPassValidLength, setIsPassValidLength] = useState(false);
   const [isPassContainUpper, setIsPassContainUpper] = useState(false);
@@ -50,6 +57,7 @@ export default function Register() {
   const [isPassContainSpecial, setIsPassContainSpecial] = useState(false);
   const [isPassContainNumber, setIsPassContainNumber] = useState(false);
   const [isSamePassword, setIsSamePassword] = useState(false);
+  const { isOpen, onToggle, onClose } = useDisclosure();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -58,11 +66,18 @@ export default function Register() {
     confirmPassword: "",
   });
 
+  const isUsernameEmpty = () => {
+    return formData.username === "" ? true : false;
+  };
+
+  const isEmailEmpty = () => {
+    return formData.email === "" ? true : false;
+  };
+
   const { signup, isLoading, error } = useSignup();
 
   function handleChangeFormData(e) {
     const { name, value } = e.target;
-
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -82,6 +97,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isOpen) onToggle();
     await signup(
       formData.username,
       formData.email + "@awsys-i.com",
@@ -177,10 +193,10 @@ export default function Register() {
             </Link>
           </Flex>
           <form onSubmit={handleSubmit}>
-            <FormControl isRequired>
+            <FormControl>
               {/* Username input Form */}
               <FormLabel mt="3">Username</FormLabel>
-              <InputGroup size="sm">
+              {/* <InputGroup size="sm">
                 <InputLeftAddon children="@" />
                 <Input
                   id="register-username-input"
@@ -191,12 +207,41 @@ export default function Register() {
                   value={formData.username}
                   onChange={handleChangeFormData}
                 />
-              </InputGroup>
+              </InputGroup> */}
+              <Popover
+                returnFocusOnClose={false}
+                autoFocus={false}
+                isOpen={isUsernameEmpty() && isOpen}
+                onClose={onClose}
+                placement="top-end"
+                closeOnBlur={false}
+                variant="outline"
+              >
+                <PopoverTrigger>
+                  <InputGroup size="sm">
+                    <InputLeftAddon children="@" />
+                    <Input
+                      id="register-username-input"
+                      type="text"
+                      placeholder="Username"
+                      colorScheme="blackAlpha"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChangeFormData}
+                    />
+                  </InputGroup>
+                </PopoverTrigger>
+                <PopoverContent bg={highlight} w="fit-content">
+                  <PopoverArrow bg={highlight} />
+                  <PopoverBody fontSize="1vw">
+                    {<ChevronRightIcon mr="2" />}Username field is empty.
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
               <FormHelperText>Enter your username.</FormHelperText>
-
               {/*Email Input Form*/}
               <FormLabel mt="3">Email</FormLabel>
-              <InputGroup size="sm">
+              {/* <InputGroup size="sm">
                 <Input
                   id="register-email-input"
                   placeholder="Email"
@@ -207,9 +252,38 @@ export default function Register() {
                   onChange={handleChangeFormData}
                 />
                 <InputRightAddon children="@awsys-i.com" />
-              </InputGroup>
+              </InputGroup> */}
+              <Popover
+                returnFocusOnClose={false}
+                autoFocus={false}
+                isOpen={isEmailEmpty() && isOpen}
+                onClose={onClose}
+                placement="top-end"
+                closeOnBlur={false}
+                variant="outline"
+              >
+                <PopoverTrigger>
+                  <InputGroup size="sm">
+                    <Input
+                      id="register-email-input"
+                      placeholder="Email"
+                      colorScheme="blackAlpha"
+                      type="text"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChangeFormData}
+                    />
+                    <InputRightAddon children="@awsys-i.com" />
+                  </InputGroup>
+                </PopoverTrigger>
+                <PopoverContent bg={highlight} w="fit-content">
+                  <PopoverArrow bg={highlight} />
+                  <PopoverBody fontSize="1vw">
+                    {<ChevronRightIcon mr="2" />}Email field is empty.
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
               <FormHelperText>Enter your email.</FormHelperText>
-
               {/* Password Input Form */}
               <FormLabel mt="3">Password</FormLabel>
               <InputGroup size="sm">
@@ -300,6 +374,7 @@ export default function Register() {
               <Flex>
                 <Spacer />
                 <Button
+                  data-testid="register-button"
                   leftIcon={<CheckIcon />}
                   colorScheme="gray"
                   variant="outline"
