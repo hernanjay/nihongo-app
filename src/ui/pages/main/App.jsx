@@ -1,5 +1,3 @@
-//
-
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -9,14 +7,16 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "../../Components/NavBar";
 import Login from "../login/Login.Jsx";
 import Register from "../register/Register";
-import HomePage from "../home/Home";
+import Home from "../home/Home";
 import theme from "./Theme";
-import { useAuthContext } from "../../../logic/hooks/useAuthContext";
+import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
+import Footer from "../../components/Footer";
+import Userlist from "../dummies/userlist";
 
 function App() {
-  const { user, isLoading } = useAuthContext();
+  const { user, isLoading } = useUserContext();
   // 4. Wrap ChakraProvider at the root of your app
   return (
     <ChakraProvider theme={theme}>
@@ -27,29 +27,25 @@ function App() {
             <>
               <NavBar />
               <Routes>
+                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/" element={user ? <Home /> : <LandingPage />} />
                 <Route
-                  path="/"
-                  element={user ? <LandingPage /> : <Navigate to="/login" />}
+                  path="/users"
+                  element={
+                    user?.role === "admin" ? <Userlist /> : <Navigate to="/" />
+                  }
                 />
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Navigate to="/" />}
                 />
 
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
-
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
                 <Route
                   path="/register"
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
               </Routes>
+              <Footer />
             </>
           )}
         </BrowserRouter>

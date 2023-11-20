@@ -35,7 +35,7 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { useColorModeValue } from "@chakra-ui/react";
-import { useSignup } from "../../../Logic/hooks/useSignup";
+import { useSignup } from "../../../logic/hooks/user/useSignup";
 
 export default function Register() {
   const [show, setShow] = useState(false);
@@ -236,7 +236,7 @@ export default function Register() {
                 color={isPassValidLength ? "green.300" : "gray.400"}
               >
                 <ChevronRightIcon />
-                Password must be eight-character.
+                Password must be at least eight-character.
               </FormHelperText>
               <FormHelperText
                 color={isPassContainUpper ? "green.300" : "gray.400"}

@@ -1,156 +1,69 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Container,
-  Heading,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  TableContainer,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Stat,
-  StatLabel,
-  StatArrow,
-  Badge,
-  Tfoot,
-  Progress,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
-import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useColorModeValue } from "@chakra-ui/react";
-import { useAuthContext } from "../../../logic/hooks/useAuthContext";
+import QuestionLevel from "../../components/QuestionLevel";
+import { useEffect } from "react";
+import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import QuestionType from "../../components/QuestionType";
 
-function setQuestionStatus() {
-  let x = Math.round(Math.random() * (2 - 0) + 0);
-  if (x === 0) {
-    return <Badge colorScheme="green">Success</Badge>;
-  } else if (x === 1) {
-    return <Badge colorScheme="red">Fail</Badge>;
-  } else {
-    return <Badge colorScheme="teal">New</Badge>;
-  }
-}
+export default function Home() {
+    const bg = useColorModeValue("light.400", "dark.100");
+    const { dispatch: questionDispatch } = useQuestionContext();
+    const numberOfLevel = [1, 2, 3, 4, 5];
+    useEffect(() => {
+        async function fetchQuestions() {
+            const response = await fetch(
+                `${
+                    import.meta.env.VITE_LOCALHOST_API
+                }/api/questions/count-type-level`
+            );
 
-function createCards(amount) {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const cards = [];
-  const toast = useToast();
-  for (let index = 0; index < amount; index++) {
-    cards.push(
-      <Tr key={index}>
-        <Td
-          onClick={() => {
-            toast({
-              title: "Test Opened.",
-              description: "This is a sample text thankyou.",
-              status: "success",
-              duration: 500,
-              isClosable: true,
-            });
-          }}
-          style={{ cursor: "pointer" }}
-        >
-          {`Question : ${index + 1}`}
-        </Td>
-        <Td>
-          <Progress value={Math.round(Math.random() * (100 - 75) + 75)} />{" "}
-        </Td>
-        <Td isNumeric>
-          <Stat>
-            <StatLabel>
-              {Math.round(Math.random()) ? (
-                <StatArrow type="increase" />
-              ) : (
-                <StatArrow type="decrease" />
-              )}
-              {Math.round(Math.random() * (100 - 75) + 75)}
-            </StatLabel>
-          </Stat>
-        </Td>
-        <Td isNumeric>{setQuestionStatus()}</Td>
-      </Tr>
-    );
-  }
-  return cards;
-}
+            const json = await response.json();
 
-function createItem(amount) {
-  const item = [];
-  for (let index = amount; index > 0; index--) {
-    item.push(
-      <AccordionItem key={index} my="1">
-        <h2>
-          <AccordionButton variant="solid">
-            <Box as="span" flex="1" textAlign="left">
-              <ChevronRightIcon mx="5" />
-              {`N${index}`}
+            if (!response.ok) {
+                console.log(json.error);
+            }
+
+            if (response.ok) {
+                questionDispatch({ type: "dataReceived", payload: json });
+            }
+        }
+        fetchQuestions();
+    }, [questionDispatch]);
+
+    return (
+        <>
+            <Box data-testid="home-container" pt={"7vw"} pb={"5vw"}>
+                <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
+                    <QuestionType type="Kanji" bg={bg}>
+                        {numberOfLevel.map((num, index) => (
+                            <QuestionLevel
+                                index={index + 1}
+                                key={index}
+                                type="Kanji"
+                            ></QuestionLevel>
+                        ))}
+                    </QuestionType>
+                    <QuestionType type="Vocab" bg={bg}>
+                        {numberOfLevel.map((num, index) => (
+                            <QuestionLevel
+                                index={index + 1}
+                                key={index}
+                                type="Vocab"
+                            />
+                        ))}
+                    </QuestionType>
+                    <QuestionType type="Grammar" bg={bg}>
+                        {numberOfLevel.map((num, index) => (
+                            <QuestionLevel
+                                index={index + 1}
+                                key={num}
+                                type="Grammar"
+                            />
+                        ))}
+                    </QuestionType>
+                </Container>
             </Box>
-            <Box as="span" flex="1" textAlign="right" mx="5">
-              25/100
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>
-          {/* <SimpleGrid columns={4} spacing={5} m='5'>
-                        {createCards(30)}
-                    </SimpleGrid> */}
-          <TableContainer>
-            <Table variant="simple">
-              {/* <TableCaption></TableCaption> */}
-              <Thead>
-                <Tr>
-                  <Th>Question #</Th>
-                  <Th>Number of Items</Th>
-                  <Th isNumeric>Score</Th>
-                  <Th isNumeric>Status</Th>
-                </Tr>
-              </Thead>
-              <Tbody>{createCards(30)}</Tbody>
-              <Tfoot>
-                <Tr>
-                  <Th>Question #</Th>
-                  <Th>Number of Items</Th>
-                  <Th isNumeric>Score</Th>
-                  <Th isNumeric>Status</Th>
-                </Tr>
-              </Tfoot>
-            </Table>
-          </TableContainer>
-        </AccordionPanel>
-      </AccordionItem>
+        </>
     );
-  }
-  return item;
-}
-
-export default function HomePage() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const { user } = useAuthContext();
-  return (
-    <>
-      <Container maxW="container.xl" bg={bg} p="5" my="10" borderRadius="10">
-        <Heading m="10">Kanji Questions</Heading>{" "}
-        <Accordion allowToggle m="10" bg={bg} variant="outline">
-          {createItem(5)}
-        </Accordion>
-        <Heading m="10">Vocab Questions</Heading>
-        <Accordion allowToggle m="10" bg={bg} variant="outline">
-          {createItem(5)}
-        </Accordion>
-        <Heading m="10">Grammar Questions</Heading>
-        <Accordion allowToggle m="10" bg={bg} variant="outline">
-          {createItem(5)}
-        </Accordion>
-      </Container>
-    </>
-  );
 }
