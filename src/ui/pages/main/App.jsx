@@ -2,8 +2,6 @@
 
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
-// 3. CSS for admin dashboard design
-import "../styles/globals.css";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 

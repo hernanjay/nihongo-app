@@ -38,6 +38,7 @@ export default function NavBar() {
 
   const colorMode = useColorMode().colorMode;
   const bg = useColorModeValue("light.400", "dark.100");
+
   return (
     <Flex
       position="fixed"
