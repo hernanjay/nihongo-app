@@ -143,7 +143,7 @@ export default function User() {
           </Heading>
         </Flex>
         <Flex flexDir="column">
-          <Flex overflow="auto" >
+          <Flex overflow="auto">
             <Table variant="unstyled" mt={4}>
               <Thead>
                 <Tr color="gray">
@@ -175,9 +175,15 @@ export default function User() {
                     </Text>
                   </Td>
                   <Td>
-                    <Link><Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;</Link>
-                    <Link><Icon as={FiEdit} fontSize="lg"></Icon>&nbsp;&nbsp;</Link>
-                    <Link><Icon as={FiTrash} fontSize="lg"></Icon>&nbsp;</Link>
+                    <Link>
+                      <Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;
+                    </Link>
+                    <Link>
+                      <Icon as={FiEdit} fontSize="lg"></Icon>&nbsp;&nbsp;
+                    </Link>
+                    <Link>
+                      <Icon as={FiTrash} fontSize="lg"></Icon>&nbsp;
+                    </Link>
                   </Td>
                 </Tr>
               </Tbody>
