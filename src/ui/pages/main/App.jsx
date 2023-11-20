@@ -22,6 +22,7 @@ import Admindashboard from "../admin/Admindashboard";
 import User from "../admin/user";
 import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
+import Comp from "../dummies/comp";
 // import Chart from "../../Components/chartComponent/Chart";
 
 function App() {
@@ -36,7 +37,6 @@ function App() {
             <>
               <NavBar />
               <Routes>
-                {/* <Route path="*" element={<Navigate to="/" />} /> */}
                 <Route path="*" element={<MissingPage />} />
                 <Route path="/" element={user ? <Home /> : <LandingPage />} />
                 <Route

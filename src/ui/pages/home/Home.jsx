@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <>
       <Box data-testid="home-container" pt={"7vw"} pb={"5vw"}>
-        <Container maxW="container.xl" bg={bg} p="5" borderRadius="10">
+        <Box maxW="70vw" bg={bg} p="5" borderRadius="10">
           <QuestionType type="Kanji" bg={bg}>
             {numberOfLevel.map((num, index) => (
               <QuestionLevel
@@ -52,7 +52,7 @@ export default function Home() {
               <QuestionLevel index={index + 1} key={num} type="Grammar" />
             ))}
           </QuestionType>
-        </Container>
+        </Box>
       </Box>
     </>
   );

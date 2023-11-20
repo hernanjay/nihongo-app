@@ -39,83 +39,82 @@ import {
 import React from "react";
 
 const UserProfile = () => {
-    const bg = useColorModeValue("light.400", "dark.100");
-    const border = useColorModeValue("dark.100", "light.400");
-    return(
-            <Grid
-            h="140vh"
-            templateRows="repeat(8, 1fr)"
-            templateColumns="repeat(8, 1fr)"
-            gap={4}
-            bg={bg}
-            >
-                <GridItem rowSpan={2} colSpan={8} />
-                <GridItem rowSpan={1} colSpan={2} />
-                <GridItem rowSpan={1} colSpan={2}>
-                    <Image
-                        //objectFit='cover'
-                        maxW={{ base: '100%', sm: '200px' }}
-                        src="src\assets\character_boy_normal.png"
-                        alt='pictureForUserProfile'
-                        boxSize="320px"
-                    />
-                </GridItem>
-                <GridItem rowSpan={1} colSpan={2}>
-                    <Heading pb={4} size='md'>
-                        User Profile
-                    </Heading>
-                    <Stack direction='row'>
-                        <Stack>
-
-                            <FormControl>
-                                <FormLabel>Firstname</FormLabel>
-                                <Input type='firstName' placeholder='First name' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Lastname</FormLabel>
-                                <Input type='lastName' placeholder='Last name' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Cell Number</FormLabel>
-                                <Input type='cellNumber' placeholder='Cell number' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Gender</FormLabel>
-                                <Input type='gender' placeholder='Gender' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Birthday</FormLabel>
-                                <Input type='birthday' placeholder='Birthday' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Address</FormLabel>
-                                <Input type='address' placeholder='Address' />
-                            </FormControl>
-                        </Stack>
-                        <Divider orientation='vertical' />
-                        <Stack>
-                            <FormControl>
-                                <FormLabel>Username</FormLabel>
-                                <Input type='userName' placeholder='Username' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Email</FormLabel>
-                                <Input type='email' placeholder='Email' />
-                            </FormControl>
-                        </Stack>
-                    </Stack>
-                    <Wrap spacing={4} pt={4}>
-                        <WrapItem>
-                            <Button colorScheme='blue'>Edit Profile</Button>
-                        </WrapItem>
-                        <WrapItem>
-                            <Button colorScheme='red'>Cancel</Button>
-                        </WrapItem>
-                    </Wrap>
-                </GridItem>
-                <GridItem rowSpan={1} colSpan={2}></GridItem>
-            </Grid>
-            /* <Card
+  const bg = useColorModeValue("light.400", "dark.100");
+  const border = useColorModeValue("dark.100", "light.400");
+  return (
+    <Grid
+      h="140vh"
+      templateRows="repeat(8, 1fr)"
+      templateColumns="repeat(8, 1fr)"
+      gap={4}
+      bg={bg}
+    >
+      <GridItem rowSpan={2} colSpan={8} />
+      <GridItem rowSpan={1} colSpan={2} />
+      <GridItem rowSpan={1} colSpan={2}>
+        <Image
+          //objectFit='cover'
+          maxW={{ base: "100%", sm: "200px" }}
+          src="src\assets\character_boy_normal.png"
+          alt="pictureForUserProfile"
+          boxSize="320px"
+        />
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={2}>
+        <Heading pb={4} size="md">
+          User Profile
+        </Heading>
+        <Stack direction="row">
+          <Stack>
+            <FormControl>
+              <FormLabel>Firstname</FormLabel>
+              <Input type="firstName" placeholder="First name" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Lastname</FormLabel>
+              <Input type="lastName" placeholder="Last name" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Cell Number</FormLabel>
+              <Input type="cellNumber" placeholder="Cell number" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Gender</FormLabel>
+              <Input type="gender" placeholder="Gender" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Birthday</FormLabel>
+              <Input type="birthday" placeholder="Birthday" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Address</FormLabel>
+              <Input type="address" placeholder="Address" />
+            </FormControl>
+          </Stack>
+          <Divider orientation="vertical" />
+          <Stack>
+            <FormControl>
+              <FormLabel>Username</FormLabel>
+              <Input type="userName" placeholder="Username" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Email</FormLabel>
+              <Input type="email" placeholder="Email" />
+            </FormControl>
+          </Stack>
+        </Stack>
+        <Wrap spacing={4} pt={4}>
+          <WrapItem>
+            <Button colorScheme="blue">Edit Profile</Button>
+          </WrapItem>
+          <WrapItem>
+            <Button colorScheme="red">Cancel</Button>
+          </WrapItem>
+        </Wrap>
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={2}></GridItem>
+    </Grid>
+    /* <Card
                 direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 bg={bg}
@@ -190,8 +189,8 @@ const UserProfile = () => {
                     </CardBody>
                 </Stack>
             </Card> */
-    )
-    /*
+  );
+  /*
     return (
         <Grid
             h="100vh"
