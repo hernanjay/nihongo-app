@@ -46,16 +46,16 @@ export default function Admindashboard() {
     w: "100%",
     h: "100",
     bgColor: "gray.400",
-  }
+  };
   const headStyle = {
     color: "blackAlpha.900",
     textAlign: "center",
     pt: 3,
-  }
+  };
   const textStyle = {
     pt: 3,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  };
   return (
     <Flex
       h={[null, null, "100vh"]}
@@ -83,7 +83,7 @@ export default function Admindashboard() {
             >
               Admin Dashboard
             </Heading>
-            <Flex   
+            <Flex
               flexDir={["row", "row", "row", "column", "column"]}
               align={["center", "center", "center", "flex-start", "flex-start"]}
               wrap="wrap"
@@ -170,11 +170,36 @@ export default function Admindashboard() {
         </Text>{" "} */}
         {/* <Chart /> */}
         <Grid templateColumns="repeat(5, 1fr)" gap={6} pt="2%" wrap="wrap">
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N1</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N2</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N3</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N4</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
-        <Box sx={boxStyle}><Heading sx={headStyle} size="md">N5</Heading><Text sx={textStyle}>Percentage Context</Text></Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N1
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N2
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N3
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N4
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
+          <Box sx={boxStyle}>
+            <Heading sx={headStyle} size="md">
+              N5
+            </Heading>
+            <Text sx={textStyle}>Percentage Context</Text>
+          </Box>
         </Grid>
         <Flex justifyContent="space-between" mt={8}>
           <Flex align="flex-end">

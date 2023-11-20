@@ -9,9 +9,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 //Importing Website Components
 import NavBar from "../../components/NavBar";
-import Login from "../login/Login.Jsx";
+import Login from "../login/Login";
 import Register from "../register/Register";
-import HomePage from "../home/Home";
+import Home from "../home/Home";
 import theme from "./Theme";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import LandingPage from "../landingPage/LandingPage";
@@ -26,7 +26,7 @@ import AdminChart from "../admin/AdminChart";
 // import Chart from "../../Components/chartComponent/Chart";
 
 function App() {
-  const { user } = useUserContext();
+  const { user, isLoading } = useUserContext();
   // 4. Wrap ChakraProvider at the root of your app
   return (
     <ChakraProvider theme={theme}>
