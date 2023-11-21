@@ -48,7 +48,7 @@ import {
 } from "react-icons/fi";
 import { TriangleDownIcon } from '@chakra-ui/icons';
 export default function List() {
-    const [display, changeDisplay] = useState("hide");
+  const [display, changeDisplay] = useState("hide");
   return (
     <Box>
       <Flex
@@ -66,31 +66,30 @@ export default function List() {
           pt="6%"
           boxShadow="2xl"
         >
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
-          </BreadcrumbItem>
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
+            </BreadcrumbItem>
 
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/list">List of Students</BreadcrumbLink>
-          </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/list">List of Students</BreadcrumbLink>
+            </BreadcrumbItem>
 
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<TriangleDownIcon />}
-              variant="outline"
-            />
-            <MenuList>
-              <MenuItem as='a' icon={<FiBook />}>Grading</MenuItem>
-              {/* <MenuItem as='a' href='/admin' icon={<FiUser />}>List of Students</MenuItem> */}
-              <MenuItem as='a' href='/list' icon={<FiPaperclip />}>Manage Questionaire</MenuItem>
-              <MenuItem as='a' href='/user' icon={<FiUserCheck />}>Manage Users</MenuItem>
-            </MenuList>
-          </Menu>
-        </Breadcrumb>
-        <Flex align="flex-end">
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<TriangleDownIcon />}
+                variant="outline"
+              />
+              <MenuList>
+                <MenuItem as="a" href="/grading" icon={<FiBook />}>Grading</MenuItem>
+                <MenuItem as='a' href="/managequestioner" icon={<FiPaperclip />}>Manage Questionaire</MenuItem>
+                <MenuItem as='a' href='/user' icon={<FiUserCheck />}>Manage Users</MenuItem>
+              </MenuList>
+            </Menu>
+          </Breadcrumb>
+          <Flex align="flex-end">
             <Heading mt={5} as="h2" size="lg" letterSpacing="tight">
               List of Students
             </Heading>
@@ -98,7 +97,7 @@ export default function List() {
               November 2023
             </Text> */}
           </Flex>
-         <Flex alignContent="center" p={5} m={5}>
+          <Flex alignContent="center" p={5} m={5}>
             <InputGroup
               bgColor="#fff"
               mb={4}
@@ -290,9 +289,9 @@ export default function List() {
               <Divider />
             </Flex>
           </Flex>
+        </Flex>
+
       </Flex>
-      
-    </Flex>
     </Box>
   );
 }

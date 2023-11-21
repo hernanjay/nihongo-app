@@ -87,7 +87,7 @@ export default function List() {
                 <MenuItem as="a" href="/list" icon={<FiUser />}>
                   List of Students
                 </MenuItem>
-                <MenuItem as="a" icon={<FiPaperclip />}>
+                <MenuItem as="a" href="/managequestioner" icon={<FiPaperclip />}>
                   Manage Questionaire
                 </MenuItem>
                 <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
