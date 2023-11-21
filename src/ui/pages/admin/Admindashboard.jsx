@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-// import { Chart } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
 import {
   Flex,
@@ -51,25 +50,26 @@ import {
   FiMenu,
   FiArrowDown,
 } from "react-icons/fi";
+import ChartComp from "../../Components/Chart";
+import DoughnutChart from "../../components/Doughnut";
+// import DoughnutChart from "../../components/Doughnut";
 import { TriangleDownIcon } from "@chakra-ui/icons";
 // import Chart from "../../Components/chartComponent/Chart.jsx";
 // import { color } from "framer-motion";
 
 export default function Admindashboard() {
-  const [display, changeDisplay] = useState("hide");
   const boxStyle = {
     w: "100%",
     h: "150",
-    bgColor: "gray.400",
+    shadow: "lg",
+    bgColor: "RGBA(0, 0, 0, 0.06)",
   };
   const headStyle = {
     color: "blackAlpha.900",
-    textAlign: "center",
-    pt: 3,
-  };
-  const textStyle = {
-    pt: 3,
-    textAlign: "center",
+    textAlign: "left",
+    p: 3,
+    m: 3,
+    fontSize: "2em",
   };
   return (
     <Box>
@@ -143,49 +143,48 @@ export default function Admindashboard() {
               <Heading sx={headStyle} size="md">
                 N1
               </Heading>
-              <Text sx={textStyle}>Percentage Context</Text>
+              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N2
               </Heading>
-              <Text sx={textStyle}>Percentage Context</Text>
+              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N3
               </Heading>
-              <Text sx={textStyle}>Percentage Context</Text>
+              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N4
               </Heading>
-              <Text sx={textStyle}>Percentage Context</Text>
+              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N5
               </Heading>
-              <Text sx={textStyle}>Percentage Context</Text>
+              {/* <Text>Percentage Context</Text> */}
             </Box>
           </Grid>
-          <Grid templateColumns="repeat(3, 1fr)" gap={10} pt="5%" h="60vh">
-            <GridItem bg={"blue"} colSpan={2}>
-              <Grid templateRows="repeat(3, 1fr)" h="52vh">
-                <GridItem rowSpan={1} w="100%" bg="blue"></GridItem>
-                <GridItem rowSpan={2} w="100%" bg="gray">
-                  {/* <Chart></Chart> */}
-                </GridItem>
-              </Grid>
+          <Grid
+            templateColumns="repeat(3, 1fr)"
+            gap={10}
+            pt="5%"
+            h="60vh"
+            mb={10}
+          >
+            <GridItem colSpan={2} border="2px groove">
+              <ChartComp />
             </GridItem>
-            <GridItem bg={"green"}></GridItem>
+            <GridItem colSpan={1} border="2px groove">
+              <DoughnutChart></DoughnutChart>
+            </GridItem>
           </Grid>
         </Flex>
-        {/* Column 3 */}
-        {/* <Flex w="45%" bgColor="#f5f5f5" p="3%" flexDir="column" overflow="auto">
-        
-      </Flex> */}
       </Flex>
     </Box>
   );
