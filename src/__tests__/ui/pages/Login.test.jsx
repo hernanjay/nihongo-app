@@ -1,4 +1,4 @@
-import { it, describe, expect, beforeEach } from "vitest";
+import { it, describe, expect, beforeEach, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ContextWrapper from "../../../ui/components/ContextWrapper";
@@ -22,7 +22,11 @@ describe("-------------- Login Render Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_LOGIN-100 Check if login page renders properly", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("VITEST_UT_LOGIN-101 Should Show the entire login page", () => {
         const loginButton = screen.getByRole("button", { name: /login/i });
@@ -48,7 +52,11 @@ describe("-------------- Login Render Testing --------------", () => {
 describe("-------------- Unit Testing --------------", () => {
   describe("VITEST_UT_LOGIN-200 Check if login form Show error alerts", () => {
     beforeEach(() => {
-      render(<ContextWrapper app={<App />} />);
+      render(
+        <ContextWrapper>
+          <App />
+        </ContextWrapper>
+      );
     });
     it("VITEST_UT_LOGIN-201 Should Show popup alert on both fields if login button pressed without both input fields", async () => {
       const loginButton = screen.getByTestId("login-button");
@@ -85,6 +93,11 @@ describe("-------------- Unit Testing --------------", () => {
       fireEvent.change(password, { target: { value: "palceholder" } });
       const loginButton = screen.getByTestId("login-button");
       fireEvent.click(loginButton);
+      const loader = await screen.findByTestId("loader");
+      await waitFor(() => {
+        expect(loader).not.toBeInTheDocument();
+      });
+      screen.logTestingPlaygroundURL();
       const popUp = await screen.findByText(
         /Check Password and Email if input is Valid/i
       );
@@ -95,7 +108,11 @@ describe("-------------- Unit Testing --------------", () => {
 describe("-------------- Integration Testing --------------", () => {
   describe("VITEST_IT-100 Check if login form logins user correctly", () => {
     beforeEach(() => {
-      render(<ContextWrapper app={<App />} />);
+      render(
+        <ContextWrapper>
+          <App />
+        </ContextWrapper>
+      );
     });
     it("VITEST_IT-101 Should fill up login form and login user", async () => {
       //User Data to Use

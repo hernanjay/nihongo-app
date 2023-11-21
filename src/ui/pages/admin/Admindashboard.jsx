@@ -1,10 +1,5 @@
 import React from "react";
 import { useState } from "react";
-<<<<<<< HEAD
-
-// import { Chart } from 'react-chartjs-2';
-=======
->>>>>>> a326aab7c6fae89f4b3306c7384834bf3c8118be
 import { Link } from "react-router-dom";
 import {
   Flex,
@@ -63,21 +58,11 @@ import { TriangleDownIcon } from "@chakra-ui/icons";
 // import { color } from "framer-motion";
 
 export default function Admindashboard() {
-<<<<<<< HEAD
-  const [display, changeDisplay] = useState("hide");
-  
-  const boxStyle = {
-    w: "100%",
-    h: "150",
-    bgColor: "gray.400",
-  
-=======
   const boxStyle = {
     w: "100%",
     h: "150",
     shadow: "lg",
     bgColor: "RGBA(0, 0, 0, 0.06)",
->>>>>>> a326aab7c6fae89f4b3306c7384834bf3c8118be
   };
   const headStyle = {
     color: "blackAlpha.900",
