@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  GridItem,
-  ListItem,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { Box, GridItem, UnorderedList } from "@chakra-ui/react";
 import QuestionItem from "./QuestionItem";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
@@ -14,6 +8,7 @@ const QuestionList = ({ bg, hoverColor, hasSubmit }) => {
     <GridItem colSpan={"2"}>
       <Box maxW={"60vw"}>
         <UnorderedList>
+          {console.log(questions)}
           {questions?.map((qn, index) => (
             <QuestionItem
               qn={qn}
