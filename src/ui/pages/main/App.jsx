@@ -1,4 +1,5 @@
 //
+import React from "react";
 
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";

@@ -93,7 +93,13 @@ export default function NavBar() {
                       Users
                     </MenuItem>
                   )}
-                  <MenuItem icon={<InfoOutlineIcon />}>User Profile</MenuItem>
+                  <MenuItem
+                    icon={<InfoOutlineIcon />}
+                    as={Link}
+                    to="/userprofile"
+                  >
+                    User Profile
+                  </MenuItem>
                   <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>
                   <MenuItem icon={<ExternalLinkIcon />}>Grades</MenuItem>
                 </MenuList>
