@@ -1,12 +1,4 @@
-import {
-  Container,
-  Grid,
-  border,
-  useColorModeValue,
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-} from "@chakra-ui/react";
+import { Container, Grid, useColorModeValue } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import QuestionSideSets from "./QuestionSideSets";
@@ -28,6 +20,7 @@ const QuestionLayout = () => {
     answers,
     dispatch: questionDispatch,
   } = useQuestionContext();
+
   const { level, type, set } = useParams();
 
   const checked = questions?.map(

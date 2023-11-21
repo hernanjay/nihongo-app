@@ -36,7 +36,7 @@ function HomeUserProfileCard() {
             />
           </Center>
         </CardHeader>
-        <CardBody minH="30vh" bg={bg}>
+        <CardBody minH="35vh" bg={bg}>
           <Box minH="12.5vh"></Box>
           <Heading fontWeight="normal" textAlign="center">
             @{user.username}
@@ -46,7 +46,7 @@ function HomeUserProfileCard() {
             {user.email}
           </Text>
         </CardBody>
-        <CardFooter minH="20vh" bg={bg}></CardFooter>
+        <CardFooter roundedBottom="xl" minH="20vh" bg={bg}></CardFooter>
       </Card>
     </Box>
   );

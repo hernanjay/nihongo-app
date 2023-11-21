@@ -20,6 +20,7 @@ import QuestionLayout from "../questions/QuestionLayout";
 import Admindashboard from "../admin/Admindashboard";
 import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
+import KanaLayout from "../kanas/KanaLayout";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -57,6 +58,7 @@ function App() {
                   path="/questions/:level/:type/:set"
                   element={<QuestionLayout />}
                 />
+                <Route path="/alphabet/:type" element={<KanaLayout />} />
 
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
