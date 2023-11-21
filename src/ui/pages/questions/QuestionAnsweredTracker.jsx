@@ -12,37 +12,53 @@ import {
 } from "@chakra-ui/react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
-const QuestionAnsweredTracker = ({ bg, border }) => {
+const QuestionAnsweredTracker = ({
+    bg,
+    border,
+    checked,
+    hasSubmit,
+    setHasSubmit,
+}) => {
     const { questions, answers } = useQuestionContext();
+    const allAnswered = answers.includes(null);
     return (
         <GridItem colSpan="1">
-            <Card boxShadow="lg" bgColor={bg} position="sticky" top="7.5vw">
+            <Card
+                textColor={"black"}
+                boxShadow="lg"
+                bgColor={bg}
+                position="sticky"
+                top="7.5vw"
+                textAlign="center"
+            >
                 <CardHeader pb="-1">
-                    <Text fontSize={"1.5vw"}>Questions</Text>
+                    <Text fontSize={"1.5vw"}>Answer Tracker</Text>
                 </CardHeader>
                 <CardBody>
                     <Flex flexWrap="wrap">
                         {questions?.map((question, index) => {
-                            const questionNumber = index + 1;
-
                             return (
-                                <>
-                                    <Tag
-                                        key={questionNumber}
-                                        size="lg"
-                                        variant="outline"
-                                        mx=".5rem"
-                                        borderColor={border}
-                                        mt="1rem"
-                                        bg={
-                                            answers[index] !== null
-                                                ? "blue.300"
-                                                : bg
-                                        }
-                                    >
-                                        <TagLabel>{`Q${questionNumber}`}</TagLabel>
-                                    </Tag>
-                                </>
+                                <Tag
+                                    key={question._id}
+                                    size="lg"
+                                    variant="outline"
+                                    mx=".5rem"
+                                    borderColor={border}
+                                    mt="1rem"
+                                    bg={
+                                        hasSubmit
+                                            ? checked[index]
+                                                ? "green.300"
+                                                : "red.300"
+                                            : answers[index] !== null
+                                            ? "blue.300"
+                                            : bg
+                                    }
+                                >
+                                    <TagLabel key={index}>{`Q${
+                                        index + 1
+                                    }`}</TagLabel>
+                                </Tag>
                             );
                         })}
                     </Flex>
@@ -51,14 +67,9 @@ const QuestionAnsweredTracker = ({ bg, border }) => {
                     <Button
                         borderColor={border}
                         variant="outline"
+                        isDisabled={allAnswered || hasSubmit}
                         onClick={() => {
-                            const element =
-                                document.getElementById("tryItOutScrollLoc");
-                            element.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center",
-                                inline: "nearest",
-                            });
+                            setHasSubmit(true);
                         }}
                     >
                         Submit
