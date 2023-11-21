@@ -40,7 +40,6 @@ import React from "react";
 
 const UserProfile = () => {
   const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
   return (
     <Grid
       h="140vh"
@@ -261,7 +260,6 @@ const UserProfile = () => {
         </Grid>
     );
     */
-    const bg = useColorModeValue("light.400", "dark.100");
     const border = useColorModeValue("dark.100", "light.400");
     return(
             <Grid
