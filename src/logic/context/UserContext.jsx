@@ -39,6 +39,8 @@ export const UserContextProvider = ({ children }) => {
 
             const json = await response.json();
 
+            if (!response.ok) console.log(json.error);
+
             dispatch({ type: "LOGIN", payload: json });
         };
 
