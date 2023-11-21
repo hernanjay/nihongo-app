@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useColorModeValue } from "@chakra-ui/react";
 // import { Chart } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
 import {
@@ -47,10 +48,15 @@ import {
 
 export default function Admindashboard() {
   const [display, changeDisplay] = useState("hide");
+  const bg = useColorModeValue("light.400", "dark.100");
+  const highlight = useColorModeValue("gray.200", "dark.200");
+  const border = useColorModeValue("dark.100", "light.400");
   const boxStyle = {
     w: "100%",
     h: "150",
-    bgColor: "gray.400",
+    bgColor: "white",
+    rounded: 'md',
+    boxShadow:'2xl'
   };
   const headStyle = {
     color: "blackAlpha.900",
@@ -79,6 +85,7 @@ export default function Admindashboard() {
           minH="100vh"
           bg="white"
           pt="6%"
+          boxShadow='2xl'
         >
           <Breadcrumb>
             <BreadcrumbItem>
