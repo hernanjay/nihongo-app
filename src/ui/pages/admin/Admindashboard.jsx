@@ -28,6 +28,11 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
   GridItem,
 } from "@chakra-ui/react";
 import {
@@ -41,8 +46,13 @@ import {
   FiBook,
   FiSearch,
   FiBell,
+  FiUser,
+  FiUserCheck,
+  FiPaperclip,
+  FiMenu,
+  FiArrowDown,
 } from "react-icons/fi";
-// import Chart from "../../Components/Chart";
+import { TriangleDownIcon } from "@chakra-ui/icons";
 // import Chart from "../../Components/chartComponent/Chart.jsx";
 // import { color } from "framer-motion";
 
@@ -73,7 +83,7 @@ export default function Admindashboard() {
         flexDir={["column", "column", "row"]}
         overflow="hidden"
         justifyContent="center"
-        boxShadow="outline"
+        
       >
         {/* Column 1 */}
         {/* Column 2 */}
@@ -89,22 +99,42 @@ export default function Admindashboard() {
         >
           <Breadcrumb>
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Home</BreadcrumbLink>
+              <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
 
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Docs</BreadcrumbLink>
-            </BreadcrumbItem>
+            {/* <BreadcrumbItem>
+            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
+          </BreadcrumbItem> */}
 
-            <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink href="#">Breadcrumb</BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>{" "}
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<TriangleDownIcon />}
+                variant="outline"
+              />
+              <MenuList>
+                <MenuItem as="a" icon={<FiBook />}>
+                  Grading
+                </MenuItem>
+                <MenuItem as="a" href="/list" icon={<FiUser />}>
+                  List of Students
+                </MenuItem>
+                <MenuItem as="a" icon={<FiPaperclip />}>
+                  Manage Questionaire
+                </MenuItem>
+                <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
+                  Manage Users
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Breadcrumb>
+          {/* Column 2 */}{" "}
           <Heading
             fontWeight="normal"
             mb={4}
             letterSpacing="tight"
-            fontSize="5xl"
+            fontSize="2xl"
             mt="2%"
           >
             Welcome,{" "}
@@ -113,14 +143,6 @@ export default function Admindashboard() {
             </Flex>
             !
           </Heading>{" "}
-          {/* upper context will be fetch the id of admin */}
-          {/* <Text fontWeight="bold" fontSize="1xl">
-          List of Students
-        </Text>
-        <Text color="gray" fontSize="xs">
-          November 2023
-        </Text>{" "} */}
-          {/* <Chart /> */}
           {/* fetch the id of student percentage per nihongo level */}
           <Grid templateColumns="repeat(5, 1fr)" gap={6} mt="5%">
             <Box sx={boxStyle}>
