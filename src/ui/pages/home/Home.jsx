@@ -20,12 +20,12 @@ import {
 import { useColorModeValue } from "@chakra-ui/react";
 import QuestionLevel from "../../components/QuestionLevel";
 import QuestionType from "../../components/QuestionType";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import HomeUserProfileCard from "../../components/HomeUserProfileCard";
 
 export default function Home() {
   const bg = useColorModeValue("light.400", "dark.100");
+  const border = useColorModeValue("dark.100", "light.400");
   const numberOfLevel = [1, 2, 3, 4, 5];
-  const { user, isLoading } = useUserContext();
 
   const mainKana = [
     "あ・a",
@@ -63,37 +63,7 @@ export default function Home() {
         {/* Home Page Start */}
         <Flex>
           {/* User Profile Card*/}
-          <Box position="fixed" minW="30vw" ml="2.5vw">
-            <Card variant="outlined" bg="transparent" boxShadow="lg">
-              <CardHeader
-                roundedTop="xl"
-                minH="20vh"
-                backgroundImage="url('src/assets/josh-hild-2oDMoju8bfk-unsplash.jpg')"
-                backgroundSize="cover"
-                backgroundPosition="center"
-              >
-                <Center position="relative" top="15vh">
-                  <Image
-                    borderRadius="full"
-                    boxSize="150px"
-                    src="https://bit.ly/dan-abramov"
-                    alt="Dan Abramov"
-                  />
-                </Center>
-              </CardHeader>
-              <CardBody minH="30vh" bg={bg}>
-                <Box minH="12.5vh"></Box>
-                <Heading fontWeight="normal" textAlign="center">
-                  @{user.username}
-                </Heading>
-                <Divider />
-                <Text fontWeight="normal" textAlign="center">
-                  {user.email}
-                </Text>
-              </CardBody>
-              <CardFooter minH="20vh" bg={bg}></CardFooter>
-            </Card>
-          </Box>
+          <HomeUserProfileCard />
 
           {/*Question Pages List*/}
           <Box>
@@ -109,7 +79,12 @@ export default function Home() {
                 {/* Main Kana */}
                 <Box textAlign="center">
                   <Flex mb="1.5vh">
-                    <Button fontWeight="normal" minW="100%">
+                    <Button
+                      variant="outline"
+                      borderColor={border}
+                      fontWeight="normal"
+                      minW="100%"
+                    >
                       All Main Kana
                     </Button>
                   </Flex>
@@ -118,6 +93,8 @@ export default function Home() {
                       return (
                         <>
                           <Button
+                            variant="outline"
+                            borderColor={border}
                             minW="47.5%"
                             fontSize="2vh"
                             fontWeight="light"
@@ -132,7 +109,12 @@ export default function Home() {
                 {/* Dakuten Kana */}
                 <Box textAlign="center">
                   <Flex mb="1.5vh">
-                    <Button fontWeight="normal" minW="100%">
+                    <Button
+                      variant="outline"
+                      borderColor={border}
+                      fontWeight="normal"
+                      minW="100%"
+                    >
                       All Dakuten Kana
                     </Button>
                   </Flex>
@@ -141,6 +123,8 @@ export default function Home() {
                       return (
                         <>
                           <Button
+                            variant="outline"
+                            borderColor={border}
                             minW="47.5%"
                             fontSize="2vh"
                             fontWeight="light"
@@ -155,7 +139,12 @@ export default function Home() {
                 {/* Combination Kana */}
                 <Box textAlign="center">
                   <Flex mb="1.5vh">
-                    <Button fontWeight="normal" minW="100%">
+                    <Button
+                      variant="outline"
+                      borderColor={border}
+                      fontWeight="normal"
+                      minW="100%"
+                    >
                       All Combination Kana
                     </Button>
                   </Flex>
@@ -164,6 +153,8 @@ export default function Home() {
                       return (
                         <>
                           <Button
+                            variant="outline"
+                            borderColor={border}
                             minW="47.5%"
                             fontSize="2vh"
                             fontWeight="light"
@@ -240,6 +231,7 @@ export default function Home() {
                 ))}
               </QuestionType>
             </Box>
+
             {/* <Box
               minW="60vw"
               ml="35vw"

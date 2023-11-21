@@ -62,7 +62,12 @@ describe("-------------- Navbar Render Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_NAV-100 - Check if Navigation Bar renders properly", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
+        screen.logTestingPlaygroundURL();
       });
 
       it("UT_NAV-101 - Renders the webpage", () => {
@@ -84,7 +89,11 @@ describe("-------------- User is Logged out --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_NAV-200 Check if Navigation Bar renders properly when user is logged out", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
 
       it("UT_NAV-201 - Should Show register button if user not logged in", () => {
@@ -101,7 +110,11 @@ describe("-------------- User is Logged out --------------", () => {
   describe("-------------- Integration Testing --------------", () => {
     describe("VITEST_IT_NAV-100 - Check if user goes to login page after login page button click", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("IT_NAV-101 Should go to login page on login button click", () => {
         const loginButton = screen.getByRole("button", { name: /login/i });
@@ -125,7 +138,11 @@ describe("-------------- User is Logged in --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_NAV-300  Check if Navigation Bar renders properly when user is logged in", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("UT_NAV-301 - Should login the user", async () => {
         const user = await act(() => {
@@ -154,7 +171,11 @@ describe("-------------- User is Logged in --------------", () => {
   describe("-------------- Integration Testing --------------", () => {
     describe("VITEST_IT_NAV-200 - Check if user goes to login page after logout button click", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("IT_NAV-201 Should logout the user when logout button is clicked", async () => {
         await waitForLoader();

@@ -1,15 +1,26 @@
-import { Container, Grid, border, useColorModeValue } from "@chakra-ui/react";
+import {
+  Container,
+  Grid,
+  border,
+  useColorModeValue,
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import QuestionSideSets from "./QuestionSideSets";
 import QuestionList from "./QuestionList";
 import { useQuestionContext } from "./../../../logic/hooks/question/useQuestionContext";
 import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
+import Loader from "../../components/Loader";
+import QuestionSkeletonLoader from "../../components/QuestionSkeletonLoader";
 
 const QuestionLayout = () => {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
+  const [isLoading, setIsLoading] = useState(false);
   const [hasSubmit, setHasSubmit] = useState(false);
 
   const {
@@ -25,6 +36,7 @@ const QuestionLayout = () => {
 
   useEffect(() => {
     async function fetchQuestions() {
+      setIsLoading(true);
       const res = await fetch(
         `${
           import.meta.env.VITE_LOCALHOST_API
@@ -34,9 +46,10 @@ const QuestionLayout = () => {
       const json = await res.json();
 
       if (!res.ok) console.log(json.error);
-
+      setIsLoading(false);
       if (res.ok) {
         questionDispatch({ type: "questionReceived", payload: json });
+        setIsLoading(false);
       }
     }
     fetchQuestions();
@@ -44,6 +57,8 @@ const QuestionLayout = () => {
 
   return (
     <Container minW="98vw">
+      {isLoading && <Loader isLoading={isLoading} />}
+      <Loader />
       <Grid
         h={"100%"}
         templateRows="repeat(1, 1fr)"
@@ -58,7 +73,11 @@ const QuestionLayout = () => {
           level={level}
           setHasSubmit={setHasSubmit}
         />
-        <QuestionList bg={bg} hoverColor={hoverColor} hasSubmit={hasSubmit} />
+        {isLoading ? (
+          <QuestionSkeletonLoader />
+        ) : (
+          <QuestionList bg={bg} hoverColor={hoverColor} hasSubmit={hasSubmit} />
+        )}
         <QuestionAnsweredTracker
           bg={bg}
           border={border}
