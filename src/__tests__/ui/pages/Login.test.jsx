@@ -1,4 +1,4 @@
-import { it, describe, expect, beforeEach } from "vitest";
+import { it, describe, expect, beforeEach, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ContextWrapper from "../../../ui/components/ContextWrapper";
@@ -85,6 +85,11 @@ describe("-------------- Unit Testing --------------", () => {
       fireEvent.change(password, { target: { value: "palceholder" } });
       const loginButton = screen.getByTestId("login-button");
       fireEvent.click(loginButton);
+      const loader = await screen.findByTestId("loader");
+      await waitFor(() => {
+        expect(loader).not.toBeInTheDocument();
+      });
+      screen.logTestingPlaygroundURL();
       const popUp = await screen.findByText(
         /Check Password and Email if input is Valid/i
       );

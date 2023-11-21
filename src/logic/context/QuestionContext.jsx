@@ -32,6 +32,22 @@ const questionReducer = (state, action) => {
                 ...state,
                 answers: updatedAnswers,
             };
+        case "clearAnswers":
+            return {
+                ...state,
+                answers: [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                ],
+            };
 
         default:
             return state;
