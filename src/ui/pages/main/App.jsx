@@ -1,4 +1,5 @@
 //
+import React from "react";
 
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
@@ -21,71 +22,50 @@ import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
 
 function App() {
-    const { user, isLoading } = useUserContext();
-    // 4. Wrap ChakraProvider at the root of your app
-    return (
-        <ChakraProvider theme={theme}>
+  const { user, isLoading } = useUserContext();
+  // 4. Wrap ChakraProvider at the root of your app
+  return (
+    <ChakraProvider theme={theme}>
+      <>
+        <BrowserRouter>
+          {isLoading && <Loader isLoading={isLoading} />}
+          {!isLoading && (
             <>
-                <BrowserRouter>
-                    {isLoading && <Loader isLoading={isLoading} />}
-                    {!isLoading && (
-                        <>
-                            <NavBar />
-                            <Routes>
-                                <Route
-                                    path="/"
-                                    element={user ? <Home /> : <LandingPage />}
-                                />
-                                <Route
-                                    path="/users"
-                                    element={
-                                        user?.role === "admin" ? (
-                                            <Userlist />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route
-                                    path="/login"
-                                    element={
-                                        !user ? <Login /> : <Navigate to="/" />
-                                    }
-                                />
+              <NavBar />
+              <Routes>
+                <Route path="/" element={user ? <Home /> : <LandingPage />} />
+                <Route
+                  path="/users"
+                  element={
+                    user?.role === "admin" ? <Userlist /> : <Navigate to="/" />
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to="/" />}
+                />
 
-                                <Route
-                                    path="/register"
-                                    element={
-                                        !user ? (
-                                            <Register />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route
-                                    path="/admin"
-                                    element={<Admindashboard />}
-                                />
-                                <Route path="/chart" element={<AdminChart />} />
-                                <Route
-                                    path="/userprofile"
-                                    element={<UserProfile />}
-                                />
+                <Route
+                  path="/register"
+                  element={!user ? <Register /> : <Navigate to="/" />}
+                />
+                <Route path="/admin" element={<Admindashboard />} />
+                <Route path="/chart" element={<AdminChart />} />
+                <Route path="/userprofile" element={<UserProfile />} />
 
-                                <Route
-                                    path="/questions/:level/:type/:set"
-                                    element={<QuestionLayout />}
-                                />
+                <Route
+                  path="/questions/:level/:type/:set"
+                  element={<QuestionLayout />}
+                />
 
-                                <Route path="*" element={<Navigate to="/" />} />
-                            </Routes>
-                        </>
-                    )}
-                </BrowserRouter>
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
             </>
-        </ChakraProvider>
-    );
+          )}
+        </BrowserRouter>
+      </>
+    </ChakraProvider>
+  );
 }
 
 export default App;
