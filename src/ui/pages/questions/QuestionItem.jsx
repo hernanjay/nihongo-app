@@ -1,15 +1,24 @@
 import { Box, Divider, ListItem, SimpleGrid, Text } from "@chakra-ui/react";
 import QuestionOption from "./QuestionOption";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
 const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
     const { question, options } = qn;
-    const { dispatch: questionDispatch } = useQuestionContext();
+    const { answers, dispatch: questionDispatch } = useQuestionContext();
     const [selectedOption, setSelectedOption] = useState({
         index: null,
-        answers: null,
     });
+
+    const answersAreNull = useMemo(() =>
+        answers.every((answer) => answer === null, [answers])
+    );
+
+    useEffect(() => {
+        if (answersAreNull) {
+            setSelectedOption({ index: null });
+        }
+    }, [answersAreNull]);
 
     // Find the index of '[' and ']'
     const startIndex = question.indexOf("[");
@@ -22,13 +31,11 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
 
     function handleOptionClicked(i, answer) {
         // Check if the selected option is the same as the previously selected one
-        const isDeselecting =
-            selectedOption.index === i && selectedOption.answers === answer;
+        const isDeselecting = selectedOption.index === i;
 
         setSelectedOption((prevState) => ({
             ...prevState,
             index: isDeselecting ? null : i,
-            answer: isDeselecting ? null : answer,
         }));
 
         // If the user is deselecting, remove the answer from the answers array

@@ -19,7 +19,11 @@ const QuestionAnsweredTracker = ({
     hasSubmit,
     setHasSubmit,
 }) => {
-    const { questions, answers } = useQuestionContext();
+    const {
+        questions,
+        answers,
+        dispatch: questionDispatch,
+    } = useQuestionContext();
     const allAnswered = answers.includes(null);
     return (
         <GridItem colSpan="1">
@@ -66,10 +70,14 @@ const QuestionAnsweredTracker = ({
                 </CardBody>
                 <CardFooter>
                     <Button
+                        hidden={hasSubmit}
                         mx="auto"
                         px="1.4rem"
                         borderColor={border}
                         variant="outline"
+                        onClick={() => {
+                            questionDispatch({ type: "clearAnswers" });
+                        }}
                     >
                         Clear
                     </Button>
