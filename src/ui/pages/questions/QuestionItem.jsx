@@ -3,10 +3,9 @@ import QuestionOption from "./QuestionOption";
 import { useState } from "react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
-const QuestionItem = ({ qn, index, bg }) => {
+const QuestionItem = ({ qn, index, bg, hasSubmit }) => {
     const { question, options } = qn;
-    const { answers, dispatch: questionDispatch } = useQuestionContext();
-    // const [hasClicked, setHasClicked] = useState(false);
+    const { dispatch: questionDispatch } = useQuestionContext();
     const [selectedOption, setSelectedOption] = useState({
         index: null,
         answers: null,
@@ -42,8 +41,6 @@ const QuestionItem = ({ qn, index, bg }) => {
             // Otherwise, dispatch the "answered" action with the selected answer
             questionDispatch({ type: "answered", payload: { answer, index } });
         }
-
-        console.log(answers);
     }
 
     return (
@@ -69,6 +66,8 @@ const QuestionItem = ({ qn, index, bg }) => {
                         bg={bg}
                         handleOptionClicked={handleOptionClicked}
                         selectedOption={selectedOption}
+                        hasSubmit={hasSubmit}
+                        answer={qn.answer}
                     />
                 ))}
             </SimpleGrid>

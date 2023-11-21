@@ -2,7 +2,7 @@ import { Container, GridItem, ListItem, UnorderedList } from "@chakra-ui/react";
 import QuestionItem from "./QuestionItem";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
-const QuestionList = ({ bg }) => {
+const QuestionList = ({ bg, hasSubmit }) => {
     const { questions } = useQuestionContext();
     return (
         <GridItem colSpan={"2"}>
@@ -11,7 +11,6 @@ const QuestionList = ({ bg }) => {
                 mb={"10"}
                 p={"10"}
                 bg={"white"}
-                boxShadow="lg"
                 bgColor={bg}
             >
                 <UnorderedList>
@@ -21,6 +20,7 @@ const QuestionList = ({ bg }) => {
                             bg={bg}
                             key={qn.question}
                             index={index}
+                            hasSubmit={hasSubmit}
                         />
                     ))}
                 </UnorderedList>
