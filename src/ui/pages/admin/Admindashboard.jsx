@@ -68,8 +68,8 @@ export default function Admindashboard() {
     color: "blackAlpha.900",
     textAlign: "left",
     p: 3,
-    m: 3,
-    fontSize: "2em",
+    m: 2,
+    fontSize: "1.5em",
   };
   return (
     <Box>
