@@ -46,6 +46,7 @@ const QuestionSideSets = ({
                             ? countBySetKanji?.map((kanji) =>
                                   kanji._id.level == level[1] ? (
                                       <Button
+                                          isDisabled={kanji._id.set === set}
                                           variant="ghost"
                                           key={type + level + kanji._id.set}
                                           fontWeight="light"
@@ -56,7 +57,7 @@ const QuestionSideSets = ({
                                           }
                                           _hover={
                                               kanji._id.set == set
-                                                  ? { bg: "blue.200" }
+                                                  ? { bg: "blue.300" }
                                                   : { bg: hoverColor }
                                           }
                                           onClick={() => {
@@ -78,6 +79,7 @@ const QuestionSideSets = ({
                             ? countBySetVocab?.map((vocab) =>
                                   vocab._id.level == level[1] ? (
                                       <Button
+                                          isDisabled={vocab._id.set === set}
                                           variant="ghost"
                                           key={type + level + vocab._id.set}
                                           fontWeight="light"
@@ -110,6 +112,7 @@ const QuestionSideSets = ({
                             ? countBySetGrammar?.map((grammar) =>
                                   grammar._id.level == level[1] ? (
                                       <Button
+                                          isDisabled={grammar._id.set === set}
                                           variant="ghost"
                                           key={type + level + grammar._id.set}
                                           fontWeight="light"
@@ -129,7 +132,7 @@ const QuestionSideSets = ({
                                                   type: "clearAnswers",
                                               });
                                               navigate(
-                                                  `/questions/n${level}/${type}/${grammar._id.set}`
+                                                  `/questions/${level}/${type}/${grammar._id.set}`
                                               );
                                           }}
                                       >
