@@ -92,13 +92,13 @@ export default function User() {
               variant="outline"
             />
             <MenuList>
-              <MenuItem as="a" icon={<FiBook />}>
-                Grading
-              </MenuItem>
+            <MenuItem as="a" href="/grading"  icon={<FiBook />}>
+                  Grading
+                </MenuItem>
               <MenuItem as="a" href="/list" icon={<FiUser />}>
                 List of Students
               </MenuItem>
-              <MenuItem as="a" icon={<FiPaperclip />}>
+              <MenuItem as="a" href="/managequestioner" icon={<FiPaperclip />}>
                 Manage Questionaire
               </MenuItem>
               {/* <MenuItem as='a' href='/user' icon={<FiUserCheck />}>Manage Users</MenuItem> */}

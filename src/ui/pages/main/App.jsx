@@ -23,6 +23,8 @@ import User from "../admin/user";
 import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
 import List from "../admin/List";
+import Grading from "../admin/Grading";
+import ManageQuestioner from "../admin/ManageQuestioner";
 // import Chart from "../../Components/chartComponent/Chart";
 
 function App() {
@@ -61,6 +63,8 @@ function App() {
                 />
                 <Route path="/admin" element={<Admindashboard />} />
                 <Route path="/user" element={<User />} />
+                <Route path="/grading" element={<Grading />} />
+                <Route path="/managequestioner" element={<ManageQuestioner />} />
                 <Route path="/list" element={<List />} />
                 <Route path="/chart" element={<AdminChart />} />
                 <Route path="/userprofile" element={<UserProfile />} />
