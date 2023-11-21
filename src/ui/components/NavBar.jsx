@@ -89,8 +89,8 @@ export default function NavBar() {
                     <Text>Home</Text>
                   </MenuItem>
                   {user.role === "admin" && (
-                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/users">
-                      Users
+                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/admin">
+                      Admin Dashboard
                     </MenuItem>
                   )}
                   <MenuItem
