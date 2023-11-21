@@ -1,4 +1,4 @@
-import { Grid, useColorModeValue } from "@chakra-ui/react";
+import { Grid, border, useColorModeValue } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import QuestionSideSets from "./QuestionSideSets";
@@ -8,8 +8,19 @@ import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
 
 const QuestionLayout = () => {
     const bg = useColorModeValue("light.400", "dark.100");
-    const { dispatch: questionDispatch } = useQuestionContext();
+    const border = useColorModeValue("dark.100", "light.400");
+    const [hasSubmit, setHasSubmit] = useState(false);
+
+    const {
+        questions,
+        answers,
+        dispatch: questionDispatch,
+    } = useQuestionContext();
     const { level, type, set } = useParams();
+
+    const checked = questions?.map(
+        (qn, index) => qn.answer === answers[index] && true
+    );
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -23,8 +34,9 @@ const QuestionLayout = () => {
 
             if (!res.ok) console.log(json.error);
 
-            if (res.ok)
+            if (res.ok) {
                 questionDispatch({ type: "questionReceived", payload: json });
+            }
         }
         fetchQuestions();
     }, [level, type, set, questionDispatch]);
@@ -37,9 +49,20 @@ const QuestionLayout = () => {
             gap={6}
             pt="7.5vw"
         >
-            <QuestionSideSets bg={bg} type={type} level="5" />
-            <QuestionList bg={bg} />
-            <QuestionAnsweredTracker />
+            <QuestionSideSets
+                bg={bg}
+                type={type}
+                level={level}
+                setHasSubmit={setHasSubmit}
+            />
+            <QuestionList bg={bg} hasSubmit={hasSubmit} />
+            <QuestionAnsweredTracker
+                bg={bg}
+                border={border}
+                checked={checked}
+                hasSubmit={hasSubmit}
+                setHasSubmit={setHasSubmit}
+            />
         </Grid>
     );
 };
