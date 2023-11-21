@@ -10,11 +10,11 @@ function DoughnutChart() {
         label: "My First Dataset",
         data: [65, 59, 80, 81, 56],
         backgroundColor: [
-          "rgba(255, 99, 132)",
-          "rgba(255, 159, 64)",
-          "rgba(255, 205, 86)",
-          "rgba(75, 192, 192)",
-          "rgba(54, 162, 235)",
+          "#388968",
+          "#8FB140",
+          "#CAD849",
+          "#379A86",
+          "#429EB0",
         ],
         hoverOffset: 4,
       },
@@ -23,7 +23,7 @@ function DoughnutChart() {
 
   return (
     <div>
-      <Box h="50px" p="15px" bg="blue.800">
+      <Box h="50px" p="15px" bg="#1aa7ac">
         <Text fontSize="lg" fontWeight="extrabold" color="whiteAlpha.900">
           Learners per Level
         </Text>

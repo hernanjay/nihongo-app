@@ -177,10 +177,10 @@ export default function Admindashboard() {
             h="60vh"
             mb={10}
           >
-            <GridItem colSpan={2} border="2px groove">
+            <GridItem colSpan={2} border="1px groove">
               <ChartComp />
             </GridItem>
-            <GridItem colSpan={1} border="2px groove">
+            <GridItem colSpan={1} border="1px groove">
               <DoughnutChart></DoughnutChart>
             </GridItem>
           </Grid>
