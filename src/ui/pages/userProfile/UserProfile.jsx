@@ -60,30 +60,30 @@ const UserProfile = () => {
 
                             <FormControl>
                                 <FormLabel>First Name</FormLabel>
-                                <Input type='firstName' placeholder='First name' />
+                                <Input type='firstName' placeholder='First Name' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Birthday</FormLabel>
-                                <Input type='lastName' placeholder='Last name' />
+                                <Input type='lastName' placeholder='Birthday' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Email</FormLabel>
-                                <Input type='cellNumber' placeholder='Cell number' />
+                                <Input type='cellNumber' placeholder='Email' />
                             </FormControl>
                         </Stack>
                         <Divider orientation='vertical' />
                         <Stack>
                             <FormControl>
                                 <FormLabel>Last Name</FormLabel>
-                                <Input type='userName' placeholder='Username' />
+                                <Input type='userName' placeholder='Last Name' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Gender</FormLabel>
-                                <Input type='email' placeholder='Email' />
+                                <Input type='email' placeholder='Gender' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Phone</FormLabel>
-                                <Input type='email' placeholder='Email' />
+                                <Input type='email' placeholder='Phone' />
                             </FormControl>
                         </Stack>
                     </Stack>
@@ -107,22 +107,22 @@ const UserProfile = () => {
 
                             <FormControl>
                                 <FormLabel>Address</FormLabel>
-                                <Input type='firstName' placeholder='First name' />
+                                <Input type='firstName' placeholder='Address' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>City</FormLabel>
-                                <Input type='lastName' placeholder='Last name' />
+                                <Input type='lastName' placeholder='City' />
                             </FormControl>
                         </Stack>
                         <Divider orientation='vertical' />
                         <Stack>
                             <FormControl>
                                 <FormLabel>Number</FormLabel>
-                                <Input type='userName' placeholder='Username' />
+                                <Input type='userName' placeholder='Number' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Zip</FormLabel>
-                                <Input type='email' placeholder='Email' />
+                                <Input type='email' placeholder='Zip' />
                             </FormControl>
                         </Stack>
                     </Stack>
