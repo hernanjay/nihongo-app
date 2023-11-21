@@ -1,5 +1,11 @@
 import { it, describe, expect, beforeEach } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ContextWrapper from "../../../ui/components/ContextWrapper";
 import App from "../../../ui/pages/main/App";
@@ -151,7 +157,9 @@ describe("-------------- Register Vitest Testing --------------", () => {
         fireEvent.change(password, { target: { value: valuePass } });
         fireEvent.change(verifyPassword, { target: { value: valueVerPass } });
         const registerButton = screen.getByTestId("register-button");
-        fireEvent.click(registerButton);
+        act(() => {
+          fireEvent.click(registerButton);
+        });
         const usernamePopUp = await screen.findByText(
           /Username field is empty/i
         );
