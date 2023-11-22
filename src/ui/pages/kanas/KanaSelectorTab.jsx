@@ -26,19 +26,18 @@ function KanaSelectorTab() {
         bg={bg}
         borderRadius="10"
         boxShadow="lg"
-        pb="4.25vh"
+        pb="2.25vh"
       >
-        <TabList mb="1em">
+        <TabList>
           <Tab>Learn Hiragana Kana</Tab>
           <Tab>Learn Katakana Kana</Tab>
         </TabList>
-        <TabIndicator height="qpx" bg={border} borderRadius="1px" />
         <TabPanels>
           <TabPanel>
-            <KanaSelectorHiragana />
+            <KanaSelectorHiragana key="KanaSelectorHiragana" />
           </TabPanel>
           <TabPanel>
-            <KanaSelectorKatakana />
+            <KanaSelectorKatakana key="KanaSelectorKatakana" />
           </TabPanel>
         </TabPanels>
       </Tabs>
