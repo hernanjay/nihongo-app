@@ -1,60 +1,57 @@
-import React from 'react'
-import { useState } from "react";
-// import { Chart } from 'react-chartjs-2';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { FiEye } from 'react-icons/fi';
 import {
+  ChakraProvider,
   Flex,
   Heading,
-  Avatar,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  // AvatarGroup,
-  Text,
-  Icon,
   IconButton,
+  Input,
+  InputGroup,
+    InputLeftElement,
+    Select,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  Divider,
-  // Link,
-  Box,
-  Grid,
-  // Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-} from "@chakra-ui/react";
-import {
-  FiHome,
-  FiPieChart,
-  FiChevronDown,
-  FiChevronUp,
-  FiEdit,
-  FiBook,
-  FiSearch,
-  FiBell,
-  FiArrowDown,
-  FiUser,
-  FiPaperclip,
-  FiUserCheck,
-} from "react-icons/fi";
+  
+} from '@chakra-ui/react';
+import { FiBook, FiSearch, FiPaperclip, FiUserCheck } from 'react-icons/fi';
 import { TriangleDownIcon } from '@chakra-ui/icons';
-export default function List() {
-  const [display, changeDisplay] = useState("hide");
-  return (
-    <Box>
+
+const List = () => {
+  const data = [
+    { id: 1, name: 'Rolly', email:'rolly@awsys-i.com', level: 'N1', grade: '3' },
+    { id: 2, name: 'Valto', email:'valto@awsys-i.com', level: 'N4', grade: '3' },
+    { id: 3, name: 'Marwan', email:'marwan@awsys-i.com', level: 'N3', grade: '3' },
+    { id: 4, name: 'Mario', email:'mario@awsys-i.com', level: 'N3', grade: '3' },
+  ];
+
+  const TableWithSearch = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedLevel, setSelectedLevel] = useState('');
+
+    const filteredData = data.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (selectedLevel === '' || item.level === selectedLevel)
+    );
+
+    return (
       <Flex
-        flexDir={["column", "column", "row"]}
+        flexDir={['column', 'column', 'row']}
         overflow="hidden"
         justifyContent="center"
+        bg = "gray.200"
+        
       >
         <Flex
           w="90%"
@@ -81,11 +78,18 @@ export default function List() {
                 aria-label="Options"
                 icon={<TriangleDownIcon />}
                 variant="outline"
+                border="none"
               />
               <MenuList>
-                <MenuItem as="a" href="/grading" icon={<FiBook />}>Grading</MenuItem>
-                <MenuItem as='a' href="/managequestioner" icon={<FiPaperclip />}>Manage Questionaire</MenuItem>
-                <MenuItem as='a' href='/user' icon={<FiUserCheck />}>Manage Users</MenuItem>
+                <MenuItem as="a" href="/grading" icon={<FiBook />}>
+                  Grading
+                </MenuItem>
+                <MenuItem as="a" href="/managequestioner" icon={<FiPaperclip />}>
+                  Manage Questionaire
+                </MenuItem>
+                <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
+                  Manage Users
+                </MenuItem>
               </MenuList>
             </Menu>
           </Breadcrumb>
@@ -93,11 +97,13 @@ export default function List() {
             <Heading mt={5} as="h2" size="lg" letterSpacing="tight">
               List of Students
             </Heading>
-            {/* <Text fontSize="sm" color="gray" ml={4}>
-              November 2023
-            </Text> */}
           </Flex>
-          <Flex alignContent="center" p={5} m={5}>
+          <Flex align="flex-end">
+            <Heading mt={6} as="h5" size="xs" letterSpacing="tight">
+              Filter By:
+            </Heading>
+          </Flex>
+          <Flex alignContent="center" p={5}>
             <InputGroup
               bgColor="#fff"
               mb={4}
@@ -110,188 +116,68 @@ export default function List() {
                 pointerEvents="none"
                 children={<FiSearch color="gray" />}
               />
-              <Input type="text" placeholder="Search" borderRadius="10px" />
+              <Input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Filter by Name"
+                borderRadius="10px"
+              />
             </InputGroup>
-            <IconButton
-              icon={<FiBell />}
-              fontSize="md"
-              bgColor="WhiteAlpha 50"
-              borderRadius="50%"
-              p="10px"
-            />
-            <Flex
-              w={30}
-              h={25}
-              bgColor="#C53030"
-              borderRadius="50%"
-              color="#fff"
-              align="center"
-              justify="center"
-              ml="-3"
-              mt="-1"
-              zIndex="100"
-              fontSize="xs"
+            <Select
+              bgColor="#fff"
+              mb={4}
+              borderColor="BlackAlpha 900"
+              borderRadius="10px"
+              mr={2}
+              placeholder="Filter by Nihongo Level"
+              value={selectedLevel}
+              onChange={(e) => setSelectedLevel(e.target.value)}
             >
-              5
-            </Flex>
+              <option value="N1">N1</option>
+              <option value="N2">N2</option>
+              <option value="N3">N3</option>
+              <option value="N4">N4</option>
+              <option value="N5">N5</option>
+            </Select>
           </Flex>
           <Flex flexDir="column">
             <Flex overflow="auto">
-              <Table variant="unstyled" mt={4}>
+              <Table id="myTable" variant="unstyled" mt={4}>
                 <Thead>
                   <Tr color="gray">
                     <Th>Name of Student</Th>
                     <Th>Email</Th>
                     <Th>Nihongo Level</Th>
-                    <Th isNumeric>Grade</Th>
+                    <Th>Action</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
+                  {filteredData.map((item) => (
+                    <Tr key={item.id}>
+                    <Td>{item.name}</Td>
+                    <Td>{item.email}</Td>
+                    <Td>{item.level}</Td>
                     <Td>
-                      <Flex align="center">
-                        <Avatar size="sm" mr={2} src="" />
-                        <Flex flexDir="column">
-                          <Heading size="sm" letterSpacing="tight">
-                            Name of Student
-                          </Heading>
-                          {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
-                        </Flex>
-                      </Flex>
+                     <a href='#' >view Complete Details</a>
                     </Td>
-                    <Td>Email</Td>
-                    <Td>Nihongo Level</Td>
-                    <Td isNumeric>
-                      <Text fontWeight="bold" display="inline-table">
-                        Grade
-                      </Text>
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Flex align="center">
-                        <Avatar size="sm" mr={2} src="" />
-                        <Flex flexDir="column">
-                          <Heading size="sm" letterSpacing="tight">
-                            Name of Student
-                          </Heading>
-                          {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
-                        </Flex>
-                      </Flex>
-                    </Td>
-                    <Td>Email</Td>
-                    <Td>Nihongo Level</Td>
-                    <Td isNumeric>
-                      <Text fontWeight="bold" display="inline-table">
-                        Grade
-                      </Text>
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Flex align="center">
-                        <Avatar size="sm" mr={2} src="" />
-                        <Flex flexDir="column">
-                          <Heading size="sm" letterSpacing="tight">
-                            Name of Student
-                          </Heading>
-                          {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
-                        </Flex>
-                      </Flex>
-                    </Td>
-                    <Td>Email</Td>
-                    <Td>Nihongo Level</Td>
-                    <Td isNumeric>
-                      <Text fontWeight="bold" display="inline-table">
-                        Grade
-                      </Text>
-                    </Td>
-                  </Tr>
-                  {display == "show" && (
-                    <>
-                      <Tr>
-                        <Td>
-                          <Flex align="center">
-                            <Avatar size="sm" mr={2} src="" />
-                            <Flex flexDir="column">
-                              <Heading size="sm" letterSpacing="tight">
-                                Name of Student
-                              </Heading>
-                              {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
-                            </Flex>
-                          </Flex>
-                        </Td>
-                        <Td>Email</Td>
-                        <Td>Nihongo Level</Td>
-                        <Td isNumeric>
-                          <Text fontWeight="bold" display="inline-table">
-                            Grade
-                          </Text>
-                        </Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                          <Flex align="center">
-                            <Avatar size="sm" mr={2} src="" />
-                            <Flex flexDir="column">
-                              <Heading size="sm" letterSpacing="tight">
-                                Name of Student
-                              </Heading>
-                              {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
-                            </Flex>
-                          </Flex>
-                        </Td>
-                        <Td>Email</Td>
-                        <Td>Nihongo Level</Td>
-                        <Td isNumeric>
-                          <Text fontWeight="bold" display="inline-table">
-                            Grade
-                          </Text>
-                        </Td>
-                      </Tr>
-                      <Tr>
-                        <Td>
-                          <Flex align="center">
-                            <Avatar size="sm" mr={2} src="" />
-                            <Flex flexDir="column">
-                              <Heading size="sm" letterSpacing="tight">
-                                Name of Student
-                              </Heading>
-                              {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
-                            </Flex>
-                          </Flex>
-                        </Td>
-                        <Td>Email</Td>
-                        <Td>Nihongo Level</Td>
-                        <Td isNumeric>
-                          <Text fontWeight="bold" display="inline-table">
-                            Grade
-                          </Text>
-                        </Td>
-                      </Tr>
-                    </>
-                  )}
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </Flex>
-            <Flex align="center">
-              <Divider />
-              <IconButton
-                icon={display == "show" ? <FiChevronUp /> : <FiChevronDown />}
-                onClick={() => {
-                  if (display == "show") {
-                    changeDisplay("none");
-                  } else {
-                    changeDisplay("show");
-                  }
-                }}
-              />
-              <Divider />
-            </Flex>
+          
           </Flex>
         </Flex>
-
       </Flex>
-    </Box>
+    );
+  };
+
+  return (
+    <ChakraProvider>
+      <TableWithSearch />
+    </ChakraProvider>
   );
-}
+};
+
+export default List;
