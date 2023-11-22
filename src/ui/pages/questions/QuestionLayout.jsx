@@ -20,7 +20,6 @@ const QuestionLayout = () => {
     answers,
     dispatch: questionDispatch,
   } = useQuestionContext();
-
   const { level, type, set } = useParams();
 
   const checked = questions?.map(
