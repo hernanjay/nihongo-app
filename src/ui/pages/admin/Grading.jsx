@@ -81,6 +81,7 @@ export default function List() {
               aria-label="Options"
               icon={<TriangleDownIcon />}
               variant="outline"
+              border="none"
             />
             <MenuList>
               
