@@ -69,6 +69,11 @@ export const QuestionContextProvider = ({ children }) => {
 
             if (!response.ok) {
                 console.log(json.error);
+                if (json.error === "Token has expired") {
+                    dispatch({ type: "LOGOUT" });
+                    // remove token from local storage
+                    localStorage.removeItem("token");
+                }
             }
 
             if (response.ok) {
