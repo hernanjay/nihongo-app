@@ -58,7 +58,14 @@ function App() {
                   path="/questions/:level/:type/:set"
                   element={<QuestionLayout />}
                 />
-                <Route path="/alphabet/:type" element={<KanaLayout />} />
+                <Route
+                  path="/alphabet/:custom/:type"
+                  element={user ? <KanaLayout /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/alphabet/:custom/:mode/:type/:group"
+                  element={user ? <KanaLayout /> : <Navigate to="/" />}
+                />
 
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

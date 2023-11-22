@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  SimpleGrid,
-  Spacer,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Box, Divider, Flex, Spacer, Text } from "@chakra-ui/react";
 
 import { useColorModeValue } from "@chakra-ui/react";
 import QuestionLevel from "../../components/QuestionLevel";
@@ -31,7 +22,7 @@ export default function Home() {
           {/*Question Pages List*/}
           <Box>
             {/* WIP */}
-            <Flex ml="35vw" maxW="60vw" mb="2.25vh">
+            <Flex ml="35vw" maxW="60vw" mt="2.5vh" mb="2.25vh">
               <Box p="1.5vh" bg={bg} borderRadius="lg">
                 <Text fontSize="2.25vh" fontWeight="bold">
                   Learn Kana
