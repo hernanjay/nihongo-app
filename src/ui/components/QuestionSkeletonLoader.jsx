@@ -36,7 +36,7 @@ function QuestionSkeletonLoader() {
             <SkeletonText
               startColor={start}
               endColor={end}
-              fadeDuration={1}
+              fadeDuration={4}
               mt="4"
               noOfLines={4}
               spacing="4"

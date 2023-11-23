@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useParams } from "react-router-dom";
-import { useKananContext } from "../../../logic/hooks/kana/useKanaContext";
+import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 import { useState } from "react";
 import {
   Card,
