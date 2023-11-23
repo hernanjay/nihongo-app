@@ -22,7 +22,11 @@ Object.defineProperty(window, "matchMedia", {
 
 describe("Check if App renders properly", async () => {
   beforeEach(async () => {
-    render(<ContextWrapper app={<App />} />);
+    render(
+      <ContextWrapper>
+        <App />
+      </ContextWrapper>
+    );
   });
   // beforeEach(() => {
   //   vi.useFakeTimers();

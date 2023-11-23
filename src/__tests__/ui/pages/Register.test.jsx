@@ -1,5 +1,11 @@
 import { it, describe, expect, beforeEach } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ContextWrapper from "../../../ui/components/ContextWrapper";
 import App from "../../../ui/pages/main/App";
@@ -22,11 +28,15 @@ describe("-------------- Register Vitest Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_REGISTER-100 Check if register page renders properly", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("VITEST_UT_REGISTER-101 Should Show the entire register page", () => {
-        const loginButton = screen.getByRole("button", { name: /register/i });
-        fireEvent.click(loginButton);
+        const registerButton = screen.getByText(/register/i);
+        fireEvent.click(registerButton);
         const textDisplay = screen.getByText(/Already have an account?/i);
         expect(textDisplay).toBeInTheDocument();
       });
@@ -51,7 +61,11 @@ describe("-------------- Register Vitest Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_REGISTER-200 Verify if Verify Password is disabled if input is invalid format", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       const missingValuesToCheck = [
         { case: "Password missing eight-character.", value: "Test@12" },
@@ -76,7 +90,11 @@ describe("-------------- Register Vitest Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_REGISTER-300 Verify if Verify Password is enabled if input is valid format", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
 
       it("VITEST_UT_REGISTER-301 Should Input valid format and check if verify password is enabled", () => {
@@ -93,7 +111,11 @@ describe("-------------- Register Vitest Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_REGISTER-400 Verify if Verify Password is unmatched error is shown", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("VITEST_UT_REGISTER-401 Should Input unmatched password and check if error is shown and register button is disabled", () => {
         const valuePass = "Test@123";
@@ -112,7 +134,11 @@ describe("-------------- Register Vitest Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_REGISTER-500 Verify if Verify Password is matched Register button is enabled", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("VITEST_UT_REGISTER-501 Should Input matched password and check if Register button is enabled", () => {
         const valuePass = "Test@123";
@@ -131,7 +157,11 @@ describe("-------------- Register Vitest Testing --------------", () => {
   describe("-------------- Unit Testing --------------", () => {
     describe("VITEST_UT_REGISTER-600 Verify if email or username is empty on submition alert is shown", () => {
       beforeEach(async () => {
-        render(<ContextWrapper app={<App />} />);
+        render(
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
+        );
       });
       it("VITEST_UT_REGISTER-601 Should Input matched password to enable register button", () => {
         const valuePass = "Test@123";
@@ -151,7 +181,9 @@ describe("-------------- Register Vitest Testing --------------", () => {
         fireEvent.change(password, { target: { value: valuePass } });
         fireEvent.change(verifyPassword, { target: { value: valueVerPass } });
         const registerButton = screen.getByTestId("register-button");
-        fireEvent.click(registerButton);
+        act(() => {
+          fireEvent.click(registerButton);
+        });
         const usernamePopUp = await screen.findByText(
           /Username field is empty/i
         );

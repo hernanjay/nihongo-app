@@ -1,9 +1,11 @@
 //
+import React from "react";
 
 // 2. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 
 //Importing Website Components
 import NavBar from "../../components/NavBar";
@@ -11,21 +13,14 @@ import Login from "../login/Login";
 import Register from "../register/Register";
 import Home from "../home/Home";
 import theme from "./Theme";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
 import Userlist from "../dummies/userlist";
-// import RegisterStepper from "../register/RegisterStepper";
-import MissingPage from "../../components/MissingPage";
-import KanjiQuestionPage from "../kanjiQuestionPage/KanjiQuestionPage";
+import QuestionLayout from "../questions/QuestionLayout";
 import Admindashboard from "../admin/Admindashboard";
-import User from "../admin/user";
 import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
-import List from "../admin/List";
-import Grading from "../admin/Grading";
-import ManageQuestioner from "../admin/ManageQuestioner";
-// import Chart from "../../Components/chartComponent/Chart";
+import KanaLayout from "../kanas/KanaLayout";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -39,18 +34,12 @@ function App() {
             <>
               <NavBar />
               <Routes>
-                {/* <Route path="*" element={<Navigate to="/" />} /> */}
-                <Route path="*" element={<MissingPage />} />
                 <Route path="/" element={user ? <Home /> : <LandingPage />} />
                 <Route
                   path="/users"
                   element={
                     user?.role === "admin" ? <Userlist /> : <Navigate to="/" />
                   }
-                />
-                <Route
-                  path="/kanji"
-                  element={!user ? <Login /> : <KanjiQuestionPage />}
                 />
                 <Route
                   path="/login"
@@ -61,13 +50,22 @@ function App() {
                   path="/register"
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
+
                 <Route path="/admin" element={<Admindashboard />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/grading" element={<Grading />} />
-                <Route path="/managequestioner" element={<ManageQuestioner />} />
-                <Route path="/list" element={<List />} />
                 <Route path="/chart" element={<AdminChart />} />
                 <Route path="/userprofile" element={<UserProfile />} />
+
+                <Route
+                  path="/kana-quiz"
+                  element={user ? <KanaLayout /> : <Navigate to="/" />}
+                />
+
+                <Route
+                  path="/questions/:level/:type/:set"
+                  element={<QuestionLayout />}
+                />
+
+                <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </>
           )}

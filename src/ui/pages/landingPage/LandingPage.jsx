@@ -22,7 +22,6 @@ import {
   Box,
   Container,
 } from "@chakra-ui/react";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import CharacterPracticeTest from "../../components/CharacterPracticeTest";
 import KanjiQuestionSample from "../../components/KanjiQuestionSample";
@@ -30,7 +29,6 @@ import VocabQuestionSample from "../../components/VocabQuestionSample";
 import GrammarQuestionSample from "../../components/GrammarQuestionSample";
 import Loader from "../../components/Loader";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
-import Footer from "../../components/Footer";
 
 export default function LandingPage() {
   const bg = useColorModeValue("light.400", "dark.100");
@@ -94,10 +92,10 @@ export default function LandingPage() {
                     bg={"transparent"}
                     borderColor={border}
                     onClick={() => {
+                      const element =
+                        document.getElementById("sampleQuestions");
                       element.scrollIntoView({
                         behavior: "smooth",
-                        block: "center",
-                        inline: "nearest",
                       });
                     }}
                   >
@@ -123,15 +121,15 @@ export default function LandingPage() {
         <TabList mb="1em" bg={bg}>
           <Tab>
             <InfoOutlineIcon mx={"2"} />
-            Kanji Quenstions
+            Kanji Questions
           </Tab>
           <Tab>
             <InfoOutlineIcon mx={"2"} />
-            Vocab Quenstions
+            Vocab Questions
           </Tab>
           <Tab>
             <InfoOutlineIcon mx={"2"} />
-            Grammar Quenstions
+            Grammar Questions
           </Tab>
         </TabList>
         <TabIndicator mt="-4" height="2px" bg={border} borderRadius="1px" />
@@ -383,7 +381,6 @@ export default function LandingPage() {
         <GridItem rowSpan={1} colSpan={8} />
       </Grid>
       {/* Banner */}
-      <Footer />
     </>
   );
 }
