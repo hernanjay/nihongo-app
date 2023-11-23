@@ -39,9 +39,18 @@ export const UserContextProvider = ({ children }) => {
 
             const json = await response.json();
 
-            if (!response.ok) console.log(json.error);
+            if (!response.ok) {
+                console.log(json.error);
+                if (json.error === "Token has expired") {
+                    dispatch({ type: "LOGOUT" });
+                    // remove token from local storage
+                    localStorage.removeItem("token");
+                }
+            }
 
-            dispatch({ type: "LOGIN", payload: json });
+            if (response.ok) {
+                dispatch({ type: "LOGIN", payload: json });
+            }
         };
 
         token ? retrieveProfile(token) : dispatch({ type: "LOADED" });

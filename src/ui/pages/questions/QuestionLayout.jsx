@@ -1,9 +1,21 @@
-import { Container, Grid, useColorModeValue } from "@chakra-ui/react";
+import {
+    Container,
+    Grid,
+    border,
+    useColorModeValue,
+    Skeleton,
+    SkeletonCircle,
+    SkeletonText,
+} from "@chakra-ui/react";
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import { useGradeContext } from "./../../../logic/hooks/grade/useGradeContext";
+import { useQuestionContext } from "./../../../logic/hooks/question/useQuestionContext";
+
 import QuestionSideSets from "./QuestionSideSets";
 import QuestionList from "./QuestionList";
-import { useQuestionContext } from "./../../../logic/hooks/question/useQuestionContext";
 import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
 import Loader from "../../components/Loader";
 import QuestionSkeletonLoader from "../../components/QuestionSkeletonLoader";
@@ -15,12 +27,17 @@ const QuestionLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSubmit, setHasSubmit] = useState(false);
 
-  const {
-    questions,
-    answers,
-    dispatch: questionDispatch,
-  } = useQuestionContext();
-  const { level, type, set } = useParams();
+    const {
+        questions,
+        answers,
+        dispatch: questionDispatch,
+    } = useQuestionContext();
+
+    const { user } = useUserContext();
+
+    const { dispatch: gradeDispatch } = useGradeContext();
+
+    const { level, type, set } = useParams();
 
   const checked = questions?.map(
     (qn, index) => qn.answer === answers[index] && true
@@ -46,6 +63,39 @@ const QuestionLayout = () => {
     }
     fetchQuestions();
   }, [level, type, set, questionDispatch]);
+            if (!res.ok) console.log(json.error);
+            setIsLoading(false);
+            if (res.ok) {
+                questionDispatch({ type: "questionReceived", payload: json });
+                setIsLoading(false);
+            }
+        }
+        fetchQuestions();
+    }, [level, type, set, questionDispatch]);
+
+    useEffect(() => {
+        async function fetchSpecificGrade() {
+            const res = await fetch(
+                `${import.meta.env.VITE_LOCALHOST_API}/api/grades/grade`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: user._id,
+                        questionId: `${level}${type}${set}`,
+                    }),
+                }
+            );
+
+            const json = await res.json();
+
+            if (!res.ok) console.log(json.error);
+
+            if (res.ok)
+                gradeDispatch({ type: "receivedSpecificGrade", payload: json });
+        }
+        fetchSpecificGrade();
+    }, [user, level, type, set, gradeDispatch]);
 
   return (
     <Container minW="98vw">
