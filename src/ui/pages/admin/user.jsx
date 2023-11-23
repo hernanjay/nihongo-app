@@ -150,13 +150,13 @@ export default function User() {
                       </Td>
                       <Td>
                         <Link>
-                          <Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;
+                          <Icon as={FiEye}  fontSize="lg"></Icon>&nbsp;&nbsp;
                         </Link>
                         <Link>
                           <Icon as={FiEdit} fontSize="lg"></Icon>&nbsp;&nbsp;
                         </Link>
                         <Link>
-                          <Icon as={FiTrash} fontSize="lg"></Icon>&nbsp;
+                          <Icon as={FiTrash} onClick={() => this.props.onDelete(this.props.id)} fontSize="lg"></Icon>&nbsp;
                         </Link>
                       </Td>
                     </Tr>

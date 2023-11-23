@@ -85,7 +85,7 @@ const List = () => {
                   Grading
                 </MenuItem>
                 <MenuItem as="a" href="/managequestioner" icon={<FiPaperclip />}>
-                  Manage Questionaire
+                  Manage Questionnaire
                 </MenuItem>
                 <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
                   Manage Users
