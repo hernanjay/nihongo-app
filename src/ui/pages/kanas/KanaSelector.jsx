@@ -13,11 +13,20 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import KanaSelectorButtonGroup from "../../components/KanaSelectorButtonGroup";
+import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
+import {
+  getKanaCombinationList,
+  getKanaDakutenList,
+  getMainKanaList,
+} from "./kanaCharacterList";
 
-function KanaSelectorHiragana() {
+function KanaSelector({ type }) {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const navigate = useNavigate();
+  const mainKana = getMainKanaList(type);
+  const dakutenKana = getKanaDakutenList(type);
+  const combinationKana = getKanaCombinationList(type);
   const [mainKanaSelected, setMainKanaSelected] = useState(false);
   const [dakutenKanaSelected, setDakutenKanaSelected] = useState(false);
   const [combinationKanaSelected, setCombinationKanaSelected] = useState(false);
@@ -26,24 +35,26 @@ function KanaSelectorHiragana() {
   const [combinationCustomSelected, setCombinationCustomSelected] =
     useState(false);
   const [group, setGroup] = useState([]);
+  const { dispatch: kanaDispatch } = useKanaContext();
 
   function setMode() {
     let mode = [];
     if (mainKanaSelected || mainCustomSelected) {
-      mode = [...mode, "main"];
+      // mode = [...mode, "main"];
+      mode.push("main");
     }
     if (dakutenKanaSelected || dakutenCustomSelected) {
-      mode = [...mode, "dakuten"];
+      // mode = [...mode, "dakuten"];
+      mode.push("dakuten");
     }
     if (combinationKanaSelected || combinationCustomSelected) {
-      mode = [...mode, "combination"];
+      // mode = [...mode, "combination"];
+      mode.push("combination");
     }
     return mode;
   }
 
   function batchKanaSelection(kanaGroup, kanaIsSelected) {
-    // setGroup([...group, ...stripKana(kanaGroup)]);
-
     if (!kanaIsSelected) {
       const temp = [];
       stripKana(kanaGroup).map((kana) => {
@@ -79,36 +90,6 @@ function KanaSelectorHiragana() {
     return strippedKana;
   }
 
-  const mainKana = [
-    "あ・a",
-    "か・ka",
-    "さ・sa",
-    "た・ta",
-    "な・na",
-    "は・ha",
-    "ま・ma",
-    "や・ya",
-    "ら・ra",
-    "わ・wa",
-  ];
-
-  const dakutenKana = ["が・ga", "ざ・za", "だ・da", "ば・ba", "ぱ・pa"];
-
-  const combinationKana = [
-    "きゃ・kya",
-    "しゃ・sha",
-    "ちゃ・cha",
-    "にゃ・nya",
-    "ひゃ・hya",
-    "みゃ・mya",
-    "りゃ・rya",
-    "ぎゃ・gya",
-    "ざ・ja",
-    "ぢゃ・dya",
-    "びゃ・bya",
-    "ぴゃ・pya",
-  ];
-
   return (
     <Container minW="98%">
       <Grid
@@ -124,7 +105,10 @@ function KanaSelectorHiragana() {
             borderColor={border}
             fontWeight="normal"
             onClick={() => {
-              navigate("/alphabet/false/hiragana");
+              kanaDispatch({ type: "modeSet", payload: setMode() });
+              kanaDispatch({ type: "typeSet", payload: type });
+              kanaDispatch({ type: "groupSet", payload: group });
+              navigate("/kana-quiz");
             }}
           >
             All Kana
@@ -272,20 +256,29 @@ function KanaSelectorHiragana() {
         <GridItem rowSpan={1} colSpan={4}>
           <Button
             key="ButtonAllKana"
+            isDisabled={
+              !(
+                mainKanaSelected ||
+                dakutenKanaSelected ||
+                combinationKanaSelected ||
+                mainCustomSelected ||
+                dakutenCustomSelected ||
+                combinationCustomSelected
+              )
+            }
             mb="2.5"
             minW="100%"
             variant="outline"
             borderColor={border}
             fontWeight="normal"
             onClick={() => {
-              if (Boolean(group.length) && Boolean(setMode().length)) {
-                navigate(`/alphabet/true/${setMode()}/hiragana/${group}`);
-              } else {
-                alert("Empty Config");
-              }
+              kanaDispatch({ type: "modeSet", payload: setMode() });
+              kanaDispatch({ type: "typeSet", payload: type });
+              kanaDispatch({ type: "groupSet", payload: group });
+              navigate("/kana-quiz");
             }}
           >
-            Custom Kana
+            Load Selected Kana
           </Button>
         </GridItem>
       </Grid>
@@ -293,4 +286,4 @@ function KanaSelectorHiragana() {
   );
 }
 
-export default KanaSelectorHiragana;
+export default KanaSelector;

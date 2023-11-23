@@ -60,6 +60,7 @@ const QuestionAnsweredTracker = ({
 
     return (
         <GridItem colSpan="1">
+
             <Card
                 textColor={border}
                 boxShadow="lg"

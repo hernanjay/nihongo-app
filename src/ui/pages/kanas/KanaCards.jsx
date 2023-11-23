@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useParams } from "react-router-dom";
-import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 import { useState } from "react";
 import {
   Card,
@@ -11,29 +9,25 @@ import {
   Flex,
   Heading,
   Input,
-  Skeleton,
   Spacer,
   useColorModeValue,
   Text,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
 } from "@chakra-ui/react";
+import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 
 function KanaCards({ totalItems, kana, index }) {
-  const { type } = useParams();
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const popColor = useColorModeValue("gray.200", "dark.200");
-  const typeOfKana = type.substring(0, 8);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
+  const { kanaMode, kanaType, kanaGroup } = useKanaContext();
 
   return (
     <Card
@@ -55,7 +49,7 @@ function KanaCards({ totalItems, kana, index }) {
               <PopoverCloseButton bg={popColor} />
               <PopoverBody>
                 <Text>{`${
-                  typeOfKana === "hiragana" ? kana.hiragana : kana.katakana
+                  kanaType === "hiragana" ? kana.hiragana : kana.katakana
                 } ・ ${kana.romaji}`}</Text>
               </PopoverBody>
             </PopoverContent>
@@ -67,7 +61,7 @@ function KanaCards({ totalItems, kana, index }) {
       </CardHeader>
       <CardBody>
         <Heading fontSize="4vw" textAlign={"center"} m={2}>
-          {typeOfKana === "hiragana" ? kana.hiragana : kana.katakana}
+          {kanaType === "hiragana" ? kana.hiragana : kana.katakana}
         </Heading>
         <Input
           textAlign="center"

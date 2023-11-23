@@ -50,21 +50,19 @@ function App() {
                   path="/register"
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
+
                 <Route path="/admin" element={<Admindashboard />} />
                 <Route path="/chart" element={<AdminChart />} />
                 <Route path="/userprofile" element={<UserProfile />} />
 
                 <Route
+                  path="/kana-quiz"
+                  element={user ? <KanaLayout /> : <Navigate to="/" />}
+                />
+
+                <Route
                   path="/questions/:level/:type/:set"
                   element={<QuestionLayout />}
-                />
-                <Route
-                  path="/alphabet/:custom/:type"
-                  element={user ? <KanaLayout /> : <Navigate to="/" />}
-                />
-                <Route
-                  path="/alphabet/:custom/:mode/:type/:group"
-                  element={user ? <KanaLayout /> : <Navigate to="/" />}
                 />
 
                 <Route path="*" element={<Navigate to="/" />} />

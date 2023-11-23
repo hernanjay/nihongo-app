@@ -11,12 +11,19 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import KanaSelectorButtonGroup from "../../components/KanaSelectorButtonGroup";
+import {
+  getKanaCombinationList,
+  getKanaDakutenList,
+  getMainKanaList,
+} from "./kanaCharacterList";
 
-function KanaSelectorTabSide({ typeOfKana, custom, isLoading }) {
+function KanaSelectorTabSide(type) {
   const bg = useColorModeValue("light.400", "dark.100");
   const border = useColorModeValue("dark.100", "light.400");
   const navigate = useNavigate();
-  const [isCustomKana, setIsCustomKana] = useState(custom);
+  const mainKana = getMainKanaList(type);
+  const dakutenKana = getKanaDakutenList(type);
+  const combinationKana = getKanaCombinationList(type);
   const [mainKanaSelected, setMainKanaSelected] = useState(false);
   const [dakutenKanaSelected, setDakutenKanaSelected] = useState(false);
   const [combinationKanaSelected, setCombinationKanaSelected] = useState(false);
@@ -79,69 +86,6 @@ function KanaSelectorTabSide({ typeOfKana, custom, isLoading }) {
     return strippedKana;
   }
 
-  const mainKana =
-    typeOfKana === "hiragana"
-      ? [
-          "あ・a",
-          "か・ka",
-          "さ・sa",
-          "た・ta",
-          "な・na",
-          "は・ha",
-          "ま・ma",
-          "や・ya",
-          "ら・ra",
-          "わ・wa",
-        ]
-      : [
-          "ア・a",
-          "カ・ka",
-          "サ・sa",
-          "タ・ta",
-          "ナ・na",
-          "ハ・ha",
-          "マ・ma",
-          "ヤ・ya",
-          "ラ・ra",
-          "ワ・wa",
-        ];
-
-  const dakutenKana =
-    typeOfKana === "hiragana"
-      ? ["が・ga", "ざ・za", "だ・da", "ば・ba", "ぱ・pa"]
-      : ["ガ・ga", "ザ・za", "ダ・da", "バ・ba", "パ・pa"];
-
-  const combinationKana =
-    typeOfKana === "hiragana"
-      ? [
-          "きゃ・kya",
-          "しゃ・sha",
-          "ちゃ・cha",
-          "にゃ・nya",
-          "ひゃ・hya",
-          "みゃ・mya",
-          "りゃ・rya",
-          "ぎゃ・gya",
-          "ざ・ja",
-          "ぢゃ・dya",
-          "びゃ・bya",
-          "ぴゃ・pya",
-        ]
-      : [
-          "キャ・kya",
-          "シャ・sya",
-          "チャ・cha",
-          "ニャ・nya",
-          "ヒャ・hya",
-          "ミャ・mya",
-          "リャ・rya",
-          "ギャ・gya",
-          "ジャ・ja",
-          "ヂャ・dya",
-          "ビャ・bya",
-          "ピャ・pya",
-        ];
-
   return (
     <Container mt="2.5vh">
       <Box
@@ -161,13 +105,11 @@ function KanaSelectorTabSide({ typeOfKana, custom, isLoading }) {
           fontWeight="light"
           onClick={() => {
             navigate(
-              `/alphabet/false/${
-                typeOfKana === "hiragana" ? `katakana` : `hiragana`
-              }`
+              `/alphabet/false/${type === "hiragana" ? `katakana` : `hiragana`}`
             );
           }}
         >
-          {`Switch to ${typeOfKana === "hiragana" ? "Katakana" : "Hiragana"}`}
+          {`Switch to ${type === "hiragana" ? "Katakana" : "Hiragana"}`}
         </Button>
       </Box>
       <Box
@@ -179,38 +121,30 @@ function KanaSelectorTabSide({ typeOfKana, custom, isLoading }) {
         borderRadius="lg"
       >
         <Button
-          bg={isLoading ? bg : isCustomKana ? "green.400" : bg}
           variant="outline"
           borderColor={border}
-          isDisabled={isCustomKana}
-          isLoading={isLoading}
           loadingText="All Kana"
           w="45%"
           mr="1vw"
           fontSize="2vh"
           fontWeight="light"
           onClick={() => {
-            setIsCustomKana(!isCustomKana);
-            navigate(`/alphabet/false/${typeOfKana}`);
+            navigate(`/alphabet/false/${type}`);
           }}
         >
           All Kana
         </Button>
 
         <Button
-          bg={isLoading ? bg : !isCustomKana ? "green.400" : bg}
           variant="outline"
           borderColor={border}
-          isDisabled={!isCustomKana}
-          isLoading={isLoading}
           loadingText="Custom Kana"
           w="45%"
           fontSize="2vh"
           fontWeight="light"
           onClick={() => {
             if (Boolean(group.length) && Boolean(setMode().length)) {
-              setIsCustomKana(!isCustomKana);
-              navigate(`/alphabet/true/${setMode()}/${typeOfKana}/${group}`);
+              navigate(`/alphabet/true/${setMode()}/${type}/${group}`);
             } else {
               toast({
                 title: "No Kana Selected",
