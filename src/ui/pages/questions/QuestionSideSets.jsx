@@ -11,14 +11,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
-const QuestionSideSets = ({
-    bg,
-    border,
-    hoverColor,
-    type,
-    level,
-    setHasSubmit,
-}) => {
+const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
     const { countBySetVocab, countBySetGrammar, countBySetKanji } =
         useQuestionContext();
     const { dispatch: questionDispatch } = useQuestionContext();
@@ -63,7 +56,7 @@ const QuestionSideSets = ({
                                           onClick={() => {
                                               setHasSubmit(false);
                                               questionDispatch({
-                                                  type: "clearAnswers",
+                                                  type: "clearuseruserAnswers",
                                               });
                                               navigate(
                                                   `/questions/${level}/${kanji._id.type}/${kanji._id.set}`
@@ -96,7 +89,7 @@ const QuestionSideSets = ({
                                           onClick={() => {
                                               setHasSubmit(false);
                                               questionDispatch({
-                                                  type: "clearAnswers",
+                                                  type: "clearuseruserAnswers",
                                               });
                                               navigate(
                                                   `/questions/${level}/${type}/${vocab._id.set}`
@@ -129,7 +122,7 @@ const QuestionSideSets = ({
                                           onClick={() => {
                                               setHasSubmit(false);
                                               questionDispatch({
-                                                  type: "clearAnswers",
+                                                  type: "clearuseruserAnswers",
                                               });
                                               navigate(
                                                   `/questions/${level}/${type}/${grammar._id.set}`
