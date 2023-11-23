@@ -4,7 +4,7 @@ export const QuestionContext = createContext();
 
 const initialQuestionState = {
     questions: null,
-    answers: [null, null, null, null, null, null, null, null, null, null],
+    userAnswers: [null, null, null, null, null, null, null, null, null, null],
     countBySetVocab: null,
     countBySetGrammar: null,
     countBySetKanji: null,
@@ -25,17 +25,22 @@ const questionReducer = (state, action) => {
                 questions: action.payload,
             };
         case "answered":
-            const updatedAnswers = [...state.answers];
+            const updatedAnswers = [...state.userAnswers];
             updatedAnswers[action.payload.index] = action.payload.answer;
 
             return {
                 ...state,
-                answers: updatedAnswers,
+                userAnswers: updatedAnswers,
+            };
+        case "gradedQnAnswers":
+            return {
+                ...state,
+                userAnswers: action.payload,
             };
         case "clearAnswers":
             return {
                 ...state,
-                answers: [
+                userAnswers: [
                     null,
                     null,
                     null,

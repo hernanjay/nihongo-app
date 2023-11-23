@@ -19,6 +19,11 @@ import QuestionList from "./QuestionList";
 import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
 import Loader from "../../components/Loader";
 import QuestionSkeletonLoader from "../../components/QuestionSkeletonLoader";
+import { fetchSpecificGrade } from "../../../logic/services/apiGrades";
+import {
+    fetchQuestions,
+    fetchQuestionsByIds,
+} from "../../../logic/services/apiQuestions";
 
 const QuestionLayout = () => {
     const bg = useColorModeValue("light.400", "dark.100");
@@ -29,7 +34,7 @@ const QuestionLayout = () => {
 
     const {
         questions,
-        answers,
+        userAnswers,
         dispatch: questionDispatch,
     } = useQuestionContext();
 
@@ -39,54 +44,61 @@ const QuestionLayout = () => {
 
     const { level, type, set } = useParams();
 
-    const checked = questions?.map(
-        (qn, index) => qn.answer === answers[index] && true
-    );
-
+    // fetch the grades
     useEffect(() => {
-        async function fetchQuestions() {
+        const fetchGradeAndQuestions = async () => {
             setIsLoading(true);
-            const res = await fetch(
-                `${
-                    import.meta.env.VITE_LOCALHOST_API
-                }/api/questions/${level}-${type}-exercise-${set}`
-            );
+            try {
+                const specificGrade = await fetchSpecificGrade(
+                    user,
+                    level,
+                    type,
+                    set
+                );
 
-            const json = await res.json();
+                // if specificGrade not equal to null it means the user already answered this set
+                if (specificGrade) {
+                    gradeDispatch({
+                        type: "receivedSpecificGrade",
+                        payload: specificGrade,
+                    });
 
-            if (!res.ok) console.log(json.error);
-            setIsLoading(false);
-            if (res.ok) {
-                questionDispatch({ type: "questionReceived", payload: json });
-                setIsLoading(false);
-            }
-        }
-        fetchQuestions();
-    }, [level, type, set, questionDispatch]);
+                    const gradedQuestions = await fetchQuestionsByIds(
+                        specificGrade.idPerQuestion
+                    );
 
-    useEffect(() => {
-        async function fetchSpecificGrade() {
-            const res = await fetch(
-                `${import.meta.env.VITE_LOCALHOST_API}/api/grades/grade`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        userId: user._id,
-                        questionId: `${level}${type}${set}`,
-                    }),
+                    questionDispatch({
+                        type: "questionReceived",
+                        payload: gradedQuestions,
+                    });
+
+                    questionDispatch({
+                        type: "gradedQnAnswers",
+                        payload: specificGrade.userAnswers,
+                    });
+                    setHasSubmit(true);
                 }
-            );
 
-            const json = await res.json();
+                if (!specificGrade) {
+                    const qn = await fetchQuestions(level, type, set);
+                    questionDispatch({
+                        type: "questionReceived",
+                        payload: qn,
+                    });
+                    questionDispatch({
+                        type: "clearAnswers",
+                    });
 
-            if (!res.ok) console.log(json.error);
+                    setHasSubmit(false);
+                }
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Error fetching specific grade:", error.message);
+            }
+        };
 
-            if (res.ok)
-                gradeDispatch({ type: "receivedSpecificGrade", payload: json });
-        }
-        fetchSpecificGrade();
-    }, [user, level, type, set, gradeDispatch]);
+        fetchGradeAndQuestions();
+    }, [user, level, type, set, gradeDispatch, questionDispatch]);
 
     return (
         <Container minW="98vw">
@@ -118,7 +130,6 @@ const QuestionLayout = () => {
                 <QuestionAnsweredTracker
                     bg={bg}
                     border={border}
-                    checked={checked}
                     hasSubmit={hasSubmit}
                     setHasSubmit={setHasSubmit}
                 />

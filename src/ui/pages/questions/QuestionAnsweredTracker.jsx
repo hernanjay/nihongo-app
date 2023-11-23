@@ -13,50 +13,32 @@ import {
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useMemo } from "react";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import { addScore } from "../../../logic/services/apiGrades";
 
-const QuestionAnsweredTracker = ({
-    bg,
-    border,
-    checked,
-    hasSubmit,
-    setHasSubmit,
-}) => {
+const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
     const {
         questions,
-        answers,
+        userAnswers,
         dispatch: questionDispatch,
     } = useQuestionContext();
 
     const { user } = useUserContext();
-
     // Check if all questions are answered
-    const allAnswered = answers.includes(null);
+    const allAnswered = userAnswers.includes(null);
 
-    const correctAnswers = useMemo(
-        () => checked?.filter((answer) => answer === true),
-        [checked]
+    const checker = useMemo(
+        () =>
+            questions?.map(
+                (qn, index) => qn.answer === userAnswers[index] && true
+            ),
+        [questions, userAnswers]
     );
 
-    async function addScore() {
-        const res = await fetch(
-            `${import.meta.env.VITE_LOCALHOST_API}/api/grades/add-grades`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    userId: user._id,
-                    questionId: `${questions[0].level}${questions[0].type}${questions[0].set}`,
-                    score: correctAnswers.length,
-                }),
-            }
-        );
-
-        const json = await res.json();
-
-        if (!res.ok) console.log(json.error);
-
-        if (res.ok) console.log("Score added");
-    }
+    const correctAnswers = useMemo(
+        () => checker?.filter((answer) => answer === true),
+        [checker]
+    );
+    const questionIds = questions?.map((qn) => qn._id);
 
     return (
         <GridItem colSpan="1">
@@ -73,7 +55,7 @@ const QuestionAnsweredTracker = ({
                 </CardHeader>
                 {hasSubmit && (
                     <Text>
-                        Score: {correctAnswers.length} / {checked.length}
+                        Score: {correctAnswers.length} / {checker.length}
                     </Text>
                 )}
                 <CardBody>
@@ -93,10 +75,10 @@ const QuestionAnsweredTracker = ({
                                     }
                                     bg={
                                         hasSubmit
-                                            ? checked[index]
+                                            ? checker[index]
                                                 ? "green.300"
                                                 : "red.300"
-                                            : answers[index] !== null
+                                            : userAnswers[index] !== null
                                             ? "blue.300"
                                             : bg
                                     }
@@ -141,7 +123,13 @@ const QuestionAnsweredTracker = ({
                         variant="outline"
                         isDisabled={allAnswered || hasSubmit}
                         onClick={() => {
-                            addScore();
+                            addScore(
+                                user,
+                                questions,
+                                questionIds,
+                                userAnswers,
+                                correctAnswers
+                            );
                             setHasSubmit(true);
                         }}
                     >

@@ -2,24 +2,42 @@ import { Box, Divider, ListItem, SimpleGrid, Text } from "@chakra-ui/react";
 import QuestionOption from "./QuestionOption";
 import { useEffect, useMemo, useState } from "react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
 const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
     const { question, options } = qn;
-    const { answers, dispatch: questionDispatch } = useQuestionContext();
     const [selectedOption, setSelectedOption] = useState({
         index: null,
     });
 
+    const { userAnswers, dispatch: questionDispatch } = useQuestionContext();
+
+    const { gradesBySet } = useGradeContext();
+
+    // this is to check if the user did not answer yet
     const answersAreNull = useMemo(() =>
-        answers.every((answer) => answer === null, [answers])
+        userAnswers.every((answer) => answer === null, [userAnswers])
     );
 
+    // set the selected index to
     useEffect(() => {
         if (answersAreNull) {
             setSelectedOption({ index: null });
         }
     }, [answersAreNull]);
 
+    useEffect(() => {
+        // IF gradesBySet is not equal to null it means that this user already answer this set
+        if (gradesBySet) {
+            const answerIndex = options
+                ?.map((opt, optIndex) => opt === userAnswers[index] && optIndex)
+                .filter((i) => i)
+                .at(0);
+            setSelectedOption({ index: answerIndex });
+        }
+    }, [gradesBySet, index, userAnswers, options]);
+
+    /****** THIS AREA IS TO FOR THE KANJI QUESTIONS IF [] is not found the endIndex = -1 which display regular question like vocab or grammar*/
     // Find the index of '[' and ']'
     const startIndex = question.indexOf("[");
     const endIndex = question.indexOf("]");
@@ -29,17 +47,19 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
     const within = question.substring(startIndex + 1, endIndex);
     const after = question.substring(endIndex + 1);
 
+    // This is a function when user chooses an option
     function handleOptionClicked(i, answer) {
         // Check if the selected option is the same as the previously selected one
-        const isDeselecting = selectedOption.index === i;
+        const isSameSelected = selectedOption.index === i;
 
+        // set back the index to null if it is selected again
         setSelectedOption((prevState) => ({
             ...prevState,
-            index: isDeselecting ? null : i,
+            index: isSameSelected ? null : i,
         }));
 
-        // If the user is deselecting, remove the answer from the answers array
-        if (isDeselecting) {
+        // If the user is same as selected, remove the answer from the userAnswers array
+        if (isSameSelected) {
             questionDispatch({
                 type: "answered",
                 payload: { answer: null, index },
