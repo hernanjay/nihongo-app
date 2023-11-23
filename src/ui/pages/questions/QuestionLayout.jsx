@@ -32,11 +32,7 @@ const QuestionLayout = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [hasSubmit, setHasSubmit] = useState(false);
 
-    const {
-        questions,
-        userAnswers,
-        dispatch: questionDispatch,
-    } = useQuestionContext();
+    const { dispatch: questionDispatch } = useQuestionContext();
 
     const { user } = useUserContext();
 

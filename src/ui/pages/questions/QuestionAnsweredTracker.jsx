@@ -42,6 +42,7 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
 
     return (
         <GridItem colSpan="1">
+
             <Card
                 textColor={border}
                 boxShadow="lg"

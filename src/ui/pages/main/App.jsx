@@ -20,6 +20,11 @@ import QuestionLayout from "../questions/QuestionLayout";
 import Admindashboard from "../admin/Admindashboard";
 import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
+import KanaLayout from "../kanas/KanaLayout";
+import List from "../admin/List";
+import Grading from "../admin/Grading";
+import User from "../admin/User";
+import ManageQuestioner from "../admin/ManageQuestioner";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -49,9 +54,15 @@ function App() {
                   path="/register"
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
+
                 <Route path="/admin" element={<Admindashboard />} />
                 <Route path="/chart" element={<AdminChart />} />
                 <Route path="/userprofile" element={<UserProfile />} />
+
+                <Route
+                  path="/kana-quiz"
+                  element={user ? <KanaLayout /> : <Navigate to="/" />}
+                />
 
                 <Route
                   path="/questions/:level/:type/:set"
@@ -59,6 +70,10 @@ function App() {
                 />
 
                 <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/grading" element={<Grading />} />
+                <Route path="/managequestioner" element={<ManageQuestioner />} />
+                <Route path="/list" element={<List />} />
               </Routes>
             </>
           )}
