@@ -77,7 +77,6 @@ export default function Admindashboard() {
         flexDir={["column", "column", "row"]}
         overflow="hidden"
         justifyContent="center"
-        
       >
         {/* Column 1 */}
         {/* Column 2 */}
@@ -113,13 +112,17 @@ export default function Admindashboard() {
                 border="none"
               />
               <MenuList>
-                <MenuItem as="a" href="/grading"  icon={<FiBook />}>
+                <MenuItem as="a" href="/grading" icon={<FiBook />}>
                   Grading
                 </MenuItem>
                 <MenuItem as="a" href="/list" icon={<FiUser />}>
                   List of Students
                 </MenuItem>
-                <MenuItem as="a" href="/managequestioner" icon={<FiPaperclip />}>
+                <MenuItem
+                  as="a"
+                  href="/managequestioner"
+                  icon={<FiPaperclip />}
+                >
                   Manage Questionaire
                 </MenuItem>
                 <MenuItem as="a" href="/user" icon={<FiUserCheck />}>

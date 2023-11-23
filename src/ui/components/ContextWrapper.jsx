@@ -1,12 +1,18 @@
 import React from "react";
 import { UserContextProvider } from "../../logic/context/UserContext";
 import { QuestionContextProvider } from "../../logic/context/QuestionContext";
+import { KanaContextProvider } from "../../logic/context/KanaContext";
+import { GradeContextProvider } from "../../logic/context/GradeContext";
 
-function ContextWrapper(props) {
+function ContextWrapper({ children }) {
   return (
-    <UserContextProvider>
-      <QuestionContextProvider>{props.app}</QuestionContextProvider>
-    </UserContextProvider>
+    <KanaContextProvider>
+      <UserContextProvider>
+        <QuestionContextProvider>
+          <GradeContextProvider>{children}</GradeContextProvider>
+        </QuestionContextProvider>
+      </UserContextProvider>
+    </KanaContextProvider>
   );
 }
 

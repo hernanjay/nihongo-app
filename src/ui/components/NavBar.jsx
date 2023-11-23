@@ -43,7 +43,6 @@ export default function NavBar() {
     <Flex
       position="fixed"
       bg={bg}
-      boxShadow="lg"
       w="100%"
       p={4}
       alignItems="center"
@@ -86,15 +85,21 @@ export default function NavBar() {
                   }
                 />
                 <MenuList>
-                  <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/home">
+                  <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/">
                     <Text>Home</Text>
                   </MenuItem>
                   {user.role === "admin" && (
-                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/users">
-                      Users
+                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/admin">
+                      Admin Dashboard
                     </MenuItem>
                   )}
-                  <MenuItem icon={<InfoOutlineIcon />}>User Profile</MenuItem>
+                  <MenuItem
+                    icon={<InfoOutlineIcon />}
+                    as={Link}
+                    to="/userprofile"
+                  >
+                    User Profile
+                  </MenuItem>
                   <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>
                   <MenuItem icon={<ExternalLinkIcon />}>Grades</MenuItem>
                 </MenuList>
