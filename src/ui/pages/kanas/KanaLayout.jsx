@@ -24,6 +24,8 @@ function KanaLayout() {
     dispatch: kanaDispatch,
   } = useKanaContext();
 
+  console.log(kanaData);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

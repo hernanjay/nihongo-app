@@ -1,4 +1,4 @@
-function getMainKanaList(type) {
+function getMainKanaList({ type }) {
   const mainKana =
     type === "hiragana"
       ? [
@@ -27,7 +27,7 @@ function getMainKanaList(type) {
         ];
   return mainKana;
 }
-function getKanaDakutenList(type) {
+function getKanaDakutenList({ type }) {
   const dakutenKana =
     type === "hiragana"
       ? ["が・ga", "ざ・za", "だ・da", "ば・ba", "ぱ・pa"]
@@ -35,7 +35,7 @@ function getKanaDakutenList(type) {
   return dakutenKana;
 }
 
-function getKanaCombinationList(type) {
+function getKanaCombinationList({ type }) {
   const combinationKana =
     type === "hiragana"
       ? [

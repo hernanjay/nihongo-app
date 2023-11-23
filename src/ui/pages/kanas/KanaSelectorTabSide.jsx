@@ -16,6 +16,7 @@ import {
   getKanaDakutenList,
   getMainKanaList,
 } from "./kanaCharacterList";
+import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 
 function KanaSelectorTabSide(type) {
   const bg = useColorModeValue("light.400", "dark.100");
@@ -33,6 +34,7 @@ function KanaSelectorTabSide(type) {
     useState(false);
   const [group, setGroup] = useState([]);
   const toast = useToast();
+  const { dispatch: kanaDispatch } = useKanaContext();
 
   function setMode() {
     let mode = [];
@@ -104,9 +106,10 @@ function KanaSelectorTabSide(type) {
           fontSize="2vh"
           fontWeight="light"
           onClick={() => {
-            navigate(
-              `/alphabet/false/${type === "hiragana" ? `katakana` : `hiragana`}`
-            );
+            kanaDispatch({
+              type: "typeSet",
+              payload: type === "hiragana" ? "Katakana" : "Hiragana",
+            });
           }}
         >
           {`Switch to ${type === "hiragana" ? "Katakana" : "Hiragana"}`}
@@ -129,7 +132,9 @@ function KanaSelectorTabSide(type) {
           fontSize="2vh"
           fontWeight="light"
           onClick={() => {
-            navigate(`/alphabet/false/${type}`);
+            kanaDispatch({ type: "modeSet", payload: setMode() });
+            kanaDispatch({ type: "typeSet", payload: type });
+            kanaDispatch({ type: "groupSet", payload: group });
           }}
         >
           All Kana
