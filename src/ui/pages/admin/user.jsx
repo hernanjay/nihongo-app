@@ -90,6 +90,7 @@ export default function User() {
               aria-label="Options"
               icon={<TriangleDownIcon />}
               variant="outline"
+              border="none"
             />
             <MenuList>
             <MenuItem as="a" href="/grading"  icon={<FiBook />}>

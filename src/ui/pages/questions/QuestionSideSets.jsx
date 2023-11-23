@@ -28,7 +28,7 @@ const QuestionSideSets = ({
 
     return (
         <GridItem colSpan="1">
-            <Card boxShadow="lg" bgColor={bg} position="sticky" top="7.5vw">
+            <Card boxShadow="lg" bgColor={bg} position="sticky" top="15.5vh">
                 <CardHeader>
                     <Text align="center" fontSize={"1.5vw"}>
                         {`${level.toUpperCase()} ${
