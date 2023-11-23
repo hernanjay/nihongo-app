@@ -88,11 +88,16 @@ export default function Admindashboard() {
           minH="100vh"
           bg="white"
           pt="6%"
+          boxShadow="2xl"
         >
           <Breadcrumb>
             <BreadcrumbItem>
               <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
+
+            {/* <BreadcrumbItem>
+            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
+          </BreadcrumbItem> */}
 
             {/* <BreadcrumbItem>
             <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
@@ -104,6 +109,7 @@ export default function Admindashboard() {
                 aria-label="Options"
                 icon={<TriangleDownIcon />}
                 variant="outline"
+                border="none"
               />
               <MenuList>
                 <MenuItem as="a" href="/grading" icon={<FiBook />}>
