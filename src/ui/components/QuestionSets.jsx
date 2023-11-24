@@ -1,45 +1,49 @@
 import { Badge } from "@chakra-ui/layout";
-import { Progress } from "@chakra-ui/progress";
-import { Stat, StatArrow, StatLabel } from "@chakra-ui/stat";
 import { Td, Tr } from "@chakra-ui/table";
 import { useNavigate } from "react-router-dom";
-import { Text, HStack } from "@chakra-ui/react";
+import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
+import ThemeColors from "../pages/main/ThemeColors";
 
 const QuestionSets = ({ index, type, level, set }) => {
+  const { hover } = ThemeColors();
   const navigate = useNavigate();
+  const { grades } = useGradeContext();
+
+  // check if what grade is in this set
+  const dynamicGrades =
+    (type === "kanji" && grades?.kanjiGrades[index]) ||
+    (type === "vocab" && grades?.vocabGrades[index]) ||
+    (type === "grammar" && grades?.grammarGrades[index]);
+
+  // if dynamicGrades is not null, get its level
+  const gradesLevel = dynamicGrades && dynamicGrades?.questionSetId.slice(0, 1);
+
+  // check if it gradesLEvel is same sa questions level
+  const isSameLevel = level === gradesLevel;
+
+  let score = isSameLevel ? dynamicGrades?.score : null;
+
+  let numOfItems = 0;
+
   function setQuestionStatus() {
-    let x = Math.round(Math.random() * (2 - 0) + 0);
-    if (x === 0) {
-      return <Badge colorScheme="green">Success</Badge>;
-    } else if (x === 1) {
+    if (score > 7) {
+      return <Badge colorScheme="green">Pass</Badge>;
+    } else if (score < 8 && score != null) {
       return <Badge colorScheme="red">Fail</Badge>;
     } else {
-      return <Badge colorScheme="teal">New</Badge>;
+      return <Badge colorScheme="gray">pending</Badge>;
     }
   }
   return (
-    <Tr key={index}>
+    <Tr key={index} _hover={{ bg: hover }}>
       <Td
         onClick={() => navigate(`questions/n${level}/${type}/${set}`)}
         style={{ cursor: "pointer" }}
       >
         {`Question : ${index + 1}`}
       </Td>
-      <Td>
-        <Progress value={Math.round(Math.random() * (100 - 75) + 75)} />{" "}
-      </Td>
-      <Td isNumeric>
-        <Stat>
-          <StatLabel>
-            {Math.round(Math.random()) ? (
-              <StatArrow type="increase" />
-            ) : (
-              <StatArrow type="decrease" />
-            )}
-            {Math.round(Math.random() * (100 - 75) + 75)}
-          </StatLabel>
-        </Stat>
-      </Td>
+      <Td>{numOfItems}</Td>
+      <Td isNumeric>{score}</Td>
       <Td isNumeric>{setQuestionStatus()}</Td>
     </Tr>
   );
