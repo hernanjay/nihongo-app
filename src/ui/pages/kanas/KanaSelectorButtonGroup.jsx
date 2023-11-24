@@ -1,12 +1,4 @@
-import {
-  Box,
-  Center,
-  Checkbox,
-  Flex,
-  SimpleGrid,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Checkbox, Flex, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
@@ -21,20 +13,15 @@ function KanaSelectorButtonGroup({
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
 
+  //Stores Truthy value of all buttons
   const [checkedItems, setCheckedItems] = useState(() => {
     let items = [];
+    const storedKanaGroup = sessionStorage.getItem("kanaGroup");
     kanaGroup.map((value) => {
-      if (sessionStorage.getItem("kanaGroup")) {
-        if (
-          sessionStorage
-            .getItem("kanaGroup")
-            .split(",")
-            .includes(value.split("・")[1])
-        ) {
-          items.push(true);
-        } else {
-          items.push(false);
-        }
+      if (storedKanaGroup) {
+        const splitKanaGroup = storedKanaGroup.split(",");
+        const strippedDownValue = value.split("・")[1];
+        if (splitKanaGroup.includes(strippedDownValue)) items.push(true);
       } else {
         items.push(false);
       }
@@ -42,7 +29,9 @@ function KanaSelectorButtonGroup({
     return items;
   });
 
+  //Checks if all buttons are checked
   const allChecked = checkedItems.every(Boolean);
+  //Checks if all child buttons aren't checked
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
   return (
@@ -61,11 +50,13 @@ function KanaSelectorButtonGroup({
             let items = [];
             let selectedKana = selectedGroup;
             checkedItems.map((isChecked, index) => {
+              //Checks which kana character is chosen
               if (isChecked) {
                 selectedKana.splice(selectedKana.indexOf(kanaGroup[index]), 1);
               } else {
                 selectedKana.push(kanaGroup[index].split("・")[1]);
               }
+              //Checks which button is marked checked
               if (isChecked && !allChecked) {
                 items.push(isChecked);
               } else {
