@@ -21,7 +21,7 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
 
   return (
     <GridItem colSpan="1">
-      <Card boxShadow="lg" bgColor={bg} position="sticky" top="15.5vh">
+      <Card boxShadow="lg" bgColor={bg} position="sticky" top="5.5vh">
         <CardHeader>
           <Text align="center" fontSize={"1.5vw"}>
             {`${level.toUpperCase()} ${
