@@ -1,10 +1,12 @@
 import { createContext, useEffect, useReducer } from "react";
+import { fetchCountQuestionsByLevelTypeSet } from "../services/apiQuestions";
 
 export const QuestionContext = createContext();
 
 const initialQuestionState = {
     questions: null,
     userAnswers: [null, null, null, null, null, null, null, null, null, null],
+    questionsQty: null,
     countBySetVocab: null,
     countBySetGrammar: null,
     countBySetKanji: null,
@@ -23,6 +25,11 @@ const questionReducer = (state, action) => {
             return {
                 ...state,
                 questions: action.payload,
+            };
+        case "receivedQuestionQty":
+            return {
+                ...state,
+                questionsQty: action.payload,
             };
         case "answered":
             const updatedAnswers = [...state.userAnswers];
@@ -83,10 +90,15 @@ export const QuestionContextProvider = ({ children }) => {
 
             if (response.ok) {
                 dispatch({ type: "dataReceived", payload: json });
+
+                const count = await fetchCountQuestionsByLevelTypeSet();
+
+                dispatch({ type: "receivedQuestionQty", payload: count });
             }
         }
         fetchQuestions();
     }, []);
+
     return (
         <QuestionContext.Provider value={{ ...state, dispatch }}>
             {children}
