@@ -65,7 +65,7 @@ const QuestionLayout = () => {
 
                     questionDispatch({
                         type: "questionReceived",
-                        payload: gradedQuestions.questions,
+                        payload: gradedQuestions,
                     });
 
                     questionDispatch({
