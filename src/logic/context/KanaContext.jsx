@@ -13,10 +13,9 @@ let initialState = {
 const kanaReducer = (state, action) => {
   switch (action.type) {
     case "dataReceived":
-      shuffle(action.payload);
       return {
         ...state,
-        kanaData: action.payload,
+        kanaData: shuffle(action.payload),
       };
     case "modeSet":
       sessionStorage.setItem("kanaMode", action.payload);

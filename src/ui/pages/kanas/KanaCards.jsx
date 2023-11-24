@@ -20,10 +20,11 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react";
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
+import ThemeColors from "../main/ThemeColors";
 
 function KanaCards({ totalItems, kana, index }) {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const popColor = useColorModeValue("gray.200", "dark.200");
   const [isCorrect, setIsCorrect] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -32,7 +33,7 @@ function KanaCards({ totalItems, kana, index }) {
   return (
     <Card
       borderColor={border}
-      bg={isCorrect ? "green.100" : !isEmpty ? "red.200" : bg}
+      bg={isCorrect ? success : !isEmpty ? error : bg}
       variant={"outline"}
       boxShadow={"lg"}
     >
@@ -60,17 +61,29 @@ function KanaCards({ totalItems, kana, index }) {
         </Flex>
       </CardHeader>
       <CardBody>
-        <Heading fontSize="4vw" textAlign={"center"} m={2}>
-          {kanaType === "hiragana" ? kana.hiragana : kana.katakana}
+        <Heading
+          fontSize="4vw"
+          textAlign={"center"}
+          m="1vh"
+          fontWeight={isCorrect ? "light" : "bold"}
+          h={isCorrect ? "20vh" : "auto"}
+        >
+          {!isCorrect
+            ? kanaType === "hiragana"
+              ? kana.hiragana
+              : kana.katakana
+            : kanaType === "hiragana"
+            ? `${kana.hiragana}・${kana.romaji}`
+            : `${kana.katakana}・${kana.romaji}`}
         </Heading>
         <Input
           textAlign="center"
-          bg={isCorrect ? "white" : bg}
+          bg={isCorrect ? success : bg}
           key={kana.romaji + index}
           id={`KanaCardsInput${index}`}
-          mt={10}
+          mt="5.7vh"
           type="text"
-          autoComplete="off"
+          hidden={isCorrect}
           readOnly={isCorrect}
           onChange={(e) => {
             if (e.target.value === kana.romaji) {
