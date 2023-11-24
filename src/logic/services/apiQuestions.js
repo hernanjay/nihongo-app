@@ -36,3 +36,18 @@ export async function fetchQuestionsByIds(idPerQuestion) {
 
     return json;
 }
+
+export async function fetchCountQuestionsByLevelTypeSet() {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/count-by-sets`
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.log(json.error);
+        return null;
+    }
+
+    return json;
+}
