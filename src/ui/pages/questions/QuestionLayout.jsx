@@ -6,6 +6,8 @@ import {
   Skeleton,
   SkeletonCircle,
   SkeletonText,
+  Box,
+  Divider,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -19,10 +21,11 @@ import QuestionList from "./QuestionList";
 import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
 import Loader from "../../components/Loader";
 import QuestionSkeletonLoader from "../../components/QuestionSkeletonLoader";
+import ThemeColors from "../main/ThemeColors";
 
 const QuestionLayout = () => {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
   const [isLoading, setIsLoading] = useState(false);
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -89,37 +92,59 @@ const QuestionLayout = () => {
   }, [user, level, type, set, gradeDispatch]);
 
   return (
-    <Container minW="98vw">
+    <Box minW="100vw">
       {isLoading && <Loader isLoading={isLoading} />}
       <Loader />
-      <Grid
-        h={"100%"}
-        templateRows="repeat(1, 1fr)"
-        templateColumns="repeat(4, 1fr)"
-        gap={3}
-        pt="7.5vw"
+      <Divider minH="9vh" />
+      <Box
+        px="2.5vw"
+        maxH="91vh"
+        overflow="auto"
+        overscrollBehavior="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "12px",
+            borderRadius: "8px",
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+        }}
       >
-        <QuestionSideSets
-          bg={bg}
-          hoverColor={hoverColor}
-          type={type}
-          level={level}
-          setHasSubmit={setHasSubmit}
-        />
-        {isLoading ? (
-          <QuestionSkeletonLoader />
-        ) : (
-          <QuestionList bg={bg} hoverColor={hoverColor} hasSubmit={hasSubmit} />
-        )}
-        <QuestionAnsweredTracker
-          bg={bg}
-          border={border}
-          checked={checked}
-          hasSubmit={hasSubmit}
-          setHasSubmit={setHasSubmit}
-        />
-      </Grid>
-    </Container>
+        <Grid
+          h={"100%"}
+          templateRows="repeat(1, 1fr)"
+          templateColumns="repeat(4, 1fr)"
+          gap={3}
+          pt="2.5vw"
+        >
+          <QuestionSideSets
+            bg={bg}
+            hoverColor={hoverColor}
+            type={type}
+            level={level}
+            setHasSubmit={setHasSubmit}
+          />
+          {isLoading ? (
+            <QuestionSkeletonLoader />
+          ) : (
+            <QuestionList
+              bg={bg}
+              hoverColor={hoverColor}
+              hasSubmit={hasSubmit}
+            />
+          )}
+          <QuestionAnsweredTracker
+            bg={bg}
+            border={border}
+            checked={checked}
+            hasSubmit={hasSubmit}
+            setHasSubmit={setHasSubmit}
+          />
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 export default QuestionLayout;

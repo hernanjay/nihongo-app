@@ -1,5 +1,6 @@
 import { Button, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
+import ThemeColors from "../main/ThemeColors";
 
 const QuestionOption = ({
   option,
@@ -11,7 +12,7 @@ const QuestionOption = ({
   answer,
   hasSubmit,
 }) => {
-  const border = useColorModeValue("dark.100", "light.400");
+  const { border } = ThemeColors();
 
   // get the index of the selected option
   const isSelected = selectedOption.index === index;

@@ -18,10 +18,11 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import React from "react";
+import ThemeColors from "../pages/main/ThemeColors";
 
 function GrammarQuestionSample() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   return (
     <>
       <Grid

@@ -13,9 +13,11 @@ import KanaCards from "./KanaCards";
 import KanaSelectorTabSide from "./KanaSelectorTabSide";
 import Loader from "../../components/Loader";
 import { ArrowUpIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 function KanaLayout() {
   const toast = useToast();
+  const navigate = useNavigate();
   const {
     kanaData,
     kanaMode,
@@ -24,13 +26,11 @@ function KanaLayout() {
     dispatch: kanaDispatch,
   } = useKanaContext();
 
-  console.log(kanaData);
-
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchData() {
-      setIsLoading(true);
       let res;
       if (kanaType && kanaMode.length && kanaGroup.length) {
         res = await fetch(
@@ -56,29 +56,25 @@ function KanaLayout() {
           `${import.meta.env.VITE_LOCALHOST_API}/api/alphabet/${kanaType}`
         );
       } else {
-        toast({
-          title: "Session Failed",
-          position: "top",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
+        navigate("/");
       }
 
-      const json = await res.json();
+      if (kanaType) {
+        const json = await res.json();
 
-      if (!res.ok) {
-        toast({
-          title: "Session Failed in Fetch",
-          position: "top",
-          description: json.error,
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
-      }
-      if (res.ok) {
-        kanaDispatch({ type: "dataReceived", payload: json });
+        if (!res.ok) {
+          toast({
+            title: "Session Failed",
+            position: "top",
+            description: json.error,
+            status: "error",
+            duration: 2500,
+            isClosable: true,
+          });
+        }
+        if (res.ok) {
+          kanaDispatch({ type: "dataReceived", payload: json });
+        }
       }
       setIsLoading(false);
     }
@@ -86,7 +82,7 @@ function KanaLayout() {
   }, [kanaMode, kanaType, kanaGroup, kanaDispatch]);
 
   return (
-    <Box>
+    <Box pt="10vh">
       <Loader isLoading={isLoading} />
       <IconButton
         position="fixed"
@@ -102,12 +98,27 @@ function KanaLayout() {
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         }}
       />
-      <Flex pt="10vh">
-        <Box minW="25vw" my="2.5vh" ml="2.5vw">
-          <KanaSelectorTabSide key="Tabside" type={kanaType} />
+      <Flex
+        h="90vh"
+        maxH="100vh"
+        overflow="auto"
+        overscrollBehavior="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "12px",
+            borderRadius: "8px",
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+        }}
+      >
+        <Box position="fixed" minW="25vw" ml="1.5vw">
+          <KanaSelectorTabSide key="Tabside" isLoading={isLoading} />
         </Box>
-        <Box minW="62.5vw" ml="2vw">
-          <SimpleGrid columns={3} gap={10} py="5vh">
+        <Box minW="62.5vw" ml="30vw">
+          <SimpleGrid columns={3} gap={10} py="2.5vh">
             {kanaData.map((kana, index) => {
               return (
                 <Skeleton
