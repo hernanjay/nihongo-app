@@ -42,13 +42,13 @@ import {
 } from "@chakra-ui/icons";
 import { useColorModeValue } from "@chakra-ui/react";
 import { useSignup } from "../../../logic/hooks/user/useSignup";
+import ThemeColors from "../main/ThemeColors";
 
 export default function Register() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const navigate = useNavigate();
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
   const highlight = useColorModeValue("gray.200", "dark.200");
   const [isPassValidFormat, setIsPassValidFormat] = useState(false);
   const [isPassValidLength, setIsPassValidLength] = useState(false);

@@ -6,11 +6,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
+import ThemeColors from "../pages/main/ThemeColors";
 
 function QuestionSkeletonLoader() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const start = useColorModeValue("light.400", "dark.100");
-  const end = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const boxes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
@@ -27,15 +27,8 @@ function QuestionSkeletonLoader() {
             minH="25vh"
             borderRadius="lg"
           >
-            <SkeletonCircle
-              startColor={start}
-              endColor={end}
-              fadeDuration={1}
-              size="10"
-            />
+            <SkeletonCircle fadeDuration={1} size="10" />
             <SkeletonText
-              startColor={start}
-              endColor={end}
               fadeDuration={4}
               mt="4"
               noOfLines={4}
