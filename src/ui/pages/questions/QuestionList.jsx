@@ -4,6 +4,7 @@ import { useQuestionContext } from "../../../logic/hooks/question/useQuestionCon
 
 const QuestionList = ({ bg, hoverColor, hasSubmit }) => {
     const { questions } = useQuestionContext();
+    console.log(questions);
     return (
         <GridItem colSpan={"2"}>
             <Box maxW={"60vw"}>

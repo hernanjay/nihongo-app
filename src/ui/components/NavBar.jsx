@@ -29,6 +29,7 @@ import {
 
 import { useUserContext } from "../../logic/hooks/user/useUserContext";
 import { useLogout } from "../../logic/hooks/user/useLogout";
+import ThemeColors from "../pages/main/ThemeColors";
 
 export default function NavBar() {
   const { user } = useUserContext();
@@ -37,7 +38,8 @@ export default function NavBar() {
   const { toggleColorMode } = useColorMode();
 
   const colorMode = useColorMode().colorMode;
-  const bg = useColorModeValue("light.400", "dark.100");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
 
   return (
     <Flex
@@ -48,6 +50,7 @@ export default function NavBar() {
       alignItems="center"
       gap="2"
       zIndex="5"
+      boxShadow="lg"
     >
       <Box />
       <Image
@@ -89,8 +92,8 @@ export default function NavBar() {
                     <Text>Home</Text>
                   </MenuItem>
                   {user.role === "admin" && (
-                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/users">
-                      Users
+                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/admin">
+                      Admin Dashboard
                     </MenuItem>
                   )}
                   <MenuItem

@@ -42,6 +42,7 @@ import {
 } from "@chakra-ui/icons";
 import { useLogin } from "../../../logic/hooks/user/useLogin";
 import Loader from "../../components/Loader";
+import ThemeColors from "../main/ThemeColors";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -49,9 +50,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleClick = () => setShow(!show);
-  const bg = useColorModeValue("light.400", "dark.100");
   const highlight = useColorModeValue("gray.200", "dark.200");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
 
   const { login, isLoading, error } = useLogin();
   const { isOpen, onToggle, onClose } = useDisclosure();

@@ -13,9 +13,11 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useUserContext } from "../../logic/hooks/user/useUserContext";
+import ThemeColors from "../pages/main/ThemeColors";
 
 function HomeUserProfileCard() {
-  const bg = useColorModeValue("light.400", "dark.100");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const { user } = useUserContext();
   return (
     <Box position="fixed" minW="30vw" ml="2.5vw">

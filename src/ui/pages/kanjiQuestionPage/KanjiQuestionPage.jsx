@@ -22,8 +22,8 @@ import KanjiQuestionCard from "../../components/KanjiQuestionCard";
 import KanjiQuestionList from "../../components/QuestionList";
 
 function KanjiQuestionPage() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const [userHasAnswered, setUserHasAnswered] = useState([
     {
       questionNo: 0,

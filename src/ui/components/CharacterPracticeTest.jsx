@@ -12,9 +12,11 @@ import React, { useState } from "react";
 import DataSet from "../../assets/data.json";
 import CharacterPracticeTestCard from "./CharacterPracticeTestCard";
 import CharacterList from "./CharacterList";
+import ThemeColors from "../pages/main/ThemeColors";
 
 function CharacterPracticeTest(props) {
-  const bg = useColorModeValue("light.400", "dark.100");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const [mode, setMode] = useState("");
 
   return (

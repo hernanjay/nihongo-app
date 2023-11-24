@@ -5,16 +5,15 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  TabIndicator,
   useColorModeValue,
   Box,
 } from "@chakra-ui/react";
-import KanaSelectorHiragana from "./KanaSelectorHiragana";
-import KanaSelectorKatakana from "./KanaSelectorKatakana";
+import KanaSelector from "./KanaSelector";
+import ThemeColors from "../main/ThemeColors";
 
 function KanaSelectorTab() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   return (
     <Box>
       <Tabs
@@ -34,10 +33,10 @@ function KanaSelectorTab() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <KanaSelectorHiragana key="KanaSelectorHiragana" />
+            <KanaSelector type="hiragana" key="KanaSelectorHiragana" />
           </TabPanel>
           <TabPanel>
-            <KanaSelectorKatakana key="KanaSelectorKatakana" />
+            <KanaSelector type="katakana" key="KanaSelectorKatakana" />
           </TabPanel>
         </TabPanels>
       </Tabs>

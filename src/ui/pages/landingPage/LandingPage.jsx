@@ -29,10 +29,11 @@ import VocabQuestionSample from "../../components/VocabQuestionSample";
 import GrammarQuestionSample from "../../components/GrammarQuestionSample";
 import Loader from "../../components/Loader";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import ThemeColors from "../main/ThemeColors";
 
 export default function LandingPage() {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const element = document.getElementById("sampleQuestions");
   const navigate = useNavigate();
 

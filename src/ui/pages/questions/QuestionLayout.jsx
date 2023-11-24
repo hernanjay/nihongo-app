@@ -1,51 +1,98 @@
-import { Container, Grid, useColorModeValue } from "@chakra-ui/react";
+import {
+  Container,
+  Grid,
+  border,
+  useColorModeValue,
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
+} from "@chakra-ui/react";
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import { useGradeContext } from "./../../../logic/hooks/grade/useGradeContext";
+import { useQuestionContext } from "./../../../logic/hooks/question/useQuestionContext";
+
 import QuestionSideSets from "./QuestionSideSets";
 import QuestionList from "./QuestionList";
-import { useQuestionContext } from "./../../../logic/hooks/question/useQuestionContext";
 import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
 import Loader from "../../components/Loader";
 import QuestionSkeletonLoader from "../../components/QuestionSkeletonLoader";
+import ThemeColors from "../main/ThemeColors";
+import { fetchSpecificGrade } from "../../../logic/services/apiGrades";
+import {
+  fetchQuestions,
+  fetchQuestionsByIds,
+} from "../../../logic/services/apiQuestions";
 
 const QuestionLayout = () => {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
   const [isLoading, setIsLoading] = useState(false);
   const [hasSubmit, setHasSubmit] = useState(false);
 
-  const {
-    questions,
-    answers,
-    dispatch: questionDispatch,
-  } = useQuestionContext();
+  const { userAnswers, dispatch: questionDispatch } = useQuestionContext();
+
+  const { user } = useUserContext();
+
+  const { dispatch: gradeDispatch } = useGradeContext();
+
   const { level, type, set } = useParams();
 
-  const checked = questions?.map(
-    (qn, index) => qn.answer === answers[index] && true
-  );
-
+  // fetch the grades
   useEffect(() => {
-    async function fetchQuestions() {
+    const fetchGradeAndQuestions = async () => {
       setIsLoading(true);
-      const res = await fetch(
-        `${
-          import.meta.env.VITE_LOCALHOST_API
-        }/api/questions/${level}-${type}-exercise-${set}`
-      );
+      try {
+        const specificGrade = await fetchSpecificGrade(user, level, type, set);
 
-      const json = await res.json();
+        // if specificGrade not equal to null it means the user already answered this set
+        if (specificGrade) {
+          gradeDispatch({
+            type: "receivedSpecificGrade",
+            payload: specificGrade,
+          });
 
-      if (!res.ok) console.log(json.error);
-      setIsLoading(false);
-      if (res.ok) {
-        questionDispatch({ type: "questionReceived", payload: json });
+          const gradedQuestions = await fetchQuestionsByIds(
+            specificGrade.idPerQuestion
+          );
+
+          questionDispatch({
+            type: "questionReceived",
+            payload: gradedQuestions,
+          });
+
+          questionDispatch({
+            type: "gradedQnAnswers",
+            payload: specificGrade.userAnswers,
+          });
+          setHasSubmit(true);
+        }
+
+        if (!specificGrade) {
+          const qn = await fetchQuestions(level, type, set);
+          questionDispatch({
+            type: "questionReceived",
+            payload: qn,
+          });
+          questionDispatch({
+            type: "clearAnswers",
+          });
+
+          gradeDispatch({ type: "clearGradeBySet" });
+
+          setHasSubmit(false);
+        }
         setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching specific grade:", error.message);
       }
-    }
-    fetchQuestions();
-  }, [level, type, set, questionDispatch]);
+    };
+
+    fetchGradeAndQuestions();
+  }, [user, level, type, set, gradeDispatch, questionDispatch]);
 
   return (
     <Container minW="98vw">
@@ -73,7 +120,6 @@ const QuestionLayout = () => {
         <QuestionAnsweredTracker
           bg={bg}
           border={border}
-          checked={checked}
           hasSubmit={hasSubmit}
           setHasSubmit={setHasSubmit}
         />
