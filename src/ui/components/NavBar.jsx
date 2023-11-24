@@ -29,6 +29,7 @@ import {
 
 import { useUserContext } from "../../logic/hooks/user/useUserContext";
 import { useLogout } from "../../logic/hooks/user/useLogout";
+import ThemeColors from "../pages/main/ThemeColors";
 
 export default function NavBar() {
     const { user } = useUserContext();
@@ -36,28 +37,81 @@ export default function NavBar() {
     const navigate = useNavigate();
     const { toggleColorMode } = useColorMode();
 
-    const colorMode = useColorMode().colorMode;
-    const bg = useColorModeValue("light.400", "dark.100");
+  const colorMode = useColorMode().colorMode;
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
 
-    return (
-        <Flex
-            position="fixed"
-            bg={bg}
-            w="100%"
-            p={4}
-            alignItems="center"
-            gap="2"
-            zIndex="5"
-            shadow="lg"
-        >
-            <Image
-                boxSize="40px"
-                objectFit="cover"
-                src="https://1.bp.blogspot.com/-0wXC6MMwTqs/Xrea7O9QSuI/AAAAAAABY1U/apyEhwKBcTws66j3jFVmQUD0dMvIO7GRwCNcBGAsYHQ/s400/study_school_jugyou_boy.png"
-                alt="logo"
-            />
-            <Text
-                fontSize="2xl"
+  return (
+    <Flex
+      position="fixed"
+      bg={bg}
+      w="100%"
+      p={4}
+      alignItems="center"
+      gap="2"
+      zIndex="5"
+      boxShadow="lg"
+    >
+      <Image
+        boxSize="40px"
+        objectFit="cover"
+        src="https://1.bp.blogspot.com/-0wXC6MMwTqs/Xrea7O9QSuI/AAAAAAABY1U/apyEhwKBcTws66j3jFVmQUD0dMvIO7GRwCNcBGAsYHQ/s400/study_school_jugyou_boy.png"
+        alt="logo"
+      />
+      <Text
+        fontSize="2xl"
+        onClick={() => {
+          navigate("/");
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        N4・日本語・練習用・ツール
+      </Text>
+      <Spacer />
+      <Spacer />
+      <Spacer />
+      <Stack direction="row" spacing={4} align="center" justify="center">
+        <ButtonGroup>
+          {user ? (
+            <>
+              <Menu id="nav-bar-menu">
+                <MenuButton
+                  id="nav-bar-menu-button"
+                  data-testid="nav-bar-menu-button"
+                  as={IconButton}
+                  bg="transparent"
+                  icon={
+                    <Avatar name={user.username} size="sm" m={1}>
+                      <AvatarBadge boxSize="1.25em" bg="green.500" />
+                    </Avatar>
+                  }
+                />
+                <MenuList>
+                  <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/">
+                    <Text>Home</Text>
+                  </MenuItem>
+                  {user.role === "admin" && (
+                    <MenuItem icon={<InfoOutlineIcon />} as={Link} to="/admin">
+                      Admin Dashboard
+                    </MenuItem>
+                  )}
+                  <MenuItem
+                    icon={<InfoOutlineIcon />}
+                    as={Link}
+                    to="/userprofile"
+                  >
+                    User Profile
+                  </MenuItem>
+                  <MenuItem icon={<SettingsIcon />}>User Settings</MenuItem>
+                  <MenuItem icon={<ExternalLinkIcon />}>Grades</MenuItem>
+                </MenuList>
+              </Menu>
+              <Button variant="solid" bg="transparent" onClick={logout}>
+                Logout
+              </Button>
+              <Button
+                variant="solid"
+                bg="transparent"
                 onClick={() => {
                     navigate("/");
                 }}

@@ -1,9 +1,10 @@
 import { Tag, TagLabel, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
+import ThemeColors from "../pages/main/ThemeColors";
 
 export default function KanjiQuestionList({ questionNo, userHasAnswered }) {
-  const border = useColorModeValue("dark.100", "light.400");
-  const bg = useColorModeValue("light.400", "dark.100");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const chosen = useColorModeValue("gray.200", "dark.200");
   let isDone =
     typeof userHasAnswered[questionNo] === "undefined"

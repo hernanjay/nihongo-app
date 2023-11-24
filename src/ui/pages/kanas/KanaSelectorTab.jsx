@@ -9,9 +9,11 @@ import {
   Box,
 } from "@chakra-ui/react";
 import KanaSelector from "./KanaSelector";
+import ThemeColors from "../main/ThemeColors";
 
 function KanaSelectorTab() {
-  const bg = useColorModeValue("light.400", "dark.100");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   return (
     <Box>
       <Tabs
