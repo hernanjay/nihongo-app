@@ -20,6 +20,11 @@ const gradeReducer = (state, action) => {
                 ...state,
                 gradesBySet: action.payload,
             };
+        case "clearGradeBySet":
+            return {
+                ...state,
+                gradesBySet: null,
+            };
         default:
             return state;
     }
