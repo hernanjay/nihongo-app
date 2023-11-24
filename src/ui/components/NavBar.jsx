@@ -45,23 +45,23 @@ export default function NavBar() {
     <Flex
       position="fixed"
       bg={bg}
-      w="100%"
-      p={4}
       alignItems="center"
       gap="2"
       zIndex="5"
       boxShadow="lg"
       minH="10vh"
       maxH="10vh"
+      w="100%"
+      pl={{ base: "2em", lg: "2em" }}
     >
       <Image
-        boxSize="40px"
+        boxSize="3em"
         objectFit="cover"
         src="https://1.bp.blogspot.com/-0wXC6MMwTqs/Xrea7O9QSuI/AAAAAAABY1U/apyEhwKBcTws66j3jFVmQUD0dMvIO7GRwCNcBGAsYHQ/s400/study_school_jugyou_boy.png"
         alt="logo"
       />
       <Text
-        fontSize="2xl"
+        fontSize={{ base: "0", lg: "2em" }}
         onClick={() => {
           navigate("/");
         }}
@@ -126,6 +126,7 @@ export default function NavBar() {
           ) : (
             <>
               <Button
+                size={{ base: "sm", lg: "md" }}
                 variant="solid"
                 bg="transparent"
                 onClick={() => {
@@ -135,6 +136,7 @@ export default function NavBar() {
                 Register
               </Button>
               <Button
+                size={{ base: "sm", lg: "md" }}
                 variant="solid"
                 bg="transparent"
                 onClick={() => {
@@ -144,6 +146,7 @@ export default function NavBar() {
                 Login
               </Button>
               <Button
+                size={{ base: "sm", lg: "md" }}
                 data-testid="color-mode-toggle"
                 variant="solid"
                 bg="transparent"

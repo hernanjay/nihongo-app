@@ -3,6 +3,8 @@ import { createContext, useReducer } from "react";
 
 export const KanaContext = createContext();
 
+const salt = "lmao";
+
 let initialState = {
   kanaData: [],
   kanaMode: "",
