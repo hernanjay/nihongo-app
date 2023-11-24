@@ -51,6 +51,8 @@ export default function NavBar() {
       gap="2"
       zIndex="5"
       boxShadow="lg"
+      minH="10vh"
+      maxH="10vh"
     >
       <Box />
       <Image
