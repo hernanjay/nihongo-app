@@ -1,18 +1,40 @@
+import { useEffect } from "react";
 import { createContext, useReducer } from "react";
 
 export const KanaContext = createContext();
 
-let initialKanaState = {
-  presetKana: [],
+let initialState = {
+  kanaData: [],
+  kanaMode: "",
+  kanaType: "",
+  kanaGroup: "",
 };
 
 const kanaReducer = (state, action) => {
-  shuffle(action.payload);
   switch (action.type) {
     case "dataReceived":
-      initialKanaState.presetKana = action.payload;
+      shuffle(action.payload);
       return {
-        presetKana: action.payload,
+        ...state,
+        kanaData: action.payload,
+      };
+    case "modeSet":
+      sessionStorage.setItem("kanaMode", action.payload);
+      return {
+        ...state,
+        kanaMode: action.payload,
+      };
+    case "typeSet":
+      sessionStorage.setItem("kanaType", action.payload);
+      return {
+        ...state,
+        kanaType: action.payload,
+      };
+    case "groupSet":
+      sessionStorage.setItem("kanaGroup", action.payload);
+      return {
+        ...state,
+        kanaGroup: action.payload,
       };
     default:
       return state;
@@ -20,7 +42,29 @@ const kanaReducer = (state, action) => {
 };
 
 export const KanaContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(kanaReducer, initialKanaState);
+  const [state, dispatch] = useReducer(kanaReducer, initialState);
+  const kanaModeToken = sessionStorage.getItem("kanaMode");
+  const kanaSetToken = sessionStorage.getItem("kanaType");
+  const kanaGroupToken = sessionStorage.getItem("kanaGroup");
+
+  useEffect(() => {
+    if (kanaModeToken)
+      dispatch({
+        type: "modeSet",
+        payload: sessionStorage.getItem("kanaMode").split(","),
+      });
+    if (kanaSetToken)
+      dispatch({
+        type: "typeSet",
+        payload: sessionStorage.getItem("kanaType"),
+      });
+    if (kanaGroupToken)
+      dispatch({
+        type: "groupSet",
+        payload: sessionStorage.getItem("kanaGroup").split(","),
+      });
+  }, [kanaModeToken, kanaSetToken, kanaGroupToken]);
+
   return (
     <KanaContext.Provider value={{ ...state, dispatch }}>
       {children}

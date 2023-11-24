@@ -1,24 +1,30 @@
 import { useReducer } from "react";
 import { createContext } from "react";
 
-const GradeContext = createContext();
+export const GradeContext = createContext();
 
 const initialGradeState = {
-    score: 0,
-    userId: null,
-    questionId: null,
+    grades: null,
+    gradesBySet: null,
 };
 
 const gradeReducer = (state, action) => {
     switch (action.type) {
-        case "receivedScore":
+        case "receivedGrades":
             return {
                 ...state,
-                score: action.payload.score,
-                userId: action.payload.userId,
-                questionId: action.payload.questionId,
+                grades: action.payload,
             };
-
+        case "receivedSpecificGrade":
+            return {
+                ...state,
+                gradesBySet: action.payload,
+            };
+        case "clearGradeBySet":
+            return {
+                ...state,
+                gradesBySet: null,
+            };
         default:
             return state;
     }
