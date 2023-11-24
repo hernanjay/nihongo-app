@@ -47,7 +47,7 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
         boxShadow="lg"
         bgColor={bg}
         position="sticky"
-        top="15.5vh"
+        top="5vh"
         textAlign="center"
       >
         <CardHeader pb="-1">
