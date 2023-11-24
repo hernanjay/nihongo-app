@@ -6,6 +6,8 @@ import {
   Skeleton,
   SkeletonCircle,
   SkeletonText,
+  Box,
+  Spacer,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -95,36 +97,58 @@ const QuestionLayout = () => {
   }, [user, level, type, set, gradeDispatch, questionDispatch]);
 
   return (
-    <Container minW="98vw">
+    <Box minW="100vw">
       {isLoading && <Loader isLoading={isLoading} />}
       <Loader />
-      <Grid
-        h={"100%"}
-        templateRows="repeat(1, 1fr)"
-        templateColumns="repeat(4, 1fr)"
-        gap={3}
-        pt="7.5vw"
+      <Spacer minH="10vh" />
+      <Box
+        h="90vh"
+        overflow="auto"
+        overscrollBehavior="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "12px",
+            borderRadius: "8px",
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+        }}
       >
-        <QuestionSideSets
-          bg={bg}
-          hoverColor={hoverColor}
-          type={type}
-          level={level}
-          setHasSubmit={setHasSubmit}
-        />
-        {isLoading ? (
-          <QuestionSkeletonLoader />
-        ) : (
-          <QuestionList bg={bg} hoverColor={hoverColor} hasSubmit={hasSubmit} />
-        )}
-        <QuestionAnsweredTracker
-          bg={bg}
-          border={border}
-          hasSubmit={hasSubmit}
-          setHasSubmit={setHasSubmit}
-        />
-      </Grid>
-    </Container>
+        <Grid
+          mx="2vw"
+          h={"100%"}
+          templateRows="repeat(1, 1fr)"
+          templateColumns="repeat(4, 1fr)"
+          gap={3}
+          pt="2.5vw"
+        >
+          <QuestionSideSets
+            bg={bg}
+            hoverColor={hoverColor}
+            type={type}
+            level={level}
+            setHasSubmit={setHasSubmit}
+          />
+          {isLoading ? (
+            <QuestionSkeletonLoader />
+          ) : (
+            <QuestionList
+              bg={bg}
+              hoverColor={hoverColor}
+              hasSubmit={hasSubmit}
+            />
+          )}
+          <QuestionAnsweredTracker
+            bg={bg}
+            border={border}
+            hasSubmit={hasSubmit}
+            setHasSubmit={setHasSubmit}
+          />
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 export default QuestionLayout;

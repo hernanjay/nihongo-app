@@ -51,8 +51,9 @@ export default function NavBar() {
       gap="2"
       zIndex="5"
       boxShadow="lg"
+      minH="10vh"
+      maxH="10vh"
     >
-      <Box />
       <Image
         boxSize="40px"
         objectFit="cover"
@@ -66,10 +67,8 @@ export default function NavBar() {
         }}
         style={{ cursor: "pointer" }}
       >
-        N4・日本語・練習用・ツール
+        日本語・練習用・ツール
       </Text>
-      <Spacer />
-      <Spacer />
       <Spacer />
       <Stack direction="row" spacing={4} align="center" justify="center">
         <ButtonGroup>

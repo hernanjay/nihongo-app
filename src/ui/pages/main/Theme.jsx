@@ -35,6 +35,7 @@ const theme = extendTheme({
       600: "#b81414", //Fail
       700: "#cc0000", //Warning
       800: "#3399ff", //info
+      900: "#4f6061", //Hover
     },
     light: {
       100: "#d2d3db", //Body
@@ -45,6 +46,7 @@ const theme = extendTheme({
       600: "#ff3333", //Fail
       700: "#ffad33", //Warning
       800: "#33d6ff", //info
+      900: "#f2f2f2", //Hover
     },
     app: {},
   },

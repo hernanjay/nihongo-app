@@ -10,6 +10,7 @@ function ThemeColors() {
     error: useColorModeValue("light.600", "dark.600"),
     warning: useColorModeValue("light.700", "dark.700"),
     info: useColorModeValue("light.800", "dark.800"),
+    hover: useColorModeValue("light.900", "dark.900"),
   };
 }
 
