@@ -75,24 +75,25 @@ export default function Login() {
   return (
     <>
       {isLoading && <Loader isLoading={isLoading} />}
-      <Box position="relative" h="100vh">
-        <AbsoluteCenter w="30vw" axis="both">
+      <Box h={{ base: "85vh", lg: "100vh" }}>
+        <AbsoluteCenter w={{ base: "xs", lg: "lg" }} axis="both">
           <Card
             bg={bg}
             variant="elevated"
-            size="sm"
             boxShadow="lg"
-            px="5"
-            py="5"
+            h={{ base: "50vh", lg: "lg" }}
+            px={{ base: "0.75em", lg: "1em" }}
+            py={{ base: "0.75em", lg: "1em" }}
           >
             <CardBody>
               {/* Header */}
-              <Text fontSize="4xl">Login</Text>
+              <Text fontSize="2em">Login</Text>
               <Flex>
-                <Text fontSize="1xl" mr="1">
+                <Text fontSize={{ base: "0.75em", lg: "1em" }} mr="1">
                   Don't have an account yet?
                 </Text>
                 <Link
+                  fontSize={{ base: "0.75em", lg: "1em" }}
                   onClick={() => {
                     navigate("/register");
                   }}
@@ -104,7 +105,9 @@ export default function Login() {
               {/* Login Input */}
               <form onSubmit={handleSubmit}>
                 <FormControl>
-                  <FormLabel mt="5">Email</FormLabel>
+                  <FormLabel fontSize={{ base: "0.75em", lg: "1em" }} mt="5">
+                    Email
+                  </FormLabel>
                   <Popover
                     returnFocusOnClose={false}
                     autoFocus={false}
@@ -116,6 +119,7 @@ export default function Login() {
                     <PopoverTrigger>
                       <InputGroup size="sm">
                         <Input
+                          fontSize={{ base: "0.75em", lg: "1em" }}
                           id="login-username-input"
                           placeholder="Email"
                           colorScheme="blackAlpha"
@@ -123,20 +127,27 @@ export default function Login() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
-                        <InputRightAddon children="@awsys-i.com" />
+                        <InputRightAddon
+                          fontSize={{ base: "0.75em", lg: "1em" }}
+                          children="@awsys-i.com"
+                        />
                       </InputGroup>
                     </PopoverTrigger>
                     <PopoverContent bg={highlight} w="fit-content">
                       <PopoverArrow bg={highlight} />
-                      <PopoverBody fontSize="1vw">
+                      <PopoverBody fontSize={{ base: "0.75em", lg: "1em" }}>
                         {<ChevronRightIcon mr="1" />}Email field is empty
                       </PopoverBody>
                     </PopoverContent>
                   </Popover>
-                  <FormHelperText>Enter your email.</FormHelperText>
+                  <FormHelperText fontSize={{ base: "0.75em", lg: "1em" }}>
+                    Enter your email.
+                  </FormHelperText>
 
                   {/* Password Input */}
-                  <FormLabel mt="5">Password</FormLabel>
+                  <FormLabel fontSize={{ base: "0.75em", lg: "1em" }} mt="5">
+                    Password
+                  </FormLabel>
                   <Popover
                     returnFocusOnClose={false}
                     autoFocus={false}
@@ -149,6 +160,7 @@ export default function Login() {
                     <PopoverTrigger>
                       <InputGroup size="sm">
                         <Input
+                          fontSize={{ base: "0.75em", lg: "1em" }}
                           id="login-password-input"
                           type={show ? "text" : "password"}
                           placeholder="Enter password"
@@ -168,17 +180,23 @@ export default function Login() {
                     </PopoverTrigger>
                     <PopoverContent bg={highlight} w="fit-content">
                       <PopoverArrow bg={highlight} />
-                      <PopoverBody fontSize="1vw">
+                      <PopoverBody fontSize={{ base: "0.75em", lg: "1em" }}>
                         {<ChevronRightIcon mr="2" />}Password field is empty.
                       </PopoverBody>
                     </PopoverContent>
                   </Popover>
-                  <FormHelperText mb="5">Enter your password</FormHelperText>
+                  <FormHelperText
+                    fontSize={{ base: "0.75em", lg: "1em" }}
+                    mb={{ base: "7vh", lg: "7vh" }}
+                  >
+                    Enter your password
+                  </FormHelperText>
 
                   {/* Forgot password */}
                   <Flex>
                     <Spacer />
                     <Link
+                      fontSize={{ base: "0.75em", lg: "1em" }}
                       onClick={() => {
                         navigate("/recovery");
                       }}
@@ -189,10 +207,11 @@ export default function Login() {
                   <Flex>
                     <Spacer />
                     <Button
+                      fontSize={{ base: "xs", lg: "md" }}
                       data-testid="login-button"
                       variant="outline"
                       borderColor={border}
-                      mt={5}
+                      mt={{ base: "1vh", lg: "2vh" }}
                       type="submit"
                       isDisabled={isLoading}
                     >
