@@ -14,6 +14,7 @@ import { useQuestionContext } from "../../../logic/hooks/question/useQuestionCon
 import { useMemo } from "react";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import { addScore } from "../../../logic/services/apiGrades";
+import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
 const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
     const {
@@ -23,6 +24,7 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
     } = useQuestionContext();
 
     const { user } = useUserContext();
+    const { dispatch: gradeDispatch } = useGradeContext();
     // Check if all questions are answered
     const allAnswered = userAnswers.includes(null);
 
@@ -42,7 +44,6 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
 
     return (
         <GridItem colSpan="1">
-
             <Card
                 textColor={border}
                 boxShadow="lg"
@@ -113,6 +114,7 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
                         variant="outline"
                         onClick={() => {
                             questionDispatch({ type: "clearAnswers" });
+                            gradeDispatch({ type: "clearGradeBySet" });
                             setHasSubmit(false);
                         }}
                     >

@@ -18,24 +18,27 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
     const answersAreNull = useMemo(() =>
         userAnswers.every((answer) => answer === null, [userAnswers])
     );
-
-    // set the selected index to
     useEffect(() => {
         if (answersAreNull) {
             setSelectedOption({ index: null });
         }
-    }, [answersAreNull]);
 
-    useEffect(() => {
-        // IF gradesBySet is not equal to null it means that this user already answer this set
-        if (gradesBySet) {
+        // IF gradesBySet is not equal to null and answers are not null it means that this user already answer this set
+        if (gradesBySet && !answersAreNull) {
             const answerIndex = options
                 ?.map((opt, optIndex) => opt === userAnswers[index] && optIndex)
                 .filter((i) => i)
                 .at(0);
-            setSelectedOption({ index: answerIndex });
+
+            // We need to check if the answerIndex is undefined if it is undefined it means it is at 0 index
+            // the filter will get only the true values and 0 is not included so when we use at(0) it will become undefined
+            // you can test the value of answerIndex by commenting at and console log the answerIndex
+            setSelectedOption((prevState) => ({
+                ...prevState,
+                index: answerIndex === undefined ? 0 : answerIndex,
+            }));
         }
-    }, [gradesBySet, index, userAnswers, options]);
+    }, [gradesBySet, index, userAnswers, options, answersAreNull]);
 
     /****** THIS AREA IS TO FOR THE KANJI QUESTIONS IF [] is not found the endIndex = -1 which display regular question like vocab or grammar*/
     // Find the index of '[' and ']'

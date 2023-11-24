@@ -14,7 +14,6 @@ export async function fetchSpecificGrade(user, level, type, set) {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
         return null;
     }
 

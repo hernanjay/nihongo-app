@@ -32,7 +32,7 @@ const QuestionLayout = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [hasSubmit, setHasSubmit] = useState(false);
 
-    const { dispatch: questionDispatch } = useQuestionContext();
+    const { userAnswers, dispatch: questionDispatch } = useQuestionContext();
 
     const { user } = useUserContext();
 
@@ -84,6 +84,8 @@ const QuestionLayout = () => {
                     questionDispatch({
                         type: "clearAnswers",
                     });
+
+                    gradeDispatch({ type: "clearGradeBySet" });
 
                     setHasSubmit(false);
                 }
