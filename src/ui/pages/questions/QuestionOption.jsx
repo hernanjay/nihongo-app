@@ -23,6 +23,7 @@ const QuestionOption = ({
 
   return (
     <Button
+      size={{ base: "sm", lg: "lg" }}
       fontWeight="light"
       isDisabled={hasSubmit}
       borderColor={border}
