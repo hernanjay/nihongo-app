@@ -515,7 +515,7 @@ const UserProfile = () => {
             minH="5vh"
             bg="purple"
             roundedBottomRight="xl"
-            backgroundImage="url('src/assets/josh-hild-2oDMoju8bfk-unsplash.jpg')"
+            backgroundImage="url('https://i.imgur.com/2dXLNMH.jpg')"
             backgroundSize="cover"
             backgroundPosition="bottom"
           ></CardFooter>

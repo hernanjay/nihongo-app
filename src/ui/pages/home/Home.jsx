@@ -37,7 +37,10 @@ export default function Home() {
           <HomeUserProfileCard />
 
           {/*Question Pages List*/}
-          <Box ml={{ base: "2.5vw", lg: "35vw" }} maxW="60vw">
+          <Box
+            ml={{ base: "2.5vw", lg: "35vw" }}
+            maxW={{ base: "90vw", lg: "60vw" }}
+          >
             {/*#region WIP */}
             <Flex
               display={{ base: "none", lg: "flex" }}
@@ -107,11 +110,17 @@ export default function Home() {
             <KanaSelectorTab />
 
             {/* Divider */}
-            <Divider maxW="60vw" my="2.5vh" />
+            <Divider maxW={{ base: "90vw", lg: "60vw" }} my="2.5vh" />
             {/* Divider */}
 
             {/* Kanji Questions Container */}
-            <Box minW="60vw" bg={bg} p="5" borderRadius="10" boxShadow="lg">
+            <Box
+              bg={bg}
+              p="5"
+              borderRadius="10"
+              ml={{ base: "2.5vw", lg: "0vw" }}
+              boxShadow="lg"
+            >
               {/* Kanji Questions */}
               <QuestionType type="Kanji" bg={bg}>
                 {numberOfLevel.map((num, index) => (
@@ -123,9 +132,15 @@ export default function Home() {
                 ))}
               </QuestionType>
             </Box>
-            <Divider maxW="60vw" my="2.5vh" />
+            <Divider maxW={{ base: "90vw", lg: "60vw" }} my="2.5vh" />
             {/* Vocab Questions Container */}
-            <Box minW="60vw" bg={bg} p="5" borderRadius="10" boxShadow="lg">
+            <Box
+              bg={bg}
+              p="5"
+              ml={{ base: "2.5vw", lg: "0vw" }}
+              borderRadius="10"
+              boxShadow="lg"
+            >
               {/* Vocab Questions */}
               <QuestionType type="Vocab" bg={bg}>
                 {numberOfLevel.map((num, index) => (
@@ -135,11 +150,17 @@ export default function Home() {
             </Box>
 
             {/* Divider */}
-            <Divider maxW="60vw" my="2.5vh" />
+            <Divider maxW={{ base: "90vw", lg: "60vw" }} my="2.5vh" />
             {/* Divider */}
 
             {/* Grammar Questions Container */}
-            <Box minW="60vw" bg={bg} p="5" borderRadius="10" boxShadow="lg">
+            <Box
+              bg={bg}
+              p="5"
+              ml={{ base: "2.5vw", lg: "0vw" }}
+              borderRadius="10"
+              boxShadow="lg"
+            >
               {/* Grammar Questions */}
               <QuestionType type="Grammar" bg={bg}>
                 {numberOfLevel.map((num, index) => (
