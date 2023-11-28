@@ -23,10 +23,10 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import CharacterPracticeTest from "../../components/CharacterPracticeTest";
-import KanjiQuestionSample from "../../components/KanjiQuestionSample";
-import VocabQuestionSample from "../../components/VocabQuestionSample";
-import GrammarQuestionSample from "../../components/GrammarQuestionSample";
+import CharacterPracticeTest from "../../components/landingPage/CharacterPracticeTest";
+import KanjiQuestionSample from "../../components/landingPage/KanjiQuestionSample";
+import VocabQuestionSample from "../../components/landingPage/VocabQuestionSample";
+import GrammarQuestionSample from "../../components/landingPage/GrammarQuestionSample";
 import Loader from "../../components/Loader";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import ThemeColors from "../main/ThemeColors";

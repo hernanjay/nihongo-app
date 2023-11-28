@@ -65,11 +65,12 @@ function KanaSelector({ type }) {
   return (
     <Container minW="98%">
       <Grid
+        display={{ base: "block", lg: "grid" }}
         templateRows="repeat(6, 1fr)"
         templateColumns="repeat(6, 1fr)"
         gap={4}
       >
-        <GridItem mt="auto" rowSpan={1} colSpan={6}>
+        <GridItem mt={{ base: "2.5vh", lg: "auto" }} rowSpan={1} colSpan={6}>
           <Button
             key="ButtonAllKana"
             minW="100%"
@@ -87,7 +88,7 @@ function KanaSelector({ type }) {
           </Button>
           <Divider h="2vh" />
         </GridItem>
-        <GridItem rowSpan={4} colSpan={2}>
+        <GridItem rowSpan={4} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"main"}
             label={"All Main Kana"}
@@ -96,7 +97,7 @@ function KanaSelector({ type }) {
             selectedGroupSetter={setMainKanaSelected}
           />
         </GridItem>
-        <GridItem rowSpan={4} colSpan={2}>
+        <GridItem rowSpan={4} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"dakuten"}
             label={"All Dakuten Kana"}
@@ -105,7 +106,7 @@ function KanaSelector({ type }) {
             selectedGroupSetter={setDakutenKanaSelected}
           />
         </GridItem>
-        <GridItem rowSpan={5} colSpan={2}>
+        <GridItem rowSpan={5} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"combination"}
             label={"All Combination Kana"}

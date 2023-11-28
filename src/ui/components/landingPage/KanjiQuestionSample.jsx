@@ -16,8 +16,8 @@ import {
 import React, { useState } from "react";
 
 import KanjiQuestionCard from "./KanjiQuestionCard";
-import KanjiQuestionList from "./QuestionList";
-import ThemeColors from "../pages/main/ThemeColors";
+import KanjiQuestionList from "../QuestionList";
+import ThemeColors from "../../pages/main/ThemeColors";
 
 function KanjiQuestionSample() {
   const { body, bg, border, fontColor, success, error, warning, info } =
