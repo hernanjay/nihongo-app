@@ -27,8 +27,8 @@ function KanaSelectorTab() {
         pb="2.25vh"
       >
         <TabList>
-          <Tab>Learn Hiragana Kana</Tab>
-          <Tab>Learn Katakana Kana</Tab>
+          <Tab>Learn Hiragana</Tab>
+          <Tab>Learn Katakana</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
