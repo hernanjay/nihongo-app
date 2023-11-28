@@ -20,8 +20,7 @@ function KanaSelectorTab() {
         isFitted
         variant="line"
         colorScheme="white"
-        minW="60vw"
-        ml="35vw"
+        minW={{ base: "92vw", lg: "60vw" }}
         bg={bg}
         borderRadius="10"
         boxShadow="lg"

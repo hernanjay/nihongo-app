@@ -74,7 +74,7 @@ function KanaSelectorButtonGroup({
             colorScheme="green"
             key={`ButtonGroupAllMainKana`}
             fontWeight="normal"
-            ml="1vw"
+            ml={{ base: "2.5vw", lg: "1vw" }}
             py="1"
           ></Checkbox>
           <Box minW="80%" display="inline-block" textAlign="center">

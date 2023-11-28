@@ -18,7 +18,7 @@ import {
   StackDivider,
 } from "@chakra-ui/react";
 import React from "react";
-import ThemeColors from "../pages/main/ThemeColors";
+import ThemeColors from "../../pages/main/ThemeColors";
 
 function VocabQuestionSample() {
   const { body, bg, border, fontColor, success, error, warning, info } =
