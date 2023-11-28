@@ -15,7 +15,6 @@ import Home from "../home/Home";
 import theme from "./Theme";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
-import Userlist from "../dummies/userlist";
 import QuestionLayout from "../questions/QuestionLayout";
 import Admindashboard from "../admin/Admindashboard";
 import AdminChart from "../admin/AdminChart";
@@ -26,6 +25,7 @@ import Grading from "../admin/Grading";
 import User from "../admin/User";
 import ManageQuestioner from "../admin/ManageQuestioner";
 import Comp from "../dummies/Comp";
+import Userlist from "../dummies/Userlist";
 
 function App() {
   const { user, isLoading } = useUserContext();
