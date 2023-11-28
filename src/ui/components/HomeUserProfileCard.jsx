@@ -30,7 +30,7 @@ function HomeUserProfileCard() {
         <CardHeader
           roundedTop="xl"
           minH="20vh"
-          backgroundImage="url('src/assets/josh-hild-2oDMoju8bfk-unsplash.jpg')"
+          backgroundImage="url('https://i.imgur.com/2dXLNMH.jpg')"
           backgroundSize="cover"
           backgroundPosition="center"
         >

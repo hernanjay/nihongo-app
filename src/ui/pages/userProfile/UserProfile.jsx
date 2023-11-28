@@ -487,7 +487,7 @@ const UserProfile = () => {
           <CardHeader
             minH="20vh"
             roundedTopRight="xl"
-            backgroundImage="url('src/assets/josh-hild-2oDMoju8bfk-unsplash.jpg')"
+            backgroundImage="url('https://i.imgur.com/2dXLNMH.jpg')"
             backgroundSize="cover"
             backgroundPosition="top"
           >
