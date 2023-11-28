@@ -13,7 +13,7 @@ const QuestionOption = ({
   answer,
   hasSubmit,
 }) => {
-  const border = useColorModeValue("dark.100", "light.400");
+  const { border } = ThemeColors();
   // get the index of the selected option
   const isSelected = selectedOption.index === index;
   // Check if already submit and selected option equal to answer

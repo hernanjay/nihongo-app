@@ -1,66 +1,64 @@
+//#region Imports
 import React, { useState } from "react";
 
-import {
-  Button,
-  Container,
-  Divider,
-  Grid,
-  GridItem,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Button, Container, Divider, Grid, GridItem } from "@chakra-ui/react";
+
 import { useNavigate } from "react-router-dom";
+
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
+
 import {
   getKanaCombinationList,
   getKanaDakutenList,
   getMainKanaList,
 } from "./kanaCharacterList";
+
 import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
+
 import ThemeColors from "../main/ThemeColors";
+//#endregion
 
 function KanaSelector({ type }) {
+  //Importing app theme colors
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
+
+  //#region Variable decleration
   const navigate = useNavigate();
+  // -------------------------------------------------------------------------------------
   const { kanaGroup, dispatch: kanaDispatch } = useKanaContext();
+  // -------------------------------------------------------------------------------------
   const mainKana = getMainKanaList(type);
   const dakutenKana = getKanaDakutenList(type);
   const combinationKana = getKanaCombinationList(type);
-  const [mainKanaSelected, setMainKanaSelected] = useState(() => {
+  // -------------------------------------------------------------------------------------
+  const [mainKanaSelected, setMainKanaSelected] = useState(
+    setDefaultKanas(mainKana)
+  );
+  const [dakutenKanaSelected, setDakutenKanaSelected] = useState(
+    setDefaultKanas(dakutenKana)
+  );
+  const [combinationKanaSelected, setCombinationKanaSelected] = useState(
+    setDefaultKanas(combinationKana)
+  );
+  //#endregion
+
+  //Checks which kana is saved in the context and places it inside a new useState
+  function setDefaultKanas(kanaList) {
     const temp = [];
-    mainKana.map((value) => {
+    kanaList.map((value) => {
       if (kanaGroup.includes(value.split("・")[1]))
         temp.push(value.split("・")[1]);
     });
     return temp;
-  });
-  const [dakutenKanaSelected, setDakutenKanaSelected] = useState(() => {
-    const temp = [];
-    dakutenKana.map((value) => {
-      if (kanaGroup.includes(value.split("・")[1]))
-        temp.push(value.split("・")[1]);
-    });
-    return temp;
-  });
-  const [combinationKanaSelected, setCombinationKanaSelected] = useState(() => {
-    const temp = [];
-    combinationKana.map((value) => {
-      if (kanaGroup.includes(value.split("・")[1]))
-        temp.push(value.split("・")[1]);
-    });
-    return temp;
-  });
+  }
+
+  //Checks which kana is chosen
   function setMode() {
     let mode = [];
-    if (mainKanaSelected.length) {
-      mode.push("main");
-    }
-    if (dakutenKanaSelected.length) {
-      mode.push("dakuten");
-    }
-    if (combinationKanaSelected.length) {
-      mode.push("combination");
-    }
+    if (mainKanaSelected.length) mode.push("main");
+    if (dakutenKanaSelected.length) mode.push("dakuten");
+    if (combinationKanaSelected.length) mode.push("combination");
     return mode;
   }
 

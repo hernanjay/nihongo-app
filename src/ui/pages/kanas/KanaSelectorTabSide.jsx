@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  SimpleGrid,
-  useColorModeValue,
-  useToast,
-} from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Container } from "@chakra-ui/react";
 import {
   getKanaCombinationList,
   getKanaDakutenList,

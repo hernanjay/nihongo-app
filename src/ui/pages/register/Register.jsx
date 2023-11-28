@@ -31,6 +31,7 @@ import {
   PopoverContent,
   PopoverBody,
   PopoverArrow,
+  Box,
 } from "@chakra-ui/react";
 
 import {
@@ -157,245 +158,239 @@ export default function Register() {
   ]);
 
   return (
-    <Center h="fit-content" p="5%">
-      <Modal isOpen={isLoading} size="full" bg="gray.100">
-        <ModalOverlay />
-        <ModalContent bg="blackAlpha.100">
-          <ModalBody>
-            <AbsoluteCenter>
-              <Spinner color="white" size="xl" />
-            </AbsoluteCenter>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-      <Card
-        bg={bg}
-        w="50vw"
-        variant="elevated"
-        size="sm"
-        boxShadow="lg"
-        px="5"
-        py="5"
-        m="10"
+    <Box>
+      <Spacer minH="10vh" />
+      <Center
+        h="90vh"
+        p="5%"
+        overflow="auto"
+        overscrollBehavior="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "14px",
+            borderRadius: "8px",
+            backgroundColor: `rgba(0, 0, 0, 0.15)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `rgba(0, 0, 0, 0.15)`,
+          },
+        }}
       >
-        <CardBody>
-          <Text fontSize="4xl">Register</Text>
-          <Flex>
-            <Text fontSize="1xl" mr="1">
-              Already have an account?
-            </Text>
-            <Link
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Login <ExternalLinkIcon mx="2px" />
-            </Link>
-          </Flex>
-          <form onSubmit={handleSubmit}>
-            <FormControl>
-              {/* Username input Form */}
-              <FormLabel mt="3">Username</FormLabel>
-              {/* <InputGroup size="sm">
-                <InputLeftAddon children="@" />
-                <Input
-                  id="register-username-input"
-                  type="text"
-                  placeholder="Username"
-                  colorScheme="blackAlpha"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChangeFormData}
-                />
-              </InputGroup> */}
-              <Popover
-                returnFocusOnClose={false}
-                autoFocus={false}
-                isOpen={isUsernameEmpty() && isOpen}
-                onClose={onClose}
-                placement="top-end"
-                closeOnBlur={false}
-                variant="outline"
+        <Modal isOpen={isLoading} size="full" bg="gray.100">
+          <ModalOverlay />
+          <ModalContent bg="blackAlpha.100">
+            <ModalBody>
+              <AbsoluteCenter>
+                <Spinner color="white" size="xl" />
+              </AbsoluteCenter>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        <Card
+          bg={bg}
+          w="50vw"
+          variant="elevated"
+          size="sm"
+          boxShadow="lg"
+          px="5"
+          py="5"
+          mt="10vh"
+        >
+          <CardBody>
+            <Text fontSize="4xl">Register</Text>
+            <Flex>
+              <Text fontSize="1xl" mr="1">
+                Already have an account?
+              </Text>
+              <Link
+                onClick={() => {
+                  navigate("/login");
+                }}
               >
-                <PopoverTrigger>
-                  <InputGroup size="sm">
-                    <InputLeftAddon children="@" />
-                    <Input
-                      id="register-username-input"
-                      type="text"
-                      placeholder="Username"
-                      colorScheme="blackAlpha"
-                      name="username"
-                      value={formData.username}
-                      onChange={handleChangeFormData}
-                    />
-                  </InputGroup>
-                </PopoverTrigger>
-                <PopoverContent bg={highlight} w="fit-content">
-                  <PopoverArrow bg={highlight} />
-                  <PopoverBody fontSize="1vw">
-                    {<ChevronRightIcon mr="2" />}Username field is empty.
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-              <FormHelperText>Enter your username.</FormHelperText>
-              {/*Email Input Form*/}
-              <FormLabel mt="3">Email</FormLabel>
-              {/* <InputGroup size="sm">
-                <Input
-                  id="register-email-input"
-                  placeholder="Email"
-                  colorScheme="blackAlpha"
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChangeFormData}
-                />
-                <InputRightAddon children="@awsys-i.com" />
-              </InputGroup> */}
-              <Popover
-                returnFocusOnClose={false}
-                autoFocus={false}
-                isOpen={isEmailEmpty() && isOpen}
-                onClose={onClose}
-                placement="top-end"
-                closeOnBlur={false}
-                variant="outline"
-              >
-                <PopoverTrigger>
-                  <InputGroup size="sm">
-                    <Input
-                      id="register-email-input"
-                      placeholder="Email"
-                      colorScheme="blackAlpha"
-                      type="text"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChangeFormData}
-                    />
-                    <InputRightAddon children="@awsys-i.com" />
-                  </InputGroup>
-                </PopoverTrigger>
-                <PopoverContent bg={highlight} w="fit-content">
-                  <PopoverArrow bg={highlight} />
-                  <PopoverBody fontSize="1vw">
-                    {<ChevronRightIcon mr="2" />}Email field is empty.
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-              <FormHelperText>Enter your email.</FormHelperText>
-              {/* Password Input Form */}
-              <FormLabel mt="3">Password</FormLabel>
-              <InputGroup size="sm">
-                <Input
-                  id="register-password-input"
-                  type={show ? "text" : "password"}
-                  placeholder="Enter Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={(e) => handleChangeFormData(e)}
-                />
-                <InputRightElement mr={3}>
-                  <IconButton
-                    icon={show ? <ViewOffIcon /> : <ViewIcon />}
-                    size="sm"
-                    variant="unstyled"
-                    isRound={true}
-                    onClick={handleClick}
-                  />
-                </InputRightElement>
-              </InputGroup>
-              <FormHelperText>Enter your password.</FormHelperText>
-              <FormHelperText
-                color={isPassValidLength ? "green.300" : "gray.400"}
-              >
-                <ChevronRightIcon />
-                Password must be at least eight-character.
-              </FormHelperText>
-              <FormHelperText
-                color={isPassContainUpper ? "green.300" : "gray.400"}
-              >
-                <ChevronRightIcon />
-                Password must contain at least one uppercase.
-              </FormHelperText>
-              <FormHelperText
-                color={isPassContainLower ? "green.300" : "gray.400"}
-              >
-                <ChevronRightIcon />
-                Password must contain at least one lowercase.
-              </FormHelperText>
-              <FormHelperText
-                color={isPassContainNumber ? "green.300" : "gray.400"}
-              >
-                <ChevronRightIcon />
-                Password must contain at least one number.
-              </FormHelperText>
-              <FormHelperText
-                color={isPassContainSpecial ? "green.300" : "gray.400"}
-              >
-                <ChevronRightIcon />
-                Password must contain at least one special character.
-              </FormHelperText>
-              {/* Password Input Form */}
-              <FormLabel mt="3">Verify Password</FormLabel>
-              <InputGroup size="sm">
-                <Input
-                  id="register-verify-password-input"
-                  type={show ? "text" : "password"}
-                  placeholder="*******"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChangeFormData}
-                  isDisabled={!isPassValidFormat}
-                />
-                <InputRightElement mr={3}>
-                  <IconButton
-                    icon={show ? <ViewOffIcon /> : <ViewIcon />}
-                    size="sm"
-                    variant="unstyled"
-                    isRound={true}
-                    isDisabled={!isPassValidFormat}
-                    onClick={handleClick}
-                  />
-                </InputRightElement>
-              </InputGroup>
-              <FormHelperText>Enter your password again.</FormHelperText>
-              <FormHelperText
-                hidden={
-                  isSamePassword ||
-                  formData.password === "" ||
-                  formData.confirmPassword === ""
-                }
-                color="red.300"
-              >
-                <ChevronRightIcon />
-                {!isSamePassword && "Password does not match"}
-              </FormHelperText>
-              <Flex>
-                <Spacer />
-                <Button
-                  data-testid="register-button"
-                  leftIcon={<CheckIcon />}
-                  colorScheme="gray"
+                Login <ExternalLinkIcon mx="2px" />
+              </Link>
+            </Flex>
+            <form onSubmit={handleSubmit}>
+              <FormControl>
+                {/* Username input Form */}
+                <FormLabel mt="3">Username</FormLabel>
+                <Popover
+                  returnFocusOnClose={false}
+                  autoFocus={false}
+                  isOpen={isUsernameEmpty() && isOpen}
+                  onClose={onClose}
+                  placement="top-end"
+                  closeOnBlur={false}
                   variant="outline"
-                  borderColor={border}
-                  mt={3}
-                  type="submit"
-                  isDisabled={
-                    isLoading ||
-                    !isSamePassword ||
-                    formData.confirmPassword === "" ||
-                    !isPassValidFormat ||
-                    !formData
-                  }
                 >
-                  Register
-                </Button>
-              </Flex>
-            </FormControl>
-          </form>
-        </CardBody>
-      </Card>
-    </Center>
+                  <PopoverTrigger>
+                    <InputGroup size="sm">
+                      <InputLeftAddon children="@" />
+                      <Input
+                        id="register-username-input"
+                        type="text"
+                        placeholder="Username"
+                        colorScheme="blackAlpha"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChangeFormData}
+                      />
+                    </InputGroup>
+                  </PopoverTrigger>
+                  <PopoverContent bg={highlight} w="fit-content">
+                    <PopoverArrow bg={highlight} />
+                    <PopoverBody fontSize="1vw">
+                      {<ChevronRightIcon mr="2" />}Username field is empty.
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+                <FormHelperText>Enter your username.</FormHelperText>
+                {/*Email Input Form*/}
+                <FormLabel mt="3">Email</FormLabel>
+                <Popover
+                  returnFocusOnClose={false}
+                  autoFocus={false}
+                  isOpen={isEmailEmpty() && isOpen}
+                  onClose={onClose}
+                  placement="top-end"
+                  closeOnBlur={false}
+                  variant="outline"
+                >
+                  <PopoverTrigger>
+                    <InputGroup size="sm">
+                      <Input
+                        id="register-email-input"
+                        placeholder="Email"
+                        colorScheme="blackAlpha"
+                        type="text"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChangeFormData}
+                      />
+                      <InputRightAddon children="@awsys-i.com" />
+                    </InputGroup>
+                  </PopoverTrigger>
+                  <PopoverContent bg={highlight} w="fit-content">
+                    <PopoverArrow bg={highlight} />
+                    <PopoverBody fontSize="1vw">
+                      {<ChevronRightIcon mr="2" />}Email field is empty.
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+                <FormHelperText>Enter your email.</FormHelperText>
+                {/* Password Input Form */}
+                <FormLabel mt="3">Password</FormLabel>
+                <InputGroup size="sm">
+                  <Input
+                    id="register-password-input"
+                    type={show ? "text" : "password"}
+                    placeholder="Enter Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={(e) => handleChangeFormData(e)}
+                  />
+                  <InputRightElement mr={3}>
+                    <IconButton
+                      icon={show ? <ViewOffIcon /> : <ViewIcon />}
+                      size="sm"
+                      variant="unstyled"
+                      isRound={true}
+                      onClick={handleClick}
+                    />
+                  </InputRightElement>
+                </InputGroup>
+                <FormHelperText>Enter your password.</FormHelperText>
+                <FormHelperText
+                  color={isPassValidLength ? "green.300" : "gray.400"}
+                >
+                  <ChevronRightIcon />
+                  Password must be at least eight-character.
+                </FormHelperText>
+                <FormHelperText
+                  color={isPassContainUpper ? "green.300" : "gray.400"}
+                >
+                  <ChevronRightIcon />
+                  Password must contain at least one uppercase.
+                </FormHelperText>
+                <FormHelperText
+                  color={isPassContainLower ? "green.300" : "gray.400"}
+                >
+                  <ChevronRightIcon />
+                  Password must contain at least one lowercase.
+                </FormHelperText>
+                <FormHelperText
+                  color={isPassContainNumber ? "green.300" : "gray.400"}
+                >
+                  <ChevronRightIcon />
+                  Password must contain at least one number.
+                </FormHelperText>
+                <FormHelperText
+                  color={isPassContainSpecial ? "green.300" : "gray.400"}
+                >
+                  <ChevronRightIcon />
+                  Password must contain at least one special character.
+                </FormHelperText>
+                {/* Password Input Form */}
+                <FormLabel mt="3">Verify Password</FormLabel>
+                <InputGroup size="sm">
+                  <Input
+                    id="register-verify-password-input"
+                    type={show ? "text" : "password"}
+                    placeholder="*******"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChangeFormData}
+                    isDisabled={!isPassValidFormat}
+                  />
+                  <InputRightElement mr={3}>
+                    <IconButton
+                      icon={show ? <ViewOffIcon /> : <ViewIcon />}
+                      size="sm"
+                      variant="unstyled"
+                      isRound={true}
+                      isDisabled={!isPassValidFormat}
+                      onClick={handleClick}
+                    />
+                  </InputRightElement>
+                </InputGroup>
+                <FormHelperText>Enter your password again.</FormHelperText>
+                <FormHelperText
+                  hidden={
+                    isSamePassword ||
+                    formData.password === "" ||
+                    formData.confirmPassword === ""
+                  }
+                  color="red.300"
+                >
+                  <ChevronRightIcon />
+                  {!isSamePassword && "Password does not match"}
+                </FormHelperText>
+                <Flex>
+                  <Spacer />
+                  <Button
+                    data-testid="register-button"
+                    leftIcon={<CheckIcon />}
+                    colorScheme="gray"
+                    variant="outline"
+                    borderColor={border}
+                    mt={3}
+                    type="submit"
+                    isDisabled={
+                      isLoading ||
+                      !isSamePassword ||
+                      formData.confirmPassword === "" ||
+                      !isPassValidFormat ||
+                      !formData
+                    }
+                  >
+                    Register
+                  </Button>
+                </Flex>
+              </FormControl>
+            </form>
+          </CardBody>
+        </Card>
+      </Center>
+    </Box>
   );
 }
