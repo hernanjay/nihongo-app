@@ -47,11 +47,14 @@ function KanaCards({ totalItems, kana, index }) {
       </CardHeader>
       <CardBody>
         <Heading
-          fontSize="4vw"
+          fontSize={{ base: "5vh", lg: "4vw" }}
           textAlign={"center"}
-          m="1vh"
+          m={{ base: "0", lg: "1vh" }}
           fontWeight={isCorrect ? "light" : "bold"}
-          h={isCorrect ? "20vh" : "auto"}
+          h={{
+            base: isCorrect ? "10vh" : "5vh",
+            lg: isCorrect ? "20vh" : "auto",
+          }}
         >
           {showAnswer
             ? kana.romaji
@@ -64,7 +67,7 @@ function KanaCards({ totalItems, kana, index }) {
           bg={isCorrect ? success : bg}
           key={kana.romaji + index}
           id={`KanaCardsInput${index}`}
-          mt="5.7vh"
+          mt={{ base: "5vh", lg: "5.7vh" }}
           type="text"
           hidden={isCorrect}
           readOnly={isCorrect || showAnswer}
