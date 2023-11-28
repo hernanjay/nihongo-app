@@ -69,11 +69,25 @@ function KanaLayout() {
           },
         }}
       >
-        <Box position="fixed" minW="25vw" ml="1.5vw">
+        <Box
+          position="fixed"
+          minW="25vw"
+          ml="1.5vw"
+          display={{ base: "none", lg: "block" }}
+        >
           <KanaSelectorTabSide key="Tabside" isLoading={isLoading} />
         </Box>
-        <Box minW="62.5vw" ml="30vw">
-          <SimpleGrid id="kanaBody" columns={3} gap="5vh" py="2.5vh">
+        <Box
+          minW={{ base: "25vw", lg: "62.5vw" }}
+          ml={{ base: "2.5vw", lg: "30vw" }}
+          mr={{ base: "2.5vw", lg: "0" }}
+        >
+          <SimpleGrid
+            id="kanaBody"
+            columns={{ base: 2, lg: 3 }}
+            gap={{ base: "2.5vw", lg: "5vh" }}
+            py="2.5vh"
+          >
             {kanaData.map((kana, index) => {
               return (
                 <Skeleton
