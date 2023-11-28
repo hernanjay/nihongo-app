@@ -6,7 +6,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import ThemeColors from "../pages/main/ThemeColors";
+import ThemeColors from "../../pages/main/ThemeColors";
 
 function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
   const { body, bg, border, fontColor, success, error, warning, info } =

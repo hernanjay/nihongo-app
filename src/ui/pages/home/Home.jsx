@@ -1,6 +1,5 @@
 import { Badge, Box, Divider, Flex, Spacer, Text } from "@chakra-ui/react";
 
-import { useColorModeValue } from "@chakra-ui/react";
 import QuestionLevel from "../../components/QuestionLevel";
 import QuestionType from "../../components/QuestionType";
 import HomeUserProfileCard from "../../components/HomeUserProfileCard";
@@ -15,10 +14,10 @@ export default function Home() {
   return (
     <>
       <Box data-testid="home-container" pb={"5vw"}>
-        <Divider minH="8vh" />
+        <Divider minH="10vh" />
         <Box
-          pt="7.5vh"
-          h="91.5vh"
+          pt={{ base: "2.5vh", lg: "5vh" }}
+          h="90vh"
           overflow="auto"
           overscrollBehavior="auto"
           sx={{
@@ -33,141 +32,124 @@ export default function Home() {
           }}
         >
           {/* Home Page Start */}
-          <Flex>
-            {/* User Profile Card*/}
-            <HomeUserProfileCard />
 
-            {/*Question Pages List*/}
-            <Box>
-              {/* WIP */}
-              <Flex ml="35vw" maxW="60vw" mb="2.25vh">
-                <Box p="1.5vh" bg={bg} borderRadius="lg">
-                  <Text fontSize="2.25vh" fontWeight="bold">
-                    Learn Kana
-                    <Badge
-                      fontSize="1.25vh"
-                      ml=".75vw"
-                      mb="1.5vh"
-                      colorScheme="green"
-                    >
-                      New
-                    </Badge>
-                  </Text>
-                </Box>
-                <Spacer />
-                <Box p="1.5vh" bg={bg} borderRadius="lg">
-                  <Text fontSize="2.25vh" fontWeight="bold">
-                    Kanji Questions
-                    <Badge
-                      fontSize="1.25vh"
-                      ml=".75vw"
-                      mb="1.5vh"
-                      colorScheme="green"
-                    >
-                      New
-                    </Badge>
-                  </Text>
-                </Box>
-                <Spacer />
-                <Box p="1.5vh" bg={bg} borderRadius="lg">
-                  <Text fontSize="2.25vh" fontWeight="bold">
-                    Vocab Questions
-                    <Badge
-                      fontSize="1.25vh"
-                      ml=".75vw"
-                      mb="1.5vh"
-                      colorScheme="green"
-                    >
-                      New
-                    </Badge>
-                  </Text>
-                </Box>
-                <Spacer />
-                <Box p="1.5vh" bg={bg} borderRadius="lg">
-                  <Text fontSize="2.25vh" fontWeight="bold">
-                    Grammar Questions
-                    <Badge
-                      fontSize="1.25vh"
-                      ml=".75vw"
-                      mb="1.5vh"
-                      colorScheme="green"
-                    >
-                      New
-                    </Badge>
-                  </Text>
-                </Box>
-                <Spacer />
-              </Flex>
+          {/* User Profile Card*/}
+          <HomeUserProfileCard />
 
-              {/*Nan's Kana Pages */}
-              <KanaSelectorTab />
-
-              {/* Divider */}
-              <Divider ml="35vw" maxW="60vw" my="2.5vh" />
-              {/* Divider */}
-
-              {/* Kanji Questions Container */}
-              <Box
-                minW="60vw"
-                ml="35vw"
-                bg={bg}
-                p="5"
-                borderRadius="10"
-                boxShadow="lg"
-              >
-                {/* Kanji Questions */}
-                <QuestionType type="Kanji" bg={bg}>
-                  {numberOfLevel.map((num, index) => (
-                    <QuestionLevel
-                      index={index + 1}
-                      key={index}
-                      type="Kanji"
-                    ></QuestionLevel>
-                  ))}
-                </QuestionType>
+          {/*Question Pages List*/}
+          <Box ml={{ base: "2.5vw", lg: "35vw" }} maxW="60vw">
+            {/*#region WIP */}
+            <Flex
+              display={{ base: "none", lg: "flex" }}
+              maxW={{ base: "90vw", lg: "60vw" }}
+              mb="2.25vh"
+            >
+              <Box p="1.5vh" bg={bg} borderRadius="lg">
+                <Text fontSize="2.25vh" fontWeight="bold">
+                  Learn Kana
+                  <Badge
+                    fontSize="1.25vh"
+                    ml=".75vw"
+                    mb="1.5vh"
+                    colorScheme="green"
+                  >
+                    New
+                  </Badge>
+                </Text>
               </Box>
-              <Divider ml="35vw" maxW="60vw" my="2.5vh" />
-              {/* Vocab Questions Container */}
-              <Box
-                minW="60vw"
-                ml="35vw"
-                bg={bg}
-                p="5"
-                borderRadius="10"
-                boxShadow="lg"
-              >
-                {/* Vocab Questions */}
-                <QuestionType type="Vocab" bg={bg}>
-                  {numberOfLevel.map((num, index) => (
-                    <QuestionLevel index={index + 1} key={index} type="Vocab" />
-                  ))}
-                </QuestionType>
+              <Spacer />
+              <Box p="1.5vh" bg={bg} borderRadius="lg">
+                <Text fontSize="2.25vh" fontWeight="bold">
+                  Kanji Questions
+                  <Badge
+                    fontSize="1.25vh"
+                    ml=".75vw"
+                    mb="1.5vh"
+                    colorScheme="green"
+                  >
+                    New
+                  </Badge>
+                </Text>
               </Box>
-
-              {/* Divider */}
-              <Divider ml="35vw" maxW="60vw" my="2.5vh" />
-              {/* Divider */}
-
-              {/* Grammar Questions Container */}
-              <Box
-                minW="60vw"
-                ml="35vw"
-                bg={bg}
-                p="5"
-                borderRadius="10"
-                boxShadow="lg"
-              >
-                {/* Grammar Questions */}
-                <QuestionType type="Grammar" bg={bg}>
-                  {numberOfLevel.map((num, index) => (
-                    <QuestionLevel index={index + 1} key={num} type="Grammar" />
-                  ))}
-                </QuestionType>
+              <Spacer />
+              <Box p="1.5vh" bg={bg} borderRadius="lg">
+                <Text fontSize="2.25vh" fontWeight="bold">
+                  Vocab Questions
+                  <Badge
+                    fontSize="1.25vh"
+                    ml=".75vw"
+                    mb="1.5vh"
+                    colorScheme="green"
+                  >
+                    New
+                  </Badge>
+                </Text>
               </Box>
+              <Spacer />
+              <Box p="1.5vh" bg={bg} borderRadius="lg">
+                <Text fontSize="2.25vh" fontWeight="bold">
+                  Grammar Questions
+                  <Badge
+                    fontSize="1.25vh"
+                    ml=".75vw"
+                    mb="1.5vh"
+                    colorScheme="green"
+                  >
+                    New
+                  </Badge>
+                </Text>
+              </Box>
+              <Spacer />
+            </Flex>
+            {/*#endregion WIP */}
+
+            {/*Nan's Kana Pages */}
+            <KanaSelectorTab />
+
+            {/* Divider */}
+            <Divider maxW="60vw" my="2.5vh" />
+            {/* Divider */}
+
+            {/* Kanji Questions Container */}
+            <Box minW="60vw" bg={bg} p="5" borderRadius="10" boxShadow="lg">
+              {/* Kanji Questions */}
+              <QuestionType type="Kanji" bg={bg}>
+                {numberOfLevel.map((num, index) => (
+                  <QuestionLevel
+                    index={index + 1}
+                    key={index}
+                    type="Kanji"
+                  ></QuestionLevel>
+                ))}
+              </QuestionType>
+            </Box>
+            <Divider maxW="60vw" my="2.5vh" />
+            {/* Vocab Questions Container */}
+            <Box minW="60vw" bg={bg} p="5" borderRadius="10" boxShadow="lg">
+              {/* Vocab Questions */}
+              <QuestionType type="Vocab" bg={bg}>
+                {numberOfLevel.map((num, index) => (
+                  <QuestionLevel index={index + 1} key={index} type="Vocab" />
+                ))}
+              </QuestionType>
             </Box>
 
-            {/* Home Page End */}
-          </Flex>
+            {/* Divider */}
+            <Divider maxW="60vw" my="2.5vh" />
+            {/* Divider */}
+
+            {/* Grammar Questions Container */}
+            <Box minW="60vw" bg={bg} p="5" borderRadius="10" boxShadow="lg">
+              {/* Grammar Questions */}
+              <QuestionType type="Grammar" bg={bg}>
+                {numberOfLevel.map((num, index) => (
+                  <QuestionLevel index={index + 1} key={num} type="Grammar" />
+                ))}
+              </QuestionType>
+            </Box>
+          </Box>
+
+          {/* Home Page End */}
           <Divider minH="5vh" />
         </Box>
       </Box>
