@@ -56,17 +56,18 @@ function App() {
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
 
-                <Route path="/admin" element={<Admindashboard />} />
+                {/* <Route path="/admin" element={<Admindashboard />} />
                 <Route path="/chart" element={<AdminChart />} />
-                <Route path="/userprofile" element={<UserProfile />} />
+                <Route path="/userprofile" element={<UserProfile />} /> */}
 
                 <Route
                   path="/kana-quiz"
                   element={user ? <KanaLayout /> : <Navigate to="/" />}
                 />
 
-                <Route path="/user" element={<User />} />
-                <Route path="/grading" element={<Grading />} />
+                {/* <Route path="/user" element={<User />} />
+                <Route path="/grading" element={<Grading />} /> */}
+
                 <Route
                   path="/managequestioner"
                   element={<ManageQuestioner />}
