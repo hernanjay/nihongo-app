@@ -74,9 +74,16 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
   }
 
   return (
-    <Box bg={bg} mr="1.25vw" px="2.25vw" pb="2.5vw" mb="2vh" borderRadius="lg">
-      <ListItem listStyleType="none" pt={index + 1 > 1 && "2rem"}>
-        <Text fontSize={"1.25vw"} py={"5"}>
+    <Box
+      bg={bg}
+      mr={{ base: "2.25vw", lg: "1.25vw" }}
+      px={{ base: "5vw", lg: "2.25vw" }}
+      pb="2.5vw"
+      mb="2vh"
+      borderRadius="lg"
+    >
+      <ListItem listStyleType="none" pt={"1rem"}>
+        <Text fontSize={{ base: "0.80em", lg: "1.25vw" }} py={"1.25em"}>
           {index + 1}.{before}
           <Text
             as="span"
@@ -88,7 +95,7 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
           </Text>
           {after}
         </Text>
-        <SimpleGrid columns={2} spacing={10}>
+        <SimpleGrid columns={2} spacing={{ base: 2, lg: 6 }}>
           {options.map((option, index) => (
             <QuestionOption
               option={option}

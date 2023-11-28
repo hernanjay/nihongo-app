@@ -27,6 +27,7 @@ import {
   fetchQuestions,
   fetchQuestionsByIds,
 } from "../../../logic/services/apiQuestions";
+import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
 
 const QuestionLayout = () => {
   const { body, bg, border, fontColor, success, error, warning, info } =
@@ -107,7 +108,7 @@ const QuestionLayout = () => {
         overscrollBehavior="auto"
         sx={{
           "&::-webkit-scrollbar": {
-            width: "12px",
+            width: "10px",
             borderRadius: "8px",
             backgroundColor: `rgba(0, 0, 0, 0.25)`,
           },
@@ -145,7 +146,16 @@ const QuestionLayout = () => {
             border={border}
             hasSubmit={hasSubmit}
             setHasSubmit={setHasSubmit}
+            display={{ base: "none", lg: "block" }}
           />
+          <QuestionAnsweredTrackerMobileWrapper>
+            <QuestionAnsweredTracker
+              bg={bg}
+              border={border}
+              hasSubmit={hasSubmit}
+              setHasSubmit={setHasSubmit}
+            />
+          </QuestionAnsweredTrackerMobileWrapper>
         </Grid>
       </Box>
     </Box>

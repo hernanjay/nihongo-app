@@ -20,16 +20,24 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
   const navigate = useNavigate();
 
   return (
-    <GridItem colSpan="1">
-      <Card boxShadow="lg" bgColor={bg} position="sticky" top="5.5vh">
-        <CardHeader>
-          <Text align="center" fontSize={"1.5vw"}>
+    <GridItem colSpan="1" display={{ base: "none", lg: "block" }}>
+      <Card
+        size={{ base: "sm", lg: "lg" }}
+        boxShadow="lg"
+        bgColor={bg}
+        position={{ base: "fixed", lg: "sticky" }}
+        top={{ base: "12.5vh", lg: "5.5vh" }}
+      >
+        <CardBody>
+          <Text
+            align="center"
+            fontSize={{ base: "0.60em", lg: "1.25em" }}
+            mb={{ base: "1.5vh", lg: "2.5vh" }}
+          >
             {`${level.toUpperCase()} ${
               type[0].toUpperCase() + type.slice(1)
             } Sets`}
           </Text>
-        </CardHeader>
-        <CardBody>
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             align="stretch"
@@ -39,6 +47,7 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
               ? countBySetKanji?.map((kanji) =>
                   kanji._id.level == level[1] ? (
                     <Button
+                      size={{ base: "xs", lg: "md" }}
                       isDisabled={kanji._id.set === set}
                       variant="ghost"
                       key={type + level + kanji._id.set}
@@ -59,7 +68,9 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
                         );
                       }}
                     >
-                      Question Set {kanji._id.set}
+                      <Text fontSize={{ base: "0.75em", lg: "1em" }}>
+                        Question Set {kanji._id.set}
+                      </Text>
                     </Button>
                   ) : null
                 )
