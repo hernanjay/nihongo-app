@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -6,6 +7,7 @@ import {
   CardHeader,
   Flex,
   GridItem,
+  SimpleGrid,
   Tag,
   TagLabel,
   Text,
@@ -16,7 +18,13 @@ import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import { addScore } from "../../../logic/services/apiGrades";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
-const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
+const QuestionAnsweredTracker = ({
+  bg,
+  border,
+  hasSubmit,
+  setHasSubmit,
+  ...htmlProps
+}) => {
   const {
     questions,
     userAnswers,
@@ -44,31 +52,30 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
     <GridItem colSpan="1">
       <Card
         textColor={border}
-        boxShadow="lg"
+        boxShadow={{ base: "none", lg: "lg" }}
         bgColor={bg}
         position="sticky"
         top="5vh"
         textAlign="center"
+        {...htmlProps}
       >
         <CardHeader pb="-1">
-          <Text fontSize={"1.5vw"}>Answer Tracker</Text>
+          <Text fontSize={{ base: "1em", lg: "1.5vw" }}>Answer Tracker</Text>
         </CardHeader>
         {hasSubmit && (
-          <Text>
+          <Text fontSize={{ base: "1em", lg: "1.5vw" }}>
             Score: {correctAnswers.length} / {checker.length}
           </Text>
         )}
         <CardBody>
-          <Flex flexWrap="wrap">
+          <SimpleGrid columns={{ base: 2, lg: 5 }} gap="0.5em">
             {questions?.map((question, index) => {
               return (
                 <Tag
+                  minH="2.5em"
                   key={question._id}
-                  size="lg"
                   variant="outline"
-                  mx=".5rem"
                   borderColor={border}
-                  mt={hasSubmit ? index > 4 && "1.3rem" : "1.3rem"}
                   bg={
                     hasSubmit
                       ? checker[index]
@@ -79,11 +86,11 @@ const QuestionAnsweredTracker = ({ bg, border, hasSubmit, setHasSubmit }) => {
                       : bg
                   }
                 >
-                  <TagLabel key={index}>{`Q${index + 1}`}</TagLabel>
+                  <TagLabel mx="auto" key={index}>{`Q${index + 1}`}</TagLabel>
                 </Tag>
               );
             })}
-          </Flex>
+          </SimpleGrid>
         </CardBody>
         <CardFooter>
           <Button
