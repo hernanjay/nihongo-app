@@ -82,8 +82,8 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
       mb="2vh"
       borderRadius="lg"
     >
-      <ListItem listStyleType="none" pt={"1rem"}>
-        <Text fontSize={{ base: "0.80em", lg: "1.25vw" }} py={"1.25em"}>
+      <ListItem listStyleType="none">
+        <Text fontSize={{ base: "0.80em", lg: "1.5vw" }} py={"2.25em"}>
           {index + 1}.{before}
           <Text
             as="span"
