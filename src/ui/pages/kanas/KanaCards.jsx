@@ -52,8 +52,8 @@ function KanaCards({ totalItems, kana, index }) {
           m={{ base: "0", lg: "1vh" }}
           fontWeight={isCorrect ? "light" : "bold"}
           h={{
-            base: isCorrect ? "10vh" : "5vh",
-            lg: isCorrect ? "20vh" : "auto",
+            base: "5vh",
+            lg: "10vh",
           }}
         >
           {showAnswer
@@ -69,10 +69,9 @@ function KanaCards({ totalItems, kana, index }) {
           id={`KanaCardsInput${index}`}
           mt={{ base: "5vh", lg: "5.7vh" }}
           type="text"
-          hidden={isCorrect}
           readOnly={isCorrect || showAnswer}
           onChange={(e) => {
-            if (e.target.value === kana.romaji) {
+            if (e.target.value.toLowerCase() === kana.romaji) {
               setIsCorrect(true);
               setIsEmpty(false);
 

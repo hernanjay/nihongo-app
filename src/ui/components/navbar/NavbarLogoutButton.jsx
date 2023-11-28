@@ -1,4 +1,4 @@
-import { Button, MenuItem } from "@chakra-ui/react";
+import { MenuItem } from "@chakra-ui/react";
 import React from "react";
 
 function NavbarLogoutButton({ children, ...htmlProps }) {
