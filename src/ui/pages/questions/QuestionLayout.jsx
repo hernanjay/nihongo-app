@@ -119,7 +119,7 @@ const QuestionLayout = () => {
       >
         <Grid
           mx="2vw"
-          h={"100%"}
+          h="100vh"
           templateRows="repeat(1, 1fr)"
           templateColumns="repeat(4, 1fr)"
           gap={3}
