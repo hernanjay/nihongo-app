@@ -5,59 +5,13 @@ import {
   GridItem,
   Heading,
   useBoolean,
-  // IconButton,
-  // Link,
-  // List,
-  // ListItem,
 } from "@chakra-ui/react";
-// import { useState } from "react";
-// import React from "react";
-// import {
-//   FiHome,
-//   FiBook,
-//   FiUser,
-//   FiUserCheck,
-//   FiPaperclip,
-//   // FiMenu,
-// } from "react-icons/fi";
 import ChartComp from "../../Components/Chart";
 import DoughnutChart from "../../components/Doughnut";
 import SideBar from "../../components/SideBar";
 
-// const menus = [
-//   {
-//     title: "Dashboard",
-//     link: "/admin",
-//     icon: <FiHome></FiHome>,
-//   },
-//   {
-//     title: "Grading",
-//     link: "/grading",
-//     icon: <FiBook />,
-//   },
-//   {
-//     title: "List of Students",
-//     link: "/list",
-//     icon: <FiUser />,
-//   },
-//   {
-//     title: "Manage Questionnaire",
-//     link: "/managequestioner",
-//     icon: <FiPaperclip />,
-//   },
-//   {
-//     title: "Manage Users",
-//     link: "/user",
-//     icon: <FiUserCheck />,
-//   },
-// ];
-
 function Side() {
   const [toggle, setToggle] = useBoolean();
-
-  // const buttonClick = () => {
-  //   return setToggle(!toggle);
-  // };
   console.log(toggle);
   const boxStyle = {
     w: "100%",
@@ -76,73 +30,6 @@ function Side() {
   return (
     <Box>
       <Flex flexDir={"row"} justifyContent={"center"}>
-        {/* <Flex
-          bg="#2C3639"
-          h="100vh"
-          pt="6.50rem"
-          w="24.4rem"
-          flexDir={["column"]}
-          alignItems={"center"}
-          flexWrap={"wrap"}
-          left={toggle ? "0" : "-23rem"}
-          transition="800ms"
-          alignContent={"space-around"}
-          position={"fixed"}
-        >
-          <IconButton
-            aria-label="menu"
-            icon={<FiMenu />}
-            bg="#2C3639"
-            _hover={"none"}
-            _active={"none"}
-            left={"23.4rem"}
-            onClick={buttonClick}
-            borderRadius={"40%"}
-            position={"absolute"}
-            zIndex={1}
-            mt={"2.4rem"}
-            color={"white"}
-          ></IconButton>
-          <Flex
-            borderRadius={50}
-            bg={"black"}
-            fontSize={60}
-            alignItems={"center"}
-            justifyContent={"center"}
-            color={"white"}
-            h={90}
-            w={90}
-            mt={"3rem"}
-          >
-            <FiUser />
-          </Flex>
-          <Flex pt={"2rem"} fontSize={"xl"} fontWeight={"bold"} color={"white"}>
-            @Username
-          </Flex>
-          <List mt={"3rem"} color={"white"}>
-            {menus.map((value, key) => {
-              return (
-                <ListItem
-                  key={key}
-                  display={"flex"}
-                  alignItems={"center"}
-                  pt={10}
-                  fontSize={13}
-                  // _hover={{pointer: "none"}}
-                >
-                  <Box pt={3} pb={3} pr={8}>
-                    <Link href={value.link}>{value.icon}</Link>
-                  </Box>
-                  <Box pt={1}>
-                    <Link href={value.link} _hover={{ textDecor: "none" }}>
-                      {value.title}{" "}
-                    </Link>
-                  </Box>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Flex> */}
         <SideBar toggle={toggle} onClick={setToggle.toggle} />
         <Flex
           minH={"100vh"}

@@ -1,64 +1,19 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import {
-  Flex,
-  Heading,
-  Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  // AvatarGroup,
-  Text,
-  Icon,
-  IconButton,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Divider,
-  // Link,
   Box,
+  Flex,
   Grid,
-  // Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Menu,
-  MenuButton,
-  Button,
-  MenuList,
-  MenuItem,
   GridItem,
+  Heading,
+  useBoolean,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiPieChart,
-  // FiBox,
-  // FiCalendar,
-  FiChevronDown,
-  FiChevronUp,
-  FiEdit,
-  FiBook,
-  FiSearch,
-  FiBell,
-  FiUser,
-  FiUserCheck,
-  FiPaperclip,
-  FiMenu,
-  FiArrowDown,
-} from "react-icons/fi";
-import ChartComp from "../../components/Chart";
+import ChartComp from "../../Components/Chart";
 import DoughnutChart from "../../components/Doughnut";
-// import DoughnutChart from "../../components/Doughnut";
-import { TriangleDownIcon } from "@chakra-ui/icons";
 import SideBar from "../../components/SideBar";
-// import Chart from "../../Components/chartComponent/Chart.jsx";
-// import { color } from "framer-motion";
 
 export default function Admindashboard() {
+  
+  const [toggle, setToggle] = useBoolean();
+  console.log(toggle);
   const boxStyle = {
     w: "100%",
     h: "150",
@@ -72,70 +27,18 @@ export default function Admindashboard() {
     m: 2,
     fontSize: "1.5em",
   };
+
   return (
     <Box>
-      <Flex
-        flexDir={["column", "row", "row"]}
-        overflow="hidden"
-        justifyContent="center"
-      >
-        <Box pt="6%">
-          <SideBar></SideBar>
-        </Box>
-        {/* Column 1 */}
-        {/* Column 2 */}
+      <Flex flexDir={"row"} justifyContent={"center"}>
+        <SideBar toggle={toggle} onClick={setToggle.toggle} />
         <Flex
-          w="90%"
-          p="5%"
-          flexDir="column"
-          overflow="auto"
-          minH="100vh"
-          // bg="white"
-          pt="6%"
-          // boxShadow="2xl"
+          minH={"100vh"}
+          marginLeft={toggle ? "20rem" : "0px"}
+          transition={"800ms"}
+          p="100px"
+          flexDir={"column"}
         >
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
-            </BreadcrumbItem>
-
-            {/* <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
-          </BreadcrumbItem> */}
-
-            {/* <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
-          </BreadcrumbItem> */}
-
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<TriangleDownIcon />}
-                variant="outline"
-                border="none"
-              />
-              <MenuList>
-                <MenuItem as="a" href="/grading" icon={<FiBook />}>
-                  Grading
-                </MenuItem>
-                <MenuItem as="a" href="/list" icon={<FiUser />}>
-                  List of Students
-                </MenuItem>
-                <MenuItem
-                  as="a"
-                  href="/managequestioner"
-                  icon={<FiPaperclip />}
-                >
-                  Manage Questionaire
-                </MenuItem>
-                <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
-                  Manage Users
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Breadcrumb>
-          {/* Column 2 */}{" "}
           <Heading
             fontWeight="normal"
             mb={4}
@@ -148,38 +51,32 @@ export default function Admindashboard() {
               Admin Name
             </Flex>
             !
-          </Heading>{" "}
-          {/* fetch the id of student percentage per nihongo level */}
+          </Heading>
           <Grid templateColumns="repeat(5, 1fr)" gap={6} mt="5%">
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N1
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N2
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N3
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N4
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
             <Box sx={boxStyle}>
               <Heading sx={headStyle} size="md">
                 N5
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
           </Grid>
           <Grid
@@ -189,10 +86,10 @@ export default function Admindashboard() {
             h="60vh"
             mb={10}
           >
-            <GridItem colSpan={2} border="1px groove">
+            <GridItem colSpan={2} border="2px groove">
               <ChartComp />
             </GridItem>
-            <GridItem colSpan={1} border="1px groove">
+            <GridItem colSpan={1} border="2px groove">
               <DoughnutChart></DoughnutChart>
             </GridItem>
           </Grid>

@@ -57,7 +57,7 @@ function SideBar({ toggle, onClick }) {
 
   return (
     <Flex
-      bg="dark.100"
+      bg="dark.200"
       h="100vh"
       pt="6.50rem"
       w="24.4rem"
@@ -72,7 +72,7 @@ function SideBar({ toggle, onClick }) {
       <IconButton
         aria-label="menu"
         icon={<FiMenu />}
-        bg="dark.100"
+        bg="dark.200"
         _hover={"none"}
         _active={"none"}
         left={"23.4rem"}
@@ -84,9 +84,9 @@ function SideBar({ toggle, onClick }) {
         color={"white"}
       ></IconButton>
       <Flex
-        borderRadius={50}
+        borderRadius={"3rem"}
         bg={"#2C3639"}
-        fontSize={60}
+        fontSize={"4rem"}
         alignItems={"center"}
         justifyContent={"center"}
         color={"white"}
@@ -111,23 +111,21 @@ function SideBar({ toggle, onClick }) {
             <ListItem
               key={key}
               display={"flex"}
-              pt={3}
-              pr={0}
-              pb={3}
-              pl={16}
+              pt={"1rem"}
+              pb={"1rem"}
+              pl={"4.5rem"}
               alignItems={"center"}
               fontSize={"md"}
               onClick={() => navigate(`${value.link}`)}
               cursor={"pointer"}
               _hover={{ bg: "#2C3639" }}
-              _active={{ bg: "#2C3639" }}
               width={"100%"}
-              borderRadius={5}
+              borderRadius={"00.75rem"}
             >
-              <Box pt={3} pb={3} pr={8}>
+              <Box pt={"0.188rem"} pb={"0.188rem"} pr={"1.8rem"}>
                 {value.icon}
               </Box>
-              <Box pt={1}>{value.title}</Box>
+              <Box pt={"0.1rem"}>{value.title}</Box>
             </ListItem>
           );
         })}
@@ -135,7 +133,7 @@ function SideBar({ toggle, onClick }) {
       <Button
         mt={"3.5rem"}
         bg="#2C3639"
-        _hover={{bg:"#61777F"}}
+        _hover={{ bg: "#61777F" }}
         color={"white"}
         rightIcon={<FiLogOut />}
       >
