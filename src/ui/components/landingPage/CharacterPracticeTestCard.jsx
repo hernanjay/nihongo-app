@@ -13,10 +13,11 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
+import ThemeColors from "../../pages/main/ThemeColors";
 
 function CharacterPracticeTestCard(props) {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const [hasAnswered, setHasAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 

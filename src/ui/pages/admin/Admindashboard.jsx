@@ -50,7 +50,7 @@ import {
   FiMenu,
   FiArrowDown,
 } from "react-icons/fi";
-import ChartComp from "../../Components/Chart";
+import ChartComp from "../../components/Chart";
 import DoughnutChart from "../../components/Doughnut";
 // import DoughnutChart from "../../components/Doughnut";
 import { TriangleDownIcon } from "@chakra-ui/icons";

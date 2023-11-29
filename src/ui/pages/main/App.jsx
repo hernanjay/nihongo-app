@@ -15,7 +15,6 @@ import Home from "../home/Home";
 import theme from "./Theme";
 import LandingPage from "../landingPage/LandingPage";
 import Loader from "../../components/Loader";
-import Userlist from "../dummies/userlist";
 import QuestionLayout from "../questions/QuestionLayout";
 import Admindashboard from "../admin/Admindashboard";
 import AdminChart from "../admin/AdminChart";
@@ -26,6 +25,8 @@ import Grading from "../admin/Grading";
 import User from "../admin/User";
 import ManageQuestioner from "../admin/ManageQuestioner";
 import Side from "../dummies/Side";
+import Comp from "../dummies/Comp";
+import Userlist from "../dummies/Userlist";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -65,11 +66,20 @@ function App() {
                   element={user ? <KanaLayout /> : <Navigate to="/" />}
                 />
 
+                <Route path="/user" element={<User />} />
+                <Route path="/grading" element={<Grading />} />
+
+                <Route
+                  path="/managequestioner"
+                  element={<ManageQuestioner />}
+                />
+                <Route path="/list" element={<List />} />
+                <Route path="/comp" element={<Comp />} />
+
                 <Route
                   path="/questions/:level/:type/:set"
                   element={<QuestionLayout />}
                 />
-
                 <Route path="*" element={<Navigate to="/" />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/grading" element={<Grading />} />

@@ -18,47 +18,70 @@ import {
 } from "@chakra-ui/react";
 import QuestionSets from "./QuestionSets";
 import { useQuestionContext } from "../../logic/hooks/question/useQuestionContext";
+import { useGradeContext } from "./../../logic/hooks/grade/useGradeContext";
 
 const QuestionLevel = ({ index, type }) => {
-  const { countBySetVocab, countBySetGrammar, countBySetKanji } =
+  const { questionsQty, countBySetVocab, countBySetGrammar, countBySetKanji } =
     useQuestionContext();
+
+  const { grades } = useGradeContext();
 
   let ctr = 0;
   let kanjiCtr = 0;
+  let kanjiGradedCtr = 0;
   let vocabCtr = 0;
+  let vocabGradedCtr = 0;
   let grammarCtr = 0;
+  let grammarGradedCtr = 0;
 
   type === "Kanji"
-    ? countBySetKanji?.map((kanji) => kanji._id.level == index && kanjiCtr++)
+    ? countBySetKanji?.map((kanji) => kanji._id.level == index && kanjiCtr++) &&
+      grades?.kanjiGrades?.map(
+        (kg) => kg.questionSetId?.slice(0, 1) == index && kanjiGradedCtr++
+      )
     : null;
 
   type === "Vocab"
-    ? countBySetVocab?.map((vocab) => vocab._id.level == index && vocabCtr++)
+    ? countBySetVocab?.map((vocab) => vocab._id.level == index && vocabCtr++) &&
+      grades?.vocabGrades?.map(
+        (vg) => vg.questionSetId?.slice(0, 1) == index && vocabGradedCtr++
+      )
     : null;
 
   type === "Grammar"
     ? countBySetGrammar?.map(
         (grammar) => grammar._id.level == index && grammarCtr++
+      ) &&
+      grades?.grammarGrades?.map(
+        (gg) => gg.questionSetId?.slice(0, 1) == index && grammarGradedCtr++
       )
     : null;
+
   return (
     <AccordionItem
       key={index}
       my="1"
-      isDisabled={index < 4}
+      isDisabled={
+        (type === "Kanji" && !kanjiCtr) ||
+        (type === "Vocab" && !vocabCtr) ||
+        (type === "Grammar" && !grammarCtr)
+      }
       verticalAlign="center"
     >
       <AccordionButton variant="solid">
         <HStack as="span" flex="1" textAlign="left">
           <ChevronRightIcon />
-          <Text fontSize="2vh">{`N${index}`}</Text>
+          <Text fontSize="1em">{`N${index}`}</Text>
         </HStack>
         <Box as="span" flex="1" textAlign="right" mx="5">
-          <Text fontSize="2vh">
-            0/
-            {(type === "Kanji" && kanjiCtr) ||
-              (type === "Vocab" && vocabCtr) ||
-              (type === "Grammar" && grammarCtr)}
+          <Text fontSize="1em">
+            {(type === "Kanji" && (kanjiGradedCtr || "0")) ||
+              (type === "Vocab" && (vocabGradedCtr || "0")) ||
+              (type === "Grammar" && (grammarGradedCtr || "0"))}
+            /
+            {(type === "Kanji" && (kanjiCtr || "0")) ||
+              (type === "Vocab" && (vocabCtr || "0")) ||
+              (type === "Grammar" && (grammarCtr || "0"))}
           </Text>
         </Box>
         <AccordionIcon />

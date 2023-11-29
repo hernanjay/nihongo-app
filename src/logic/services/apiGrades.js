@@ -1,6 +1,28 @@
+export async function fetchGrades(user) {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/user-grades`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userId: user?._id,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.log(json.error);
+        return null;
+    }
+
+    return json;
+}
+
 export async function fetchSpecificGrade(user, level, type, set) {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/grade`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/grade-by-set`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -14,7 +36,6 @@ export async function fetchSpecificGrade(user, level, type, set) {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
         return null;
     }
 

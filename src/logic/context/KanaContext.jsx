@@ -3,6 +3,8 @@ import { createContext, useReducer } from "react";
 
 export const KanaContext = createContext();
 
+const salt = "lmao";
+
 let initialState = {
   kanaData: [],
   kanaMode: "",
@@ -13,10 +15,9 @@ let initialState = {
 const kanaReducer = (state, action) => {
   switch (action.type) {
     case "dataReceived":
-      shuffle(action.payload);
       return {
         ...state,
-        kanaData: action.payload,
+        kanaData: shuffle(action.payload),
       };
     case "modeSet":
       sessionStorage.setItem("kanaMode", action.payload);

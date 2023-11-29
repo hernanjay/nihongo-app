@@ -1,21 +1,19 @@
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 import { useEffect } from "react";
 import { useState } from "react";
-import {
-  Box,
-  Flex,
-  IconButton,
-  SimpleGrid,
-  Skeleton,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Skeleton } from "@chakra-ui/react";
 import KanaCards from "./KanaCards";
 import KanaSelectorTabSide from "./KanaSelectorTabSide";
 import Loader from "../../components/Loader";
-import { ArrowUpIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import {
+  fetchAllKana,
+  fetchSpecificMode,
+  fetchSpecificKana,
+} from "../../../logic/services/apiKana";
 
 function KanaLayout() {
-  const toast = useToast();
+  const navigate = useNavigate();
   const {
     kanaData,
     kanaMode,
@@ -27,56 +25,23 @@ function KanaLayout() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchData() {
-      setIsLoading(true);
       let res;
       if (kanaType && kanaMode.length && kanaGroup.length) {
-        res = await fetch(
-          `${import.meta.env.VITE_LOCALHOST_API}/api/alphabet/kana-custom`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              mode: kanaMode,
-              group: kanaGroup,
-              type: kanaType,
-            }),
-          }
-        );
+        res = await fetchSpecificKana(kanaMode, kanaGroup, kanaType);
       } else if (kanaType && kanaMode.length && !kanaGroup.length) {
-        res = await fetch(
-          `${
-            import.meta.env.VITE_LOCALHOST_API
-          }/api/alphabet/${kanaType}-${kanaMode}`
-        );
+        res = await fetchSpecificMode(kanaMode, kanaType);
       } else if (kanaType && !kanaMode.length && !kanaGroup.length) {
-        res = await fetch(
-          `${import.meta.env.VITE_LOCALHOST_API}/api/alphabet/${kanaType}`
-        );
+        res = await fetchAllKana(kanaType);
       } else {
-        toast({
-          title: "Session Failed",
-          position: "top",
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
+        navigate("/");
       }
 
-      const json = await res.json();
-
-      if (!res.ok) {
-        toast({
-          title: "Session Failed in Fetch",
-          position: "top",
-          description: json.error,
-          status: "error",
-          duration: 2500,
-          isClosable: true,
-        });
-      }
-      if (res.ok) {
-        kanaDispatch({ type: "dataReceived", payload: json });
+      if (kanaType) {
+        const json = await res.json();
+        if (!res.ok) console.error(json.error);
+        if (res.ok) kanaDispatch({ type: "dataReceived", payload: json });
       }
       setIsLoading(false);
     }
@@ -84,28 +49,45 @@ function KanaLayout() {
   }, [kanaMode, kanaType, kanaGroup, kanaDispatch]);
 
   return (
-    <Box>
+    <Box pt="10vh">
       <Loader isLoading={isLoading} />
-      <IconButton
-        position="fixed"
-        bottom="2.5vh"
-        right="2.5vw"
-        isRound={true}
-        variant="solid"
-        colorScheme="teal"
-        aria-label="Done"
-        fontSize="20px"
-        icon={<ArrowUpIcon />}
-        onClick={() => {
-          window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      <Flex
+        position="relative"
+        id="kanaPageScroll"
+        h="90vh"
+        maxH="100vh"
+        overflow="auto"
+        overscrollBehavior="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "12px",
+            borderRadius: "8px",
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
         }}
-      />
-      <Flex pt="10vh">
-        <Box minW="25vw" my="2.5vh" ml="2.5vw">
-          <KanaSelectorTabSide key="Tabside" type={kanaType} />
+      >
+        <Box
+          position="fixed"
+          minW="25vw"
+          ml="1.5vw"
+          display={{ base: "none", lg: "block" }}
+        >
+          <KanaSelectorTabSide key="Tabside" isLoading={isLoading} />
         </Box>
-        <Box minW="62.5vw" ml="2vw">
-          <SimpleGrid columns={3} gap={10} py="5vh">
+        <Box
+          minW={{ base: "25vw", lg: "62.5vw" }}
+          ml={{ base: "2.5vw", lg: "30vw" }}
+          mr={{ base: "2.5vw", lg: "0" }}
+        >
+          <SimpleGrid
+            id="kanaBody"
+            columns={{ base: 2, lg: 3 }}
+            gap={{ base: "2.5vw", lg: "5vh" }}
+            py="2.5vh"
+          >
             {kanaData.map((kana, index) => {
               return (
                 <Skeleton

@@ -9,25 +9,26 @@ import {
   Box,
 } from "@chakra-ui/react";
 import KanaSelector from "./KanaSelector";
+import ThemeColors from "../main/ThemeColors";
 
 function KanaSelectorTab() {
-  const bg = useColorModeValue("light.400", "dark.100");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   return (
     <Box>
       <Tabs
         isFitted
         variant="line"
         colorScheme="white"
-        minW="60vw"
-        ml="35vw"
+        minW={{ base: "92vw", lg: "60vw" }}
         bg={bg}
         borderRadius="10"
         boxShadow="lg"
         pb="2.25vh"
       >
         <TabList>
-          <Tab>Learn Hiragana Kana</Tab>
-          <Tab>Learn Katakana Kana</Tab>
+          <Tab>Learn Hiragana</Tab>
+          <Tab>Learn Katakana</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
