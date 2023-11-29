@@ -54,6 +54,7 @@ import ChartComp from "../../Components/Chart";
 import DoughnutChart from "../../components/Doughnut";
 // import DoughnutChart from "../../components/Doughnut";
 import { TriangleDownIcon } from "@chakra-ui/icons";
+import SideBar from "../../components/SideBar";
 // import Chart from "../../Components/chartComponent/Chart.jsx";
 // import { color } from "framer-motion";
 
@@ -74,10 +75,13 @@ export default function Admindashboard() {
   return (
     <Box>
       <Flex
-        flexDir={["column", "column", "row"]}
+        flexDir={["column", "row", "row"]}
         overflow="hidden"
         justifyContent="center"
       >
+        <Box pt="6%">
+          <SideBar></SideBar>
+        </Box>
         {/* Column 1 */}
         {/* Column 2 */}
         <Flex
@@ -86,9 +90,9 @@ export default function Admindashboard() {
           flexDir="column"
           overflow="auto"
           minH="100vh"
-          bg="white"
+          // bg="white"
           pt="6%"
-          boxShadow="2xl"
+          // boxShadow="2xl"
         >
           <Breadcrumb>
             <BreadcrumbItem>

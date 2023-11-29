@@ -31,7 +31,7 @@ function ChartComp() {
 
   return (
     <div>
-      <Box h="50px" p="15px" bg="#1aa7ac">
+      <Box h="50px" p="15px" bg="blue.800">
         <Text fontSize="lg" fontWeight="extrabold" color="whiteAlpha.900">
           Learners per Level
         </Text>

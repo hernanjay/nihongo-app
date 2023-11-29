@@ -25,6 +25,7 @@ import List from "../admin/List";
 import Grading from "../admin/Grading";
 import User from "../admin/User";
 import ManageQuestioner from "../admin/ManageQuestioner";
+import Side from "../dummies/Side";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -74,6 +75,7 @@ function App() {
                 <Route path="/grading" element={<Grading />} />
                 <Route path="/managequestioner" element={<ManageQuestioner />} />
                 <Route path="/list" element={<List />} />
+                <Route path="/dummy" element={<Side />} />
               </Routes>
             </>
           )}
