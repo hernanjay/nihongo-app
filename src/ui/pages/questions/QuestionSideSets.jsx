@@ -108,6 +108,12 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
                                           }
                                           onClick={() => {
                                               setHasSubmit(false);
+                                              scrollTo(
+                                                  document.getElementById(
+                                                      "questionLayoutContainer"
+                                                  ),
+                                                  { top: 0 }
+                                              );
                                               navigate(
                                                   `/questions/${level}/${type}/${vocab._id.set}`
                                               );
@@ -138,6 +144,12 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
                                           }
                                           onClick={() => {
                                               setHasSubmit(false);
+                                              scrollTo(
+                                                  document.getElementById(
+                                                      "questionLayoutContainer"
+                                                  ),
+                                                  { top: 0 }
+                                              );
                                               navigate(
                                                   `/questions/${level}/${type}/${grammar._id.set}`
                                               );

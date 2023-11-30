@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 import ThemeColors from "../main/ThemeColors";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { useEffect } from "react";
 
 const QuestionSets = ({ type, level, set }) => {
     const { hover } = ThemeColors();
@@ -11,9 +12,6 @@ const QuestionSets = ({ type, level, set }) => {
     const { questionsQty } = useQuestionContext();
     const { grades } = useGradeContext();
 
-    console.log(grades.kanjiGrades);
-
-    // check if what grade is in this set
     const dynamicScore =
         (type === "kanji" &&
             grades?.kanjiGrades
@@ -23,8 +21,7 @@ const QuestionSets = ({ type, level, set }) => {
                         kanji.questionSetId.slice(-1) === set &&
                         kanji.score
                 )
-                .filter((kanjiScore) => kanjiScore)
-                .at(0)) ||
+                .filter((kanjiScore) => kanjiScore === 0 || kanjiScore)) ||
         (type === "vocab" &&
             grades?.vocabGrades
                 ?.map(
@@ -33,8 +30,7 @@ const QuestionSets = ({ type, level, set }) => {
                         vocab.questionSetId.slice(-1) === set &&
                         vocab.score
                 )
-                ?.filter((vocabScore) => vocabScore)
-                .at(0)) ||
+                ?.filter((vocabScore) => vocabScore === 0 || vocabScore)) ||
         (type === "grammar" &&
             grades?.grammarGrades
                 ?.map(
@@ -43,9 +39,7 @@ const QuestionSets = ({ type, level, set }) => {
                         grammar.questionSetId.slice(-1) === set &&
                         grammar.score
                 )
-                .filter((grammarScore) => grammarScore)
-                .at(0)) ||
-        null;
+                .filter((grammarScore) => grammarScore === 0 || grammarScore));
 
     let numOfItems =
         (type === "kanji" &&
@@ -79,15 +73,17 @@ const QuestionSets = ({ type, level, set }) => {
                 );
             }));
 
+    // type === "vocab" && level == 5 && set == 1 && console.log(dynamicScore);
     function setQuestionStatus() {
         if (dynamicScore > 7) {
             return <Badge colorScheme="green">Pass</Badge>;
-        } else if (dynamicScore < 8 && dynamicScore != null) {
+        } else if (dynamicScore?.[0] < 8 && dynamicScore?.[0] != null) {
             return <Badge colorScheme="red">Fail</Badge>;
         } else {
             return <Badge colorScheme="gray">pending</Badge>;
         }
     }
+
     return (
         <Tr
             key={`questions/n${level}/${type}/${set}`}
@@ -97,7 +93,9 @@ const QuestionSets = ({ type, level, set }) => {
         >
             <Td>{`Question : ${set}`}</Td>
             <Td>{numOfItems}</Td>
-            <Td isNumeric>{dynamicScore || null}</Td>
+            <Td isNumeric>
+                {(dynamicScore?.[0] === 0 && "0") || dynamicScore || null}
+            </Td>
             <Td isNumeric>{setQuestionStatus()}</Td>
         </Tr>
     );
