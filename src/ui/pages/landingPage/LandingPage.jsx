@@ -75,7 +75,7 @@ export default function LandingPage() {
             alignContent="center"
           >
             <Image
-              src="src\assets\4672600_2466250.svg"
+              src="https://i.imgur.com/WtVPZmS.png"
               alt="pictureForLandingPage"
             ></Image>
           </GridItem>
@@ -125,7 +125,11 @@ export default function LandingPage() {
           </GridItem>
 
           <GridItem rowSpan={3} />
-          <GridItem rowSpan={1} colSpan={8} />
+          <GridItem rowSpan={1} colSpan={8} textAlign="center">
+            <Heading mt="5vh" fontSize="3vw">
+              --- UNDER DEVELOPMENT ---
+            </Heading>
+          </GridItem>
         </Grid>
         {/* Banner */}
         <Divider />
@@ -344,7 +348,7 @@ export default function LandingPage() {
             alignContent="center"
           >
             <Image
-              src="src\assets\4672600_2466250.svg"
+              src="https://i.imgur.com/WtVPZmS.png"
               alt="pictureForLandingPage"
             ></Image>
           </GridItem>
