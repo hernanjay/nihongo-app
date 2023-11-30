@@ -39,15 +39,15 @@ function LearnVocab() {
     });
   }
 
-  // async function getList() {
-  //   return await value.meaning.split(",").map((str) => {
-  //     return (
-  //       <ListItem fontWeight="light" fontSize="0.9em" color={fontColor}>
-  //         {str}
-  //       </ListItem>
-  //     );
-  //   });
-  // }
+  function getList(value) {
+    return value.meaning.split(",").map((str) => {
+      return (
+        <ListItem fontWeight="light" fontSize="0.9em" color={fontColor}>
+          {str}
+        </ListItem>
+      );
+    });
+  }
 
   return (
     <Box minH={"100vh"}>
@@ -127,7 +127,7 @@ function LearnVocab() {
                           </ListItem>
                         );
                       })} */}
-                      {/* {getList()} */}
+                      {getList(value)}
                     </OrderedList>
                   </CardFooter>
                 </Card>

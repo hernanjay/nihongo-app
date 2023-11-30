@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { scrollTo } from "scroll-js";
 
 const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
   const { countBySetVocab, countBySetGrammar, countBySetKanji } =
@@ -63,6 +64,10 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
                         questionDispatch({
                           type: "clearuseruserAnswers",
                         });
+                        scrollTo(
+                          document.getElementById("questionLayoutContainer"),
+                          { top: 0 }
+                        );
                         navigate(
                           `/questions/${level}/${kanji._id.type}/${kanji._id.set}`
                         );
