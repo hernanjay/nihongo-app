@@ -29,7 +29,6 @@ function KanaCards({ totalItems, kana, index }) {
   return (
     <Card
       borderColor={border}
-      borderWidth={isFocused ? "0.15em" : "0.05em"}
       bg={isCorrect ? success : !isEmpty ? error : bg}
       variant={"outline"}
       boxShadow={"lg"}
@@ -52,7 +51,6 @@ function KanaCards({ totalItems, kana, index }) {
           fontSize={{ base: "5vh", lg: "4vw" }}
           textAlign={"center"}
           m={{ base: "0", lg: "1vh" }}
-          fontWeight={isCorrect ? "light" : "bold"}
           h={{
             base: "5vh",
             lg: "10vh",
@@ -68,9 +66,9 @@ function KanaCards({ totalItems, kana, index }) {
           textAlign="center"
           autocomplete="off"
           focusBorderColor="gray.400"
-          onFocus={setIsFocused.on}
+          // onFocus={setIsFocused.on}
           onBlur={setIsFocused.off}
-          bg={isCorrect ? success : bg}
+          bg={bg}
           key={kana.romaji + index}
           id={`KanaCardsInput${index}`}
           mt={{ base: "5vh", lg: "5.7vh" }}
@@ -84,12 +82,7 @@ function KanaCards({ totalItems, kana, index }) {
               const elem = document.getElementById(
                 `KanaCardsInput${index + 1}`
               );
-              if (index + 1 < totalItems) {
-                scrollTo(document.getElementById("kanaPageScroll"), {
-                  top: elem.offsetParent.offsetTop - window.innerHeight * 0.05,
-                });
-                elem.focus();
-              }
+              if (index + 1 < totalItems) elem.focus();
             } else {
               if (e.target.value === "") {
                 setIsEmpty(true);
@@ -97,6 +90,15 @@ function KanaCards({ totalItems, kana, index }) {
                 setIsCorrect(false);
                 setIsEmpty(false);
               }
+            }
+          }}
+          onFocus={() => {
+            setIsFocused.on;
+            const elem = document.getElementById(`KanaCardsInput${index}`);
+            if (index + 1 < totalItems) {
+              scrollTo(document.getElementById("kanaPageScroll"), {
+                top: elem.offsetParent.offsetTop - window.innerHeight * 0.05,
+              });
             }
           }}
         ></Input>

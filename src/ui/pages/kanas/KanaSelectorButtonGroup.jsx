@@ -29,6 +29,8 @@ function KanaSelectorButtonGroup({
     return items;
   });
 
+  console.log(checkedItems, mode);
+
   //Checks if all buttons are checked
   const allChecked = checkedItems.every(Boolean);
   //Checks if all child buttons aren't checked
