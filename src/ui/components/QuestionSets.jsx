@@ -87,7 +87,7 @@ const QuestionSets = ({ type, level, set }) => {
     <Tr key={`questions/n${level}/${type}/${set}`} _hover={{ bg: hover }}>
       <Td
         onClick={() => navigate(`questions/n${level}/${type}/${set}`)}
-        cursor={"pointer"}
+        style={{ cursor: "pointer" }}
       >
         {`Question : ${set}`}
       </Td>

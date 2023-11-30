@@ -36,11 +36,12 @@ function KanaCards({ totalItems, kana, index }) {
       <CardHeader>
         <Flex>
           <Text
+            fontSize="0.5em"
             hidden={showAnswer || isCorrect}
             cursor="pointer"
             onClick={setShowAnswer.toggle}
           >
-            ?
+            Show Answer
           </Text>
           <Spacer />
           <Text>{`${index + 1}/${totalItems}`}</Text>
