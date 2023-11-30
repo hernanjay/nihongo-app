@@ -25,10 +25,14 @@ function KanaSelectorButtonGroup({
     let items = [];
     const storedKanaGroup = sessionStorage.getItem("kanaGroup");
     kanaGroup.map((value) => {
-      const splitKanaGroup = storedKanaGroup.split(",");
-      const strippedDownValue = value.split("・")[1];
-      if (storedKanaGroup && splitKanaGroup.includes(strippedDownValue)) {
-        items.push(true);
+      if (storedKanaGroup) {
+        const splitKanaGroup = storedKanaGroup.split(",");
+        const strippedDownValue = value.split("・")[1];
+        if (splitKanaGroup.includes(strippedDownValue)) {
+          items.push(true);
+        } else {
+          items.push(false);
+        }
       } else {
         items.push(false);
       }
