@@ -50,7 +50,6 @@ export async function addScore(
     correctAnswers
 ) {
     const { level, type, set } = questions[0];
-
     // We need to sort the questionsId together with userAnswers so that it will be in synchronized
     // We need to Combine the arrays into a 2D array so that the answer and questions are the same index
     const combinedArray = questionIds.map((questionId, index) => [
@@ -68,7 +67,7 @@ export async function addScore(
     );
 
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/add-grades`,
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/grades/add-grades`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -86,7 +85,11 @@ export async function addScore(
 
     if (!res.ok) {
         console.log(json.error);
+        return 0; // it means false
     }
 
-    if (res.ok) console.log("Score added");
+    if (res.ok) {
+        console.log("Score added");
+        return 1; // it means true
+    }
 }
