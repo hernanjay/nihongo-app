@@ -33,7 +33,6 @@ function KanaSelectorButtonGroup({
         items.push(false);
       }
     });
-    console.log(items);
     return items;
   });
 
