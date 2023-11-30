@@ -1,7 +1,21 @@
 //#region Imports
 import React, { useState } from "react";
 
-import { Button, Container, Divider, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  GridItem,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +36,8 @@ function KanaSelector({ type }) {
   //Importing app theme colors
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //#region Variable decleration
   const navigate = useNavigate();
@@ -134,13 +150,34 @@ function KanaSelector({ type }) {
                 ],
               });
               kanaDispatch({ type: "typeSet", payload: type });
-              navigate("/kana-quiz");
+              // navigate("/kana-quiz");
+              onOpen();
             }}
           >
             Load Selected Kana
           </Button>
         </GridItem>
       </Grid>
+
+      <Modal
+        isCentered
+        onClose={onClose}
+        isOpen={isOpen}
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Kanas To load</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>{mainKanaSelected}</ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="blue">Proceed</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Container>
   );
 }
