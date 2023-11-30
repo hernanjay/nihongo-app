@@ -11,6 +11,7 @@ import {
     Tag,
     TagLabel,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useMemo } from "react";
@@ -31,6 +32,7 @@ const QuestionAnsweredTracker = ({
         dispatch: questionDispatch,
     } = useQuestionContext();
 
+    const toast = useToast();
     const { user } = useUserContext();
     const { dispatch: gradeDispatch } = useGradeContext();
     // Check if all questions are answered
@@ -53,8 +55,13 @@ const QuestionAnsweredTracker = ({
 
     function handleAddGrades() {
         const { level, type, set } = questions[0];
-        addScore(user, questions, questionIds, userAnswers, correctAnswers);
-
+        const isScoreAdded = addScore(
+            user,
+            questions,
+            questionIds,
+            userAnswers,
+            correctAnswers
+        );
         gradeDispatch({
             type: "addGrades",
             payload: {
@@ -68,8 +75,16 @@ const QuestionAnsweredTracker = ({
                 },
             },
         });
-        console.log("Adding Grades");
-        setHasSubmit(true);
+        if (isScoreAdded) {
+            toast({
+                title: "Score Added",
+                position: "top",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+            setHasSubmit(true);
+        }
     }
 
     return (
