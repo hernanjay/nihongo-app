@@ -25,6 +25,7 @@ const questionReducer = (state, action) => {
             return {
                 ...state,
                 questions: action.payload,
+                userAnswers: action.payload.map((qn) => null),
             };
         case "receivedQuestionQty":
             return {

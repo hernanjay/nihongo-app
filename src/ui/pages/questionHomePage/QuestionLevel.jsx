@@ -17,16 +17,12 @@ import {
     HStack,
 } from "@chakra-ui/react";
 import QuestionSets from "./QuestionSets";
-import { useQuestionContext } from "../../logic/hooks/question/useQuestionContext";
-import { useGradeContext } from "./../../logic/hooks/grade/useGradeContext";
+import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
 const QuestionLevel = ({ index, type }) => {
-    const {
-        questionsQty,
-        countBySetVocab,
-        countBySetGrammar,
-        countBySetKanji,
-    } = useQuestionContext();
+    const { countBySetVocab, countBySetGrammar, countBySetKanji } =
+        useQuestionContext();
 
     const { grades } = useGradeContext();
 
