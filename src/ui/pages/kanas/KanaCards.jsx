@@ -24,10 +24,12 @@ function KanaCards({ totalItems, kana, index }) {
   const [isEmpty, setIsEmpty] = useState(true);
   const { kanaType } = useKanaContext();
   const [showAnswer, setShowAnswer] = useBoolean();
+  const [isFocused, setIsFocused] = useBoolean();
 
   return (
     <Card
       borderColor={border}
+      borderWidth={isFocused ? "0.15em" : "0.05em"}
       bg={isCorrect ? success : !isEmpty ? error : bg}
       variant={"outline"}
       boxShadow={"lg"}
@@ -64,6 +66,10 @@ function KanaCards({ totalItems, kana, index }) {
         </Heading>
         <Input
           textAlign="center"
+          autocomplete="off"
+          focusBorderColor="gray.400"
+          onFocus={setIsFocused.on}
+          onBlur={setIsFocused.off}
           bg={isCorrect ? success : bg}
           key={kana.romaji + index}
           id={`KanaCardsInput${index}`}

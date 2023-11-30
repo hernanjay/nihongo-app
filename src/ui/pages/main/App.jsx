@@ -24,8 +24,10 @@ import List from "../admin/List";
 import Grading from "../admin/Grading";
 import User from "../admin/User";
 import ManageQuestioner from "../admin/ManageQuestioner";
+import Side from "../dummies/Side";
 import Comp from "../dummies/Comp";
 import Userlist from "../dummies/Userlist";
+import LearnVocab from "../dummies/LearnVocab";
 
 function App() {
   const { user, isLoading } = useUserContext();
@@ -80,6 +82,15 @@ function App() {
                   element={<QuestionLayout />}
                 />
                 <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/grading" element={<Grading />} />
+                <Route
+                  path="/managequestioner"
+                  element={<ManageQuestioner />}
+                />
+                <Route path="/list" element={<List />} />
+                <Route path="/dummy" element={<Side />} />
+                <Route path="/learnVocab" element={<LearnVocab />} />
               </Routes>
             </>
           )}
