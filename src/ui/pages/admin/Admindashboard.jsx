@@ -15,7 +15,7 @@ export default function Admindashboard() {
   const [toggle, setToggle] = useBoolean();
   console.log(toggle);
   const boxStyle = {
-    w: "100%",
+    w: "100%",  
     h: "150",
     shadow: "lg",
     bgColor: "RGBA(0, 0, 0, 0.06)",

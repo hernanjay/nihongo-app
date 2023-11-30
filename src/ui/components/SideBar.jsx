@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Flex,
@@ -72,16 +73,17 @@ function SideBar({ toggle, onClick }) {
       <IconButton
         aria-label="menu"
         icon={<FiMenu />}
+        fontSize={"1.2rem"}
         bg="dark.200"
-        _hover={"none"}
-        _active={"none"}
-        left={"23.4rem"}
+        _hover={{ bg: "dark.200" }}
+        left={"22.8rem"}
         onClick={onClick}
         borderRadius={"40%"}
         position={"absolute"}
         zIndex={1}
         mt={"2.4rem"}
         color={"white"}
+        h={"4.5rem"}
       ></IconButton>
       <Flex
         borderRadius={"3rem"}
@@ -94,7 +96,7 @@ function SideBar({ toggle, onClick }) {
         w={"6rem"}
         mt={"3rem"}
       >
-        <FiUser />
+         <Avatar size="xl" name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
       </Flex>
       <Flex pt={"1rem"} fontSize={"xl"} fontWeight={"bold"} color={"white"}>
         @Username
@@ -111,8 +113,8 @@ function SideBar({ toggle, onClick }) {
             <ListItem
               key={key}
               display={"flex"}
-              pt={"1rem"}
-              pb={"1rem"}
+              pt={"1.3rem"}
+              pb={"1.3rem"}
               pl={"4.5rem"}
               alignItems={"center"}
               fontSize={"md"}
