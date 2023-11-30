@@ -75,7 +75,7 @@ export default function LandingPage() {
             alignContent="center"
           >
             <Image
-              src="src\assets\4672600_2466250.svg"
+              src="https://i.imgur.com/WtVPZmS.png"
               alt="pictureForLandingPage"
             ></Image>
           </GridItem>
@@ -344,7 +344,7 @@ export default function LandingPage() {
             alignContent="center"
           >
             <Image
-              src="src\assets\4672600_2466250.svg"
+              src="https://i.imgur.com/WtVPZmS.png"
               alt="pictureForLandingPage"
             ></Image>
           </GridItem>
