@@ -31,17 +31,17 @@ const gradeReducer = (state, action) => {
 
             if (type === "kanji") {
                 updatedGrades.kanjiGrades = [
-                    ...updatedGrades.kanjiGrades,
+                    ...(updatedGrades.kanjiGrades || []),
                     data,
                 ];
             } else if (type === "vocab") {
                 updatedGrades.vocabGrades = [
-                    ...updatedGrades.vocabGrades,
+                    ...(updatedGrades.vocabGrades || []),
                     data,
                 ];
             } else if (type === "grammar") {
                 updatedGrades.grammarGrades = [
-                    ...updatedGrades.grammarGrades,
+                    ...(updatedGrades.grammarGrades || []),
                     data,
                 ];
             }
