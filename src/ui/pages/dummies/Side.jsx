@@ -6,7 +6,7 @@ import {
   Heading,
   useBoolean,
 } from "@chakra-ui/react";
-import ChartComp from "../../Components/Chart";
+import ChartComp from "../../components/Chart";
 import DoughnutChart from "../../components/Doughnut";
 import SideBar from "../../components/SideBar";
 

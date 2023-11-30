@@ -23,6 +23,34 @@ const gradeReducer = (state, action) => {
                 ...state,
                 gradesBySet: action.payload,
             };
+        case "addGrades":
+            const { type, data } = action.payload;
+
+            // Assuming you have separate properties for kanjiGrades, vocabGrades, and grammarGrades
+            const updatedGrades = { ...state.grades };
+
+            if (type === "kanji") {
+                // we need to assign the updatedGrades to empty array if there are no grades yet
+                updatedGrades.kanjiGrades = [
+                    ...(updatedGrades.kanjiGrades || []),
+                    data,
+                ];
+            } else if (type === "vocab") {
+                updatedGrades.vocabGrades = [
+                    ...(updatedGrades.vocabGrades || []),
+                    data,
+                ];
+            } else if (type === "grammar") {
+                updatedGrades.grammarGrades = [
+                    ...(updatedGrades.grammarGrades || []),
+                    data,
+                ];
+            }
+
+            return {
+                ...state,
+                grades: updatedGrades,
+            };
         case "clearGradeBySet":
             return {
                 ...state,

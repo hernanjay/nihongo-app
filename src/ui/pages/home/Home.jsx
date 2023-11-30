@@ -5,11 +5,13 @@ import QuestionType from "../../components/QuestionType";
 import HomeUserProfileCard from "../../components/HomeUserProfileCard";
 import KanaSelectorTab from "../kanas/KanaSelectorTab";
 import ThemeColors from "../main/ThemeColors";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
   const numberOfLevel = [1, 2, 3, 4, 5];
+  const navigate = useNavigate();
 
   return (
     <>
@@ -48,7 +50,13 @@ export default function Home() {
               mb="2.25vh"
             >
               <Box p="1.5vh" bg={bg} borderRadius="lg">
-                <Text fontSize="2.25vh" fontWeight="bold">
+                <Text
+                  fontSize="2.25vh"
+                  fontWeight="bold"
+                  onClick={() => {
+                    navigate("/learnVocab");
+                  }}
+                >
                   Learn Kana
                   <Badge
                     fontSize="1.25vh"
