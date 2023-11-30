@@ -4,25 +4,22 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Center,
   Container,
   Divider,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
   ListItem,
   OrderedList,
   SimpleGrid,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import data from "../../../assets/vocabList.json";
+// import sampleSentence from "../../../assets/sampleSentences.json";
 import ThemeColors from "../main/ThemeColors";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { useEffect } from "react";
 
 function LearnVocab() {
   const { body, bg, border, fontColor, success, error, warning, info } =
@@ -98,7 +95,7 @@ function LearnVocab() {
       >
         <Container mb="5vh" minW="80vw">
           <SimpleGrid mt="10vh" columns={5} gap={10}>
-            {searchResults.map((value) => {
+            {searchResults.map((value, index) => {
               return (
                 <Card bg={bg} boxShadow="lg">
                   <CardHeader>
@@ -116,9 +113,10 @@ function LearnVocab() {
                   </CardBody>
                   <CardFooter>
                     <OrderedList justifyContent="start" alignContent="left">
-                      {/* {value.meaning.split(",").map((str) => {
+                      {value.meaning.split(",").map((str, index) => {
                         return (
                           <ListItem
+                            key={`${str}:${index}`}
                             fontWeight="light"
                             fontSize="0.9em"
                             color={fontColor}
@@ -126,7 +124,7 @@ function LearnVocab() {
                             {str}
                           </ListItem>
                         );
-                      })} */}
+                      })}
                       {getList(value)}
                     </OrderedList>
                   </CardFooter>
