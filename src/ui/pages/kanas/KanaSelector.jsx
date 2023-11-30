@@ -2,11 +2,13 @@
 import React, { useState } from "react";
 
 import {
+  Box,
   Button,
   Container,
   Divider,
   Grid,
   GridItem,
+  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,6 +16,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  SimpleGrid,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -30,6 +37,7 @@ import {
 import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
 
 import ThemeColors from "../main/ThemeColors";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 //#endregion
 
 function KanaSelector({ type }) {
@@ -169,12 +177,48 @@ function KanaSelector({ type }) {
         <ModalContent>
           <ModalHeader>Kanas To load</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>{mainKanaSelected}</ModalBody>
+          <ModalBody>
+            <SimpleGrid columns={kanaGroup.length ? 5 : 1} spacing={3}>
+              {kanaGroup.length ? (
+                kanaGroup.map((value) => {
+                  return (
+                    <Tag
+                      size="md"
+                      minW="3em"
+                      key={value}
+                      borderRadius="full"
+                      variant="outline"
+                    >
+                      <TagLabel p="0.25em" textAlign="center">
+                        <Text>
+                          <ChevronRightIcon mr="0.25em" />
+                          {value}
+                        </Text>
+                      </TagLabel>
+                    </Tag>
+                  );
+                })
+              ) : (
+                <Text>
+                  <ChevronRightIcon mr="0.25em" />
+                  Select Kanas to load
+                </Text>
+              )}
+            </SimpleGrid>
+          </ModalBody>
           <ModalFooter>
             <Button variant="ghost" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Proceed</Button>
+            <Button
+              isDisabled={!kanaGroup.length}
+              colorScheme="blue"
+              onClick={() => {
+                navigate("/kana-quiz");
+              }}
+            >
+              Proceed
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
