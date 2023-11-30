@@ -11,5 +11,4 @@ export default defineConfig({
         globals: true,
         environment: "jsdom",
     },
-    base: "/vite-react-router/",
 });
