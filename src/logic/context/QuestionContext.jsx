@@ -5,7 +5,7 @@ export const QuestionContext = createContext();
 
 const initialQuestionState = {
     questions: null,
-    userAnswers: [null, null, null, null, null, null, null, null, null, null],
+    userAnswers: null,
     questionsQty: null,
     countBySetVocab: null,
     countBySetGrammar: null,
@@ -48,18 +48,7 @@ const questionReducer = (state, action) => {
         case "clearAnswers":
             return {
                 ...state,
-                userAnswers: [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                ],
+                userAnswers: state.questions.map((qn) => null),
             };
 
         default:

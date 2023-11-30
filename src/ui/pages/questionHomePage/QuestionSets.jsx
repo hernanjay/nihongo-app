@@ -11,6 +11,8 @@ const QuestionSets = ({ type, level, set }) => {
     const { questionsQty } = useQuestionContext();
     const { grades } = useGradeContext();
 
+    console.log(grades.kanjiGrades);
+
     // check if what grade is in this set
     const dynamicScore =
         (type === "kanji" &&
