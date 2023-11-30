@@ -1,4 +1,11 @@
-import { Box, Checkbox, Flex, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
@@ -10,7 +17,7 @@ function KanaSelectorButtonGroup({
   selectedGroupSetter,
   label,
 }) {
-  const { body, bg, border, fontColor, success, error, warning, info } =
+  const { body, bg, border, fontColor, success, error, warning, info, hover } =
     ThemeColors();
 
   //Stores Truthy value of all buttons
@@ -18,18 +25,17 @@ function KanaSelectorButtonGroup({
     let items = [];
     const storedKanaGroup = sessionStorage.getItem("kanaGroup");
     kanaGroup.map((value) => {
-      if (storedKanaGroup) {
-        const splitKanaGroup = storedKanaGroup.split(",");
-        const strippedDownValue = value.split("・")[1];
-        if (splitKanaGroup.includes(strippedDownValue)) items.push(true);
+      const splitKanaGroup = storedKanaGroup.split(",");
+      const strippedDownValue = value.split("・")[1];
+      if (storedKanaGroup && splitKanaGroup.includes(strippedDownValue)) {
+        items.push(true);
       } else {
         items.push(false);
       }
     });
+    console.log(items);
     return items;
   });
-
-  console.log(checkedItems, mode);
 
   //Checks if all buttons are checked
   const allChecked = checkedItems.every(Boolean);
@@ -39,11 +45,13 @@ function KanaSelectorButtonGroup({
   return (
     <Box textAlign="center">
       <Flex mb="1.5vh">
-        <Box
-          textAlign="start"
+        <Button
+          _hover={{ bg: allChecked ? success : hover }}
+          textAlign="center"
           cursor="pointer"
           border="1px"
           borderRadius="md"
+          bg={allChecked ? success : bg}
           borderColor={border}
           py="1vh"
           fontWeight="normal"
@@ -69,7 +77,7 @@ function KanaSelectorButtonGroup({
             selectedGroupSetter(selectedKana);
           }}
         >
-          <Checkbox
+          {/* <Checkbox
             id={`ButtonGroupAll${label}`}
             isChecked={allChecked}
             isIndeterminate={isIndeterminate}
@@ -78,11 +86,11 @@ function KanaSelectorButtonGroup({
             fontWeight="normal"
             ml={{ base: "2.5vw", lg: "1vw" }}
             py="1"
-          ></Checkbox>
-          <Box minW="80%" display="inline-block" textAlign="center">
+          ></Checkbox> */}
+          <Text minW="80%" display="inline-block" textAlign="center">
             {label}
-          </Box>
-        </Box>
+          </Text>
+        </Button>
       </Flex>
       <SimpleGrid columns={mode === "dakuten" ? 1 : 2} gap={2.5}>
         {kanaGroup.map((kana, index) => {
@@ -92,6 +100,7 @@ function KanaSelectorButtonGroup({
               border="1px"
               borderRadius="md"
               borderColor={border}
+              bg={checkedItems[index] ? success : bg}
               py="1vh"
               minW="47.5%"
               cursor="pointer"
@@ -114,7 +123,7 @@ function KanaSelectorButtonGroup({
                 selectedGroupSetter(selectedKana);
               }}
             >
-              <Checkbox
+              {/* <Checkbox
                 isFocusable={false}
                 id={`ButtonGroup${kana}:${index}`}
                 isChecked={checkedItems[index]}
@@ -125,10 +134,8 @@ function KanaSelectorButtonGroup({
                 fontWeight="light"
                 ml="0.25vw"
                 py="1"
-              ></Checkbox>
-              <Box minW="80%" display="inline-block" textAlign="center">
-                {kana}
-              </Box>
+              ></Checkbox> */}
+              <Text textAlign="center">{kana}</Text>
             </Box>
           );
         })}
