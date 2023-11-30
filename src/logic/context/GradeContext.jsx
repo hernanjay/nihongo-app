@@ -30,18 +30,19 @@ const gradeReducer = (state, action) => {
             const updatedGrades = { ...state.grades };
 
             if (type === "kanji") {
+                // we need to assign the updatedGrades to empty array if there are no grades yet
                 updatedGrades.kanjiGrades = [
-                    ...updatedGrades.kanjiGrades,
+                    ...(updatedGrades.kanjiGrades || []),
                     data,
                 ];
             } else if (type === "vocab") {
                 updatedGrades.vocabGrades = [
-                    ...updatedGrades.vocabGrades,
+                    ...(updatedGrades.vocabGrades || []),
                     data,
                 ];
             } else if (type === "grammar") {
                 updatedGrades.grammarGrades = [
-                    ...updatedGrades.grammarGrades,
+                    ...(updatedGrades.grammarGrades || []),
                     data,
                 ];
             }

@@ -48,7 +48,29 @@ const QuestionAnsweredTracker = ({
         () => checker?.filter((answer) => answer === true),
         [checker]
     );
+
     const questionIds = questions?.map((qn) => qn._id);
+
+    function handleAddGrades() {
+        const { level, type, set } = questions[0];
+        addScore(user, questions, questionIds, userAnswers, correctAnswers);
+
+        gradeDispatch({
+            type: "addGrades",
+            payload: {
+                type: type,
+                data: {
+                    userId: user._id,
+                    questionSetId: `${level}${type}${set}`,
+                    idPerQuestion: questionIds,
+                    userAnswers,
+                    score: correctAnswers.length,
+                },
+            },
+        });
+        console.log("Adding Grades");
+        setHasSubmit(true);
+    }
 
     return (
         <GridItem colSpan="1">
@@ -130,31 +152,7 @@ const QuestionAnsweredTracker = ({
                         borderColor={border}
                         variant="outline"
                         isDisabled={allAnswered || hasSubmit}
-                        onClick={() => {
-                            addScore(
-                                user,
-                                questions,
-                                questionIds,
-                                userAnswers,
-                                correctAnswers
-                            );
-
-                            const { level, type, set } = questions[0];
-                            gradeDispatch({
-                                type: "addGrades",
-                                payload: {
-                                    type: type,
-                                    data: {
-                                        userId: user._id,
-                                        questionSetId: `${level}${type}${set}`,
-                                        idPerQuestion: questionIds,
-                                        userAnswers,
-                                        score: correctAnswers.length,
-                                    },
-                                },
-                            });
-                            setHasSubmit(true);
-                        }}
+                        onClick={() => handleAddGrades()}
                     >
                         Submit
                     </Button>
