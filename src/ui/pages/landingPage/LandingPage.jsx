@@ -125,7 +125,11 @@ export default function LandingPage() {
           </GridItem>
 
           <GridItem rowSpan={3} />
-          <GridItem rowSpan={1} colSpan={8} />
+          <GridItem rowSpan={1} colSpan={8} textAlign="center">
+            <Heading mt="5vh" fontSize="3vw">
+              --- UNDER DEVELOPMENT ---
+            </Heading>
+          </GridItem>
         </Grid>
         {/* Banner */}
         <Divider />
