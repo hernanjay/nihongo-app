@@ -39,6 +39,16 @@ function LearnVocab() {
     });
   }
 
+  // async function getList() {
+  //   return await value.meaning.split(",").map((str) => {
+  //     return (
+  //       <ListItem fontWeight="light" fontSize="0.9em" color={fontColor}>
+  //         {str}
+  //       </ListItem>
+  //     );
+  //   });
+  // }
+
   return (
     <Box minH={"100vh"}>
       <Divider minH={"10vh"} />
@@ -106,7 +116,7 @@ function LearnVocab() {
                   </CardBody>
                   <CardFooter>
                     <OrderedList justifyContent="start" alignContent="left">
-                      {value.meaning.split(",").map((str) => {
+                      {/* {value.meaning.split(",").map((str) => {
                         return (
                           <ListItem
                             fontWeight="light"
@@ -116,7 +126,8 @@ function LearnVocab() {
                             {str}
                           </ListItem>
                         );
-                      })}
+                      })} */}
+                      {/* {getList()} */}
                     </OrderedList>
                   </CardFooter>
                 </Card>
