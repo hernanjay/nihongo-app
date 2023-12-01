@@ -28,6 +28,7 @@ import Side from "../dummies/Side";
 import Comp from "../dummies/Comp";
 import Userlist from "../dummies/Userlist";
 import LearnVocab from "../dummies/LearnVocab";
+import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 
 function App() {
     const { user, isLoading } = useUserContext();
