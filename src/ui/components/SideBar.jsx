@@ -17,6 +17,7 @@ import {
   FiPaperclip,
   FiMenu,
   FiLogOut,
+  FiPower
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import ThemeColors from "../pages/main/ThemeColors";
@@ -53,7 +54,6 @@ function SideBar({ toggle, onClick }) {
 
   const navigate = useNavigate();
   const {  bg, fontColor, body, hover } = ThemeColors();
-  const rot = () => {return {rotate:"180deg"}}
 
   return (
     <Flex
@@ -129,10 +129,10 @@ function SideBar({ toggle, onClick }) {
       </List>
       <Button
         mt={"1.5rem"}
-        bg={body}
-        // _hover={{ bg: "#61777F" }}
-        color={fontColor}
-        rightIcon={<FiLogOut />}
+        bg="#DC2E2E"
+        _hover={{ bg: "#F7454A" }}
+        color={"white"}
+        leftIcon={<FiPower />}
       >
         Logout
       </Button>
