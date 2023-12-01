@@ -49,65 +49,46 @@ export default function Home() {
               maxW={{ base: "90vw", lg: "60vw" }}
               mb="2.25vh"
             >
-              <Box p="1.5vh" bg={bg} borderRadius="lg">
+              <Box
+                boxShadow="lg"
+                py="1.5vh"
+                px="2.5vh"
+                bg={bg}
+                borderRadius="lg"
+              >
+                <Text fontSize="2.25vh" fontWeight="bold">
+                  Learn Kanji
+                </Text>
+              </Box>
+              <Spacer />
+              <Box
+                boxShadow="lg"
+                py="1.5vh"
+                px="2.5vh"
+                bg={bg}
+                borderRadius="lg"
+              >
                 <Text
+                  cursor="pointer"
                   fontSize="2.25vh"
                   fontWeight="bold"
                   onClick={() => {
                     navigate("/learnVocab");
                   }}
                 >
-                  Learn Kana
-                  <Badge
-                    fontSize="1.25vh"
-                    ml=".75vw"
-                    mb="1.5vh"
-                    colorScheme="green"
-                  >
-                    New
-                  </Badge>
+                  Learn Vocab
                 </Text>
               </Box>
               <Spacer />
-              <Box p="1.5vh" bg={bg} borderRadius="lg">
-                <Text fontSize="2.25vh" fontWeight="bold">
-                  Kanji Questions
-                  <Badge
-                    fontSize="1.25vh"
-                    ml=".75vw"
-                    mb="1.5vh"
-                    colorScheme="green"
-                  >
-                    New
-                  </Badge>
-                </Text>
-              </Box>
-              <Spacer />
-              <Box p="1.5vh" bg={bg} borderRadius="lg">
+              <Box boxShadow="lg" p="1.5vh" bg={bg} borderRadius="lg">
                 <Text fontSize="2.25vh" fontWeight="bold">
                   Vocab Questions
-                  <Badge
-                    fontSize="1.25vh"
-                    ml=".75vw"
-                    mb="1.5vh"
-                    colorScheme="green"
-                  >
-                    New
-                  </Badge>
                 </Text>
               </Box>
               <Spacer />
-              <Box p="1.5vh" bg={bg} borderRadius="lg">
+              <Box boxShadow="lg" p="1.5vh" bg={bg} borderRadius="lg">
                 <Text fontSize="2.25vh" fontWeight="bold">
                   Grammar Questions
-                  <Badge
-                    fontSize="1.25vh"
-                    ml=".75vw"
-                    mb="1.5vh"
-                    colorScheme="green"
-                  >
-                    New
-                  </Badge>
                 </Text>
               </Box>
               <Spacer />

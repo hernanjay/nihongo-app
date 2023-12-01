@@ -7,15 +7,17 @@ import dataN5 from "../../assets/vocabListN5.json";
 export default class VocabListFactory {
   constructor(level) {
     switch (level) {
-      case 1:
+      case "All":
+        return [...dataN1, ...dataN2, ...dataN3, ...dataN4, ...dataN5];
+      case "N1":
         return dataN1;
-      case 2:
+      case "N2":
         return dataN2;
-      case 3:
+      case "N3":
         return dataN3;
-      case 4:
+      case "N4":
         return dataN4;
-      case 5:
+      case "N5":
         return dataN5;
       default:
         return [];
