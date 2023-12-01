@@ -54,6 +54,7 @@ function SideBar({ toggle, onClick }) {
 
   const navigate = useNavigate();
   const {  bg, fontColor, body, hover } = ThemeColors();
+  
 
   return (
     <Flex
@@ -64,7 +65,7 @@ function SideBar({ toggle, onClick }) {
       flexDir={["column"]}
       alignItems={"center"}
       flexWrap={"wrap"}
-      left={toggle ? "0" : "-23rem"}
+      left={toggle ? "0" : "-23.8rem"}
       transition="800ms"
       alignContent={"space-around"}
       position={"fixed"}
