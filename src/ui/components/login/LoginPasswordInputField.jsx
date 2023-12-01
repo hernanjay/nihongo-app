@@ -52,12 +52,6 @@ function LoginPasswordInputField({
           </InputRightElement>
         </InputGroup>
       </LoginFormPopOverAlert>
-      <FormHelperText
-        fontSize={{ base: "0.75em", lg: "1em" }}
-        mb={{ base: "7vh", lg: "7vh" }}
-      >
-        Enter your password
-      </FormHelperText>
     </>
   );
 }
