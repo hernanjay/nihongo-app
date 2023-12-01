@@ -31,6 +31,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  useBoolean,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -52,67 +53,32 @@ import {
   FiUserCheck,
 } from "react-icons/fi";
 import { TriangleDownIcon } from "@chakra-ui/icons";
+import MenuComponent from "../../components/MenuComponent";
+import SideBar from "../../components/SideBar";
+import ThemeColors from "../main/ThemeColors";
 // import { color } from "framer-motion";
 
 export default function User() {
   // const [display, changeDisplay] = useState("hide");
+  const [toggle, setToggle] = useBoolean();
+  const { bg, fontColor, body } = ThemeColors();
   return (
     <Box>
-      <Flex
-        flexDir={["column", "column", "row"]}
-        overflow="hidden"
-        justifyContent="center"
-        
-      >
-        {/* Column 1 */}
+      <Flex flexDir={"row"} justifyContent={"center"} overflow={"auto"}>
+        <SideBar toggle={toggle} onClick={setToggle.toggle} />
         <Flex
-          w="90%"
-          p="5%"
-          flexDir="column"
-          overflow="auto"
-          minH="100vh"
-          bg="white"
-          pt="6%"
-          boxShadow="2xl"
+          h={"100vh"}
+          w={"100%"}
+          marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
+          transition={"800ms"}
+          p="5.5rem"
+          flexDir={"column"}
         >
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/user">Manage Users</BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<TriangleDownIcon />}
-              variant="outline"
-              border="none"
-            />
-            <MenuList>
-            <MenuItem as="a" href="/grading"  icon={<FiBook />}>
-                  Grading
-                </MenuItem>
-              <MenuItem as="a" href="/list" icon={<FiUser />}>
-                List of Students
-              </MenuItem>
-              <MenuItem as="a" href="/managequestioner" icon={<FiPaperclip />}>
-                Manage Questionaire
-              </MenuItem>
-              {/* <MenuItem as='a' href='/user' icon={<FiUserCheck />}>Manage Users</MenuItem> */}
-            </MenuList>
-          </Menu>
-        </Breadcrumb>
-        <Flex p="3%" mt={10} flexDir="column" overflow="auto">
+          <MenuComponent />
+          <Flex p="3%" mt={10} flexDir="column" overflow="auto">
             {" "}
             <Flex alignContent="center">
-              <Heading
-                mb={5} as="h2" size="lg" letterSpacing="tight"
-               
-              >
+              <Heading mb={5} as="h2" size="lg" letterSpacing="tight">
                 Manage Users
               </Heading>
             </Flex>
@@ -120,7 +86,7 @@ export default function User() {
               <Flex overflow="auto">
                 <Table variant="unstyled" mt={4}>
                   <Thead>
-                    <Tr color="gray">
+                    <Tr color={fontColor}>
                       <Th>Name of Student</Th>
                       <Th>Email</Th>
                       <Th>Nihongo Level</Th>
@@ -150,13 +116,18 @@ export default function User() {
                       </Td>
                       <Td>
                         <Link>
-                          <Icon as={FiEye}  fontSize="lg"></Icon>&nbsp;&nbsp;
+                          <Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;
                         </Link>
                         <Link>
                           <Icon as={FiEdit} fontSize="lg"></Icon>&nbsp;&nbsp;
                         </Link>
                         <Link>
-                          <Icon as={FiTrash} onClick={() => this.props.onDelete(this.props.id)} fontSize="lg"></Icon>&nbsp;
+                          <Icon
+                            as={FiTrash}
+                            onClick={() => this.props.onDelete(this.props.id)}
+                            fontSize="lg"
+                          ></Icon>
+                          &nbsp;
                         </Link>
                       </Td>
                     </Tr>
@@ -165,7 +136,7 @@ export default function User() {
               </Flex>
             </Flex>
           </Flex>
-      </Flex>
+        </Flex>
       </Flex>
     </Box>
   );

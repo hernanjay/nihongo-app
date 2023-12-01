@@ -1,14 +1,9 @@
 import React from "react";
 import { useState } from "react";
-// import { Chart } from 'react-chartjs-2';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
   Flex,
   Heading,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  // AvatarGroup,
   IconButton,
   Table,
   Thead,
@@ -16,12 +11,7 @@ import {
   Tr,
   Th,
   Td,
-  // Link,
   Box,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Button,
   Modal,
   ModalOverlay,
@@ -37,17 +27,17 @@ import {
   Select,
   Grid,
   Textarea,
+  useBoolean,
 } from "@chakra-ui/react";
 import {
-  FiUser,
-  FiPaperclip,
-  FiUserCheck,
   FiPlusCircle,
   FiPlus,
   // FiMinus,
   // FiFilePlus,
 } from "react-icons/fi";
-import { TriangleDownIcon } from "@chakra-ui/icons";
+import SideBar from "../../components/SideBar";
+import MenuComponent from "../../components/MenuComponent";
+import ThemeColors from "../main/ThemeColors";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
   const [inputFields, setInputFields] = useState([]);
@@ -108,62 +98,31 @@ function ManageQuestioner() {
     onClose();
   };
 
+  const [toggle, setToggle] = useBoolean();
+  const {  bg, fontColor, body } = ThemeColors();
+
   const size = ["lg"];
   return (
     <Box>
-      <Flex
-        flexDir={["column", "column", "row"]}
-        overflow="hidden"
-        justifyContent="center"
-      >
+          <Flex flexDir={"row"} justifyContent={"center"} overflow={"auto"}>
+        <SideBar toggle={toggle} onClick={setToggle.toggle} />
         <Flex
-          w="90%"
-          p="5%"
-          flexDir="column"
-          overflow="auto"
-          minH="100vh"
-          bg="white"
-          pt="6%"
-          boxShadow="2xl"
+          h={"100vh"}
+          w={"100%"}
+          marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
+          transition={"800ms"}
+          p="5.5rem"
+          flexDir={"column"}
         >
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
-            </BreadcrumbItem>
+          <MenuComponent/>
 
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/list">Manage Questionnaire</BreadcrumbLink>
-            </BreadcrumbItem>
-
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<TriangleDownIcon />}
-                variant="outline"
-                border="none"
-              />
-              <MenuList>
-                <MenuItem as="a" href="/grading" icon={<FiPaperclip />}>
-                  Grading
-                </MenuItem>
-                <MenuItem as="a" href="/list" icon={<FiUser />}>
-                  List of Students
-                </MenuItem>
-
-                <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
-                  Manage Users
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Breadcrumb>
           <Flex align="flex-end">
             <Heading mt={5} as="h2" size="lg" letterSpacing="tight">
               Manage Questionnaires
             </Heading>
           </Flex>
           <Box h="10%" alignSelf="flex-end">
-            <Button leftIcon={<FiPlusCircle />} onClick={onOpen} bg="white">
+            <Button leftIcon={<FiPlusCircle />} onClick={onOpen} bg={body}>
               Add Question
             </Button>
 
@@ -301,7 +260,7 @@ function ManageQuestioner() {
             <Flex overflow="auto">
               <Table variant="unstyled" mt={4}>
                 <Thead>
-                  <Tr color="gray">
+                  <Tr color={fontColor}>
                     <Th>Type</Th>
                     <Th>Actions</Th>
                   </Tr>
