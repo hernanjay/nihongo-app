@@ -74,6 +74,15 @@ const QuestionAnsweredTracker = ({
                 },
             },
         });
+        // gradeDispatch({
+        //     type: "updateTotalScoresNumItems",
+        //     // This is the format of payload because that is what returns from DB
+        //     payload: {
+        //         _id: { questionSetId: `${level}${type}` },
+        //         totalScore: correctAnswers.length,
+        //         totalItems: questions.length,
+        //     },
+        // });
         if (isScoreAdded) {
             toast({
                 title: "Score Added",

@@ -93,3 +93,22 @@ export async function addScore(
         return 1; // it means true
     }
 }
+
+export async function fetchTotalScoresAndItems(userId) {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/scores-total`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userId,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) console.log(json.error);
+
+    return json;
+}

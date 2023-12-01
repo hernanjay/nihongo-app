@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useReducer } from "react";
 import { createContext } from "react";
-import { fetchGrades } from "../services/apiGrades";
+import { fetchGrades, fetchTotalScoresAndItems } from "../services/apiGrades";
 import { useUserContext } from "./../hooks/user/useUserContext";
 
 export const GradeContext = createContext();
@@ -9,6 +9,7 @@ export const GradeContext = createContext();
 const initialGradeState = {
     grades: null,
     gradesBySet: null,
+    totalScoresNumItems: null,
 };
 
 const gradeReducer = (state, action) => {
@@ -78,6 +79,30 @@ const gradeReducer = (state, action) => {
                 ...state,
                 grades: updatedGrades,
             };
+        case "receivedTotalScoresNumItems":
+            return {
+                ...state,
+                totalScoresNumItems: action.payload,
+            };
+        case "updateTotalScoresNumItems":
+            const { _id, score, totalItems } = action.payload;
+
+            let updatedTSNI = state.totalScoresNumItems;
+
+            const isExistIndex = updatedTSNI.findIndex(
+                (data) => data._id.questionSetId === _id.questionSetId
+            );
+
+            if (isExistIndex !== -1) {
+                updatedTSNI[isExistIndex] = data;
+            } else {
+                updatedTSNI.push(action.payload);
+            }
+
+            return {
+                ...state,
+                totalScoresNumItems: updatedTSNI,
+            };
         case "clearGradeBySet":
             return {
                 ...state,
@@ -96,8 +121,14 @@ export const GradeContextProvider = ({ children }) => {
     useEffect(() => {
         async function fetchGrd() {
             const grades = await fetchGrades(user);
+            const scores = await fetchTotalScoresAndItems(user._id);
 
             if (grades) dispatch({ type: "receivedGrades", payload: grades });
+            if (scores)
+                dispatch({
+                    type: "receivedTotalScoresNumItems",
+                    payload: scores,
+                });
         }
         user && fetchGrd();
     }, [user]);
