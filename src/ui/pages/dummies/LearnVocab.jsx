@@ -6,30 +6,30 @@ import {
   CardHeader,
   Container,
   Divider,
+  Flex,
   Input,
   InputGroup,
   InputRightElement,
+  ListIcon,
   ListItem,
   OrderedList,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import data from "../../../assets/vocabList.json";
-// import sampleSentence from "../../../assets/sampleSentences.json";
 import ThemeColors from "../main/ThemeColors";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import VocabListFactory from "../../../logic/objects/VocabListFactory";
 
 function LearnVocab() {
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
-
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState(data.n4);
+  const [searchResults, setSearchResults] = useState(new VocabListFactory());
 
   function search() {
-    return data.n4.filter((param) => {
+    return data.vocabList.filter((param) => {
       return (
         param.kanji.includes(searchValue) || param.romaji.includes(searchValue)
       );
@@ -56,7 +56,7 @@ function LearnVocab() {
         position="fixed"
         bg={bg}
         borderRadius="lg"
-        zIndex="5"
+        zIndex="3"
       >
         <InputGroup>
           <Input
@@ -69,7 +69,6 @@ function LearnVocab() {
             <SearchIcon
               color="green.500"
               onClick={() => {
-                console.log(search());
                 setSearchResults(search());
               }}
             />
@@ -113,18 +112,6 @@ function LearnVocab() {
                   </CardBody>
                   <CardFooter>
                     <OrderedList justifyContent="start" alignContent="left">
-                      {value.meaning.split(",").map((str, index) => {
-                        return (
-                          <ListItem
-                            key={`${str}:${index}`}
-                            fontWeight="light"
-                            fontSize="0.9em"
-                            color={fontColor}
-                          >
-                            {str}
-                          </ListItem>
-                        );
-                      })}
                       {getList(value)}
                     </OrderedList>
                   </CardFooter>
