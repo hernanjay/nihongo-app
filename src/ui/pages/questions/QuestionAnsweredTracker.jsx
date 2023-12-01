@@ -1,11 +1,9 @@
 import {
-    Box,
     Button,
     Card,
     CardBody,
     CardFooter,
     CardHeader,
-    Flex,
     GridItem,
     SimpleGrid,
     Tag,
@@ -18,6 +16,7 @@ import { useMemo } from "react";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import { addScore } from "../../../logic/services/apiGrades";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
+import { scrollTo } from "scroll-js";
 
 const QuestionAnsweredTracker = ({
     bg,
@@ -117,6 +116,7 @@ const QuestionAnsweredTracker = ({
                                     key={question._id}
                                     variant="outline"
                                     borderColor={border}
+                                    as="button"
                                     bg={
                                         hasSubmit
                                             ? checker[index]
@@ -126,8 +126,20 @@ const QuestionAnsweredTracker = ({
                                             ? "blue.300"
                                             : bg
                                     }
+                                    onClick={() => {
+                                        const targetElement =
+                                            document.getElementById(
+                                                question._id
+                                            );
+                                        if (targetElement) {
+                                            targetElement.scrollIntoView({
+                                                behavior: "smooth",
+                                                block: "center",
+                                            });
+                                        }
+                                    }}
                                 >
-                                    <TagLabel mx="auto" key={index}>{`Q${
+                                    <TagLabel mx="auto" key={index}>{`${
                                         index + 1
                                     }`}</TagLabel>
                                 </Tag>
