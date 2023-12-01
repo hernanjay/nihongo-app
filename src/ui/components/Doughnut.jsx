@@ -1,8 +1,8 @@
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement } from "chart.js";
+import { Chart as ChartJS, ArcElement, Legend } from "chart.js";
 import { Box, Flex, Text } from "@chakra-ui/react";
 function DoughnutChart() {
-  ChartJS.register(ArcElement);
+  ChartJS.register(ArcElement, Legend);
   const data = {
     labels: ["N1", "N2", "N3", "N4", "N5"],
     datasets: [

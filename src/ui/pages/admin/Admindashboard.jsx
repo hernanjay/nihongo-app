@@ -4,15 +4,18 @@ import {
   Grid,
   GridItem,
   Heading,
+  Spacer,
   useBoolean,
 } from "@chakra-ui/react";
 import ChartComp from "../../components/Chart";
 import DoughnutChart from "../../components/Doughnut";
 import SideBar from "../../components/SideBar";
 import MenuComponent from "../../components/MenuComponent";
+import ThemeColors from "../main/ThemeColors";
 
 export default function Admindashboard() {
   const [toggle, setToggle] = useBoolean();
+  const {  bg, fontColor, body, hover, info } = ThemeColors();
   console.log(toggle);
   const boxStyle = {
     w: "100%",
@@ -21,7 +24,7 @@ export default function Admindashboard() {
     bgColor: "RGBA(0, 0, 0, 0.06)",
   };
   const headStyle = {
-    color: "blackAlpha.900",
+    color: fontColor,
     textAlign: "left",
     p: 3,
     m: 2,
@@ -35,12 +38,12 @@ export default function Admindashboard() {
         <Flex
           h={"100vh"}
           w={"100%"}
-          marginLeft={toggle ? { base: "0px", lg: "25rem" } : "0px"}
+          marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
           transition={"800ms"}
           p="5.5rem"
           flexDir={"column"}
         >
-          <MenuComponent></MenuComponent>
+          <MenuComponent></MenuComponent> 
           <Heading
             fontWeight="normal"
             mb={4}
@@ -86,7 +89,7 @@ export default function Admindashboard() {
             </Box>
           </Grid>
           <Grid
-            templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(3, 1fr)" }}
+            templateColumns={{ base: "repeat(1, 1fr)", xl: "repeat(3, 1fr)" }}
             gap={10}
             pt={{base:"5rem", lg:"5%"}}
             mb={10}
@@ -98,6 +101,7 @@ export default function Admindashboard() {
               <DoughnutChart />
             </GridItem>
           </Grid>
+          <Spacer minH={"3vh"}></Spacer>
         </Flex>
       </Flex>
     </Box>
