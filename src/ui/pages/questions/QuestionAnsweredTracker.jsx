@@ -1,4 +1,5 @@
 import {
+    Box,
     Button,
     Card,
     CardBody,
@@ -6,109 +7,133 @@ import {
     CardHeader,
     Flex,
     GridItem,
+    SimpleGrid,
     Tag,
     TagLabel,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useMemo } from "react";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import { addScore } from "../../../logic/services/apiGrades";
+import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
 const QuestionAnsweredTracker = ({
     bg,
     border,
-    checked,
     hasSubmit,
     setHasSubmit,
+    ...htmlProps
 }) => {
     const {
         questions,
-        answers,
+        userAnswers,
         dispatch: questionDispatch,
     } = useQuestionContext();
 
+    const toast = useToast();
     const { user } = useUserContext();
-
+    const { dispatch: gradeDispatch } = useGradeContext();
     // Check if all questions are answered
-    const allAnswered = answers.includes(null);
+    const allAnswered = userAnswers ? userAnswers.includes(null) : false;
 
-    const correctAnswers = useMemo(
-        () => checked?.filter((answer) => answer === true),
-        [checked]
+    const checker = useMemo(
+        () =>
+            questions?.map(
+                (qn, index) => qn.answer === userAnswers[index] && true
+            ),
+        [questions, userAnswers]
     );
 
-    async function addScore() {
-        const res = await fetch(
-            `${import.meta.env.VITE_LOCALHOST_API}/api/grades/add-grades`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    userId: user._id,
-                    questionId: `${questions[0].level}${questions[0].type}${questions[0].set}`,
-                    score: correctAnswers.length,
-                }),
-            }
+    const correctAnswers = useMemo(
+        () => checker?.filter((answer) => answer === true),
+        [checker]
+    );
+
+    const questionIds = questions?.map((qn) => qn._id);
+
+    function handleAddGrades() {
+        const { level, type, set } = questions[0];
+        const isScoreAdded = addScore(
+            user,
+            questions,
+            questionIds,
+            userAnswers,
+            correctAnswers
         );
-
-        const json = await res.json();
-
-        if (!res.ok) console.log(json.error);
-
-        if (res.ok) console.log("Score added");
+        gradeDispatch({
+            type: "addGrades",
+            payload: {
+                type: type,
+                data: {
+                    userId: user._id,
+                    questionSetId: `${level}${type}${set}`,
+                    idPerQuestion: questionIds,
+                    userAnswers,
+                    score: correctAnswers.length,
+                },
+            },
+        });
+        if (isScoreAdded) {
+            toast({
+                title: "Score Added",
+                position: "top",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+            setHasSubmit(true);
+        }
     }
 
     return (
         <GridItem colSpan="1">
-
             <Card
                 textColor={border}
-                boxShadow="lg"
+                boxShadow={{ base: "none", lg: "lg" }}
                 bgColor={bg}
                 position="sticky"
-                top="15.5vh"
+                top="5vh"
                 textAlign="center"
+                {...htmlProps}
             >
                 <CardHeader pb="-1">
-                    <Text fontSize={"1.5vw"}>Answer Tracker</Text>
+                    <Text fontSize={{ base: "1em", lg: "1.5vw" }}>
+                        Answer Tracker
+                    </Text>
                 </CardHeader>
                 {hasSubmit && (
-                    <Text>
-                        Score: {correctAnswers.length} / {checked.length}
+                    <Text fontSize={{ base: "1em", lg: "1.5vw" }}>
+                        Score: {correctAnswers.length} / {checker.length}
                     </Text>
                 )}
                 <CardBody>
-                    <Flex flexWrap="wrap">
+                    <SimpleGrid columns={{ base: 2, lg: 5 }} gap="0.5em">
                         {questions?.map((question, index) => {
                             return (
                                 <Tag
+                                    minH="2.5em"
                                     key={question._id}
-                                    size="lg"
                                     variant="outline"
-                                    mx=".5rem"
                                     borderColor={border}
-                                    mt={
-                                        hasSubmit
-                                            ? index > 4 && "1.3rem"
-                                            : "1.3rem"
-                                    }
                                     bg={
                                         hasSubmit
-                                            ? checked[index]
+                                            ? checker[index]
                                                 ? "green.300"
                                                 : "red.300"
-                                            : answers[index] !== null
+                                            : userAnswers[index] !== null
                                             ? "blue.300"
                                             : bg
                                     }
                                 >
-                                    <TagLabel key={index}>{`Q${
+                                    <TagLabel mx="auto" key={index}>{`Q${
                                         index + 1
                                     }`}</TagLabel>
                                 </Tag>
                             );
                         })}
-                    </Flex>
+                    </SimpleGrid>
                 </CardBody>
                 <CardFooter>
                     <Button
@@ -131,6 +156,7 @@ const QuestionAnsweredTracker = ({
                         variant="outline"
                         onClick={() => {
                             questionDispatch({ type: "clearAnswers" });
+                            gradeDispatch({ type: "clearGradeBySet" });
                             setHasSubmit(false);
                         }}
                     >
@@ -141,10 +167,7 @@ const QuestionAnsweredTracker = ({
                         borderColor={border}
                         variant="outline"
                         isDisabled={allAnswered || hasSubmit}
-                        onClick={() => {
-                            addScore();
-                            setHasSubmit(true);
-                        }}
+                        onClick={() => handleAddGrades()}
                     >
                         Submit
                     </Button>

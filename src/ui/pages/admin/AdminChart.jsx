@@ -35,7 +35,7 @@ import {
   // FiDelete,
   // FiTrash,
 } from "react-icons/fi";
-// // import { color } from "framer-motion";
+// import { color } from "framer-motion";
 // import Chart from "../../Components/chartComponent/Chart";
 // import BarChart from "../../Components/chartComponent/BarChart";
 // import DoughnutChart from "../../Components/chartComponent/DoughnutChart";

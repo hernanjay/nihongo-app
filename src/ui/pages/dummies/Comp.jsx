@@ -1,114 +1,127 @@
-function name(params) {
-  <Box key="KanaSelectorContainer">
-    <Button
-      key="ButtonAllKana"
-      mx="10"
-      mb="2.5"
-      minW="90%"
-      variant="outline"
-      borderColor={border}
-      fontWeight="normal"
-      onClick={() => {
-        navigate("/alphabet/hiragana");
-      }}
-    >
-      All Kana
-    </Button>
-    <SimpleGrid px="10" columns={3} gap={5}>
-      {/* Main Kana */}
-      <Box textAlign="center">
-        <Flex mb="1.5vh">
+import {
+  AbsoluteCenter,
+  Box,
+  SimpleGrid,
+  Button,
+  Code,
+  Text,
+  HStack,
+} from "@chakra-ui/react";
+import React from "react";
+import ThemeColors from "../main/ThemeColors";
+
+function Comp() {
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
+  return (
+    <Box minH="100vh" minW="100vw" bg={body}>
+      <AbsoluteCenter minW="80vw">
+        <HStack minW="80vw" fontSize="3vh" mb="2vh">
+          <Text color={"blue.700"}>{String(`const`)}</Text>
+          <Text color={"purple.600"}>{String(`{`)}</Text>
+          <Text color={"blue.500"}>
+            {String(
+              `body, bg, border, fontColor, success, error, warning, info`
+            )}
+          </Text>
+          <Text color={"purple.600"}>{String(`}`)}</Text>
+          <Text>{String(`=`)}</Text>
+          <Text color={"yellow.600"}>{String(`ThemeColors`)}</Text>
+          <Text color={"purple.400"}>{String(`()`)}</Text>
+          <Text>{String(`;`)}</Text>
+        </HStack>
+        <SimpleGrid columns={8} gap={10}>
           <Button
-            key={`ButtonGroupAllMainKana`}
-            variant="outline"
-            borderColor={border}
-            fontWeight="normal"
-            minW="100%"
-            onClick={() => {
-              navigate("/alphabet/hiragana-main");
-            }}
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={body}
           >
-            All Main Kana
+            Body: {body}
           </Button>
-        </Flex>
-        <SimpleGrid columns={2} gap={2.5}>
-          {mainKana.map((kana, index) => {
-            return (
-              <KanaSelectorButtonGroup
-                key={`KanaSelectorButtonGroup${kana}:${index}`}
-                index={index}
-                kana={kana}
-                border={border}
-                type={"hiragana"}
-                mode={"main"}
-                onClick={() => {}}
-              />
-            );
-          })}
-        </SimpleGrid>
-      </Box>
-      {/* Dakuten Kana */}
-      <Box textAlign="center">
-        <Flex mb="1.5vh">
           <Button
-            key={`ButtonGroupAllDakutenKana`}
-            variant="outline"
-            borderColor={border}
-            fontWeight="normal"
-            minW="100%"
-            onClick={() => {
-              navigate("/alphabet/hiragana-dakuten");
-            }}
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={bg}
           >
-            All Dakuten Kana
+            BG: {bg}
           </Button>
-        </Flex>
-        <SimpleGrid columns={1} gap={2.5}>
-          {dakutenKana.map((kana, index) => {
-            return (
-              <KanaSelectorButtonGroup
-                key={`KanaSelectorButtonGroup${kana}:${index}`}
-                index={index}
-                kana={kana}
-                border={border}
-                type={"hiragana"}
-                mode={"dakuten"}
-              />
-            );
-          })}
-        </SimpleGrid>
-      </Box>
-      {/* Combination Kana */}
-      <Box textAlign="center">
-        <Flex mb="1.5vh">
           <Button
-            key={`ButtonGroupAllCombinationKana`}
-            variant="outline"
-            borderColor={border}
-            fontWeight="normal"
-            minW="100%"
-            onClick={() => {
-              navigate("/alphabet/false/hiragana-combination");
-            }}
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={border}
           >
-            All Combination Kana
+            Border: {border}
           </Button>
-        </Flex>
-        <SimpleGrid columns={2} gap={2.5}>
-          {combinationKana.map((kana, index) => {
-            return (
-              <KanaSelectorButtonGroup
-                key={`KanaSelectorButtonGroup${kana}:${index}`}
-                index={index}
-                kana={kana}
-                border={border}
-                type={"hiragana"}
-                mode={"combination"}
-              />
-            );
-          })}
+          <Button
+            textAlign="center"
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={fontColor}
+          >
+            Font: {fontColor}
+          </Button>
+          <Button
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={success}
+          >
+            Success: {success}
+          </Button>
+          <Button
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={error}
+          >
+            Error: {error}
+          </Button>
+          <Button
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={warning}
+          >
+            Warning: {warning}
+          </Button>
+          <Button
+            textAlign="center"
+            color={fontColor}
+            justifyContent="center"
+            minW="10vw"
+            minH="10vh"
+            fontWeight="light"
+            bg={info}
+          >
+            Info: {info}
+          </Button>
         </SimpleGrid>
-      </Box>
-    </SimpleGrid>
-  </Box>;
+      </AbsoluteCenter>
+    </Box>
+  );
 }
+
+export default Comp;

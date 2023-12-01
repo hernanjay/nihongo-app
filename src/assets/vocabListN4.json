@@ -1,0 +1,2781 @@
+[
+  {
+    "id": 1,
+    "kanji": "上がる",
+    "romaji": "agaru",
+    "meaning": "to rise, to ascend"
+  },
+  {
+    "id": 2,
+    "kanji": "挨拶",
+    "romaji": "aisatsu",
+    "meaning": "greeting, salutation"
+  },
+  { "id": 3, "kanji": "味", "romaji": "aji", "meaning": "flavor, taste" },
+  {
+    "id": 4,
+    "kanji": "赤ちゃん",
+    "romaji": "akachan",
+    "meaning": "baby, infant"
+  },
+  {
+    "id": 5,
+    "kanji": "赤ん坊",
+    "romaji": "akanbou",
+    "meaning": "baby, infant"
+  },
+  {
+    "id": 6,
+    "kanji": "案内",
+    "romaji": "annai",
+    "meaning": "guidance, leading (the way)"
+  },
+  {
+    "id": 7,
+    "kanji": "安心",
+    "romaji": "anshin",
+    "meaning": "relief, peace of mind"
+  },
+  { "id": 8, "kanji": "安全", "romaji": "anzen", "meaning": "safety" },
+  {
+    "id": 9,
+    "kanji": "浅い",
+    "romaji": "asai",
+    "meaning": "shallow, superficial"
+  },
+  {
+    "id": 10,
+    "kanji": "足音",
+    "romaji": "ashioto",
+    "meaning": "sound of footsteps"
+  },
+  { "id": 11, "kanji": "遊び", "romaji": "asobi", "meaning": "playing" },
+  {
+    "id": 12,
+    "kanji": "集る",
+    "romaji": "atsumaru",
+    "meaning": "to gather, to collect, to assemble"
+  },
+  {
+    "id": 13,
+    "kanji": "集める",
+    "romaji": "atsumeru",
+    "meaning": "to collect, to assemble, to gather"
+  },
+  {
+    "id": 14,
+    "kanji": "合う",
+    "romaji": "au",
+    "meaning": "to fit, to match, to suit"
+  },
+  {
+    "id": 15,
+    "kanji": "謝る",
+    "romaji": "ayamaru",
+    "meaning": "to apologize"
+  },
+  {
+    "id": 16,
+    "kanji": "倍",
+    "romaji": "bai",
+    "meaning": "twice, double, times"
+  },
+  {
+    "id": 17,
+    "kanji": "番組",
+    "romaji": "bangumi",
+    "meaning": "program (e.g. TV)"
+  },
+  {
+    "id": 18,
+    "kanji": "場所",
+    "romaji": "basho",
+    "meaning": "place, location"
+  },
+  {
+    "id": 19,
+    "kanji": "別",
+    "romaji": "betsu",
+    "meaning": "different, another"
+  },
+  {
+    "id": 20,
+    "kanji": "美術館",
+    "romaji": "bijutsukan",
+    "meaning": "art gallery, art museum"
+  },
+  {
+    "id": 21,
+    "kanji": "びっくり",
+    "romaji": "bikkuri",
+    "meaning": "to be surprised"
+  },
+  { "id": 22, "kanji": "僕", "romaji": "boku", "meaning": "I, me" },
+  {
+    "id": 23,
+    "kanji": "貿易",
+    "romaji": "boueki",
+    "meaning": "trade (foreign)"
+  },
+  {
+    "id": 24,
+    "kanji": "部長",
+    "romaji": "buchou",
+    "meaning": "head of a section or department"
+  },
+  { "id": 25, "kanji": "ぶどう", "romaji": "budou", "meaning": "grape" },
+  {
+    "id": 26,
+    "kanji": "文学",
+    "romaji": "bungaku",
+    "meaning": "literature"
+  },
+  {
+    "id": 27,
+    "kanji": "文化",
+    "romaji": "bunka",
+    "meaning": "culture, civilization"
+  },
+  { "id": 28, "kanji": "文法", "romaji": "bunpou", "meaning": "grammar" },
+  { "id": 29, "kanji": "血", "romaji": "chi", "meaning": "blood" },
+  {
+    "id": 30,
+    "kanji": "力",
+    "romaji": "chikara",
+    "meaning": "force, strength, vigor"
+  },
+  { "id": 31, "kanji": "地理", "romaji": "chiri", "meaning": "geography" },
+  {
+    "id": 32,
+    "kanji": "中学校",
+    "romaji": "chuugakkou",
+    "meaning": "junior high school"
+  },
+  {
+    "id": 33,
+    "kanji": "注意",
+    "romaji": "chuui",
+    "meaning": "caution, being careful"
+  },
+  { "id": 34, "kanji": "注射", "romaji": "chuusha", "meaning": "injection" },
+  {
+    "id": 35,
+    "kanji": "駐車場",
+    "romaji": "chuushajou",
+    "meaning": "parking lot"
+  },
+
+  { "id": 38, "kanji": "JLPT", "romaji": "bun", "meaning": "文 (bun)" },
+
+  {
+    "id": 42,
+    "kanji": "大分",
+    "romaji": "daibu",
+    "meaning": "considerably, greatly"
+  },
+  {
+    "id": 43,
+    "kanji": "大学生",
+    "romaji": "daigakusei",
+    "meaning": "university student"
+  },
+  {
+    "id": 44,
+    "kanji": "大事",
+    "romaji": "daiji",
+    "meaning": "important, serious, crucial"
+  },
+  {
+    "id": 45,
+    "kanji": "大体",
+    "romaji": "daitai",
+    "meaning": "general, substantially"
+  },
+  {
+    "id": 46,
+    "kanji": "だから",
+    "romaji": "dakara",
+    "meaning": "so, therefore"
+  },
+  {
+    "id": 47,
+    "kanji": "駄目",
+    "romaji": "dame",
+    "meaning": "no good, useless"
+  },
+  {
+    "id": 48,
+    "kanji": "暖房",
+    "romaji": "danbou",
+    "meaning": "(indoor) heating"
+  },
+  { "id": 49, "kanji": "男性", "romaji": "dansei", "meaning": "man, male" },
+  { "id": 50, "kanji": "電報", "romaji": "denpou", "meaning": "telegram" },
+  {
+    "id": 51,
+    "kanji": "電灯",
+    "romaji": "dentou",
+    "meaning": "electric light"
+  },
+  {
+    "id": 52,
+    "kanji": "どんどん",
+    "romaji": "dondon",
+    "meaning": "rapidly, continuously"
+  },
+  {
+    "id": 53,
+    "kanji": "泥棒",
+    "romaji": "dorobou",
+    "meaning": "thief, burglar, robber, theft"
+  },
+  { "id": 54, "kanji": "動物園", "romaji": "doubutsuen", "meaning": "zoo" },
+  {
+    "id": 55,
+    "kanji": "道具",
+    "romaji": "dougu",
+    "meaning": "tool, implement"
+  },
+  { "id": 56, "kanji": "枝", "romaji": "eda", "meaning": "branch, bough" },
+  {
+    "id": 57,
+    "kanji": "遠慮",
+    "romaji": "enryo",
+    "meaning": "constraint, restraint, modesty"
+  },
+  {
+    "id": 58,
+    "kanji": "選ぶ",
+    "romaji": "erabu",
+    "meaning": "to choose, to select"
+  },
+  {
+    "id": 59,
+    "kanji": "不便",
+    "romaji": "fuben",
+    "meaning": "inconvenience"
+  },
+  {
+    "id": 60,
+    "kanji": "増える",
+    "romaji": "fueru",
+    "meaning": "to increase, to multiply"
+  },
+  {
+    "id": 61,
+    "kanji": "深い",
+    "romaji": "fukai",
+    "meaning": "deep, profound"
+  },
+  {
+    "id": 62,
+    "kanji": "復習",
+    "romaji": "fukushuu",
+    "meaning": "review, revision"
+  },
+  {
+    "id": 63,
+    "kanji": "複雑",
+    "romaji": "fukuzatsu",
+    "meaning": "complex, complicated"
+  },
+  {
+    "id": 64,
+    "kanji": "踏む",
+    "romaji": "fumu",
+    "meaning": "to step on, to tread on"
+  },
+  { "id": 65, "kanji": "船", "romaji": "fune", "meaning": "ship, boat" },
+  { "id": 66, "kanji": "布団", "romaji": "futon", "meaning": "futon" },
+  {
+    "id": 67,
+    "kanji": "太る",
+    "romaji": "futoru",
+    "meaning": "to grow fat"
+  },
+  {
+    "id": 68,
+    "kanji": "普通",
+    "romaji": "futsuu",
+    "meaning": "general, ordinary, usual"
+  },
+  {
+    "id": 69,
+    "kanji": "頑張る",
+    "romaji": "ganbaru",
+    "meaning": "to hang on, to do one’s best"
+  },
+  {
+    "id": 70,
+    "kanji": "原因",
+    "romaji": "gen’in",
+    "meaning": "cause, origin, source"
+  },
+  {
+    "id": 71,
+    "kanji": "下宿",
+    "romaji": "geshuku",
+    "meaning": "boarding, lodging"
+  },
+  {
+    "id": 72,
+    "kanji": "技術",
+    "romaji": "gijutsu",
+    "meaning": "technology, engineering"
+  },
+  {
+    "id": 73,
+    "kanji": "ご馳走",
+    "romaji": "gochisou",
+    "meaning": "feast, treating (someone)"
+  },
+  {
+    "id": 74,
+    "kanji": "塵",
+    "romaji": "gomi",
+    "meaning": "rubbish, trash, garbage"
+  },
+  {
+    "id": 75,
+    "kanji": "ご覧になる",
+    "romaji": "goran ni naru",
+    "meaning": "to see, to look, to watch"
+  },
+  { "id": 76, "kanji": "ご存じ", "romaji": "gozonji", "meaning": "knowing" },
+  {
+    "id": 77,
+    "kanji": "ご主人",
+    "romaji": "goshujin",
+    "meaning": "your husband"
+  },
+  {
+    "id": 78,
+    "kanji": "具合",
+    "romaji": "guai",
+    "meaning": "condition, state, health"
+  },
+  {
+    "id": 79,
+    "kanji": "軍人",
+    "romaji": "gunjin",
+    "meaning": "military personnel, soldier"
+  },
+  { "id": 80, "kanji": "葉", "romaji": "ha", "meaning": "leaf" },
+  {
+    "id": 81,
+    "kanji": "拝見",
+    "romaji": "haiken",
+    "meaning": "seeing, look at"
+  },
+  { "id": 82, "kanji": "歯医者", "romaji": "haisha", "meaning": "dentist" },
+  {
+    "id": 83,
+    "kanji": "始める",
+    "romaji": "hajimeru",
+    "meaning": "to start, to begin"
+  },
+  {
+    "id": 84,
+    "kanji": "はっきり",
+    "romaji": "hakkiri",
+    "meaning": "clearly, plainly"
+  },
+  {
+    "id": 85,
+    "kanji": "運ぶ",
+    "romaji": "hakobu",
+    "meaning": "to carry, to transport"
+  },
+  {
+    "id": 86,
+    "kanji": "花見",
+    "romaji": "hanami",
+    "meaning": "cherry blossom viewing"
+  },
+  {
+    "id": 87,
+    "kanji": "反対",
+    "romaji": "hantai",
+    "meaning": "opposition, resistance"
+  },
+  { "id": 88, "kanji": "払う", "romaji": "harau", "meaning": "to pay" },
+  {
+    "id": 89,
+    "kanji": "発音",
+    "romaji": "hatsuon",
+    "meaning": "pronunciation"
+  },
+  {
+    "id": 90,
+    "kanji": "林",
+    "romaji": "hayashi",
+    "meaning": "woods, forest"
+  },
+  {
+    "id": 91,
+    "kanji": "恥ずかしい",
+    "romaji": "hazukashii",
+    "meaning": "shy, embarrassed"
+  },
+  {
+    "id": 92,
+    "kanji": "変",
+    "romaji": "hen",
+    "meaning": "strange, odd, peculiar"
+  },
+  {
+    "id": 93,
+    "kanji": "返事",
+    "romaji": "henji",
+    "meaning": "reply, answer, response"
+  },
+  {
+    "id": 94,
+    "kanji": "酷い",
+    "romaji": "hidoi",
+    "meaning": "cruel, heartless"
+  },
+  {
+    "id": 98,
+    "kanji": "冷える",
+    "romaji": "hieru",
+    "meaning": "to grow cold"
+  },
+  {
+    "id": 99,
+    "kanji": "ひげ",
+    "romaji": "hige",
+    "meaning": "mustache, beard"
+  },
+  {
+    "id": 100,
+    "kanji": "非常に",
+    "romaji": "hijou ni",
+    "meaning": "very, extremely"
+  },
+  { "id": 101, "kanji": "光", "romaji": "hikari", "meaning": "light, beam" },
+  {
+    "id": 102,
+    "kanji": "光る",
+    "romaji": "hikaru",
+    "meaning": "to shine, to glitter"
+  },
+  {
+    "id": 103,
+    "kanji": "引き出し",
+    "romaji": "hikidashi",
+    "meaning": "drawer"
+  },
+  {
+    "id": 104,
+    "kanji": "引き出す",
+    "romaji": "hikidasu",
+    "meaning": "to pull out, to take out"
+  },
+  {
+    "id": 105,
+    "kanji": "引っ越す",
+    "romaji": "hikkosu",
+    "meaning": "to move (house)"
+  },
+  {
+    "id": 106,
+    "kanji": "飛行場",
+    "romaji": "hikoujou",
+    "meaning": "airfield, airport"
+  },
+  {
+    "id": 107,
+    "kanji": "開く",
+    "romaji": "hiraku",
+    "meaning": "to open, to undo"
+  },
+  {
+    "id": 108,
+    "kanji": "昼間",
+    "romaji": "hiruma",
+    "meaning": "daytime, during the day"
+  },
+  { "id": 109, "kanji": "拾う", "romaji": "hirou", "meaning": "to pick up" },
+  {
+    "id": 110,
+    "kanji": "昼休み",
+    "romaji": "hiruyasumi",
+    "meaning": "lunch break"
+  },
+  {
+    "id": 111,
+    "kanji": "久しぶり",
+    "romaji": "hisashiburi",
+    "meaning": "it’s been a while"
+  },
+  {
+    "id": 112,
+    "kanji": "褒める",
+    "romaji": "homeru",
+    "meaning": "to praise, to admire"
+  },
+  {
+    "id": 113,
+    "kanji": "翻訳",
+    "romaji": "honyaku",
+    "meaning": "translation"
+  },
+  { "id": 114, "kanji": "星", "romaji": "hoshi", "meaning": "star" },
+  {
+    "id": 115,
+    "kanji": "ほとんど",
+    "romaji": "hotondo",
+    "meaning": "mostly, nearly"
+  },
+  { "id": 116, "kanji": "法律", "romaji": "houritsu", "meaning": "law" },
+  {
+    "id": 117,
+    "kanji": "一度",
+    "romaji": "ichido",
+    "meaning": "once, one time"
+  },
+  {
+    "id": 118,
+    "kanji": "医学",
+    "romaji": "igaku",
+    "meaning": "medical science, medicine"
+  },
+  {
+    "id": 119,
+    "kanji": "苛める",
+    "romaji": "ijimeru",
+    "meaning": "to bully, to torment"
+  },
+  {
+    "id": 120,
+    "kanji": "以上",
+    "romaji": "ijou",
+    "meaning": "not less than, beyond"
+  },
+  {
+    "id": 121,
+    "kanji": "以下",
+    "romaji": "ika",
+    "meaning": "not exceeding, below"
+  },
+  {
+    "id": 122,
+    "kanji": "意見",
+    "romaji": "iken",
+    "meaning": "opinion, view, comment"
+  },
+  {
+    "id": 123,
+    "kanji": "生きる",
+    "romaji": "ikiru",
+    "meaning": "to live, to exist"
+  },
+  {
+    "id": 124,
+    "kanji": "以内",
+    "romaji": "inai",
+    "meaning": "within, inside of"
+  },
+  {
+    "id": 125,
+    "kanji": "田舎",
+    "romaji": "inaka",
+    "meaning": "rural area, countryside"
+  },
+  {
+    "id": 126,
+    "kanji": "祈る",
+    "romaji": "inoru",
+    "meaning": "to pray, to wish"
+  },
+  {
+    "id": 127,
+    "kanji": "一杯",
+    "romaji": "ippai",
+    "meaning": "full, a lot"
+  },
+  {
+    "id": 128,
+    "kanji": "石",
+    "romaji": "ishi",
+    "meaning": "stone, gem, jewel"
+  },
+  {
+    "id": 129,
+    "kanji": "一生懸命",
+    "romaji": "isshoukenmei",
+    "meaning": "very hard, with utmost effort"
+  },
+  {
+    "id": 130,
+    "kanji": "急ぐ",
+    "romaji": "isogu",
+    "meaning": "to hurry, to rush"
+  },
+  {
+    "id": 131,
+    "kanji": "糸",
+    "romaji": "ito",
+    "meaning": "thread, yarn, string"
+  },
+  {
+    "id": 132,
+    "kanji": "邪魔",
+    "romaji": "jama",
+    "meaning": "hindrance, obstacle"
+  },
+  {
+    "id": 133,
+    "kanji": "字",
+    "romaji": "ji",
+    "meaning": "character (i.e. kanji)"
+  },
+  {
+    "id": 134,
+    "kanji": "時代",
+    "romaji": "jidai",
+    "meaning": "period, epoch, era, age"
+  },
+  {
+    "id": 135,
+    "kanji": "事故",
+    "romaji": "jiko",
+    "meaning": "accident, incident, trouble"
+  },
+  { "id": 136, "kanji": "事務所", "romaji": "jimusho", "meaning": "office" },
+  {
+    "id": 137,
+    "kanji": "神社",
+    "romaji": "jinja",
+    "meaning": "Shinto shrine"
+  },
+  {
+    "id": 138,
+    "kanji": "人口",
+    "romaji": "jinkou",
+    "meaning": "population"
+  },
+  {
+    "id": 139,
+    "kanji": "地震",
+    "romaji": "jishin",
+    "meaning": "earthquake"
+  },
+  { "id": 140, "kanji": "辞典", "romaji": "jiten", "meaning": "dictionary" },
+  {
+    "id": 141,
+    "kanji": "自由",
+    "romaji": "jiyuu",
+    "meaning": "freedom, liberty"
+  },
+  {
+    "id": 142,
+    "kanji": "女性",
+    "romaji": "josei",
+    "meaning": "woman, female"
+  },
+  {
+    "id": 143,
+    "kanji": "準備",
+    "romaji": "junbi",
+    "meaning": "preparation, set up"
+  },
+  {
+    "id": 144,
+    "kanji": "十分",
+    "romaji": "juubun",
+    "meaning": "plenty, enough, sufficient"
+  },
+  { "id": 145, "kanji": "住所", "romaji": "juusho", "meaning": "address" },
+  {
+    "id": 146,
+    "kanji": "壁",
+    "romaji": "kabe",
+    "meaning": "wall, partition"
+  },
+  {
+    "id": 147,
+    "kanji": "課長",
+    "romaji": "kachou",
+    "meaning": "section manager, section chief"
+  },
+  {
+    "id": 148,
+    "kanji": "帰り",
+    "romaji": "kaeri",
+    "meaning": "return, coming back"
+  },
+  {
+    "id": 149,
+    "kanji": "変える",
+    "romaji": "kaeru",
+    "meaning": "to change, to alter"
+  },
+  { "id": 150, "kanji": "科学", "romaji": "kagaku", "meaning": "science" },
+  {
+    "id": 151,
+    "kanji": "鏡",
+    "romaji": "kagami",
+    "meaning": "mirror, looking-glass"
+  },
+  {
+    "id": 152,
+    "kanji": "海岸",
+    "romaji": "kaigan",
+    "meaning": "coast, beach"
+  },
+  {
+    "id": 153,
+    "kanji": "会議",
+    "romaji": "kaigi",
+    "meaning": "meeting, conference"
+  },
+  {
+    "id": 154,
+    "kanji": "会議室",
+    "romaji": "kaigishitsu",
+    "meaning": "conference room"
+  },
+  {
+    "id": 155,
+    "kanji": "会場",
+    "romaji": "kaijou",
+    "meaning": "assembly hall, meeting place"
+  },
+  {
+    "id": 156,
+    "kanji": "会話",
+    "romaji": "kaiwa",
+    "meaning": "conversation"
+  },
+  {
+    "id": 157,
+    "kanji": "火事",
+    "romaji": "kaji",
+    "meaning": "fire, conflagration"
+  },
+  {
+    "id": 158,
+    "kanji": "掛ける",
+    "romaji": "kakeru",
+    "meaning": "to hang, to hoist, to raise"
+  },
+  {
+    "id": 159,
+    "kanji": "格好",
+    "romaji": "kakkou",
+    "meaning": "shape, form, figure"
+  },
+  {
+    "id": 160,
+    "kanji": "構う",
+    "romaji": "kamau",
+    "meaning": "to mind, to care about"
+  },
+  {
+    "id": 161,
+    "kanji": "髪",
+    "romaji": "kami",
+    "meaning": "hair (on the head)"
+  },
+  {
+    "id": 162,
+    "kanji": "噛む",
+    "romaji": "kamu",
+    "meaning": "to bite, to chew, to gnaw"
+  },
+  { "id": 163, "kanji": "家内", "romaji": "kanai", "meaning": "(my) wife" },
+  {
+    "id": 164,
+    "kanji": "必ず",
+    "romaji": "kanarazu",
+    "meaning": "always, without exception"
+  },
+  {
+    "id": 165,
+    "kanji": "悲しい",
+    "romaji": "kanashii",
+    "meaning": "sad, sorrowful"
+  },
+  {
+    "id": 166,
+    "kanji": "金持ち",
+    "romaji": "kanemochi",
+    "meaning": "rich person"
+  },
+  {
+    "id": 167,
+    "kanji": "考える",
+    "romaji": "kangaeru",
+    "meaning": "to think about"
+  },
+  {
+    "id": 168,
+    "kanji": "関係",
+    "romaji": "kankei",
+    "meaning": "relation, relationship, connection"
+  },
+  { "id": 169, "kanji": "彼女", "romaji": "kanojo", "meaning": "she, her" },
+  {
+    "id": 170,
+    "kanji": "簡単",
+    "romaji": "kantan",
+    "meaning": "simple, easy, uncomplicated"
+  },
+  { "id": 171, "kanji": "顔", "romaji": "kao", "meaning": "face, look" },
+  { "id": 172, "kanji": "彼", "romaji": "kare", "meaning": "he, him" },
+  {
+    "id": 173,
+    "kanji": "彼ら",
+    "romaji": "karera",
+    "meaning": "they, them"
+  },
+  {
+    "id": 174,
+    "kanji": "形",
+    "romaji": "katachi",
+    "meaning": "form, shape, figure"
+  },
+  {
+    "id": 175,
+    "kanji": "硬い",
+    "romaji": "katai",
+    "meaning": "hard, solid, tough"
+  },
+  {
+    "id": 176,
+    "kanji": "片付ける",
+    "romaji": "katazukeru",
+    "meaning": "to tidy up, to put in order"
+  },
+  {
+    "id": 177,
+    "kanji": "勝つ",
+    "romaji": "katsu",
+    "meaning": "to win, to gain victory"
+  },
+  {
+    "id": 178,
+    "kanji": "乾く",
+    "romaji": "kawaku",
+    "meaning": "to get dry"
+  },
+  {
+    "id": 179,
+    "kanji": "代わり",
+    "romaji": "kawari",
+    "meaning": "substitute, replacement"
+  },
+  {
+    "id": 180,
+    "kanji": "変わる",
+    "romaji": "kawaru",
+    "meaning": "to change, to be transformed"
+  },
+  {
+    "id": 181,
+    "kanji": "通う",
+    "romaji": "kayou",
+    "meaning": "to go back and forth between"
+  },
+  {
+    "id": 182,
+    "kanji": "飾る",
+    "romaji": "kazaru",
+    "meaning": "to decorate, to ornament"
+  },
+  {
+    "id": 183,
+    "kanji": "毛",
+    "romaji": "ke",
+    "meaning": "hair, fur, wool"
+  },
+  {
+    "id": 184,
+    "kanji": "怪我",
+    "romaji": "kega",
+    "meaning": "injury, hurt"
+  },
+  {
+    "id": 185,
+    "kanji": "計画",
+    "romaji": "keikaku",
+    "meaning": "plan, project"
+  },
+  {
+    "id": 186,
+    "kanji": "経験",
+    "romaji": "keiken",
+    "meaning": "experience"
+  },
+  { "id": 187, "kanji": "警察", "romaji": "keisatsu", "meaning": "police" },
+  {
+    "id": 188,
+    "kanji": "経済",
+    "romaji": "keizai",
+    "meaning": "economics, economy"
+  },
+  {
+    "id": 189,
+    "kanji": "見物",
+    "romaji": "kenbutsu",
+    "meaning": "sightseeing, watching"
+  },
+  {
+    "id": 190,
+    "kanji": "喧嘩",
+    "romaji": "kenka",
+    "meaning": "quarrel, brawl, fight"
+  },
+  {
+    "id": 191,
+    "kanji": "研究",
+    "romaji": "kenkyuu",
+    "meaning": "study, research, investigation"
+  },
+  {
+    "id": 192,
+    "kanji": "研究室",
+    "romaji": "kenkyuushitsu",
+    "meaning": "laboratory"
+  },
+  {
+    "id": 193,
+    "kanji": "消しゴム",
+    "romaji": "keshogomu",
+    "meaning": "eraser"
+  },
+  {
+    "id": 194,
+    "kanji": "景色",
+    "romaji": "keshiki",
+    "meaning": "scenery, landscape"
+  },
+  {
+    "id": 195,
+    "kanji": "気",
+    "romaji": "ki",
+    "meaning": "spirit, mind, heart"
+  },
+  {
+    "id": 196,
+    "kanji": "厳しい",
+    "romaji": "kibishii",
+    "meaning": "severe, strict, rigid"
+  },
+  {
+    "id": 197,
+    "kanji": "気分",
+    "romaji": "kibun",
+    "meaning": "feeling, mood"
+  },
+  {
+    "id": 198,
+    "kanji": "機会",
+    "romaji": "kikai",
+    "meaning": "chance, opportunity"
+  },
+  {
+    "id": 199,
+    "kanji": "危険",
+    "romaji": "kiken",
+    "meaning": "danger, peril, hazard"
+  },
+  {
+    "id": 200,
+    "kanji": "聞こえる",
+    "romaji": "kikoeru",
+    "meaning": "to be heard, to be audible"
+  },
+  {
+    "id": 201,
+    "kanji": "決る",
+    "romaji": "kimaru",
+    "meaning": "to be decided, to be settled"
+  },
+  {
+    "id": 202,
+    "kanji": "決める",
+    "romaji": "kimeru",
+    "meaning": "to decide, to choose"
+  },
+  {
+    "id": 203,
+    "kanji": "君",
+    "romaji": "kimi",
+    "meaning": "you, buddy, pal"
+  },
+  {
+    "id": 204,
+    "kanji": "気持ち",
+    "romaji": "kimochi",
+    "meaning": "feeling, sensation, mood"
+  },
+  {
+    "id": 205,
+    "kanji": "近所",
+    "romaji": "kinjo",
+    "meaning": "neighborhood"
+  },
+  { "id": 206, "kanji": "季節", "romaji": "kisetsu", "meaning": "season" },
+  { "id": 207, "kanji": "汽車", "romaji": "kisha", "meaning": "train" },
+  {
+    "id": 208,
+    "kanji": "規則",
+    "romaji": "kisoku",
+    "meaning": "rule, regulation"
+  },
+
+  {
+    "id": 210,
+    "kanji": "心",
+    "romaji": "kokoro",
+    "meaning": "mind, heart, spirit"
+  },
+  {
+    "id": 211,
+    "kanji": "国内",
+    "romaji": "kokunai",
+    "meaning": "internal, domestic"
+  },
+  {
+    "id": 212,
+    "kanji": "国際",
+    "romaji": "kokusai",
+    "meaning": "international"
+  },
+  {
+    "id": 213,
+    "kanji": "細かい",
+    "romaji": "komakai",
+    "meaning": "small, fine, minute"
+  },
+  { "id": 214, "kanji": "米", "romaji": "kome", "meaning": "rice" },
+  {
+    "id": 215,
+    "kanji": "込む",
+    "romaji": "komu",
+    "meaning": "to be crowded, to be packed"
+  },
+  {
+    "id": 216,
+    "kanji": "今度",
+    "romaji": "kondo",
+    "meaning": "this time, next time"
+  },
+  {
+    "id": 217,
+    "kanji": "この間",
+    "romaji": "kono aida",
+    "meaning": "the other day, lately"
+  },
+  {
+    "id": 218,
+    "kanji": "この頃",
+    "romaji": "kono goro",
+    "meaning": "recently, nowadays"
+  },
+  {
+    "id": 219,
+    "kanji": "今夜",
+    "romaji": "kon’ya",
+    "meaning": "this evening, tonight"
+  },
+  {
+    "id": 220,
+    "kanji": "これから",
+    "romaji": "kore kara",
+    "meaning": "after this"
+  },
+  {
+    "id": 221,
+    "kanji": "故障",
+    "romaji": "koshou",
+    "meaning": "breakdown, out of order"
+  },
+  {
+    "id": 222,
+    "kanji": "答え",
+    "romaji": "kotae",
+    "meaning": "answer, reply, response"
+  },
+  { "id": 223, "kanji": "事", "romaji": "koto", "meaning": "thing, matter" },
+  {
+    "id": 224,
+    "kanji": "小鳥",
+    "romaji": "kotori",
+    "meaning": "small bird, songbird"
+  },
+  {
+    "id": 225,
+    "kanji": "校長",
+    "romaji": "kouchou",
+    "meaning": "principal, headmaster"
+  },
+  {
+    "id": 226,
+    "kanji": "講堂",
+    "romaji": "koudou",
+    "meaning": "auditorium, lecture hall"
+  },
+  {
+    "id": 227,
+    "kanji": "郊外",
+    "romaji": "kougai",
+    "meaning": "suburb, outskirts"
+  },
+  { "id": 228, "kanji": "講義", "romaji": "kougi", "meaning": "lecture" },
+  {
+    "id": 229,
+    "kanji": "工業",
+    "romaji": "kougyou",
+    "meaning": "(manufacturing) industry"
+  },
+  {
+    "id": 230,
+    "kanji": "工場",
+    "romaji": "koujou",
+    "meaning": "factory, plant, mill"
+  },
+  {
+    "id": 231,
+    "kanji": "高校",
+    "romaji": "koukou",
+    "meaning": "senior high school, high school"
+  },
+  {
+    "id": 232,
+    "kanji": "高校生",
+    "romaji": "koukousei",
+    "meaning": "senior high school student"
+  },
+  {
+    "id": 233,
+    "kanji": "公務員",
+    "romaji": "koumuin",
+    "meaning": "government worker, public servant"
+  },
+  {
+    "id": 234,
+    "kanji": "交通",
+    "romaji": "koutsuu",
+    "meaning": "traffic, transportation"
+  },
+  {
+    "id": 235,
+    "kanji": "壊れる",
+    "romaji": "kowareru",
+    "meaning": "to be broken"
+  },
+  {
+    "id": 236,
+    "kanji": "壊す",
+    "romaji": "kowasu",
+    "meaning": "to break, to destroy"
+  },
+  { "id": 237, "kanji": "首", "romaji": "kubi", "meaning": "neck" },
+  { "id": 238, "kanji": "雲", "romaji": "kumo", "meaning": "cloud" },
+  {
+    "id": 239,
+    "kanji": "比べる",
+    "romaji": "kuraberu",
+    "meaning": "to compare"
+  },
+  {
+    "id": 240,
+    "kanji": "暮れる",
+    "romaji": "kureru",
+    "meaning": "to get dark, to grow dark"
+  },
+  {
+    "id": 241,
+    "kanji": "草",
+    "romaji": "kusa",
+    "meaning": "grass, weed, herb"
+  },
+  {
+    "id": 242,
+    "kanji": "空気",
+    "romaji": "kuuki",
+    "meaning": "air, atmosphere"
+  },
+  { "id": 243, "kanji": "空港", "romaji": "kuukou", "meaning": "airport" },
+  {
+    "id": 244,
+    "kanji": "怖い",
+    "romaji": "kowai",
+    "meaning": "scary, frightening"
+  },
+  {
+    "id": 245,
+    "kanji": "客",
+    "romaji": "kyaku",
+    "meaning": "guest, visitor"
+  },
+  {
+    "id": 246,
+    "kanji": "教育",
+    "romaji": "kyouiku",
+    "meaning": "education, schooling"
+  },
+  { "id": 247, "kanji": "教会", "romaji": "kyoukai", "meaning": "church" },
+  {
+    "id": 248,
+    "kanji": "興味",
+    "romaji": "kyoumi",
+    "meaning": "interest, curiosity"
+  },
+  {
+    "id": 249,
+    "kanji": "競争",
+    "romaji": "kyousou",
+    "meaning": "competition, contest"
+  },
+  {
+    "id": 250,
+    "kanji": "急",
+    "romaji": "kyuu",
+    "meaning": "sudden, abrupt, unexpected"
+  },
+  {
+    "id": 251,
+    "kanji": "急行",
+    "romaji": "kyuukou",
+    "meaning": "moving at high speed"
+  },
+  {
+    "id": 252,
+    "kanji": "間違える",
+    "romaji": "machigaeru",
+    "meaning": "to make a mistake"
+  },
+  {
+    "id": 253,
+    "kanji": "参る",
+    "romaji": "mairu",
+    "meaning": "to go, to come (humble)"
+  },
+  {
+    "id": 254,
+    "kanji": "真面目",
+    "romaji": "majime",
+    "meaning": "seriousness, earnestness"
+  },
+  {
+    "id": 255,
+    "kanji": "負ける",
+    "romaji": "makeru",
+    "meaning": "to lose, to be defeated"
+  },
+  {
+    "id": 256,
+    "kanji": "漫画",
+    "romaji": "manga",
+    "meaning": "cartoon, comic"
+  },
+  {
+    "id": 257,
+    "kanji": "間に合う",
+    "romaji": "maniau",
+    "meaning": "to be in time for"
+  },
+  {
+    "id": 258,
+    "kanji": "真中",
+    "romaji": "mannaka",
+    "meaning": "middle, center"
+  },
+  {
+    "id": 259,
+    "kanji": "または",
+    "romaji": "matawa",
+    "meaning": "or, otherwise"
+  },
+  {
+    "id": 260,
+    "kanji": "周り",
+    "romaji": "mawari",
+    "meaning": "surroundings, neighbourhood"
+  },
+  {
+    "id": 261,
+    "kanji": "回る",
+    "romaji": "mawaru",
+    "meaning": "to turn, to revolve"
+  },
+  {
+    "id": 262,
+    "kanji": "まず",
+    "romaji": "mazu",
+    "meaning": "first of all"
+  },
+  {
+    "id": 263,
+    "kanji": "召し上がる",
+    "romaji": "meshiagaru",
+    "meaning": "to eat, to drink"
+  },
+  {
+    "id": 264,
+    "kanji": "珍しい",
+    "romaji": "mezurashii",
+    "meaning": "unusual, rare, curious"
+  },
+  {
+    "id": 265,
+    "kanji": "見える",
+    "romaji": "mieru",
+    "meaning": "to be seen, to be in sight"
+  },
+  {
+    "id": 266,
+    "kanji": "港",
+    "romaji": "minato",
+    "meaning": "harbor, port"
+  },
+  {
+    "id": 267,
+    "kanji": "見つかる",
+    "romaji": "mitsukaru",
+    "meaning": "to be found"
+  },
+  {
+    "id": 268,
+    "kanji": "見つける",
+    "romaji": "mitsukeru",
+    "meaning": "to discover, to find"
+  },
+  { "id": 269, "kanji": "湖", "romaji": "mizuumi", "meaning": "lake" },
+  {
+    "id": 270,
+    "kanji": "もちろん",
+    "romaji": "mochiron",
+    "meaning": "of course, certainly"
+  },
+  {
+    "id": 271,
+    "kanji": "戻る",
+    "romaji": "modoru",
+    "meaning": "to return, to go back"
+  },
+  { "id": 272, "kanji": "森", "romaji": "mori", "meaning": "forest" },
+  {
+    "id": 273,
+    "kanji": "もし",
+    "romaji": "moshi",
+    "meaning": "if, in case"
+  },
+  {
+    "id": 274,
+    "kanji": "申し上げる",
+    "romaji": "moushiageru",
+    "meaning": "to say, to tell (humble)"
+  },
+  {
+    "id": 275,
+    "kanji": "申す",
+    "romaji": "mousu",
+    "meaning": "to say, to be called (humble)"
+  },
+  {
+    "id": 276,
+    "kanji": "もうすぐ",
+    "romaji": "mousugu",
+    "meaning": "soon, shortly"
+  },
+  {
+    "id": 277,
+    "kanji": "迎える",
+    "romaji": "mukaeru",
+    "meaning": "to go out to meet"
+  },
+  {
+    "id": 278,
+    "kanji": "向かう",
+    "romaji": "mukau",
+    "meaning": "to face, to go towards"
+  },
+  {
+    "id": 279,
+    "kanji": "昔",
+    "romaji": "mukashi",
+    "meaning": "olden days, former"
+  },
+  {
+    "id": 280,
+    "kanji": "無理",
+    "romaji": "muri",
+    "meaning": "unreasonable, impossible"
+  },
+  { "id": 281, "kanji": "虫", "romaji": "mushi", "meaning": "insect, bug" },
+  { "id": 282, "kanji": "息子", "romaji": "musuko", "meaning": "son" },
+  {
+    "id": 283,
+    "kanji": "娘",
+    "romaji": "musume",
+    "meaning": "(my) daughter, girl"
+  },
+  {
+    "id": 284,
+    "kanji": "投げる",
+    "romaji": "nageru",
+    "meaning": "to throw, to cast away"
+  },
+  {
+    "id": 285,
+    "kanji": "中々",
+    "romaji": "nakanaka",
+    "meaning": "very, considerably"
+  },
+  {
+    "id": 286,
+    "kanji": "泣く",
+    "romaji": "naku",
+    "meaning": "to cry, to weep"
+  },
+  {
+    "id": 287,
+    "kanji": "無くなる",
+    "romaji": "nakunaru",
+    "meaning": "to be lost, to be missing"
+  },
+  {
+    "id": 288,
+    "kanji": "亡くなる",
+    "romaji": "nakunaru",
+    "meaning": "to die"
+  },
+  {
+    "id": 289,
+    "kanji": "治る",
+    "romaji": "naoru",
+    "meaning": "to be cured"
+  },
+  {
+    "id": 290,
+    "kanji": "直る",
+    "romaji": "naoru",
+    "meaning": "to get mended"
+  },
+  {
+    "id": 291,
+    "kanji": "直す",
+    "romaji": "naosu",
+    "meaning": "to fix, to repair"
+  },
+  {
+    "id": 292,
+    "kanji": "慣れる",
+    "romaji": "nareru",
+    "meaning": "to get used to"
+  },
+  {
+    "id": 293,
+    "kanji": "鳴る",
+    "romaji": "naru",
+    "meaning": "to sound, to ring"
+  },
+  {
+    "id": 294,
+    "kanji": "なるほど",
+    "romaji": "naru hodo",
+    "meaning": "I see!, That’s right!"
+  },
+  {
+    "id": 295,
+    "kanji": "寝坊",
+    "romaji": "nebou",
+    "meaning": "sleeping in late"
+  },
+  {
+    "id": 296,
+    "kanji": "値段",
+    "romaji": "nedan",
+    "meaning": "price, cost"
+  },
+  {
+    "id": 297,
+    "kanji": "眠い",
+    "romaji": "nemui",
+    "meaning": "sleepy, drowsy"
+  },
+  { "id": 298, "kanji": "眠る", "romaji": "nemuru", "meaning": "to sleep" },
+  {
+    "id": 299,
+    "kanji": "熱心",
+    "romaji": "nesshin",
+    "meaning": "zeal, enthusiasm"
+  },
+  { "id": 300, "kanji": "熱", "romaji": "netsu", "meaning": "heat" },
+  { "id": 301, "kanji": "苦い", "romaji": "nigai", "meaning": "bitter" },
+  {
+    "id": 302,
+    "kanji": "逃げる",
+    "romaji": "nigeru",
+    "meaning": "to escape, to run away"
+  },
+  {
+    "id": 303,
+    "kanji": "二階建て",
+    "romaji": "nikaidate",
+    "meaning": "two-storied building"
+  },
+  {
+    "id": 304,
+    "kanji": "日記",
+    "romaji": "nikki",
+    "meaning": "diary, journal"
+  },
+  { "id": 305, "kanji": "人形", "romaji": "ningyou", "meaning": "doll" },
+  {
+    "id": 306,
+    "kanji": "匂い",
+    "romaji": "nioi",
+    "meaning": "scent, smell"
+  },
+  {
+    "id": 307,
+    "kanji": "似る",
+    "romaji": "niru",
+    "meaning": "to resemble, to look like"
+  },
+  { "id": 308, "kanji": "喉", "romaji": "nodo", "meaning": "throat" },
+  {
+    "id": 309,
+    "kanji": "残る",
+    "romaji": "nokoru",
+    "meaning": "to remain, to be left"
+  },
+  {
+    "id": 310,
+    "kanji": "乗り換える",
+    "romaji": "norikaeru",
+    "meaning": "to transfer (trains), to change (bus, train)"
+  },
+  {
+    "id": 311,
+    "kanji": "乗り物",
+    "romaji": "norimono",
+    "meaning": "vehicle, conveyance"
+  },
+  {
+    "id": 312,
+    "kanji": "濡れる",
+    "romaji": "nureru",
+    "meaning": "to get wet"
+  },
+  {
+    "id": 313,
+    "kanji": "塗る",
+    "romaji": "nuru",
+    "meaning": "to paint, to plaster"
+  },
+  { "id": 314, "kanji": "盗む", "romaji": "nusumu", "meaning": "to steal" },
+  {
+    "id": 315,
+    "kanji": "入学",
+    "romaji": "nyuugaku",
+    "meaning": "entry to school or university"
+  },
+  {
+    "id": 316,
+    "kanji": "入院",
+    "romaji": "nyuuin",
+    "meaning": "hospitalization"
+  },
+  {
+    "id": 317,
+    "kanji": "落ちる",
+    "romaji": "ochiru",
+    "meaning": "to fall down, to drop"
+  },
+  { "id": 318, "kanji": "踊り", "romaji": "odori", "meaning": "dance" },
+  {
+    "id": 319,
+    "kanji": "驚く",
+    "romaji": "odoroku",
+    "meaning": "to be surprised, to be astonished"
+  },
+  { "id": 320, "kanji": "踊る", "romaji": "odoru", "meaning": "to dance" },
+  {
+    "id": 321,
+    "kanji": "お祝い",
+    "romaji": "oiwai",
+    "meaning": "congratulations, celebration"
+  },
+  {
+    "id": 322,
+    "kanji": "お嬢さん",
+    "romaji": "ojousan",
+    "meaning": "(your) daughter, young lady"
+  },
+  {
+    "id": 323,
+    "kanji": "可笑しい",
+    "romaji": "okashii",
+    "meaning": "funny, strange, odd"
+  },
+  {
+    "id": 324,
+    "kanji": "行う",
+    "romaji": "okonau",
+    "meaning": "to perform, to do"
+  },
+  {
+    "id": 325,
+    "kanji": "怒る",
+    "romaji": "okoru",
+    "meaning": "to get angry, to get mad"
+  },
+  {
+    "id": 326,
+    "kanji": "起こす",
+    "romaji": "okosu",
+    "meaning": "to raise, to wake, to cause"
+  },
+  {
+    "id": 327,
+    "kanji": "億",
+    "romaji": "oku",
+    "meaning": "hundred million"
+  },
+  { "id": 328, "kanji": "屋上", "romaji": "okujou", "meaning": "rooftop" },
+  {
+    "id": 329,
+    "kanji": "贈り物",
+    "romaji": "okurimono",
+    "meaning": "present, gift"
+  },
+  {
+    "id": 330,
+    "kanji": "遅れる",
+    "romaji": "okureru",
+    "meaning": "to be late, to be delayed"
+  },
+  {
+    "id": 331,
+    "kanji": "送る",
+    "romaji": "okuru",
+    "meaning": "to send, to dispatch"
+  },
+  {
+    "id": 332,
+    "kanji": "お祭り",
+    "romaji": "omatsuri",
+    "meaning": "festival, feast, carnival"
+  },
+  {
+    "id": 333,
+    "kanji": "お見舞い",
+    "romaji": "omimai",
+    "meaning": "calling on someone who is ill"
+  },
+  {
+    "id": 334,
+    "kanji": "お土産",
+    "romaji": "omiyage",
+    "meaning": "present, souvenir"
+  },
+  {
+    "id": 335,
+    "kanji": "玩具",
+    "romaji": "omocha",
+    "meaning": "toy, plaything"
+  },
+  {
+    "id": 336,
+    "kanji": "思い出す",
+    "romaji": "omoidasu",
+    "meaning": "to recall, to remember"
+  },
+  {
+    "id": 337,
+    "kanji": "表",
+    "romaji": "omote",
+    "meaning": "surface, face, front, outside"
+  },
+  {
+    "id": 338,
+    "kanji": "思う",
+    "romaji": "omou",
+    "meaning": "to think, to consider"
+  },
+  {
+    "id": 339,
+    "kanji": "お礼",
+    "romaji": "orei",
+    "meaning": "thanks, gratitude"
+  },
+  {
+    "id": 340,
+    "kanji": "折れる",
+    "romaji": "oreru",
+    "meaning": "to break, to be broken"
+  },
+  {
+    "id": 341,
+    "kanji": "折る",
+    "romaji": "oru",
+    "meaning": "to break, to fracture"
+  },
+  {
+    "id": 342,
+    "kanji": "押し入れ",
+    "romaji": "oshiire",
+    "meaning": "closet"
+  },
+  {
+    "id": 343,
+    "kanji": "仰る",
+    "romaji": "ossharu",
+    "meaning": "to say, to speak"
+  },
+  {
+    "id": 344,
+    "kanji": "お宅",
+    "romaji": "otaku",
+    "meaning": "your house, your home, your family"
+  },
+  { "id": 345, "kanji": "音", "romaji": "oto", "meaning": "sound, noise" },
+  {
+    "id": 346,
+    "kanji": "落とす",
+    "romaji": "otosu",
+    "meaning": "to drop, to let fall"
+  },
+  { "id": 347, "kanji": "夫", "romaji": "otto", "meaning": "husband" },
+  {
+    "id": 348,
+    "kanji": "お釣り",
+    "romaji": "otsuri",
+    "meaning": "change (for a purchase)"
+  },
+  { "id": 349, "kanji": "終わり", "romaji": "owari", "meaning": "the end" },
+  {
+    "id": 350,
+    "kanji": "親",
+    "romaji": "oya",
+    "meaning": "parent, parents"
+  },
+  { "id": 351, "kanji": "歴史", "romaji": "rekishi", "meaning": "history" },
+  {
+    "id": 352,
+    "kanji": "連絡",
+    "romaji": "renraku",
+    "meaning": "to contact, to get in touch"
+  },
+  {
+    "id": 353,
+    "kanji": "利用",
+    "romaji": "riyou",
+    "meaning": "use, utilization"
+  },
+  {
+    "id": 354,
+    "kanji": "理由",
+    "romaji": "riyuu",
+    "meaning": "reason, motive"
+  },
+  {
+    "id": 355,
+    "kanji": "留守",
+    "romaji": "rusu",
+    "meaning": "absence, being away from home"
+  },
+  {
+    "id": 356,
+    "kanji": "旅館",
+    "romaji": "ryokan",
+    "meaning": "Japanese-style lodging"
+  },
+  {
+    "id": 357,
+    "kanji": "両方",
+    "romaji": "ryouhou",
+    "meaning": "both, both sides"
+  },
+  {
+    "id": 358,
+    "kanji": "寂しい",
+    "romaji": "sabishii",
+    "meaning": "lonely, lonesome, solitary"
+  },
+  {
+    "id": 359,
+    "kanji": "下がる",
+    "romaji": "sagaru",
+    "meaning": "to come down, to get lower"
+  },
+  {
+    "id": 360,
+    "kanji": "探す",
+    "romaji": "sagasu",
+    "meaning": "to search, to look for"
+  },
+  {
+    "id": 361,
+    "kanji": "下げる",
+    "romaji": "sageru",
+    "meaning": "to hang, to lower"
+  },
+  {
+    "id": 362,
+    "kanji": "最後",
+    "romaji": "saigo",
+    "meaning": "last, final, latest"
+  },
+  {
+    "id": 363,
+    "kanji": "最近",
+    "romaji": "saikin",
+    "meaning": "most recent, these days"
+  },
+  {
+    "id": 364,
+    "kanji": "最初",
+    "romaji": "saisho",
+    "meaning": "beginning, first"
+  },
+  { "id": 365, "kanji": "坂", "romaji": "saka", "meaning": "slope, hill" },
+  {
+    "id": 366,
+    "kanji": "盛ん",
+    "romaji": "sakan",
+    "meaning": "popular, prosperous"
+  },
+  {
+    "id": 367,
+    "kanji": "さっき",
+    "romaji": "sakki",
+    "meaning": "some time ago, just now"
+  },
+  {
+    "id": 368,
+    "kanji": "昨夜",
+    "romaji": "sakuya",
+    "meaning": "last night"
+  },
+  { "id": 369, "kanji": "産業", "romaji": "sangyou", "meaning": "industry" },
+  {
+    "id": 370,
+    "kanji": "さ来月",
+    "romaji": "saraigetsu",
+    "meaning": "month after next"
+  },
+  {
+    "id": 371,
+    "kanji": "さ来週",
+    "romaji": "saraishuu",
+    "meaning": "week after next"
+  },
+  {
+    "id": 372,
+    "kanji": "差し上げる",
+    "romaji": "sashiageru",
+    "meaning": "to give, to offer"
+  },
+  {
+    "id": 373,
+    "kanji": "騒ぐ",
+    "romaji": "sawagu",
+    "meaning": "to make noise, to rustle"
+  },
+  {
+    "id": 374,
+    "kanji": "触る",
+    "romaji": "sawaru",
+    "meaning": "to touch, to feel"
+  },
+  {
+    "id": 375,
+    "kanji": "政治",
+    "romaji": "seiji",
+    "meaning": "politics, government"
+  },
+  {
+    "id": 376,
+    "kanji": "生活",
+    "romaji": "seikatsu",
+    "meaning": "living, life"
+  },
+  {
+    "id": 377,
+    "kanji": "生産",
+    "romaji": "seisan",
+    "meaning": "production, manufacture"
+  },
+  {
+    "id": 378,
+    "kanji": "西洋",
+    "romaji": "seiyou",
+    "meaning": "the west, Western countries"
+  },
+  {
+    "id": 379,
+    "kanji": "世界",
+    "romaji": "sekai",
+    "meaning": "the world, society"
+  },
+  { "id": 380, "kanji": "席", "romaji": "seki", "meaning": "seat" },
+  {
+    "id": 381,
+    "kanji": "線",
+    "romaji": "sen",
+    "meaning": "line, stripe, stria"
+  },
+  {
+    "id": 382,
+    "kanji": "背中",
+    "romaji": "senaka",
+    "meaning": "back (of body)"
+  },
+  {
+    "id": 383,
+    "kanji": "先輩",
+    "romaji": "senpai",
+    "meaning": "senior (at work or school)"
+  },
+  { "id": 384, "kanji": "戦争", "romaji": "sensou", "meaning": "war" },
+  {
+    "id": 385,
+    "kanji": "説明",
+    "romaji": "setsumei",
+    "meaning": "explanation, exposition"
+  },
+  {
+    "id": 386,
+    "kanji": "世話",
+    "romaji": "sewa",
+    "meaning": "looking after, help"
+  },
+  {
+    "id": 387,
+    "kanji": "社長",
+    "romaji": "shachou",
+    "meaning": "company president"
+  },
+  {
+    "id": 388,
+    "kanji": "社会",
+    "romaji": "shakai",
+    "meaning": "society, public, community"
+  },
+  { "id": 389, "kanji": "市", "romaji": "shi", "meaning": "city" },
+  {
+    "id": 390,
+    "kanji": "試合",
+    "romaji": "shiai",
+    "meaning": "match, game"
+  },
+
+  { "id": 392, "kanji": "叱る", "romaji": "shikaru", "meaning": "to scold" },
+  {
+    "id": 393,
+    "kanji": "仕方",
+    "romaji": "shikata",
+    "meaning": "way, method, means"
+  },
+  {
+    "id": 394,
+    "kanji": "試験",
+    "romaji": "shiken",
+    "meaning": "examination, exam, test"
+  },
+
+  { "id": 396, "kanji": "島", "romaji": "shima", "meaning": "island" },
+  {
+    "id": 397,
+    "kanji": "市民",
+    "romaji": "shimin",
+    "meaning": "citizen, citizenry, public"
+  },
+  {
+    "id": 398,
+    "kanji": "品物",
+    "romaji": "shinamono",
+    "meaning": "goods, article, thing"
+  },
+  {
+    "id": 399,
+    "kanji": "新聞社",
+    "romaji": "shinbunsha",
+    "meaning": "newspaper company"
+  },
+  {
+    "id": 400,
+    "kanji": "心配",
+    "romaji": "shinpai",
+    "meaning": "worry, concern, anxiety"
+  },
+  {
+    "id": 401,
+    "kanji": "親切",
+    "romaji": "shinsetsu",
+    "meaning": "kindness, gentleness"
+  },
+  {
+    "id": 402,
+    "kanji": "調べる",
+    "romaji": "shiraberu",
+    "meaning": "to examine, to investigate"
+  },
+  {
+    "id": 403,
+    "kanji": "知らせる",
+    "romaji": "shiraseru",
+    "meaning": "to notify, to advise, to inform"
+  },
+  {
+    "id": 404,
+    "kanji": "下着",
+    "romaji": "shitagi",
+    "meaning": "underwear"
+  },
+  {
+    "id": 405,
+    "kanji": "支度",
+    "romaji": "shitaku",
+    "meaning": "preparation, arrangements"
+  },
+  {
+    "id": 406,
+    "kanji": "失礼",
+    "romaji": "shitsurei",
+    "meaning": "discourtesy, impoliteness"
+  },
+  {
+    "id": 407,
+    "kanji": "失敗",
+    "romaji": "shippai",
+    "meaning": "failure, mistake, blunder"
+  },
+  { "id": 408, "kanji": "食事", "romaji": "shokuji", "meaning": "meal" },
+  {
+    "id": 409,
+    "kanji": "食料品",
+    "romaji": "shokuryouhin",
+    "meaning": "foodstuff, groceries"
+  },
+  {
+    "id": 410,
+    "kanji": "小学校",
+    "romaji": "shougakkou",
+    "meaning": "primary school"
+  },
+  {
+    "id": 411,
+    "kanji": "紹介",
+    "romaji": "shoukai",
+    "meaning": "introduction, presentation"
+  },
+  {
+    "id": 412,
+    "kanji": "小説",
+    "romaji": "shousetsu",
+    "meaning": "novel, (short) story"
+  },
+  {
+    "id": 413,
+    "kanji": "将来",
+    "romaji": "shourai",
+    "meaning": "future, prospects"
+  },
+  {
+    "id": 414,
+    "kanji": "招待",
+    "romaji": "shoutai",
+    "meaning": "invitation"
+  },
+  {
+    "id": 415,
+    "kanji": "趣味",
+    "romaji": "shumi",
+    "meaning": "hobby, pastime"
+  },
+  {
+    "id": 416,
+    "kanji": "出発",
+    "romaji": "shuppatsu",
+    "meaning": "departure"
+  },
+  {
+    "id": 417,
+    "kanji": "出席",
+    "romaji": "shusseki",
+    "meaning": "attendance, presence"
+  },
+  {
+    "id": 418,
+    "kanji": "習慣",
+    "romaji": "shuukan",
+    "meaning": "habit, custom"
+  },
+  { "id": 419, "kanji": "祖母", "romaji": "sobo", "meaning": "grandmother" },
+  {
+    "id": 420,
+    "kanji": "育てる",
+    "romaji": "sodateru",
+    "meaning": "to raise, to rear, to bring up"
+  },
+  { "id": 421, "kanji": "祖父", "romaji": "sofu", "meaning": "grandfather" },
+  { "id": 422, "kanji": "そんな", "romaji": "sonna", "meaning": "such" },
+  {
+    "id": 423,
+    "kanji": "それで",
+    "romaji": "sore de",
+    "meaning": "and, thereupon"
+  },
+  {
+    "id": 424,
+    "kanji": "それほど",
+    "romaji": "sore hodo",
+    "meaning": "to that degree"
+  },
+  {
+    "id": 425,
+    "kanji": "それに",
+    "romaji": "sore ni",
+    "meaning": "besides, in addition"
+  },
+  {
+    "id": 426,
+    "kanji": "そろそろ",
+    "romaji": "sorosoro",
+    "meaning": "soon, momentarily"
+  },
+  {
+    "id": 427,
+    "kanji": "卒業",
+    "romaji": "sotsugyou",
+    "meaning": "graduation"
+  },
+  {
+    "id": 428,
+    "kanji": "相談",
+    "romaji": "soudan",
+    "meaning": "consultation, discussion"
+  },
+  {
+    "id": 429,
+    "kanji": "素晴らしい",
+    "romaji": "subarashii",
+    "meaning": "wonderful, splendid"
+  },
+  {
+    "id": 430,
+    "kanji": "滑る",
+    "romaji": "suberu",
+    "meaning": "to glide, to slide"
+  },
+  {
+    "id": 431,
+    "kanji": "水道",
+    "romaji": "suidou",
+    "meaning": "water supply, water service"
+  },
+  {
+    "id": 432,
+    "kanji": "過ぎる",
+    "romaji": "sugiru",
+    "meaning": "to pass through, to pass by"
+  },
+  {
+    "id": 433,
+    "kanji": "凄い",
+    "romaji": "sugoi",
+    "meaning": "terrible, dreadful, amazing"
+  },
+  { "id": 434, "kanji": "水泳", "romaji": "suiei", "meaning": "swimming" },
+  {
+    "id": 435,
+    "kanji": "すっかり",
+    "romaji": "sukkari",
+    "meaning": "all, completely, totally"
+  },
+  {
+    "id": 436,
+    "kanji": "空く",
+    "romaji": "suku",
+    "meaning": "to become empty"
+  },
+  {
+    "id": 437,
+    "kanji": "隅",
+    "romaji": "sumi",
+    "meaning": "corner, nook, recess"
+  },
+  {
+    "id": 438,
+    "kanji": "済む",
+    "romaji": "sumu",
+    "meaning": "to finish, to end"
+  },
+  { "id": 439, "kanji": "砂", "romaji": "suna", "meaning": "sand, grit" },
+  {
+    "id": 440,
+    "kanji": "進む",
+    "romaji": "susumu",
+    "meaning": "to advance, to go forward"
+  },
+  {
+    "id": 441,
+    "kanji": "捨てる",
+    "romaji": "suteru",
+    "meaning": "to throw away, to cast away"
+  },
+  {
+    "id": 442,
+    "kanji": "数学",
+    "romaji": "suugaku",
+    "meaning": "mathematics"
+  },
+  {
+    "id": 443,
+    "kanji": "正しい",
+    "romaji": "tadashii",
+    "meaning": "right, correct"
+  },
+  {
+    "id": 444,
+    "kanji": "退院",
+    "romaji": "taiin",
+    "meaning": "discharge from hospital"
+  },
+  {
+    "id": 445,
+    "kanji": "大抵",
+    "romaji": "taitei",
+    "meaning": "mostly, ordinarily"
+  },
+  {
+    "id": 446,
+    "kanji": "たまに",
+    "romaji": "tama ni",
+    "meaning": "occasionally, once in a while"
+  },
+  {
+    "id": 447,
+    "kanji": "棚",
+    "romaji": "tana",
+    "meaning": "shelf, shelves"
+  },
+  {
+    "id": 448,
+    "kanji": "楽しみ",
+    "romaji": "tanoshimi",
+    "meaning": "enjoyment, pleasure"
+  },
+  {
+    "id": 449,
+    "kanji": "楽む",
+    "romaji": "tanoshimu",
+    "meaning": "to enjoy (oneself)"
+  },
+  {
+    "id": 450,
+    "kanji": "倒れる",
+    "romaji": "taoreru",
+    "meaning": "to fall, to collapse"
+  },
+  {
+    "id": 451,
+    "kanji": "足りる",
+    "romaji": "tariru",
+    "meaning": "to be sufficient, to be enough"
+  },
+  {
+    "id": 452,
+    "kanji": "確か",
+    "romaji": "tashika",
+    "meaning": "sure, certain, positive"
+  },
+  {
+    "id": 453,
+    "kanji": "足す",
+    "romaji": "tasu",
+    "meaning": "to add, to top up"
+  },
+  {
+    "id": 454,
+    "kanji": "多数",
+    "romaji": "tasuu",
+    "meaning": "large number, many"
+  },
+  { "id": 455, "kanji": "畳", "romaji": "tatami", "meaning": "tatami mat" },
+  {
+    "id": 456,
+    "kanji": "立てる",
+    "romaji": "tateru",
+    "meaning": "to stand up"
+  },
+  {
+    "id": 457,
+    "kanji": "建てる",
+    "romaji": "tateru",
+    "meaning": "to build, to construct"
+  },
+  {
+    "id": 458,
+    "kanji": "訪ねる",
+    "romaji": "tazuneru",
+    "meaning": "to visit, to call on"
+  },
+  {
+    "id": 459,
+    "kanji": "尋ねる",
+    "romaji": "tazuneru",
+    "meaning": "to ask, to enquire"
+  },
+  {
+    "id": 460,
+    "kanji": "手袋",
+    "romaji": "tebukuro",
+    "meaning": "glove, mitten, mitt"
+  },
+  {
+    "id": 461,
+    "kanji": "丁寧",
+    "romaji": "teinei",
+    "meaning": "polite, courteous, careful"
+  },
+  {
+    "id": 462,
+    "kanji": "適当",
+    "romaji": "tekitou",
+    "meaning": "suitable, proper, fit"
+  },
+  {
+    "id": 463,
+    "kanji": "点",
+    "romaji": "ten",
+    "meaning": "point, dot, spot"
+  },
+  { "id": 464, "kanji": "天", "romaji": "ten", "meaning": "sky" },
+  {
+    "id": 465,
+    "kanji": "店員",
+    "romaji": "ten’in",
+    "meaning": "shop assistant, clerk"
+  },
+  {
+    "id": 466,
+    "kanji": "天気予報",
+    "romaji": "tenkiyohou",
+    "meaning": "weather forecast"
+  },
+  {
+    "id": 467,
+    "kanji": "展覧会",
+    "romaji": "tenrankai",
+    "meaning": "exhibition"
+  },
+  {
+    "id": 468,
+    "kanji": "寺",
+    "romaji": "tera",
+    "meaning": "temple (Buddhist)"
+  },
+  {
+    "id": 469,
+    "kanji": "手伝う",
+    "romaji": "tetsudau",
+    "meaning": "to help, to assist, to aid"
+  },
+  {
+    "id": 470,
+    "kanji": "届ける",
+    "romaji": "todokeru",
+    "meaning": "to deliver, to send"
+  },
+  {
+    "id": 471,
+    "kanji": "床屋",
+    "romaji": "tokoya",
+    "meaning": "barbershop, barber"
+  },
+  {
+    "id": 472,
+    "kanji": "特別",
+    "romaji": "tokubetsu",
+    "meaning": "special"
+  },
+  {
+    "id": 473,
+    "kanji": "特に",
+    "romaji": "toku ni",
+    "meaning": "particularly, especially"
+  },
+  {
+    "id": 474,
+    "kanji": "特急",
+    "romaji": "tokkyuu",
+    "meaning": "limited express"
+  },
+  {
+    "id": 475,
+    "kanji": "泊まる",
+    "romaji": "tomaru",
+    "meaning": "to stay at (e.g. hotel)"
+  },
+  {
+    "id": 476,
+    "kanji": "遠く",
+    "romaji": "tooku",
+    "meaning": "far away, distant"
+  },
+  {
+    "id": 477,
+    "kanji": "通る",
+    "romaji": "tooru",
+    "meaning": "to go by, to go past"
+  },
+  {
+    "id": 478,
+    "kanji": "取り替える",
+    "romaji": "torikaeru",
+    "meaning": "to exchange, to replace"
+  },
+  {
+    "id": 479,
+    "kanji": "とうとう",
+    "romaji": "toutou",
+    "meaning": "finally, at"
+  },
+  {
+    "id": 480,
+    "kanji": "都合",
+    "romaji": "tsugou",
+    "meaning": "circumstances, convenience"
+  },
+  {
+    "id": 481,
+    "kanji": "捕まえる",
+    "romaji": "tsukamaeru",
+    "meaning": "to catch, to arrest"
+  },
+  { "id": 482, "kanji": "月", "romaji": "tsuki", "meaning": "moon" },
+  {
+    "id": 483,
+    "kanji": "付く",
+    "romaji": "tsuku",
+    "meaning": "to be attached, to adhere"
+  },
+  { "id": 484, "kanji": "妻", "romaji": "tsuma", "meaning": "wife" },
+  {
+    "id": 485,
+    "kanji": "連れる",
+    "romaji": "tsureru",
+    "meaning": "to lead, to take (a person)"
+  },
+  {
+    "id": 486,
+    "kanji": "釣る",
+    "romaji": "tsuru",
+    "meaning": "to fish, to lure in"
+  },
+  {
+    "id": 487,
+    "kanji": "伝える",
+    "romaji": "tsutaeru",
+    "meaning": "to convey, to report"
+  },
+  {
+    "id": 488,
+    "kanji": "包む",
+    "romaji": "tsutsumu",
+    "meaning": "to wrap up, to tuck in"
+  },
+  {
+    "id": 489,
+    "kanji": "続ける",
+    "romaji": "tsuzukeru",
+    "meaning": "to continue, to keep up"
+  },
+  {
+    "id": 490,
+    "kanji": "続く",
+    "romaji": "tsuzuku",
+    "meaning": "to continue, to last, to go on"
+  },
+  { "id": 491, "kanji": "腕", "romaji": "ude", "meaning": "arm" },
+  {
+    "id": 492,
+    "kanji": "植える",
+    "romaji": "ueru",
+    "meaning": "to plant, to grow, to raise"
+  },
+  {
+    "id": 493,
+    "kanji": "動く",
+    "romaji": "ugoku",
+    "meaning": "to move, to stir, to shift"
+  },
+  {
+    "id": 494,
+    "kanji": "受ける",
+    "romaji": "ukeru",
+    "meaning": "to receive, to get"
+  },
+  {
+    "id": 495,
+    "kanji": "受付",
+    "romaji": "uketsuke",
+    "meaning": "reception (desk), information desk"
+  },
+  {
+    "id": 496,
+    "kanji": "旨い",
+    "romaji": "umai",
+    "meaning": "delicious, appetizing"
+  },
+  {
+    "id": 497,
+    "kanji": "運動",
+    "romaji": "undou",
+    "meaning": "exercise, motion"
+  },
+  {
+    "id": 498,
+    "kanji": "運転",
+    "romaji": "unten",
+    "meaning": "operation, operating"
+  },
+  {
+    "id": 499,
+    "kanji": "運転手",
+    "romaji": "untenshu",
+    "meaning": "driver, chauffeur"
+  },
+  {
+    "id": 500,
+    "kanji": "裏",
+    "romaji": "ura",
+    "meaning": "reverse side, rear, back"
+  },
+  {
+    "id": 501,
+    "kanji": "嬉しい",
+    "romaji": "ureshii",
+    "meaning": "happy, glad"
+  },
+  {
+    "id": 502,
+    "kanji": "売り場",
+    "romaji": "uriba",
+    "meaning": "sales floor, counter (in shop)"
+  },
+  { "id": 503, "kanji": "嘘", "romaji": "uso", "meaning": "lie, falsehood" },
+  {
+    "id": 504,
+    "kanji": "打つ",
+    "romaji": "utsu",
+    "meaning": "to hit, to strike, to knock"
+  },
+  {
+    "id": 505,
+    "kanji": "美しい",
+    "romaji": "utsukushii",
+    "meaning": "beautiful, lovely"
+  },
+  {
+    "id": 506,
+    "kanji": "移る",
+    "romaji": "utsuru",
+    "meaning": "to move (house), to transfer (department)"
+  },
+  {
+    "id": 507,
+    "kanji": "写す",
+    "romaji": "utsusu",
+    "meaning": "to transcribe, to duplicate"
+  },
+  {
+    "id": 508,
+    "kanji": "別れる",
+    "romaji": "wakareru",
+    "meaning": "to part, to separate"
+  },
+  {
+    "id": 509,
+    "kanji": "沸かす",
+    "romaji": "wakasu",
+    "meaning": "to boil, to heat"
+  },
+  { "id": 510, "kanji": "訳", "romaji": "wake", "meaning": "reason, cause" },
+  {
+    "id": 511,
+    "kanji": "沸く",
+    "romaji": "waku",
+    "meaning": "to grow hot, to boil"
+  },
+  { "id": 512, "kanji": "笑う", "romaji": "warau", "meaning": "to laugh" },
+  {
+    "id": 513,
+    "kanji": "割れる",
+    "romaji": "wareru",
+    "meaning": "to break, to be smashed"
+  },
+  {
+    "id": 514,
+    "kanji": "割合",
+    "romaji": "wariai",
+    "meaning": "rate, ratio"
+  },
+  {
+    "id": 515,
+    "kanji": "忘れ物",
+    "romaji": "wasuremono",
+    "meaning": "something forgotten"
+  },
+  {
+    "id": 516,
+    "kanji": "やはり",
+    "romaji": "yahari",
+    "meaning": "as expected"
+  },
+  {
+    "id": 517,
+    "kanji": "焼ける",
+    "romaji": "yakeru",
+    "meaning": "to be roasted"
+  },
+  {
+    "id": 518,
+    "kanji": "焼く",
+    "romaji": "yaku",
+    "meaning": "to burn, to roast, to bake"
+  },
+  {
+    "id": 519,
+    "kanji": "役に立つ",
+    "romaji": "yaku ni tatsu",
+    "meaning": "to be helpful, to be useful"
+  },
+  {
+    "id": 520,
+    "kanji": "約束",
+    "romaji": "yakusoku",
+    "meaning": "promise, agreement"
+  },
+  { "id": 521, "kanji": "止める", "romaji": "yameru", "meaning": "to stop" },
+  {
+    "id": 522,
+    "kanji": "止む",
+    "romaji": "yamu",
+    "meaning": "to cease, to stop"
+  },
+  {
+    "id": 523,
+    "kanji": "優しい",
+    "romaji": "yasashii",
+    "meaning": "tender, kind, gentle"
+  },
+  {
+    "id": 524,
+    "kanji": "痩せる",
+    "romaji": "yaseru",
+    "meaning": "to become thin, to slim"
+  },
+  { "id": 525, "kanji": "やっと", "romaji": "yatto", "meaning": "at last" },
+  {
+    "id": 526,
+    "kanji": "柔らかい",
+    "romaji": "yawarakai",
+    "meaning": "soft, tender"
+  },
+  {
+    "id": 527,
+    "kanji": "用",
+    "romaji": "you",
+    "meaning": "business, task, errand"
+  },
+  {
+    "id": 528,
+    "kanji": "汚れる",
+    "romaji": "yogoreru",
+    "meaning": "to get dirty"
+  },
+  {
+    "id": 529,
+    "kanji": "喜ぶ",
+    "romaji": "yorokobu",
+    "meaning": "to be delighted"
+  },
+  {
+    "id": 530,
+    "kanji": "寄る",
+    "romaji": "yoru",
+    "meaning": "to approach, to drop by"
+  },
+  {
+    "id": 531,
+    "kanji": "予習",
+    "romaji": "yoshuu",
+    "meaning": "preparation for a lesson"
+  },
+  {
+    "id": 532,
+    "kanji": "予定",
+    "romaji": "yotei",
+    "meaning": "plans, arrangement"
+  },
+  {
+    "id": 533,
+    "kanji": "用意",
+    "romaji": "youi",
+    "meaning": "preparation, arrangements"
+  },
+  {
+    "id": 534,
+    "kanji": "用事",
+    "romaji": "youji",
+    "meaning": "tasks, things to do"
+  },
+  {
+    "id": 535,
+    "kanji": "予約",
+    "romaji": "yoyaku",
+    "meaning": "reservation, appointment"
+  },
+  { "id": 536, "kanji": "湯", "romaji": "yu", "meaning": "hot water" },
+  { "id": 537, "kanji": "指", "romaji": "yubi", "meaning": "finger, toe" },
+  {
+    "id": 538,
+    "kanji": "指輪",
+    "romaji": "yubiwa",
+    "meaning": "(finger) ring"
+  },
+  { "id": 539, "kanji": "夢", "romaji": "yume", "meaning": "dream" },
+  {
+    "id": 540,
+    "kanji": "輸入",
+    "romaji": "yunyuu",
+    "meaning": "import, importation"
+  },
+  {
+    "id": 541,
+    "kanji": "揺れる",
+    "romaji": "yureru",
+    "meaning": "to shake, to sway"
+  },
+  { "id": 542, "kanji": "輸出", "romaji": "yushutsu", "meaning": "export" },
+  {
+    "id": 543,
+    "kanji": "夕食",
+    "romaji": "yuushoku",
+    "meaning": "evening meal, dinner"
+  },
+  {
+    "id": 544,
+    "kanji": "残念",
+    "romaji": "zannen",
+    "meaning": "deplorable, regret, bad luck"
+  },
+  {
+    "id": 545,
+    "kanji": "随分",
+    "romaji": "zuibun",
+    "meaning": "very, extremely, surprisingly"
+  }
+]

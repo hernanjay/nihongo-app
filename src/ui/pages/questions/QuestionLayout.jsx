@@ -1,12 +1,4 @@
-import {
-  Container,
-  Grid,
-  border,
-  useColorModeValue,
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-} from "@chakra-ui/react";
+import { Grid, useColorModeValue, Box, Spacer } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -18,108 +10,150 @@ import QuestionSideSets from "./QuestionSideSets";
 import QuestionList from "./QuestionList";
 import QuestionAnsweredTracker from "./QuestionAnsweredTracker";
 import Loader from "../../components/Loader";
-import QuestionSkeletonLoader from "../../components/QuestionSkeletonLoader";
+import QuestionSkeletonLoader from "../questionHomePage/QuestionSkeletonLoader";
+import ThemeColors from "../main/ThemeColors";
+import { fetchSpecificGrade } from "../../../logic/services/apiGrades";
+import {
+    fetchQuestions,
+    fetchQuestionsByIds,
+} from "../../../logic/services/apiQuestions";
+import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
 
 const QuestionLayout = () => {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
-  const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasSubmit, setHasSubmit] = useState(false);
+    const { bg, border } = ThemeColors();
+    const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasSubmit, setHasSubmit] = useState(false);
 
-  const {
-    questions,
-    answers,
-    dispatch: questionDispatch,
-  } = useQuestionContext();
+    const { dispatch: questionDispatch } = useQuestionContext();
 
-  const { user } = useUserContext();
+    const { user } = useUserContext();
 
-  const { dispatch: gradeDispatch } = useGradeContext();
+    const { dispatch: gradeDispatch } = useGradeContext();
 
-  const { level, type, set } = useParams();
+    const { level, type, set } = useParams();
 
-  const checked = questions?.map(
-    (qn, index) => qn.answer === answers[index] && true
-  );
+    // fetch the grades
+    useEffect(() => {
+        const fetchGradeAndQuestions = async () => {
+            setIsLoading(true);
+            try {
+                const specificGrade = await fetchSpecificGrade(
+                    user,
+                    level,
+                    type,
+                    set
+                );
 
-  useEffect(() => {
-    async function fetchQuestions() {
-      setIsLoading(true);
-      const res = await fetch(
-        `${
-          import.meta.env.VITE_LOCALHOST_API
-        }/api/questions/${level}-${type}-exercise-${set}`
-      );
+                // if specificGrade not equal to null it means the user already answered this set
+                if (specificGrade) {
+                    gradeDispatch({
+                        type: "receivedSpecificGrade",
+                        payload: specificGrade,
+                    });
 
-      const json = await res.json();
+                    const gradedQuestions = await fetchQuestionsByIds(
+                        specificGrade.idPerQuestion
+                    );
 
-      if (!res.ok) console.log(json.error);
-      setIsLoading(false);
-      if (res.ok) {
-        questionDispatch({ type: "questionReceived", payload: json });
-        setIsLoading(false);
-      }
-    }
-    fetchQuestions();
-  }, [level, type, set, questionDispatch]);
+                    questionDispatch({
+                        type: "questionReceived",
+                        payload: gradedQuestions,
+                    });
 
-  useEffect(() => {
-    async function fetchSpecificGrade() {
-      const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/grade`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId: user._id,
-            questionId: `${level}${type}${set}`,
-          }),
-        }
-      );
+                    questionDispatch({
+                        type: "gradedQnAnswers",
+                        payload: specificGrade.userAnswers,
+                    });
+                    setHasSubmit(true);
+                }
 
-      const json = await res.json();
+                if (!specificGrade) {
+                    const qn = await fetchQuestions(level, type, set);
+                    questionDispatch({
+                        type: "questionReceived",
+                        payload: qn,
+                    });
+                    questionDispatch({
+                        type: "clearAnswers",
+                    });
 
-      if (!res.ok) console.log(json.error);
+                    gradeDispatch({ type: "clearGradeBySet" });
 
-      if (res.ok)
-        gradeDispatch({ type: "receivedSpecificGrade", payload: json });
-    }
-    fetchSpecificGrade();
-  }, [user, level, type, set, gradeDispatch]);
+                    setHasSubmit(false);
+                }
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Error fetching specific grade:", error.message);
+            }
+        };
 
-  return (
-    <Container minW="98vw">
-      {isLoading && <Loader isLoading={isLoading} />}
-      <Loader />
-      <Grid
-        h={"100%"}
-        templateRows="repeat(1, 1fr)"
-        templateColumns="repeat(4, 1fr)"
-        gap={3}
-        pt="7.5vw"
-      >
-        <QuestionSideSets
-          bg={bg}
-          hoverColor={hoverColor}
-          type={type}
-          level={level}
-          setHasSubmit={setHasSubmit}
-        />
-        {isLoading ? (
-          <QuestionSkeletonLoader />
-        ) : (
-          <QuestionList bg={bg} hoverColor={hoverColor} hasSubmit={hasSubmit} />
-        )}
-        <QuestionAnsweredTracker
-          bg={bg}
-          border={border}
-          checked={checked}
-          hasSubmit={hasSubmit}
-          setHasSubmit={setHasSubmit}
-        />
-      </Grid>
-    </Container>
-  );
+        fetchGradeAndQuestions();
+    }, [user, level, type, set, gradeDispatch, questionDispatch]);
+
+    return (
+        <Box minW="100vw">
+            {isLoading && <Loader isLoading={isLoading} />}
+            <Loader />
+            <Spacer minH="10vh" />
+            <Box
+                id="questionLayoutContainer"
+                h="90vh"
+                overflow="auto"
+                overscrollBehavior="auto"
+                sx={{
+                    "&::-webkit-scrollbar": {
+                        width: "10px",
+                        borderRadius: "8px",
+                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
+                    },
+                }}
+            >
+                <Grid
+                    mx="2vw"
+                    h="100vh"
+                    templateRows="repeat(1, 1fr)"
+                    templateColumns="repeat(4, 1fr)"
+                    gap={3}
+                    pt="2.5vw"
+                >
+                    <QuestionSideSets
+                        bg={bg}
+                        hoverColor={hoverColor}
+                        type={type}
+                        level={level}
+                        setHasSubmit={setHasSubmit}
+                    />
+                    {isLoading ? (
+                        <QuestionSkeletonLoader />
+                    ) : (
+                        <QuestionList
+                            bg={bg}
+                            hoverColor={hoverColor}
+                            hasSubmit={hasSubmit}
+                        />
+                    )}
+                    <QuestionAnsweredTracker
+                        bg={bg}
+                        border={border}
+                        hasSubmit={hasSubmit}
+                        setHasSubmit={setHasSubmit}
+                        display={{ base: "none", lg: "block" }}
+                    />
+                    <QuestionAnsweredTrackerMobileWrapper>
+                        <QuestionAnsweredTracker
+                            bg={bg}
+                            border={border}
+                            hasSubmit={hasSubmit}
+                            setHasSubmit={setHasSubmit}
+                        />
+                    </QuestionAnsweredTrackerMobileWrapper>
+                </Grid>
+            </Box>
+        </Box>
+    );
 };
 export default QuestionLayout;

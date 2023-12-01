@@ -10,74 +10,80 @@ import {
   Heading,
   Input,
   Spacer,
-  useColorModeValue,
   Text,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
+  useBoolean,
 } from "@chakra-ui/react";
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
+import ThemeColors from "../main/ThemeColors";
+import { scrollTo } from "scroll-js";
 
 function KanaCards({ totalItems, kana, index }) {
-  const bg = useColorModeValue("light.400", "dark.100");
-  const border = useColorModeValue("dark.100", "light.400");
-  const popColor = useColorModeValue("gray.200", "dark.200");
+  const { body, bg, border, fontColor, success, error, warning, info } =
+    ThemeColors();
   const [isCorrect, setIsCorrect] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
-  const { kanaMode, kanaType, kanaGroup } = useKanaContext();
+  const { kanaType } = useKanaContext();
+  const [showAnswer, setShowAnswer] = useBoolean();
+  const [isFocused, setIsFocused] = useBoolean();
 
   return (
     <Card
       borderColor={border}
-      bg={isCorrect ? "green.100" : !isEmpty ? "red.200" : bg}
+      bg={isCorrect ? success : !isEmpty ? error : bg}
       variant={"outline"}
       boxShadow={"lg"}
     >
       <CardHeader>
         <Flex>
-          <Popover placement="right" autoFocus={false}>
-            <PopoverTrigger>
-              <Text style={{ cursor: "pointer" }} onClick={() => {}}>
-                ?
-              </Text>
-            </PopoverTrigger>
-            <PopoverContent bg={popColor} w="fit-content" pr="2vw">
-              <PopoverArrow bg={popColor} />
-              <PopoverCloseButton bg={popColor} />
-              <PopoverBody>
-                <Text>{`${
-                  kanaType === "hiragana" ? kana.hiragana : kana.katakana
-                } ・ ${kana.romaji}`}</Text>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-
+          <Text
+            fontSize="0.5em"
+            hidden={showAnswer || isCorrect}
+            cursor="pointer"
+            onClick={setShowAnswer.toggle}
+          >
+            Show Answer
+          </Text>
           <Spacer />
           <Text>{`${index + 1}/${totalItems}`}</Text>
         </Flex>
       </CardHeader>
       <CardBody>
-        <Heading fontSize="4vw" textAlign={"center"} m={2}>
-          {kanaType === "hiragana" ? kana.hiragana : kana.katakana}
+        <Heading
+          fontSize={{ base: "5vh", lg: "4vw" }}
+          textAlign={"center"}
+          m={{ base: "0", lg: "1vh" }}
+          h={{
+            base: "5vh",
+            lg: "10vh",
+          }}
+        >
+          {showAnswer
+            ? kana.romaji
+            : kanaType === "hiragana"
+            ? kana.hiragana
+            : kana.katakana}
         </Heading>
         <Input
           textAlign="center"
-          bg={isCorrect ? "white" : bg}
+          autocomplete="off"
+          focusBorderColor="gray.400"
+          // onFocus={setIsFocused.on}
+          onBlur={setIsFocused.off}
+          bg={bg}
           key={kana.romaji + index}
           id={`KanaCardsInput${index}`}
-          mt={10}
+          mt={{ base: "5vh", lg: "5.7vh" }}
           type="text"
-          autoComplete="off"
-          readOnly={isCorrect}
+          readOnly={isCorrect || showAnswer}
           onChange={(e) => {
-            if (e.target.value === kana.romaji) {
+            if (e.target.value.toLowerCase() === kana.romaji) {
               setIsCorrect(true);
               setIsEmpty(false);
-              if (index + 1 < totalItems)
-                document.getElementById(`KanaCardsInput${index + 1}`).focus();
+
+              const elem = document.getElementById(
+                `KanaCardsInput${index + 1}`
+              );
+              if (index + 1 < totalItems) elem.focus();
             } else {
               if (e.target.value === "") {
                 setIsEmpty(true);
@@ -87,9 +93,18 @@ function KanaCards({ totalItems, kana, index }) {
               }
             }
           }}
+          onFocus={() => {
+            setIsFocused.on;
+            const elem = document.getElementById(`KanaCardsInput${index}`);
+            if (index + 1 < totalItems) {
+              scrollTo(document.getElementById("kanaPageScroll"), {
+                top: elem.offsetParent.offsetTop - window.innerHeight * 0.05,
+              });
+            }
+          }}
         ></Input>
       </CardBody>
-      <CardFooter></CardFooter>
+      <CardFooter />
     </Card>
   );
 }

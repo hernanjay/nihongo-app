@@ -6,13 +6,13 @@ import { GradeContextProvider } from "../../logic/context/GradeContext";
 
 function ContextWrapper({ children }) {
   return (
-    <KanaContextProvider>
-      <UserContextProvider>
+    <UserContextProvider>
+      <KanaContextProvider>
         <QuestionContextProvider>
           <GradeContextProvider>{children}</GradeContextProvider>
         </QuestionContextProvider>
-      </UserContextProvider>
-    </KanaContextProvider>
+      </KanaContextProvider>
+    </UserContextProvider>
   );
 }
 

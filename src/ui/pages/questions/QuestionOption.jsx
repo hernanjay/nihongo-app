@@ -1,5 +1,7 @@
 import { Button, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
+import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
+import ThemeColors from "../main/ThemeColors";
 
 const QuestionOption = ({
   option,
@@ -11,8 +13,7 @@ const QuestionOption = ({
   answer,
   hasSubmit,
 }) => {
-  const border = useColorModeValue("dark.100", "light.400");
-
+  const { border } = ThemeColors();
   // get the index of the selected option
   const isSelected = selectedOption.index === index;
   // Check if already submit and selected option equal to answer
@@ -22,6 +23,7 @@ const QuestionOption = ({
 
   return (
     <Button
+      size={{ base: "sm", lg: "lg" }}
       fontWeight="light"
       isDisabled={hasSubmit}
       borderColor={border}

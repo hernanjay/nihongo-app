@@ -1,45 +1,98 @@
 import { Badge } from "@chakra-ui/layout";
-import { Progress } from "@chakra-ui/progress";
-import { Stat, StatArrow, StatLabel } from "@chakra-ui/stat";
 import { Td, Tr } from "@chakra-ui/table";
 import { useNavigate } from "react-router-dom";
-import { Text, HStack } from "@chakra-ui/react";
+import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
+import ThemeColors from "../pages/main/ThemeColors";
+import { useQuestionContext } from "../../logic/hooks/question/useQuestionContext";
 
-const QuestionSets = ({ index, type, level, set }) => {
+const QuestionSets = ({ type, level, set }) => {
+  const { hover } = ThemeColors();
   const navigate = useNavigate();
+  const { questionsQty } = useQuestionContext();
+  const { grades } = useGradeContext();
+
+  // check if what grade is in this set
+  const dynamicScore =
+    (type === "kanji" &&
+      grades?.kanjiGrades
+        ?.map(
+          (kanji) =>
+            kanji.questionSetId.slice(0, 1) === level &&
+            kanji.questionSetId.slice(-1) === set &&
+            kanji.score
+        )
+        .filter((kanjiScore) => kanjiScore)
+        .at(0)) ||
+    (type === "vocab" &&
+      grades?.vocabGrades
+        ?.map(
+          (vocab) =>
+            vocab.questionSetId.slice(0, 1) === level &&
+            vocab.questionSetId.slice(-1) === set &&
+            vocab.score
+        )
+        ?.filter((vocabScore) => vocabScore)
+        .at(0)) ||
+    (type === "grammar" &&
+      grades?.grammarGrades
+        ?.map(
+          (grammar) =>
+            grammar.questionSetId.slice(0, 1) === level &&
+            grammar.questionSetId.slice(-1) === set &&
+            grammar.score
+        )
+        .filter((grammarScore) => grammarScore)
+        .at(0)) ||
+    null;
+
+  let numOfItems =
+    (type === "kanji" &&
+      questionsQty?.map((qn) => {
+        const { _id, count } = qn;
+        return (
+          _id.level == level && _id.type == "kanji" && _id.set == set && count
+        );
+      })) ||
+    (type === "vocab" &&
+      questionsQty?.map((qn) => {
+        const { _id, count } = qn;
+        return (
+          _id.level === level &&
+          _id.type === "vocab" &&
+          _id.set === set &&
+          count
+        );
+      })) ||
+    (type === "grammar" &&
+      questionsQty?.map((qn) => {
+        const { _id, count } = qn;
+        return (
+          _id.level === level &&
+          _id.type === "grammar" &&
+          _id.set === set &&
+          count
+        );
+      }));
+
   function setQuestionStatus() {
-    let x = Math.round(Math.random() * (2 - 0) + 0);
-    if (x === 0) {
-      return <Badge colorScheme="green">Success</Badge>;
-    } else if (x === 1) {
+    if (dynamicScore > 7) {
+      return <Badge colorScheme="green">Pass</Badge>;
+    } else if (dynamicScore < 8 && dynamicScore != null) {
       return <Badge colorScheme="red">Fail</Badge>;
     } else {
-      return <Badge colorScheme="teal">New</Badge>;
+      return <Badge colorScheme="gray">pending</Badge>;
     }
   }
   return (
-    <Tr key={index}>
+    <Tr key={`questions/n${level}/${type}/${set}`} _hover={{ bg: hover }}>
       <Td
         onClick={() => navigate(`questions/n${level}/${type}/${set}`)}
         style={{ cursor: "pointer" }}
       >
-        {`Question : ${index + 1}`}
+        {`Question : ${set}`}
       </Td>
-      <Td>
-        <Progress value={Math.round(Math.random() * (100 - 75) + 75)} />{" "}
-      </Td>
-      <Td isNumeric>
-        <Stat>
-          <StatLabel>
-            {Math.round(Math.random()) ? (
-              <StatArrow type="increase" />
-            ) : (
-              <StatArrow type="decrease" />
-            )}
-            {Math.round(Math.random() * (100 - 75) + 75)}
-          </StatLabel>
-        </Stat>
-      </Td>
+      <Td>{numOfItems}</Td>
+      <Td isNumeric>{dynamicScore || null}</Td>
       <Td isNumeric>{setQuestionStatus()}</Td>
     </Tr>
   );
