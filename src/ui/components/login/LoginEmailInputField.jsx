@@ -32,7 +32,7 @@ function LoginEmailInputField({
           <Input
             fontSize={{ base: "0.75em", lg: "1em" }}
             id="login-username-input"
-            placeholder="Email"
+            placeholder=" Enter your email."
             colorScheme="blackAlpha"
             type="text"
             value={email}
@@ -44,9 +44,6 @@ function LoginEmailInputField({
           />
         </InputGroup>
       </LoginFormPopOverAlert>
-      <FormHelperText fontSize={{ base: "0.75em", lg: "1em" }}>
-        Enter your email.
-      </FormHelperText>
     </>
   );
 }

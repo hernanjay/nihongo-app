@@ -84,6 +84,8 @@ function KanaSelectorTabSide() {
         p="5"
         boxShadow="lg"
         borderRadius="lg"
+        borderWidth={"1px"}
+        borderColor={border}
       >
         <Button
           bg={bg}
@@ -110,6 +112,8 @@ function KanaSelectorTabSide() {
         p="5"
         boxShadow="lg"
         borderRadius="lg"
+        borderWidth={"1px"}
+        borderColor={border}
       >
         <Button
           variant="outline"
@@ -160,6 +164,8 @@ function KanaSelectorTabSide() {
         p="5"
         boxShadow="lg"
         borderRadius="lg"
+        borderWidth={"1px"}
+        borderColor={border}
       >
         <KanaSelectorButtonGroup
           mode={"main"}
@@ -178,6 +184,8 @@ function KanaSelectorTabSide() {
         p="5"
         boxShadow="lg"
         borderRadius="lg"
+        borderWidth={"1px"}
+        borderColor={border}
       >
         <KanaSelectorButtonGroup
           mode={"dakuten"}
@@ -196,6 +204,8 @@ function KanaSelectorTabSide() {
         p="5"
         boxShadow="lg"
         borderRadius="lg"
+        borderWidth={"1px"}
+        borderColor={border}
       >
         <KanaSelectorButtonGroup
           mode={"combination"}

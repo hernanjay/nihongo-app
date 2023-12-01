@@ -194,7 +194,7 @@ export default function Register() {
           boxShadow="lg"
           px="5"
           py="5"
-          mt="10vh"
+          mt="5vh"
         >
           <CardBody>
             <Text fontSize="4xl">Register</Text>
@@ -225,11 +225,10 @@ export default function Register() {
                 >
                   <PopoverTrigger>
                     <InputGroup size="sm">
-                      <InputLeftAddon children="@" />
                       <Input
                         id="register-username-input"
                         type="text"
-                        placeholder="Username"
+                        placeholder="Enter Username"
                         colorScheme="blackAlpha"
                         name="username"
                         value={formData.username}
@@ -244,7 +243,6 @@ export default function Register() {
                     </PopoverBody>
                   </PopoverContent>
                 </Popover>
-                <FormHelperText>Enter your username.</FormHelperText>
                 {/*Email Input Form*/}
                 <FormLabel mt="3">Email</FormLabel>
                 <Popover
@@ -260,7 +258,7 @@ export default function Register() {
                     <InputGroup size="sm">
                       <Input
                         id="register-email-input"
-                        placeholder="Email"
+                        placeholder="Enter Email"
                         colorScheme="blackAlpha"
                         type="text"
                         name="email"
@@ -277,7 +275,6 @@ export default function Register() {
                     </PopoverBody>
                   </PopoverContent>
                 </Popover>
-                <FormHelperText>Enter your email.</FormHelperText>
                 {/* Password Input Form */}
                 <FormLabel mt="3">Password</FormLabel>
                 <InputGroup size="sm">
@@ -288,6 +285,7 @@ export default function Register() {
                     name="password"
                     value={formData.password}
                     onChange={(e) => handleChangeFormData(e)}
+                    mb="1.25em"
                   />
                   <InputRightElement mr={3}>
                     <IconButton
@@ -299,7 +297,6 @@ export default function Register() {
                     />
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText>Enter your password.</FormHelperText>
                 <FormHelperText
                   color={isPassValidLength ? "green.300" : "gray.400"}
                 >
@@ -326,6 +323,7 @@ export default function Register() {
                 </FormHelperText>
                 <FormHelperText
                   color={isPassContainSpecial ? "green.300" : "gray.400"}
+                  mb="1.25em"
                 >
                   <ChevronRightIcon />
                   Password must contain at least one special character.
@@ -353,7 +351,6 @@ export default function Register() {
                     />
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText>Enter your password again.</FormHelperText>
                 <FormHelperText
                   hidden={
                     isSamePassword ||
@@ -373,7 +370,7 @@ export default function Register() {
                     colorScheme="gray"
                     variant="outline"
                     borderColor={border}
-                    mt={3}
+                    my="1.5em"
                     type="submit"
                     isDisabled={
                       isLoading ||

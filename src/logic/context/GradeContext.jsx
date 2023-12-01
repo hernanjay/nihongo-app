@@ -29,24 +29,51 @@ const gradeReducer = (state, action) => {
             // Assuming you have separate properties for kanjiGrades, vocabGrades, and grammarGrades
             const updatedGrades = { ...state.grades };
 
-            if (type === "kanji") {
-                // we need to assign the updatedGrades to empty array if there are no grades yet
-                updatedGrades.kanjiGrades = [
-                    ...(updatedGrades.kanjiGrades || []),
-                    data,
-                ];
-            } else if (type === "vocab") {
-                updatedGrades.vocabGrades = [
-                    ...(updatedGrades.vocabGrades || []),
-                    data,
-                ];
-            } else if (type === "grammar") {
-                updatedGrades.grammarGrades = [
-                    ...(updatedGrades.grammarGrades || []),
-                    data,
-                ];
-            }
+            let isGradedIndex;
 
+            if (type === "kanji") {
+                const kanjiGrades = updatedGrades.kanjiGrades || [];
+
+                isGradedIndex = kanjiGrades.findIndex(
+                    (grades) => grades?.questionSetId === data.questionSetId
+                );
+
+                if (isGradedIndex !== -1) {
+                    kanjiGrades[isGradedIndex] = data;
+                } else {
+                    kanjiGrades.push(data);
+                }
+
+                updatedGrades.kanjiGrades = kanjiGrades;
+            } else if (type === "vocab") {
+                const vocabGrades = updatedGrades.vocabGrades || [];
+
+                isGradedIndex = vocabGrades.findIndex(
+                    (grades) => grades?.questionSetId === data.questionSetId
+                );
+
+                if (isGradedIndex !== -1) {
+                    vocabGrades[isGradedIndex] = data;
+                } else {
+                    vocabGrades.push(data);
+                }
+
+                updatedGrades.vocabGrades = vocabGrades;
+            } else if (type === "grammar") {
+                const grammarGrades = updatedGrades.grammarGrades || [];
+
+                isGradedIndex = grammarGrades.findIndex(
+                    (grades) => grades?.questionSetId === data.questionSetId
+                );
+
+                if (isGradedIndex !== -1) {
+                    grammarGrades[isGradedIndex] = data;
+                } else {
+                    grammarGrades.push(data);
+                }
+
+                updatedGrades.grammarGrades = grammarGrades;
+            }
             return {
                 ...state,
                 grades: updatedGrades,

@@ -67,8 +67,27 @@ function Userlist() {
   }, [toast]);
   return (
     <>
-      <Box pt={"10vw"} pb={"5vw"}>
-        <Container maxW="container.xl" p="5" borderRadius="10" bg={"white"}>
+      <Box pt={"5vw"} pb={"5vw"}>
+        <Container
+          maxW="container.xl"
+          p="5"
+          borderRadius="10"
+          bg={"white"}
+          h="90vh"
+          maxH="90vh"
+          overflow="auto"
+          overscrollBehavior="auto"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: "12px",
+              borderRadius: "8px",
+              backgroundColor: `rgba(0, 0, 0, 0.25)`,
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: `rgba(0, 0, 0, 0.25)`,
+            },
+          }}
+        >
           <TableContainer>
             <Table variant="simple">
               <Thead>

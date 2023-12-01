@@ -1,4 +1,11 @@
-import { Box, Checkbox, Flex, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
@@ -10,7 +17,7 @@ function KanaSelectorButtonGroup({
   selectedGroupSetter,
   label,
 }) {
-  const { body, bg, border, fontColor, success, error, warning, info } =
+  const { body, bg, border, fontColor, success, error, warning, info, hover } =
     ThemeColors();
 
   //Stores Truthy value of all buttons
@@ -21,7 +28,11 @@ function KanaSelectorButtonGroup({
       if (storedKanaGroup) {
         const splitKanaGroup = storedKanaGroup.split(",");
         const strippedDownValue = value.split("・")[1];
-        if (splitKanaGroup.includes(strippedDownValue)) items.push(true);
+        if (splitKanaGroup.includes(strippedDownValue)) {
+          items.push(true);
+        } else {
+          items.push(false);
+        }
       } else {
         items.push(false);
       }
@@ -37,11 +48,13 @@ function KanaSelectorButtonGroup({
   return (
     <Box textAlign="center">
       <Flex mb="1.5vh">
-        <Box
-          textAlign="start"
+        <Button
+          _hover={{ bg: allChecked ? success : hover }}
+          textAlign="center"
           cursor="pointer"
           border="1px"
           borderRadius="md"
+          bg={allChecked ? success : bg}
           borderColor={border}
           py="1vh"
           fontWeight="normal"
@@ -67,20 +80,20 @@ function KanaSelectorButtonGroup({
             selectedGroupSetter(selectedKana);
           }}
         >
-          <Checkbox
-            id={`ButtonGroupAll${label}`}
-            isChecked={allChecked}
-            isIndeterminate={isIndeterminate}
-            colorScheme="green"
-            key={`ButtonGroupAllMainKana`}
-            fontWeight="normal"
-            ml={{ base: "2.5vw", lg: "1vw" }}
-            py="1"
-          ></Checkbox>
-          <Box minW="80%" display="inline-block" textAlign="center">
+          {/* <Checkbox
+              id={`ButtonGroupAll${label}`}
+              isChecked={allChecked}
+              isIndeterminate={isIndeterminate}
+              colorScheme="green"
+              key={`ButtonGroupAllMainKana`}
+              fontWeight="normal"
+              ml={{ base: "2.5vw", lg: "1vw" }}
+              py="1"
+            ></Checkbox> */}
+          <Text minW="80%" display="inline-block" textAlign="center">
             {label}
-          </Box>
-        </Box>
+          </Text>
+        </Button>
       </Flex>
       <SimpleGrid columns={mode === "dakuten" ? 1 : 2} gap={2.5}>
         {kanaGroup.map((kana, index) => {
@@ -90,6 +103,7 @@ function KanaSelectorButtonGroup({
               border="1px"
               borderRadius="md"
               borderColor={border}
+              bg={checkedItems[index] ? success : bg}
               py="1vh"
               minW="47.5%"
               cursor="pointer"
@@ -112,21 +126,19 @@ function KanaSelectorButtonGroup({
                 selectedGroupSetter(selectedKana);
               }}
             >
-              <Checkbox
-                isFocusable={false}
-                id={`ButtonGroup${kana}:${index}`}
-                isChecked={checkedItems[index]}
-                key={`ButtonGroup${kana}:${index}`}
-                value={kana}
-                colorScheme="green"
-                fontSize="2vh"
-                fontWeight="light"
-                ml="0.25vw"
-                py="1"
-              ></Checkbox>
-              <Box minW="80%" display="inline-block" textAlign="center">
-                {kana}
-              </Box>
+              {/* <Checkbox
+                  isFocusable={false}
+                  id={`ButtonGroup${kana}:${index}`}
+                  isChecked={checkedItems[index]}
+                  key={`ButtonGroup${kana}:${index}`}
+                  value={kana}
+                  colorScheme="green"
+                  fontSize="2vh"
+                  fontWeight="light"
+                  ml="0.25vw"
+                  py="1"
+                ></Checkbox> */}
+              <Text textAlign="center">{kana}</Text>
             </Box>
           );
         })}

@@ -19,9 +19,12 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import NavbarLogoutButton from "./NavbarLogoutButton";
 import { useLogout } from "../../../logic/hooks/user/useLogout";
+import ThemeColors from "../../pages/main/ThemeColors";
 
 function NavbarUserMenu() {
   const { user } = useUserContext();
+  const { body, bg, border, fontColor, success, error, warning, info, hover } =
+    ThemeColors();
 
   const { logout } = useLogout();
   return (
@@ -37,19 +40,42 @@ function NavbarUserMenu() {
           </Avatar>
         }
       />
-      <MenuList>
-        <MenuItem icon={<ChevronRightIcon />} as={Link} to="/">
+      <MenuList bg={bg}>
+        <MenuItem
+          bg="transparent"
+          _hover={{ bg: hover }}
+          icon={<ChevronRightIcon />}
+          as={Link}
+          to="/"
+        >
           <Text>Home</Text>
         </MenuItem>
         {user.role === "admin" && (
-          <MenuItem icon={<ChevronRightIcon />} as={Link} to="/admin">
+          <MenuItem
+            bg="transparent"
+            _hover={{ bg: hover }}
+            icon={<ChevronRightIcon />}
+            as={Link}
+            to="/admin"
+          >
             Admin Dashboard
           </MenuItem>
         )}
-        <MenuItem icon={<ChevronRightIcon />} as={Link} to="/userprofile">
+        <MenuItem
+          bg="transparent"
+          icon={<ChevronRightIcon />}
+          _hover={{ bg: hover }}
+          as={Link}
+          to="/userprofile"
+        >
           User Profile
         </MenuItem>
-        <NavbarLogoutButton icon={<ChevronRightIcon />} onClick={logout}>
+        <NavbarLogoutButton
+          bg="transparent"
+          icon={<ChevronRightIcon />}
+          _hover={{ bg: hover }}
+          onClick={logout}
+        >
           Logout
         </NavbarLogoutButton>
       </MenuList>

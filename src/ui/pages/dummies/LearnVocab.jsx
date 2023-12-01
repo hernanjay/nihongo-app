@@ -4,50 +4,47 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Center,
   Container,
   Divider,
+  Flex,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
+  ListIcon,
   ListItem,
   OrderedList,
   SimpleGrid,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import data from "../../../assets/vocabList.json";
 import ThemeColors from "../main/ThemeColors";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { useEffect } from "react";
+import VocabListFactory from "../../../logic/objects/VocabListFactory";
 
 function LearnVocab() {
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
-
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState(data.n4);
+  const [searchResults, setSearchResults] = useState(new VocabListFactory());
 
   function search() {
-    return data.n4.filter((param) => {
+    return data.vocabList.filter((param) => {
       return (
         param.kanji.includes(searchValue) || param.romaji.includes(searchValue)
       );
     });
   }
 
-  // async function getList() {
-  //   return await value.meaning.split(",").map((str) => {
-  //     return (
-  //       <ListItem fontWeight="light" fontSize="0.9em" color={fontColor}>
-  //         {str}
-  //       </ListItem>
-  //     );
-  //   });
-  // }
+  function getList(value) {
+    return value.meaning.split(",").map((str) => {
+      return (
+        <ListItem fontWeight="light" fontSize="0.9em" color={fontColor}>
+          {str}
+        </ListItem>
+      );
+    });
+  }
 
   return (
     <Box minH={"100vh"}>
@@ -59,7 +56,7 @@ function LearnVocab() {
         position="fixed"
         bg={bg}
         borderRadius="lg"
-        zIndex="5"
+        zIndex="3"
       >
         <InputGroup>
           <Input
@@ -72,7 +69,6 @@ function LearnVocab() {
             <SearchIcon
               color="green.500"
               onClick={() => {
-                console.log(search());
                 setSearchResults(search());
               }}
             />
@@ -98,7 +94,7 @@ function LearnVocab() {
       >
         <Container mb="5vh" minW="80vw">
           <SimpleGrid mt="10vh" columns={5} gap={10}>
-            {searchResults.map((value) => {
+            {searchResults.map((value, index) => {
               return (
                 <Card bg={bg} boxShadow="lg">
                   <CardHeader>
@@ -116,18 +112,7 @@ function LearnVocab() {
                   </CardBody>
                   <CardFooter>
                     <OrderedList justifyContent="start" alignContent="left">
-                      {/* {value.meaning.split(",").map((str) => {
-                        return (
-                          <ListItem
-                            fontWeight="light"
-                            fontSize="0.9em"
-                            color={fontColor}
-                          >
-                            {str}
-                          </ListItem>
-                        );
-                      })} */}
-                      {/* {getList()} */}
+                      {getList(value)}
                     </OrderedList>
                   </CardFooter>
                 </Card>

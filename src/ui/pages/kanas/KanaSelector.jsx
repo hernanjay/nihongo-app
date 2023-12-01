@@ -1,7 +1,28 @@
 //#region Imports
 import React, { useState } from "react";
 
-import { Button, Container, Divider, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  GridItem,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  SimpleGrid,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,12 +37,15 @@ import {
 import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
 
 import ThemeColors from "../main/ThemeColors";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 //#endregion
 
 function KanaSelector({ type }) {
   //Importing app theme colors
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //#region Variable decleration
   const navigate = useNavigate();
@@ -134,13 +158,70 @@ function KanaSelector({ type }) {
                 ],
               });
               kanaDispatch({ type: "typeSet", payload: type });
-              navigate("/kana-quiz");
+              // navigate("/kana-quiz");
+              onOpen();
             }}
           >
             Load Selected Kana
           </Button>
         </GridItem>
       </Grid>
+
+      <Modal
+        isCentered
+        onClose={onClose}
+        isOpen={isOpen}
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay />
+        <ModalContent bg={bg}>
+          <ModalHeader>Kanas To load</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <SimpleGrid columns={kanaGroup.length ? 5 : 1} spacing={3}>
+              {kanaGroup.length ? (
+                kanaGroup.map((value) => {
+                  return (
+                    <Tag
+                      size="md"
+                      minW="3em"
+                      key={value}
+                      borderRadius="full"
+                      variant="outline"
+                    >
+                      <TagLabel p="0.25em" textAlign="center">
+                        <Text>
+                          <ChevronRightIcon mr="0.25em" />
+                          {value}
+                        </Text>
+                      </TagLabel>
+                    </Tag>
+                  );
+                })
+              ) : (
+                <Text>
+                  <ChevronRightIcon mr="0.25em" />
+                  Select Kanas to load
+                </Text>
+              )}
+            </SimpleGrid>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              isDisabled={!kanaGroup.length}
+              colorScheme="blue"
+              onClick={() => {
+                navigate("/kana-quiz");
+              }}
+            >
+              Proceed
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Container>
   );
 }
