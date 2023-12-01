@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
+import { useKanaContext } from "../hooks/kana/useKanaContext";
 
 export const UserContext = createContext();
 
