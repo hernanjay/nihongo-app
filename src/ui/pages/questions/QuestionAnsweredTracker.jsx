@@ -126,7 +126,6 @@ const QuestionAnsweredTracker = ({
                                             ? "blue.300"
                                             : bg
                                     }
-                                    cursor="pointer"
                                     onClick={() => {
                                         const targetElement =
                                             document.getElementById(
