@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import {
     Chart as ChartJS,
     BarElement,
@@ -29,22 +29,18 @@ function ChartComp() {
         indexAxis: "x",
     };
 
-    return (
-        <div>
-            <Box h="50px" p="15px" bg="blue.800">
-                <Text
-                    fontSize="lg"
-                    fontWeight="extrabold"
-                    color="whiteAlpha.900"
-                >
-                    Learners per Level
-                </Text>
-            </Box>
-            <div>
-                <Bar data={data} options={options}></Bar>
-            </div>
-        </div>
-    );
+  return (
+    <Flex flexDir={"column"} minH="33rem">
+      <Box h="50px" p="15px" bg="blue.800">
+        <Text fontSize="lg" fontWeight="extrabold" color="whiteAlpha.900">
+          Learners per Level
+        </Text>
+      </Box>
+      <Flex justifyContent={"center"} minH={{base:"5rem", lg:"20rem"}}>
+        <Bar data={data} options={options}></Bar>
+      </Flex>
+    </Flex>
+  );
 }
 
-export default ChartComp;
+export default ChartComp; 

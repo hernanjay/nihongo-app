@@ -3,8 +3,6 @@ import { createContext, useReducer } from "react";
 
 export const KanaContext = createContext();
 
-const salt = "lmao";
-
 let initialState = {
   kanaData: [],
   kanaMode: "",
@@ -36,6 +34,14 @@ const kanaReducer = (state, action) => {
       return {
         ...state,
         kanaGroup: action.payload,
+      };
+    case "clear":
+      sessionStorage.clear();
+      return {
+        kanaData: [],
+        kanaMode: "",
+        kanaType: "",
+        kanaGroup: "",
       };
     default:
       return state;

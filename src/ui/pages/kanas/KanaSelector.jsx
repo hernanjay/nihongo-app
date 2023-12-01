@@ -158,7 +158,6 @@ function KanaSelector({ type }) {
                 ],
               });
               kanaDispatch({ type: "typeSet", payload: type });
-              // navigate("/kana-quiz");
               onOpen();
             }}
           >
