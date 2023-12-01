@@ -51,7 +51,6 @@ function KanaSelectorButtonGroup({
         <Button
           _hover={{ bg: allChecked ? success : hover }}
           textAlign="center"
-          cursor="pointer"
           border="1px"
           borderRadius="md"
           bg={allChecked ? success : bg}
@@ -98,7 +97,8 @@ function KanaSelectorButtonGroup({
       <SimpleGrid columns={mode === "dakuten" ? 1 : 2} gap={2.5}>
         {kanaGroup.map((kana, index) => {
           return (
-            <Box
+            <Button
+              _hover={{ bg: allChecked ? success : hover }}
               key={`ButtonGroup${kana}:${index}`}
               border="1px"
               borderRadius="md"
@@ -107,6 +107,7 @@ function KanaSelectorButtonGroup({
               py="1vh"
               minW="47.5%"
               cursor="pointer"
+              fontWeight="normal"
               onClick={() => {
                 let items = [];
                 let selectedKana = selectedGroup;
@@ -139,7 +140,7 @@ function KanaSelectorButtonGroup({
                   py="1"
                 ></Checkbox> */}
               <Text textAlign="center">{kana}</Text>
-            </Box>
+            </Button>
           );
         })}
       </SimpleGrid>
