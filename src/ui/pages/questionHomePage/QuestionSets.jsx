@@ -73,7 +73,7 @@ const QuestionSets = ({ type, level, set }) => {
                 );
             }));
 
-    // type === "vocab" && level == 5 && set == 1 && console.log(dynamicScore);
+    // type === "kanji" && level == 5 && set == 1 && console.log(grades);
     function setQuestionStatus() {
         if (dynamicScore > 7) {
             return <Badge colorScheme="green">Pass</Badge>;

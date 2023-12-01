@@ -67,7 +67,7 @@ export async function addScore(
     );
 
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/grades/add-grades`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/add-grades`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },

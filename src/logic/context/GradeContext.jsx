@@ -32,52 +32,48 @@ const gradeReducer = (state, action) => {
             let isGradedIndex;
 
             if (type === "kanji") {
-                isGradedIndex = updatedGrades.kanjiGrades
-                    .map(
-                        (grades, index) =>
-                            grades.questionSetId === data.questionSetId && index
-                    )
-                    .filter((kanjiIndex) => kanjiIndex === 0 || kanjiIndex);
+                const kanjiGrades = updatedGrades.kanjiGrades || [];
 
-                // we need to assign the updatedGrades to empty array if there are no grades yet
-                isGradedIndex[0] || isGradedIndex[0] === 0
-                    ? (updatedGrades.kanjiGrades[isGradedIndex] = data)
-                    : (updatedGrades.kanjiGrades = [
-                          ...(updatedGrades.kanjiGrades || []),
-                          data,
-                      ]);
+                isGradedIndex = kanjiGrades.findIndex(
+                    (grades) => grades?.questionSetId === data.questionSetId
+                );
+
+                if (isGradedIndex !== -1) {
+                    kanjiGrades[isGradedIndex] = data;
+                } else {
+                    kanjiGrades.push(data);
+                }
+
+                updatedGrades.kanjiGrades = kanjiGrades;
             } else if (type === "vocab") {
-                isGradedIndex = updatedGrades.vocabGrades
-                    .map(
-                        (grades, index) =>
-                            grades.questionSetId === data.questionSetId && index
-                    )
-                    .filter((vocabIndex) => vocabIndex === 0 || vocabIndex);
+                const vocabGrades = updatedGrades.vocabGrades || [];
 
-                isGradedIndex[0] || isGradedIndex[0] === 0
-                    ? (updatedGrades.vocabGrades[isGradedIndex] = data)
-                    : (updatedGrades.vocabGrades = [
-                          ...(updatedGrades.vocabGrades || []),
-                          data,
-                      ]);
+                isGradedIndex = vocabGrades.findIndex(
+                    (grades) => grades?.questionSetId === data.questionSetId
+                );
+
+                if (isGradedIndex !== -1) {
+                    vocabGrades[isGradedIndex] = data;
+                } else {
+                    vocabGrades.push(data);
+                }
+
+                updatedGrades.vocabGrades = vocabGrades;
             } else if (type === "grammar") {
-                isGradedIndex = updatedGrades.grammarGrades
-                    .map(
-                        (grades, index) =>
-                            grades.questionSetId === data.questionSetId && index
-                    )
-                    .filter(
-                        (grammarIndex) => grammarIndex === 0 || grammarIndex
-                    );
+                const grammarGrades = updatedGrades.grammarGrades || [];
 
-                isGradedIndex[0] || isGradedIndex[0] === 0
-                    ? (updatedGrades.grammarGrades[isGradedIndex] = data)
-                    : (updatedGrades.grammarGrades = [
-                          ...(updatedGrades.grammarGrades || []),
-                          data,
-                      ]);
+                isGradedIndex = grammarGrades.findIndex(
+                    (grades) => grades?.questionSetId === data.questionSetId
+                );
+
+                if (isGradedIndex !== -1) {
+                    grammarGrades[isGradedIndex] = data;
+                } else {
+                    grammarGrades.push(data);
+                }
+
+                updatedGrades.grammarGrades = grammarGrades;
             }
-
             return {
                 ...state,
                 grades: updatedGrades,
