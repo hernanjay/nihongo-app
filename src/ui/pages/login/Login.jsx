@@ -80,7 +80,7 @@ export default function Login() {
                   <Spacer />
                   <Link
                     fontSize={{ base: "0.75em", lg: "1em" }}
-                    mb={{ base: "1.5em", lg: "1em" }}
+                    my={{ base: "1.5em", lg: "1em" }}
                     onClick={() => {
                       navigate("/recovery");
                     }}

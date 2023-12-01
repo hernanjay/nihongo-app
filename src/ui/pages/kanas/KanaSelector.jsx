@@ -174,7 +174,7 @@ function KanaSelector({ type }) {
         motionPreset="slideInBottom"
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={bg}>
           <ModalHeader>Kanas To load</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

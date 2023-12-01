@@ -1,4 +1,7 @@
 {
+  "n1": [],
+  "n2": [],
+  "n3": [],
   "n4": [
     {
       "id": 1,
@@ -2779,5 +2782,6 @@
       "romaji": "zuibun",
       "meaning": "very, extremely, surprisingly"
     }
-  ]
+  ],
+  "n5": []
 }
