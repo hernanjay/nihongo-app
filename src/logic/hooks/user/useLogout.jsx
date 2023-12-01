@@ -10,6 +10,7 @@ export const useLogout = () => {
   const logout = () => {
     // remove token from local storage
     localStorage.removeItem("token");
+    sessionStorage.clear();
     dispatch({ type: "LOGOUT" });
     navigate("/login");
     toast({

@@ -17,19 +17,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-// import data from "../../../assets/vocabList.json";
 import ThemeColors from "../main/ThemeColors";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import VocabListN4 from "../../../logic/objects/VocabListN4";
 import VocabListFactory from "../../../logic/objects/VocabListFactory";
 
 function LearnVocab() {
-  const data = new VocabListFactory();
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState(data.vocabList);
+  const [searchResults, setSearchResults] = useState(new VocabListFactory());
 
   function search() {
     return data.vocabList.filter((param) => {

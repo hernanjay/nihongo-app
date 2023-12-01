@@ -1,8 +1,8 @@
-import data from "../../assets/vocabList.json";
+import data from "../../assets/vocabListN4.json";
 
 export default class VocabListN4 {
   constructor() {
-    this.vocabList = data.n4;
+    this.vocabList = data;
   }
 
   get specificList() {
