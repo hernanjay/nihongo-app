@@ -26,7 +26,7 @@ function LearnVocab() {
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState(new VocabListFactory());
+  const [searchResults, setSearchResults] = useState(new VocabListFactory(4));
 
   function search() {
     return data.vocabList.filter((param) => {
