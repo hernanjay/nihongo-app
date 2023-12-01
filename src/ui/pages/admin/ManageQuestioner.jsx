@@ -9,7 +9,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   // AvatarGroup,
-  Icon,
   IconButton,
   Table,
   Thead,
@@ -28,7 +27,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
+  // ModalCloseButton,
   ModalBody,
   ModalFooter,
   useDisclosure,
@@ -38,24 +37,77 @@ import {
   Select,
   Grid,
   Textarea,
-  Radio,
 } from "@chakra-ui/react";
 import {
-  FiEdit,
   FiUser,
   FiPaperclip,
   FiUserCheck,
-  FiEye,
-  FiTrash,
   FiPlusCircle,
   FiPlus,
-  FiMinus,
+  // FiMinus,
+  // FiFilePlus,
 } from "react-icons/fi";
 import { TriangleDownIcon } from "@chakra-ui/icons";
-export default function List() {
-  //   const [display, changeDisplay] = useState("hide");
-  const [Setvisible] = useState("true");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+//   const [display, changeDisplay] = useState("hide");
+function ManageQuestioner() {
+  const [inputFields, setInputFields] = useState([]);
+  const [translationFields, setTranslationFields] = useState([]);
+  // const [tableData, setTableData] = useState([]);
+  // const [selectTypeValue, setSelectTypeValue] = useState("");
+  // const [addButtonClicked, setAddButtonClicked] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure({
+    closeOnOverlayClick: false,
+    closeOnEsc: false,
+  });
+
+  const addInput = () => {
+    if (inputFields.length < 4) {
+      setInputFields([...inputFields, ""]);
+    }
+  };
+  
+  const addTranslationInput = () => {
+    if (translationFields.length < 4) {
+      setTranslationFields([...translationFields, ""]);
+    }
+  };
+
+  const inputChange = (index, value) => {
+    const updatedFields = [...inputFields];
+    updatedFields[index] = value;
+    setInputFields(updatedFields);
+  };
+
+  const translationInputChange = (index, value) => {
+    const updatedFields = [...translationFields];
+    updatedFields[index] = value;
+    setTranslationFields(updatedFields);
+  };
+
+  const resetFields = () => {
+    setInputFields([]);
+    setTranslationFields([]);
+    onClose();
+  };
+
+  const saveBtn = () => {
+    // Combine input fields and translation fields into a single entry
+    // const entry = {
+    //   options: inputFields,
+    //   translation: translationFields,
+    // };
+
+    // Update the table data
+    // setTableData((prevTableData) => [...prevTableData, entry]);
+
+    // Reset input fields
+    setInputFields([]);
+    setTranslationFields([]);
+
+    // Close the modal
+    onClose();
+  };
+
   const size = ["lg"];
   return (
     <Box>
@@ -109,22 +161,64 @@ export default function List() {
             <Heading mt={5} as="h2" size="lg" letterSpacing="tight">
               Manage Questionnaires
             </Heading>
-            {/* <Text fontSize="sm" color="gray" ml={4}>
-              November 2023
-            </Text> */}
           </Flex>
           <Box h="10%" alignSelf="flex-end">
             <Button leftIcon={<FiPlusCircle />} onClick={onOpen} bg="white">
               Add Question
             </Button>
 
-            <Modal isOpen={isOpen} size={size} onClose={onClose}>
+            <Modal isOpen={isOpen} size={size} isCloseable={false}>
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>Questionnaire Form</ModalHeader>
-                <ModalCloseButton />
+                {/* <ModalCloseButton /> */}
                 <ModalBody>
-                  <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                  <FormControl isRequired>
+                    <FormLabel>Question</FormLabel>
+                    <Textarea placeholder="Write Question" />
+                  </FormControl>
+                  <Box mt={5} mb={5}>
+                    <FormControl isRequired>
+                      <FormLabel>options:</FormLabel>
+                      <Box>
+                        <IconButton icon={<FiPlus />} onClick={addInput} />
+                        {inputFields.map((value, index) => (
+                          <Flex key={index} mt={5} mb={5}>
+                            {index <= 3 && (
+                              <>
+                                <FormLabel
+                                  mt={2}
+                                  htmlFor={`inputField-${index + 1}`}
+                                >{`${String.fromCharCode(
+                                  65 + index
+                                )}.`}</FormLabel>
+                                <Input
+                                  type="text"
+                                  id={`inputField-${index + 1}`}
+                                  value={value}
+                                  onChange={(e) =>
+                                    inputChange(index, e.target.value)
+                                  }
+                                />
+                              </>
+                            )}
+                          </Flex>
+                        ))}
+                      </Box>
+                      <Button mt={4}>Add</Button>
+                    </FormControl>
+                  </Box>
+                  <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+                    <FormControl isRequired>
+                      <FormLabel>Set</FormLabel>
+                      <Select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </Select>
+                    </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Select Level</FormLabel>
                       <Select>
@@ -136,7 +230,7 @@ export default function List() {
                       </Select>
                     </FormControl>
                     <FormControl isRequired>
-                      <FormLabel>Select Section</FormLabel>
+                      <FormLabel>Select Type</FormLabel>
                       <Select>
                         <option>Vocab</option>
                         <option>Grammar</option>
@@ -144,28 +238,59 @@ export default function List() {
                       </Select>
                     </FormControl>
                   </Grid>
+                  <Grid mt={5}>
+                    <FormControl isRequired>
+                      <FormLabel>Answer</FormLabel>
+                      <Input placeholder="Enter answer" />
+                    </FormControl>
+                  </Grid>
+                  <Box mt={5} mb={5}>
+                    <FormControl isRequired>
+                      <FormLabel>Options Translate:</FormLabel>
 
+                      <Box>
+                        <IconButton
+                          icon={<FiPlus />}
+                          onClick={addTranslationInput}
+                        />
+                        {translationFields.map((value, index) => (
+                          <Flex key={index} mt={5} mb={5}>
+                            {index <= 3 && (
+                              <>
+                                <FormLabel
+                                  mt={2}
+                                  htmlFor={`translationField-${index + 1}`}
+                                >{`${index + 1}.`}</FormLabel>
+                                <Input
+                                  type="text"
+                                  id={`translationField-${index + 1}`}
+                                  value={value}
+                                  onChange={(e) =>
+                                    translationInputChange(
+                                      index,
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </>
+                            )}
+                          </Flex>
+                        ))}
+                      </Box>
+                      <Button mt={4}>Add</Button>
+                    </FormControl>
+                  </Box>
                   <FormControl isRequired>
-                    <FormLabel>Question</FormLabel>
-                    <Textarea placeholder="Write Question" />
+                    <FormLabel>Question Translate</FormLabel>
+                    <Textarea placeholder="Enter Translation" />
                   </FormControl>
-                  <IconButton
-                    icon={Setvisible == "true" ? <FiPlus /> : <FiMinus />}
-                    onClick={() => {
-                      if (Setvisible == "true") {
-                            <Box bg="blue"></Box>
-                      } else {
-                        <Box bg="blue"></Box>
-                      }
-                    }}
-                  />
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button colorScheme="blue" mr={3}>
+                  <Button colorScheme="blue" mr={3} onClick={saveBtn}>
                     Save
                   </Button>
-                  <Button colorScheme="red" onClick={onClose}>
+                  <Button colorScheme="red" onClick={resetFields}>
                     Cancel
                   </Button>
                 </ModalFooter>
@@ -177,94 +302,13 @@ export default function List() {
               <Table variant="unstyled" mt={4}>
                 <Thead>
                   <Tr color="gray">
-                    <Th>Questions</Th>
+                    <Th>Type</Th>
                     <Th>Actions</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>
-                      <Flex align="center">
-                        <Flex flexDir="column">
-                          <Heading size="sm" letterSpacing="tight">
-                            Grammar
-                          </Heading>
-                        </Flex>
-                      </Flex>
-                    </Td>
-                    <Td>
-                      <Link>
-                        <Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;&nbsp;
-                      </Link>
-                      <Link>
-                        <Icon as={FiEdit} fontSize="lg"></Icon>
-                        &nbsp;&nbsp;&nbsp;
-                      </Link>
-                      <Link>
-                        <Icon
-                          as={FiTrash}
-                          onClick={() => this.props.onDelete(this.props.id)}
-                          fontSize="lg"
-                        ></Icon>
-                        &nbsp;
-                      </Link>
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Flex align="center">
-                        <Flex flexDir="column">
-                          <Heading size="sm" letterSpacing="tight">
-                            Listening
-                          </Heading>
-                        </Flex>
-                      </Flex>
-                    </Td>
-                    <Td>
-                      <Link>
-                        <Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;&nbsp;
-                      </Link>
-                      <Link>
-                        <Icon as={FiEdit} fontSize="lg"></Icon>
-                        &nbsp;&nbsp;&nbsp;
-                      </Link>
-                      <Link>
-                        <Icon
-                          as={FiTrash}
-                          onClick={() => this.props.onDelete(this.props.id)}
-                          fontSize="lg"
-                        ></Icon>
-                        &nbsp;
-                      </Link>
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Flex align="center">
-                        <Flex flexDir="column">
-                          <Heading size="sm" letterSpacing="tight">
-                            Vocab
-                          </Heading>
-                        </Flex>
-                      </Flex>
-                    </Td>
-                    <Td>
-                      <Link>
-                        <Icon as={FiEye} fontSize="lg"></Icon>&nbsp;&nbsp;&nbsp;
-                      </Link>
-                      <Link>
-                        <Icon as={FiEdit} fontSize="lg"></Icon>
-                        &nbsp;&nbsp;&nbsp;
-                      </Link>
-                      <Link>
-                        <Icon
-                          as={FiTrash}
-                          onClick={() => this.props.onDelete(this.props.id)}
-                          fontSize="lg"
-                        ></Icon>
-                        &nbsp;
-                      </Link>
-                    </Td>
+                    <Td></Td>
                   </Tr>
                 </Tbody>
               </Table>
@@ -294,3 +338,4 @@ export default function List() {
     </Box>
   );
 }
+export default ManageQuestioner;
