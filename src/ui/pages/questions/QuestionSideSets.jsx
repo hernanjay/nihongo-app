@@ -108,6 +108,12 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
                                           }
                                           onClick={() => {
                                               setHasSubmit(false);
+                                              questionDispatch({
+                                                  type: "clearAnswers",
+                                              });
+                                              questionDispatch({
+                                                  type: "clearAnswers",
+                                              });
                                               scrollTo(
                                                   document.getElementById(
                                                       "questionLayoutContainer"
@@ -144,6 +150,9 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
                                           }
                                           onClick={() => {
                                               setHasSubmit(false);
+                                              questionDispatch({
+                                                  type: "clearAnswers",
+                                              });
                                               scrollTo(
                                                   document.getElementById(
                                                       "questionLayoutContainer"
