@@ -115,6 +115,15 @@ function HomeUserProfileCard() {
         ...prevTotal,
         kanji: kanjiScoreForLevel.totalItems,
       }));
+    } else {
+      setScore((prevScore) => ({
+        ...prevScore,
+        kanji: 0,
+      }));
+      setTotal((prevTotal) => ({
+        ...prevTotal,
+        kanji: 0,
+      }));
     }
 
     const vocabScoreForLevel = vocabScores?.find(
@@ -130,6 +139,15 @@ function HomeUserProfileCard() {
         ...prevTotal,
         vocab: vocabScoreForLevel.totalItems,
       }));
+    } else {
+      setScore((prevScore) => ({
+        ...prevScore,
+        vocab: 0,
+      }));
+      setTotal((prevTotal) => ({
+        ...prevTotal,
+        vocab: 0,
+      }));
     }
 
     const grammarScoreForLevel = grammarScores?.find(
@@ -144,6 +162,15 @@ function HomeUserProfileCard() {
       setTotal((prevTotal) => ({
         ...prevTotal,
         grammar: grammarScoreForLevel.totalItems,
+      }));
+    } else {
+      setScore((prevScore) => ({
+        ...prevScore,
+        grammar: 0,
+      }));
+      setTotal((prevTotal) => ({
+        ...prevTotal,
+        grammar: 0,
       }));
     }
   };
