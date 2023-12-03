@@ -9,6 +9,7 @@ import {
   Tag,
   TagLabel,
   Text,
+  useQuery,
   useToast,
 } from "@chakra-ui/react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
@@ -17,6 +18,7 @@ import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import { addScore } from "../../../logic/services/apiGrades";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 import { scrollTo } from "scroll-js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const QuestionAnsweredTracker = ({
   bg,
@@ -49,6 +51,18 @@ const QuestionAnsweredTracker = ({
   );
 
   const questionIds = questions?.map((qn) => qn._id);
+
+  const queryClient = useQueryClient();
+
+  const { isLoading: isAddingScore, mutate } = useMutation({
+    mutationFn: addScore,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["scores"],
+      });
+    },
+    onError: (err) => alert(err.message),
+  });
 
   function handleAddGrades() {
     const { level, type, set } = questions[0];

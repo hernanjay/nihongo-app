@@ -2,7 +2,7 @@
 import React from "react";
 
 // 2. import `ChakraProvider` component
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, flattenTokens } from "@chakra-ui/react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
@@ -29,112 +29,85 @@ import Comp from "../dummies/Comp";
 import Userlist from "../dummies/Userlist";
 import LearnVocab from "../dummies/LearnVocab";
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
-
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { retrieveProfile } from "../../../logic/services/apiUsers";
 function App() {
-    const { user, isLoading } = useUserContext();
-    // 4. Wrap ChakraProvider at the root of your app
-    return (
-        <ChakraProvider theme={theme}>
-            <>
-                <BrowserRouter>
-                    {isLoading && <Loader isLoading={isLoading} />}
-                    {!isLoading && (
-                        <>
-                            <NavBar />
-                            <Routes>
-                                <Route
-                                    path="/"
-                                    element={user ? <Home /> : <LandingPage />}
-                                />
-                                <Route
-                                    path="/users"
-                                    element={
-                                        user?.role === "admin" ? (
-                                            <Userlist />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route
-                                    path="/login"
-                                    element={
-                                        !user ? <Login /> : <Navigate to="/" />
-                                    }
-                                />
+  const { user, isLoading } = useUserContext();
 
-                                <Route
-                                    path="/register"
-                                    element={
-                                        !user ? (
-                                            <Register />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
+  //   const {
+  //     isLoading,
+  //     data: user,
+  //     error: errorUser,
+  //   } = useQuery({
+  //     queryKey: ["user"],
+  //     queryFn: retrieveProfile,
+  //   });
+  //   4. Wrap ChakraProvider at the root of your app
+  return (
+    <ChakraProvider theme={theme}>
+      <ReactQueryDevtools initialIsOpen={false} />
 
-                                <Route
-                                    path="/admin"
-                                    element={<Admindashboard />}
-                                />
-                                <Route path="/chart" element={<AdminChart />} />
-                                <Route
-                                    path="/userprofile"
-                                    element={<UserProfile />}
-                                />
+      <BrowserRouter>
+        {isLoading && <Loader isLoading={isLoading} />}
+        {!isLoading && (
+          <>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={user ? <Home /> : <LandingPage />} />
+              <Route
+                path="/users"
+                element={
+                  user?.role === "admin" ? <Userlist /> : <Navigate to="/" />
+                }
+              />
+              <Route
+                path="/login"
+                element={!user ? <Login /> : <Navigate to="/" />}
+              />
 
-                                <Route
-                                    path="/kana-quiz"
-                                    element={
-                                        user ? (
-                                            <KanaLayout />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
+              <Route
+                path="/register"
+                element={!user ? <Register /> : <Navigate to="/" />}
+              />
 
-                                <Route path="/user" element={<User />} />
-                                <Route path="/grading" element={<Grading />} />
+              <Route path="/admin" element={<Admindashboard />} />
+              <Route path="/chart" element={<AdminChart />} />
+              <Route path="/userprofile" element={<UserProfile />} />
 
-                                <Route
-                                    path="/managequestioner"
-                                    element={<ManageQuestioner />}
-                                />
-                                <Route path="/list" element={<List />} />
-                                <Route path="/comp" element={<Comp />} />
+              <Route
+                path="/kana-quiz"
+                element={user ? <KanaLayout /> : <Navigate to="/" />}
+              />
 
-                                <Route
-                                    path="/questions/:level/:type/:set"
-                                    element={
-                                        user ? (
-                                            <QuestionLayout />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route path="*" element={<Navigate to="/" />} />
-                                <Route path="/user" element={<User />} />
-                                <Route path="/grading" element={<Grading />} />
-                                <Route
-                                    path="/managequestioner"
-                                    element={<ManageQuestioner />}
-                                />
-                                <Route path="/list" element={<List />} />
-                                <Route path="/dummy" element={<Side />} />
-                                <Route
-                                    path="/learnVocab"
-                                    element={<LearnVocab />}
-                                />
-                            </Routes>
-                        </>
-                    )}
-                </BrowserRouter>
-            </>
-        </ChakraProvider>
-    );
+              <Route path="/user" element={<User />} />
+              <Route path="/grading" element={<Grading />} />
+
+              <Route path="/managequestioner" element={<ManageQuestioner />} />
+              <Route path="/list" element={<List />} />
+              <Route path="/comp" element={<Comp />} />
+
+              <Route
+                path="/questions/:level/:type/:set"
+                element={user ? <QuestionLayout /> : <Navigate to="/" />}
+              />
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/user" element={<User />} />
+              <Route path="/grading" element={<Grading />} />
+              <Route path="/managequestioner" element={<ManageQuestioner />} />
+              <Route path="/list" element={<List />} />
+              <Route path="/dummy" element={<Side />} />
+              <Route path="/learnVocab" element={<LearnVocab />} />
+            </Routes>
+          </>
+        )}
+      </BrowserRouter>
+    </ChakraProvider>
+  );
 }
 
 export default App;

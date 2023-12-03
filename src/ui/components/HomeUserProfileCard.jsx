@@ -28,13 +28,29 @@ import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
 import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { retrieveProfile } from "../../logic/services/apiUsers";
+import Loader from "./Loader";
 
 function HomeUserProfileCard() {
   const { bg } = ThemeColors();
   const { user } = useUserContext();
   const { totalScoresNumItems, dispatch: gradeDispatch } = useGradeContext();
 
-  //   console.log(totalScoresNumItems);
+  // const queryClient = useQueryClient();
+
+  // const user = queryClient.getQueryData(["user"]);
+
+  // const {
+  //   isLoading: isLoadingTSNI,
+  //   data: totalScoresNumItems,
+  //   error: errorTSNI,
+  // } = useQuery({
+  //   queryKey: ["totalScoresNumItems"],
+  //   queryFn: () => fetchTotalScoresAndItems(user._id),
+  // });
+
+  // console.log(totalScoresNumItems);
 
   const [level, setLevel] = useState("N5");
   const [score, setScore] = useState({});

@@ -14,146 +14,147 @@ import QuestionSkeletonLoader from "../questionHomePage/QuestionSkeletonLoader";
 import ThemeColors from "../main/ThemeColors";
 import { fetchSpecificGrade } from "../../../logic/services/apiGrades";
 import {
-    fetchQuestions,
-    fetchQuestionsByIds,
+  fetchQuestions,
+  fetchQuestionsByIds,
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
+import { useQuery } from "@tanstack/react-query";
 
 const QuestionLayout = () => {
-    const { bg, border } = ThemeColors();
-    const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
-    const [isLoading, setIsLoading] = useState(false);
-    const [hasSubmit, setHasSubmit] = useState(false);
+  //   useQuery({
+  //     queryKey: ["scores"],
+  //     queryFn: () => fetchSpecificGrade(user, level, type, set),
+  //   });
 
-    const { dispatch: questionDispatch } = useQuestionContext();
+  const { bg, border } = ThemeColors();
+  const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasSubmit, setHasSubmit] = useState(false);
 
-    const { user } = useUserContext();
+  const { dispatch: questionDispatch } = useQuestionContext();
 
-    const { dispatch: gradeDispatch } = useGradeContext();
+  const { user } = useUserContext();
 
-    const { level, type, set } = useParams();
+  const { dispatch: gradeDispatch } = useGradeContext();
 
-    // fetch the grades
-    useEffect(() => {
-        const fetchGradeAndQuestions = async () => {
-            setIsLoading(true);
-            try {
-                const specificGrade = await fetchSpecificGrade(
-                    user,
-                    level,
-                    type,
-                    set
-                );
+  const { level, type, set } = useParams();
 
-                // if specificGrade not equal to null it means the user already answered this set
-                if (specificGrade) {
-                    gradeDispatch({
-                        type: "receivedSpecificGrade",
-                        payload: specificGrade,
-                    });
+  // fetch the grades
+  useEffect(() => {
+    const fetchGradeAndQuestions = async () => {
+      setIsLoading(true);
+      try {
+        const specificGrade = await fetchSpecificGrade(user, level, type, set);
 
-                    const gradedQuestions = await fetchQuestionsByIds(
-                        specificGrade.idPerQuestion
-                    );
+        // if specificGrade not equal to null it means the user already answered this set
+        if (specificGrade) {
+          gradeDispatch({
+            type: "receivedSpecificGrade",
+            payload: specificGrade,
+          });
 
-                    questionDispatch({
-                        type: "questionReceived",
-                        payload: gradedQuestions,
-                    });
+          const gradedQuestions = await fetchQuestionsByIds(
+            specificGrade.idPerQuestion
+          );
 
-                    questionDispatch({
-                        type: "gradedQnAnswers",
-                        payload: specificGrade.userAnswers,
-                    });
-                    setHasSubmit(true);
-                }
+          questionDispatch({
+            type: "questionReceived",
+            payload: gradedQuestions,
+          });
 
-                if (!specificGrade) {
-                    const qn = await fetchQuestions(level, type, set);
-                    questionDispatch({
-                        type: "questionReceived",
-                        payload: qn,
-                    });
-                    questionDispatch({
-                        type: "clearAnswers",
-                    });
+          questionDispatch({
+            type: "gradedQnAnswers",
+            payload: specificGrade.userAnswers,
+          });
+          setHasSubmit(true);
+        }
 
-                    gradeDispatch({ type: "clearGradeBySet" });
+        if (!specificGrade) {
+          const qn = await fetchQuestions(level, type, set);
+          questionDispatch({
+            type: "questionReceived",
+            payload: qn,
+          });
+          questionDispatch({
+            type: "clearAnswers",
+          });
 
-                    setHasSubmit(false);
-                }
-                setIsLoading(false);
-            } catch (error) {
-                console.error("Error fetching specific grade:", error.message);
-            }
-        };
+          gradeDispatch({ type: "clearGradeBySet" });
 
-        fetchGradeAndQuestions();
-    }, [user, level, type, set, gradeDispatch, questionDispatch]);
+          setHasSubmit(false);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching specific grade:", error.message);
+      }
+    };
 
-    return (
-        <Box minW="100vw">
-            {isLoading && <Loader isLoading={isLoading} />}
-            <Loader />
-            <Spacer minH="10vh" />
-            <Box
-                id="questionLayoutContainer"
-                h="90vh"
-                overflow="auto"
-                overscrollBehavior="auto"
-                sx={{
-                    "&::-webkit-scrollbar": {
-                        width: "10px",
-                        borderRadius: "8px",
-                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
-                    },
-                }}
-            >
-                <Grid
-                    mx="2vw"
-                    h="100vh"
-                    templateRows="repeat(1, 1fr)"
-                    templateColumns="repeat(4, 1fr)"
-                    gap={3}
-                    pt="2.5vw"
-                >
-                    <QuestionSideSets
-                        bg={bg}
-                        hoverColor={hoverColor}
-                        type={type}
-                        level={level}
-                        setHasSubmit={setHasSubmit}
-                    />
-                    {isLoading ? (
-                        <QuestionSkeletonLoader />
-                    ) : (
-                        <QuestionList
-                            bg={bg}
-                            hoverColor={hoverColor}
-                            hasSubmit={hasSubmit}
-                        />
-                    )}
-                    <QuestionAnsweredTracker
-                        bg={bg}
-                        border={border}
-                        hasSubmit={hasSubmit}
-                        setHasSubmit={setHasSubmit}
-                        display={{ base: "none", lg: "block" }}
-                    />
-                    <QuestionAnsweredTrackerMobileWrapper>
-                        <QuestionAnsweredTracker
-                            bg={bg}
-                            border={border}
-                            hasSubmit={hasSubmit}
-                            setHasSubmit={setHasSubmit}
-                        />
-                    </QuestionAnsweredTrackerMobileWrapper>
-                </Grid>
-            </Box>
-        </Box>
-    );
+    fetchGradeAndQuestions();
+  }, [user, level, type, set, gradeDispatch, questionDispatch]);
+
+  return (
+    <Box minW="100vw">
+      {isLoading && <Loader isLoading={isLoading} />}
+      <Loader />
+      <Spacer minH="10vh" />
+      <Box
+        id="questionLayoutContainer"
+        h="90vh"
+        overflow="auto"
+        overscrollBehavior="auto"
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "10px",
+            borderRadius: "8px",
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `rgba(0, 0, 0, 0.25)`,
+          },
+        }}
+      >
+        <Grid
+          mx="2vw"
+          h="100vh"
+          templateRows="repeat(1, 1fr)"
+          templateColumns="repeat(4, 1fr)"
+          gap={3}
+          pt="2.5vw"
+        >
+          <QuestionSideSets
+            bg={bg}
+            hoverColor={hoverColor}
+            type={type}
+            level={level}
+            setHasSubmit={setHasSubmit}
+          />
+          {isLoading ? (
+            <QuestionSkeletonLoader />
+          ) : (
+            <QuestionList
+              bg={bg}
+              hoverColor={hoverColor}
+              hasSubmit={hasSubmit}
+            />
+          )}
+          <QuestionAnsweredTracker
+            bg={bg}
+            border={border}
+            hasSubmit={hasSubmit}
+            setHasSubmit={setHasSubmit}
+            display={{ base: "none", lg: "block" }}
+          />
+          <QuestionAnsweredTrackerMobileWrapper>
+            <QuestionAnsweredTracker
+              bg={bg}
+              border={border}
+              hasSubmit={hasSubmit}
+              setHasSubmit={setHasSubmit}
+            />
+          </QuestionAnsweredTrackerMobileWrapper>
+        </Grid>
+      </Box>
+    </Box>
+  );
 };
 export default QuestionLayout;
