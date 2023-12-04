@@ -44,55 +44,31 @@ export default function Home() {
             maxW={{ base: "90vw", lg: "60vw" }}
           >
             {/*#region WIP */}
-            <Flex
+            {/* <Flex
               display={{ base: "none", lg: "flex" }}
               maxW={{ base: "90vw", lg: "60vw" }}
               mb="2.25vh"
+            > */}
+            <Box
+              boxShadow="lg"
+              py="1.5vh"
+              px="2.5vh"
+              bg={bg}
+              borderRadius="lg"
+              mb="2.25vh"
             >
-              <Box
-                boxShadow="lg"
-                py="1.5vh"
-                px="2.5vh"
-                bg={bg}
-                borderRadius="lg"
+              <Text
+                textAlign="center"
+                cursor="pointer"
+                fontSize="2.25vh"
+                onClick={() => {
+                  navigate("/learnVocab");
+                }}
               >
-                <Text fontSize="2.25vh" fontWeight="bold">
-                  Learn Kanji
-                </Text>
-              </Box>
-              <Spacer />
-              <Box
-                boxShadow="lg"
-                py="1.5vh"
-                px="2.5vh"
-                bg={bg}
-                borderRadius="lg"
-              >
-                <Text
-                  cursor="pointer"
-                  fontSize="2.25vh"
-                  fontWeight="bold"
-                  onClick={() => {
-                    navigate("/learnVocab");
-                  }}
-                >
-                  Learn Vocab
-                </Text>
-              </Box>
-              <Spacer />
-              <Box boxShadow="lg" p="1.5vh" bg={bg} borderRadius="lg">
-                <Text fontSize="2.25vh" fontWeight="bold">
-                  Vocab Questions
-                </Text>
-              </Box>
-              <Spacer />
-              <Box boxShadow="lg" p="1.5vh" bg={bg} borderRadius="lg">
-                <Text fontSize="2.25vh" fontWeight="bold">
-                  Grammar Questions
-                </Text>
-              </Box>
-              <Spacer />
-            </Flex>
+                日本語辞書　・　Japanese Dictionary
+              </Text>
+            </Box>
+            {/* </Flex> */}
             {/*#endregion WIP */}
 
             {/*Nan's Kana Pages */}
