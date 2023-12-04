@@ -26,23 +26,30 @@ import {
   Stepper,
   useSteps,
   Box,
+  Container,
 } from "@chakra-ui/react";
 
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { useColorModeValue } from "@chakra-ui/react";
 import { useSignup } from "../../../logic/hooks/user/useSignup";
-import RegisterStepOneForm from "../../components/RegisterStepOneForm";
+import ThemeColors from "../main/ThemeColors";
+import RegisterStepLoginDetail1 from "../../components/register/RegisterStepLoginDetail1";
+import RegisterStepLoginDetail2 from "../../components/register/RegisterStepLoginDetail2";
+import RegisterStepPersonalDetail from "../../components/register/RegisterStepPersonalDetail";
+import RegisterStepJobDetail from "../../components/register/RegisterStepJobDetail";
+import RegisterStepContactDetail from "../../components/register/RegisterStepContactDetail";
 
 const steps = [
-  { title: "First", description: "User Details" },
-  { title: "Second", description: "Address" },
+  { title: "First", description: "Personal Details" },
+  { title: "First", description: "Job Details" },
+  { title: "Second", description: "Contact Details" },
   { title: "Third", description: "Login Details" },
+  { title: "Fourth  ", description: "Login Details" },
 ];
 
 export default function RegisterStepper() {
+  const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const bg = useColorModeValue("light.400", "dark.100");
   const [isPassValidFormat, setIsPassValidFormat] = useState(false);
   const [isPassValidLength, setIsPassValidLength] = useState(false);
   const [isPassContainUpper, setIsPassContainUpper] = useState(false);
@@ -147,12 +154,23 @@ export default function RegisterStepper() {
 
   function inputField(activeStep) {
     if (activeStep === 0) {
-      return <Text>1</Text>;
+      return <RegisterStepPersonalDetail setActiveStep={setActiveStep} />;
     } else if (activeStep === 1) {
-      return <Text>2</Text>;
+      return <RegisterStepJobDetail setActiveStep={setActiveStep} />;
     } else if (activeStep === 2) {
+      return <RegisterStepContactDetail setActiveStep={setActiveStep} />;
+    } else if (activeStep === 3) {
       return (
-        <RegisterStepOneForm
+        <RegisterStepLoginDetail1
+          handleChangeFormData={handleChangeFormData}
+          formData={formData}
+          isLoading={isLoading}
+          setActiveStep={setActiveStep}
+        />
+      );
+    } else if (activeStep === 4) {
+      return (
+        <RegisterStepLoginDetail2
           handleChangeFormData={handleChangeFormData}
           formData={formData}
           isLoading={isLoading}
@@ -170,8 +188,23 @@ export default function RegisterStepper() {
   }
 
   return (
-    <>
-      <Center h="fit-content" p="5%">
+    <Container
+      minW="100vw"
+      h="100vh"
+      overflow="auto"
+      overscrollBehavior="auto"
+      sx={{
+        "&::-webkit-scrollbar": {
+          width: "12px",
+          borderRadius: "8px",
+          backgroundColor: `rgba(0, 0, 0, 0.25)`,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: `rgba(0, 0, 0, 0.25)`,
+        },
+      }}
+    >
+      <Center p="5%">
         <Modal isOpen={isLoading} size="full" bg="gray.100">
           <ModalOverlay />
           <ModalContent bg="blackAlpha.100">
@@ -184,24 +217,25 @@ export default function RegisterStepper() {
         </Modal>
         <Card
           bg={bg}
-          w="50vw"
+          w="60vw"
           variant="elevated"
-          size="sm"
           boxShadow="lg"
-          px="5"
-          py="5"
-          m="10"
+          px="1.5em"
+          pt="1.5em"
+          m="2em"
+          borderRadius="xl"
         >
           <CardBody>
             <Box>
-              <Text fontSize="4xl" mb="2vh">
+              <Text fontSize="2.5em" mb="1vh">
                 Register
               </Text>
               <Flex mb="5vh">
-                <Text fontSize="1xl" mr="1">
+                <Text fontSize="1.25em" mr="0.5em">
                   Already have an account?
                 </Text>
                 <Link
+                  fontSize="1.25em"
                   onClick={() => {
                     navigate("/login");
                   }}
@@ -212,23 +246,24 @@ export default function RegisterStepper() {
             </Box>
             <Flex>
               <Spacer />
-              <Stepper colorScheme="facebook" index={activeStep}>
+              <Stepper fontSize="1em" colorScheme="facebook" index={activeStep}>
                 {steps.map((step, index) => (
                   <>
                     <Step key={index} onClick={() => setActiveStep(index)}>
                       <StepIndicator>
                         <StepStatus
                           complete={<StepIcon />}
-                          incomplete={<StepNumber />}
-                          active={<StepNumber />}
+                          incomplete={<StepNumber fontSize="1em" />}
+                          active={<StepNumber fontSize="0.80em" />}
                         />
                       </StepIndicator>
 
                       <Box flexShrink="0">
-                        <StepTitle>{step.title}</StepTitle>
-                        <StepDescription>{step.description}</StepDescription>
+                        <StepTitle fontSize="0.75em">{step.title}</StepTitle>
+                        <StepDescription fontSize="0.75em">
+                          {step.description}
+                        </StepDescription>
                       </Box>
-
                       <StepSeparator />
                     </Step>
                     <Spacer />
@@ -237,10 +272,12 @@ export default function RegisterStepper() {
               </Stepper>
               <Spacer />
             </Flex>
-            <Box my="5vh">{inputField(activeStep)}</Box>
+            <Box mt="3vh" mb="2.5vh">
+              {inputField(activeStep)}
+            </Box>
           </CardBody>
         </Card>
       </Center>
-    </>
+    </Container>
   );
 }
