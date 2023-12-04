@@ -30,16 +30,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import ThemeColors from "../main/ThemeColors";
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  SearchIcon,
-} from "@chakra-ui/icons";
 import { useState } from "react";
 import VocabListFactory from "../../../logic/objects/VocabListFactory";
-import LearnVocabLevelMenu from "../../components/learnVocab/learnVocabLevelMenu";
-import LearnVocabSearchBar from "../../components/learnVocab/learnVocabSearchBar";
+import LearnVocabLevelMenu from "../../components/learnVocab/LearnVocabLevelMenu";
+import LearnVocabSearchBar from "../../components/learnVocab/LearnVocabSearchBar";
 import LearnVocabPagination from "../../components/learnVocab/LearnVocabPagination";
 import LearnVocabModeSelector from "../../components/learnVocab/LearnVocabModeSelector";
 import LearnVocabCards from "../../components/learnVocab/LearnVocabCards";
