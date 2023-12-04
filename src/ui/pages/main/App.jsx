@@ -22,13 +22,11 @@ import UserProfile from "../userProfile/UserProfile";
 import KanaLayout from "../kanas/KanaLayout";
 import List from "../admin/List";
 import Grading from "../admin/Grading";
-import User from "../admin/User";
-import ManageQuestioner from "../admin/ManageQuestioner";
+import ManageQuestioner from "../manageQuestionare/ManageQuestioner";
 import Side from "../dummies/Side";
 import Comp from "../dummies/Comp";
-import Userlist from "../dummies/Userlist";
 import LearnVocab from "../dummies/LearnVocab";
-import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
+import Users from "../admin/Users";
 
 function App() {
     const { user, isLoading } = useUserContext();
@@ -46,7 +44,7 @@ function App() {
                                     path="/"
                                     element={user ? <Home /> : <LandingPage />}
                                 />
-                                <Route
+                                {/* <Route
                                     path="/users"
                                     element={
                                         user?.role === "admin" ? (
@@ -55,14 +53,13 @@ function App() {
                                             <Navigate to="/" />
                                         )
                                     }
-                                />
+                                /> */}
                                 <Route
                                     path="/login"
                                     element={
                                         !user ? <Login /> : <Navigate to="/" />
                                     }
                                 />
-
                                 <Route
                                     path="/register"
                                     element={
@@ -73,7 +70,6 @@ function App() {
                                         )
                                     }
                                 />
-
                                 <Route
                                     path="/admin"
                                     element={<Admindashboard />}
@@ -83,7 +79,6 @@ function App() {
                                     path="/userprofile"
                                     element={<UserProfile />}
                                 />
-
                                 <Route
                                     path="/kana-quiz"
                                     element={
@@ -94,17 +89,13 @@ function App() {
                                         )
                                     }
                                 />
-
-                                <Route path="/user" element={<User />} />
                                 <Route path="/grading" element={<Grading />} />
-
                                 <Route
                                     path="/managequestioner"
                                     element={<ManageQuestioner />}
                                 />
                                 <Route path="/list" element={<List />} />
                                 <Route path="/comp" element={<Comp />} />
-
                                 <Route
                                     path="/questions/:level/:type/:set"
                                     element={
@@ -115,8 +106,7 @@ function App() {
                                         )
                                     }
                                 />
-                                <Route path="*" element={<Navigate to="/" />} />
-                                <Route path="/user" element={<User />} />
+                                <Route path="users" element={<Users />} />
                                 <Route path="/grading" element={<Grading />} />
                                 <Route
                                     path="/managequestioner"
@@ -128,6 +118,8 @@ function App() {
                                     path="/learnVocab"
                                     element={<LearnVocab />}
                                 />
+
+                                <Route path="*" element={<Navigate to="/" />} />
                             </Routes>
                         </>
                     )}
