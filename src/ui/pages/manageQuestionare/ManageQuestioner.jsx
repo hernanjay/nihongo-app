@@ -29,20 +29,14 @@ import {
     Textarea,
     useBoolean,
 } from "@chakra-ui/react";
-import {
-    FiPlusCircle,
-    FiPlus,
-    // FiMinus,
-    // FiFilePlus,
-} from "react-icons/fi";
+import { FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import MenuComponent from "../../components/MenuComponent";
 import ThemeColors from "../main/ThemeColors";
 import AddQuestions from "./AddQuestions";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
-    const [options, setOptions] = useState([]);
-    const [translationFields, setTranslationFields] = useState([]);
+    const [questions, setQuestions] = useState([]);
     // const [tableData, setTableData] = useState([]);
     // const [selectTypeValue, setSelectTypeValue] = useState("");
     // const [addButtonClicked, setAddButtonClicked] = useState(false);
@@ -50,6 +44,7 @@ function ManageQuestioner() {
         closeOnOverlayClick: false,
         closeOnEsc: false,
     });
+    // console.log(questions);
 
     const addTranslationInput = () => {
         if (translationFields.length < 4) {
@@ -119,8 +114,7 @@ function ManageQuestioner() {
                         <AddQuestions
                             isOpen={isOpen}
                             onClose={onClose}
-                            options={options}
-                            setOptions={setOptions}
+                            setQuestions={setQuestions}
                         />
                     </Box>
                     <Flex flexDir="column">
@@ -128,8 +122,14 @@ function ManageQuestioner() {
                             <Table variant="unstyled" mt={4}>
                                 <Thead>
                                     <Tr color={fontColor}>
+                                        <Th>Level</Th>
                                         <Th>Type</Th>
-                                        <Th>Actions</Th>
+                                        <Th>Set</Th>
+                                        <Th>Question</Th>
+                                        <Th>Options</Th>
+                                        <Th>Answer</Th>
+                                        <Th>Option Translate</Th>
+                                        <Th>Question Translate</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>

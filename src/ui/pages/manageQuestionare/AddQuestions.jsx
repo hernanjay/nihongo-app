@@ -3,6 +3,7 @@ import {
     Button,
     Flex,
     FormControl,
+    FormErrorMessage,
     FormLabel,
     Grid,
     IconButton,
@@ -16,30 +17,82 @@ import {
     Select,
     Textarea,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { FiPlus, FiTrash, FiTrash2 } from "react-icons/fi";
 
-const AddQuestions = ({ isOpen, onClose, options, setOptions }) => {
-    const onChangeOption = (index, value) => {
-        const updatedFields = [...options];
-        updatedFields[index] = value;
-        setOptions(updatedFields);
-    };
+const AddQuestions = ({ isOpen, onClose, setQuestions }) => {
+    // const [options, setOptions] = useState([]);
+    // const [translationFields, setTranslationFields] = useState([]);
+    const [qn, setQn] = useState({
+        level: "N1",
+        type: "vocab",
+        set: "1",
+        question: "",
+        options: [],
+        answer: "",
+        optionsTranslate: [],
+        questionTranslate: "",
+    });
+
+    const [hasSubmit, setHasSubmit] = useState(false);
+
+    const isErrorSet = qn.set === "";
+    const isErrorQuestion = qn.question === "";
+    const isErrorOptions = qn.options.length === 0;
+    const isErrorAnswer = qn.answer === "";
 
     const addOption = () => {
-        if (options.length < 4) {
-            setOptions([...options, ""]);
+        if (qn.options.length < 4) {
+            setQn((prevQn) => ({
+                ...prevQn,
+                options: [...prevQn.options, ""],
+            }));
         }
     };
 
     const deleteOption = (curIndex) => {
-        console.log(curIndex);
-        console.log(options);
-        const updatedOptions = options.filter(
+        const updatedOptions = qn.options.filter(
             (option, index) => index !== curIndex
         );
         console.log(updatedOptions);
-        setOptions(updatedOptions);
+        setQn((prevQn) => ({
+            ...prevQn,
+            options: updatedOptions,
+        }));
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setQn((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleOptionsChange = (index, value) => {
+        setQn((prevQn) => {
+            const updatedOptions = [...prevQn.options];
+            updatedOptions[index] = value;
+            return {
+                ...prevQn,
+                options: updatedOptions,
+            };
+        });
+    };
+
+    // const onChangeOption = (index, value) => {
+    //     setOptions((prevOptions) => {
+    //         const updatedFields = [...prevOptions];
+    //         updatedFields[index] = value;
+    //         return updatedFields;
+    //     });
+    // };
+
+    const addQuestion = () => {
+        setHasSubmit(true);
+        console.log(qn);
+        // setQuestions((prevData) => [...prevData, qn]);
     };
 
     // useEffect(() => {
@@ -56,7 +109,11 @@ const AddQuestions = ({ isOpen, onClose, options, setOptions }) => {
                     <Grid templateColumns="repeat(3, 1fr)" gap={4}>
                         <FormControl isRequired>
                             <FormLabel>Select Level</FormLabel>
-                            <Select>
+                            <Select
+                                name="level"
+                                defaultValue="N5"
+                                onChange={(e) => handleChange(e)}
+                            >
                                 <option>N1</option>
                                 <option>N2</option>
                                 <option>N3</option>
@@ -66,80 +123,121 @@ const AddQuestions = ({ isOpen, onClose, options, setOptions }) => {
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel>Select Type</FormLabel>
-                            <Select>
+                            <Select
+                                name="type"
+                                defaultValue="vocab"
+                                onChange={(e) => handleChange(e)}
+                            >
                                 <option value="vocab">Vocab</option>
                                 <option value="grammar">Grammar</option>
                                 <option value="kanji">Kanji</option>
                             </Select>
                         </FormControl>
-                        <FormControl isRequired>
+                        <FormControl
+                            isRequired
+                            isInvalid={hasSubmit && isErrorSet}
+                        >
                             <FormLabel>Set</FormLabel>
-                            <Input type="number" />
+                            <Input
+                                type="number"
+                                name="set"
+                                placeholder="1"
+                                defaultValue="1"
+                                onChange={(e) => handleChange(e)}
+                            />
+                            {isErrorSet && (
+                                <FormErrorMessage>
+                                    Set is required.
+                                </FormErrorMessage>
+                            )}
                         </FormControl>
                     </Grid>
-                    <FormControl isRequired mt={4}>
+                    <FormControl
+                        isRequired
+                        mt={4}
+                        isInvalid={hasSubmit && isErrorQuestion}
+                    >
                         <FormLabel>Question</FormLabel>
-                        <Textarea placeholder="Write Question" />
+                        <Textarea
+                            placeholder="Write Question"
+                            name="question"
+                            onChange={(e) => handleChange(e)}
+                        />
+                        {isErrorQuestion && (
+                            <FormErrorMessage>
+                                Question is required.
+                            </FormErrorMessage>
+                        )}
                     </FormControl>
                     <Box mt={5} mb={5}>
-                        <FormControl isRequired>
+                        <FormControl
+                            isRequired
+                            isInvalid={hasSubmit && isErrorOptions}
+                        >
                             <FormLabel>options:</FormLabel>
                             <Box>
-                                {options.map((value, index) => (
-                                    <>
-                                        <Flex key={index} mt={5} mb={5}>
-                                            {index <= 3 && (
-                                                <>
-                                                    <FormLabel
-                                                        mt={2}
-                                                        htmlFor={`inputField-${
-                                                            index + 1
-                                                        }`}
-                                                    >{`${String.fromCharCode(
-                                                        65 + index
-                                                    )}.`}</FormLabel>
-                                                    <Input
-                                                        type="text"
-                                                        id={`inputField-${
-                                                            index + 1
-                                                        }`}
-                                                        value={value}
-                                                        onChange={(e) =>
-                                                            onChangeOption(
-                                                                index,
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                    />
+                                {qn.options.map((value, index) => (
+                                    <Flex key={index} mt={5} mb={5}>
+                                        <FormLabel
+                                            mt={2}
+                                            htmlFor={`inputField-${index + 1}`}
+                                        >{`${String.fromCharCode(
+                                            65 + index
+                                        )}.`}</FormLabel>
+                                        <Input
+                                            type="text"
+                                            id={`inputField-${index + 1}`}
+                                            value={value}
+                                            name="options"
+                                            onChange={(e) => {
+                                                // handleChange(e);
+                                                handleOptionsChange(
+                                                    index,
+                                                    e.target.value
+                                                );
+                                            }}
+                                        />
 
-                                                    <IconButton
-                                                        onClick={() =>
-                                                            deleteOption(index)
-                                                        }
-                                                        icon={<FiTrash2 />}
-                                                        bg="red.500"
-                                                        colorScheme="red"
-                                                        ms="1rem"
-                                                    />
-                                                </>
-                                            )}
-                                        </Flex>
-                                    </>
+                                        <IconButton
+                                            onClick={() => deleteOption(index)}
+                                            icon={<FiTrash2 />}
+                                            bg="red.500"
+                                            colorScheme="red"
+                                            ms="1rem"
+                                        />
+                                    </Flex>
                                 ))}
 
                                 <IconButton
                                     onClick={addOption}
                                     icon={<FiPlus />}
-                                    isDisabled={options.length === 4}
+                                    isDisabled={qn.options.length === 4}
                                 />
+                                {isErrorOptions && (
+                                    <FormErrorMessage>
+                                        Options is required.
+                                    </FormErrorMessage>
+                                )}
                             </Box>
                         </FormControl>
                     </Box>
 
                     <Grid mt={5}>
-                        <FormControl isRequired>
+                        <FormControl
+                            isRequired
+                            isInvalid={hasSubmit && isErrorAnswer}
+                        >
                             <FormLabel>Answer</FormLabel>
-                            <Input placeholder="Enter answer" />
+                            <Input
+                                placeholder="Enter answer"
+                                name="answer"
+                                onChange={(e) => handleChange(e)}
+                            />
+                            {isErrorAnswer && (
+                                <FormErrorMessage>
+                                    Answer is required.
+                                </FormErrorMessage>
+                            )}
                         </FormControl>
                     </Grid>
                     <Box mt={5} mb={5}>
@@ -182,17 +280,38 @@ const AddQuestions = ({ isOpen, onClose, options, setOptions }) => {
                             </Box>
                         </FormControl>
                     </Box>
-                    <FormControl isRequired>
+                    <FormControl>
                         <FormLabel>Question Translate</FormLabel>
                         <Textarea placeholder="Enter Translation" />
                     </FormControl>
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={() => onClose()}>
+                    <Button
+                        colorScheme="blue"
+                        mr={3}
+                        onClick={() => addQuestion()}
+                    >
                         Save
                     </Button>
-                    <Button colorScheme="red" onClick={() => onClose()}>
+                    <Button
+                        colorScheme="red"
+                        onClick={() => {
+                            onClose();
+                            setHasSubmit(false);
+                            setQn((prevState) => ({
+                                ...prevState,
+                                level: "N1",
+                                type: "vocab",
+                                set: "1",
+                                question: "",
+                                options: [],
+                                answer: "",
+                                optionsTranslate: [],
+                                questionTranslate: "",
+                            }));
+                        }}
+                    >
                         Cancel
                     </Button>
                 </ModalFooter>

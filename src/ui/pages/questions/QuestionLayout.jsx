@@ -18,6 +18,8 @@ import {
     fetchQuestionsByIds,
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
+// import { useQueries, useQuery } from "@tanstack/react-query";
+// import { useCallback } from "react";
 
 const QuestionLayout = () => {
     const { bg, border } = ThemeColors();
@@ -33,7 +35,26 @@ const QuestionLayout = () => {
 
     const { level, type, set } = useParams();
 
-    // fetch the grades
+    // status === "success" && console.log(isGettingSpcfGrade);
+    // status === "success" && console.log(data);
+    // const { data: questions } = useQueries({
+    //     queries:
+    //         !isGettingSpcfGrade && data
+    //             ? [
+    //                   {
+    //                       queryKey: ["questions"],
+    //                       queryFn: () =>
+    //                           fetchQuestionsByIds(data.idPerQuestion),
+    //                   },
+    //               ]
+    //             : [
+    //                   {
+    //                       queryKey: ["questions"],
+    //                       queryFn: () => fetchQuestions(level, type, set),
+    //                   },
+    //               ],
+    // });
+
     useEffect(() => {
         const fetchGradeAndQuestions = async () => {
             setIsLoading(true);
