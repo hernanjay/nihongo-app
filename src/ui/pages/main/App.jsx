@@ -44,16 +44,6 @@ function App() {
                                     path="/"
                                     element={user ? <Home /> : <LandingPage />}
                                 />
-                                {/* <Route
-                                    path="/users"
-                                    element={
-                                        user?.role === "admin" ? (
-                                            <Userlist />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                /> */}
                                 <Route
                                     path="/login"
                                     element={
@@ -89,12 +79,10 @@ function App() {
                                         )
                                     }
                                 />
-                                <Route path="/grading" element={<Grading />} />
                                 <Route
                                     path="/managequestioner"
                                     element={<ManageQuestioner />}
                                 />
-                                <Route path="/list" element={<List />} />
                                 <Route path="/comp" element={<Comp />} />
                                 <Route
                                     path="/questions/:level/:type/:set"
