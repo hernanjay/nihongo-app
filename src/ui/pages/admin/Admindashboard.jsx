@@ -1,197 +1,106 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import {
-  Flex,
-  Heading,
-  Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  // AvatarGroup,
-  Text,
-  Icon,
-  IconButton,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Divider,
-  // Link,
   Box,
+  Flex,
   Grid,
-  // Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Menu,
-  MenuButton,
-  Button,
-  MenuList,
-  MenuItem,
   GridItem,
+  Heading,
+  Spacer,
+  useBoolean,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiPieChart,
-  // FiBox,
-  // FiCalendar,
-  FiChevronDown,
-  FiChevronUp,
-  FiEdit,
-  FiBook,
-  FiSearch,
-  FiBell,
-  FiUser,
-  FiUserCheck,
-  FiPaperclip,
-  FiMenu,
-  FiArrowDown,
-} from "react-icons/fi";
-import ChartComp from "../../Components/Chart";
+import ChartComp from "../../components/Chart";
 import DoughnutChart from "../../components/Doughnut";
-// import DoughnutChart from "../../components/Doughnut";
-import { TriangleDownIcon } from "@chakra-ui/icons";
-// import Chart from "../../Components/chartComponent/Chart.jsx";
-// import { color } from "framer-motion";
+import SideBar from "../../components/SideBar";
+import MenuComponent from "../../components/MenuComponent";
+import ThemeColors from "../main/ThemeColors";
 
 export default function Admindashboard() {
+  const [toggle, setToggle] = useBoolean();
+  const {  bg, fontColor, body, hover, info } = ThemeColors();
+  console.log(toggle);
   const boxStyle = {
     w: "100%",
-    h: "150",
+    h: { base: "8rem", lg: "11rem" },
     shadow: "lg",
-    bgColor: "RGBA(0, 0, 0, 0.06)",
   };
   const headStyle = {
-    color: "blackAlpha.900",
+    color: "white",
     textAlign: "left",
     p: 3,
     m: 2,
     fontSize: "1.5em",
   };
+
   return (
     <Box>
-      <Flex
-        flexDir={["column", "column", "row"]}
-        overflow="hidden"
-        justifyContent="center"
-      >
-        {/* Column 1 */}
-        {/* Column 2 */}
+      <Flex flexDir={"row"} justifyContent={"center"} overflow={"auto"}>
+        <SideBar toggle={toggle} onClick={setToggle.toggle} />
         <Flex
-          w="90%"
-          p="5%"
-          flexDir="column"
-          overflow="auto"
-          minH="100vh"
-          bg="white"
-          pt="6%"
-          boxShadow="2xl"
+          h={"100vh"}
+          w={"100%"}
+          marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
+          transition={"800ms"}
+          p="5.5rem"
+          flexDir={"column"}
         >
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/admin">Admin Dashboard</BreadcrumbLink>
-            </BreadcrumbItem>
-
-            {/* <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
-          </BreadcrumbItem> */}
-
-            {/* <BreadcrumbItem>
-            <BreadcrumbLink href="/admin">Dashboard</BreadcrumbLink>
-          </BreadcrumbItem> */}
-
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<TriangleDownIcon />}
-                variant="outline"
-                border="none"
-              />
-              <MenuList>
-                <MenuItem as="a" href="/grading" icon={<FiBook />}>
-                  Grading
-                </MenuItem>
-                <MenuItem as="a" href="/list" icon={<FiUser />}>
-                  List of Students
-                </MenuItem>
-                <MenuItem
-                  as="a"
-                  href="/managequestioner"
-                  icon={<FiPaperclip />}
-                >
-                  Manage Questionaire
-                </MenuItem>
-                <MenuItem as="a" href="/user" icon={<FiUserCheck />}>
-                  Manage Users
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Breadcrumb>
-          {/* Column 2 */}{" "}
+          <MenuComponent></MenuComponent> 
           <Heading
             fontWeight="normal"
             mb={4}
             letterSpacing="tight"
             fontSize="2xl"
-            mt="2%"
+            mt={{ base: "6rem", md: "2rem" }}
           >
             Welcome,{" "}
             <Flex fontWeight="bold" display="inline-flex">
               Admin Name
             </Flex>
             !
-          </Heading>{" "}
-          {/* fetch the id of student percentage per nihongo level */}
-          <Grid templateColumns="repeat(5, 1fr)" gap={6} mt="5%">
-            <Box sx={boxStyle}>
+          </Heading>
+          <Grid
+            templateColumns={{ base: "repeat(3, 1fr)", lg: "repeat(5, 1fr)" }}
+            gap={6}
+            mt="5%"
+          >
+            <Box sx={boxStyle} bg="#CC7722">
               <Heading sx={headStyle} size="md">
                 N1
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle} bg="#BE2ED6">
               <Heading sx={headStyle} size="md">
                 N2
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
-            </Box>
-            <Box sx={boxStyle}>
+            </Box >
+            <Box sx={boxStyle} bg="#F01E2C">
               <Heading sx={headStyle} size="md">
                 N3
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle}bg="#EE7600">
               <Heading sx={headStyle} size="md">
                 N4
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle} bg="#00CC67">
               <Heading sx={headStyle} size="md">
                 N5
               </Heading>
-              {/* <Text>Percentage Context</Text> */}
             </Box>
           </Grid>
           <Grid
-            templateColumns="repeat(3, 1fr)"
+            templateColumns={{ base: "repeat(1, 1fr)", xl: "repeat(3, 1fr)" }}
             gap={10}
-            pt="5%"
-            h="60vh"
+            pt={{base:"5rem", lg:"5%"}}
             mb={10}
           >
-            <GridItem colSpan={2} border="2px groove">
+            <GridItem colSpan={{ base: 1, xl: 2 }} border="2px groove">
               <ChartComp />
             </GridItem>
-            <GridItem colSpan={1} border="2px groove">
-              <DoughnutChart></DoughnutChart>
+            <GridItem colSpan={{ base: 1, xl: 1 }} border="2px groove">
+              <DoughnutChart />
             </GridItem>
           </Grid>
+          <Spacer minH={"3vh"}></Spacer>
         </Flex>
       </Flex>
     </Box>

@@ -1,8 +1,8 @@
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement } from "chart.js";
-import { Box, Text } from "@chakra-ui/react";
+import { Chart as ChartJS, ArcElement, Legend } from "chart.js";
+import { Box, Flex, Text } from "@chakra-ui/react";
 function DoughnutChart() {
-  ChartJS.register(ArcElement);
+  ChartJS.register(ArcElement, Legend);
   const data = {
     labels: ["N1", "N2", "N3", "N4", "N5"],
     datasets: [
@@ -22,16 +22,16 @@ function DoughnutChart() {
   };
 
   return (
-    <div>
+    <Flex flexDir={"column"}>
       <Box h="50px" p="15px" bg="blue.800">
         <Text fontSize="lg" fontWeight="extrabold" color="whiteAlpha.900">
           Learners per Level
         </Text>
       </Box>
-      <div>
+      <Flex justifyContent={"center"}>
         <Doughnut data={data}></Doughnut>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }
 

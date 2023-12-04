@@ -42,11 +42,11 @@ const theme = extendTheme({
       200: "#fafafa", //Background
       300: "#2a2a3c", //Border
       400: "#1f1f2d", //Font Color
-      500: "#1aff66", //Success
+      500: "#17cf54", //Success
       600: "#ff3333", //Fail
       700: "#ffad33", //Warning
       800: "#33d6ff", //info
-      900: "#f2f2f2", //Hover
+      900: "#d9d9d9", //Hover
     },
     app: {},
   },

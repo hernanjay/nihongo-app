@@ -35,6 +35,14 @@ const kanaReducer = (state, action) => {
         ...state,
         kanaGroup: action.payload,
       };
+    case "clear":
+      sessionStorage.clear();
+      return {
+        kanaData: [],
+        kanaMode: "",
+        kanaType: "",
+        kanaGroup: "",
+      };
     default:
       return state;
   }

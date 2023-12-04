@@ -5,8 +5,11 @@ import { useQuestionContext } from "../../../logic/hooks/question/useQuestionCon
 const QuestionList = ({ bg, hoverColor, hasSubmit }) => {
     const { questions } = useQuestionContext();
     return (
-        <GridItem colSpan={"2"}>
-            <Box maxW={"60vw"}>
+        <GridItem colSpan={{ base: "4", lg: "2" }}>
+            <Box
+                maxW={{ base: "100vw", lg: "60vw" }}
+                mt={{ base: "2.5vh", lg: "0" }}
+            >
                 <UnorderedList>
                     {questions?.map((qn, index) => (
                         <QuestionItem

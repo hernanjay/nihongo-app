@@ -5,7 +5,8 @@ import { useQuestionContext } from "../../../logic/hooks/question/useQuestionCon
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
 const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
-    const { question, options } = qn;
+    const { question, options, _id } = qn;
+
     const [selectedOption, setSelectedOption] = useState({
         index: null,
     });
@@ -76,14 +77,15 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
     return (
         <Box
             bg={bg}
-            mr="1.25vw"
-            px="2.25vw"
+            mr={{ base: "2.25vw", lg: "1.25vw" }}
+            px={{ base: "5vw", lg: "2.25vw" }}
             pb="2.5vw"
             mb="2vh"
             borderRadius="lg"
+            id={_id}
         >
-            <ListItem listStyleType="none" pt={index + 1 > 1 && "2rem"}>
-                <Text fontSize={"1.25vw"} py={"5"}>
+            <ListItem listStyleType="none">
+                <Text fontSize={{ base: "0.80em", lg: "1.5vw" }} py={"2.25em"}>
                     {index + 1}.{before}
                     <Text
                         as="span"
@@ -95,7 +97,7 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
                     </Text>
                     {after}
                 </Text>
-                <SimpleGrid columns={2} spacing={10}>
+                <SimpleGrid columns={2} spacing={{ base: 2, lg: 6 }}>
                     {options.map((option, index) => (
                         <QuestionOption
                             option={option}

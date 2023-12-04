@@ -1,77 +1,100 @@
+//#region Imports
 import React, { useState } from "react";
 
 import {
+  Box,
   Button,
   Container,
   Divider,
   Grid,
   GridItem,
-  useColorModeValue,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  SimpleGrid,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
+
 import { useNavigate } from "react-router-dom";
+
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
+
 import {
   getKanaCombinationList,
   getKanaDakutenList,
   getMainKanaList,
 } from "./kanaCharacterList";
+
 import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
+
 import ThemeColors from "../main/ThemeColors";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+//#endregion
 
 function KanaSelector({ type }) {
+  //Importing app theme colors
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  //#region Variable decleration
   const navigate = useNavigate();
+  // -------------------------------------------------------------------------------------
   const { kanaGroup, dispatch: kanaDispatch } = useKanaContext();
+  // -------------------------------------------------------------------------------------
   const mainKana = getMainKanaList(type);
   const dakutenKana = getKanaDakutenList(type);
   const combinationKana = getKanaCombinationList(type);
-  const [mainKanaSelected, setMainKanaSelected] = useState(() => {
+  // -------------------------------------------------------------------------------------
+  const [mainKanaSelected, setMainKanaSelected] = useState(
+    setDefaultKanas(mainKana)
+  );
+  const [dakutenKanaSelected, setDakutenKanaSelected] = useState(
+    setDefaultKanas(dakutenKana)
+  );
+  const [combinationKanaSelected, setCombinationKanaSelected] = useState(
+    setDefaultKanas(combinationKana)
+  );
+  //#endregion
+
+  //Checks which kana is saved in the context and places it inside a new useState
+  function setDefaultKanas(kanaList) {
     const temp = [];
-    mainKana.map((value) => {
+    kanaList.map((value) => {
       if (kanaGroup.includes(value.split("・")[1]))
         temp.push(value.split("・")[1]);
     });
     return temp;
-  });
-  const [dakutenKanaSelected, setDakutenKanaSelected] = useState(() => {
-    const temp = [];
-    dakutenKana.map((value) => {
-      if (kanaGroup.includes(value.split("・")[1]))
-        temp.push(value.split("・")[1]);
-    });
-    return temp;
-  });
-  const [combinationKanaSelected, setCombinationKanaSelected] = useState(() => {
-    const temp = [];
-    combinationKana.map((value) => {
-      if (kanaGroup.includes(value.split("・")[1]))
-        temp.push(value.split("・")[1]);
-    });
-    return temp;
-  });
+  }
+
+  //Checks which kana is chosen
   function setMode() {
     let mode = [];
-    if (mainKanaSelected.length) {
-      mode.push("main");
-    }
-    if (dakutenKanaSelected.length) {
-      mode.push("dakuten");
-    }
-    if (combinationKanaSelected.length) {
-      mode.push("combination");
-    }
+    if (mainKanaSelected.length) mode.push("main");
+    if (dakutenKanaSelected.length) mode.push("dakuten");
+    if (combinationKanaSelected.length) mode.push("combination");
     return mode;
   }
 
   return (
     <Container minW="98%">
       <Grid
+        display={{ base: "block", lg: "grid" }}
         templateRows="repeat(6, 1fr)"
         templateColumns="repeat(6, 1fr)"
         gap={4}
       >
-        <GridItem mt="auto" rowSpan={1} colSpan={6}>
+        <GridItem mt={{ base: "2.5vh", lg: "auto" }} rowSpan={1} colSpan={6}>
           <Button
             key="ButtonAllKana"
             minW="100%"
@@ -89,7 +112,7 @@ function KanaSelector({ type }) {
           </Button>
           <Divider h="2vh" />
         </GridItem>
-        <GridItem rowSpan={4} colSpan={2}>
+        <GridItem rowSpan={4} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"main"}
             label={"All Main Kana"}
@@ -98,7 +121,7 @@ function KanaSelector({ type }) {
             selectedGroupSetter={setMainKanaSelected}
           />
         </GridItem>
-        <GridItem rowSpan={4} colSpan={2}>
+        <GridItem rowSpan={4} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"dakuten"}
             label={"All Dakuten Kana"}
@@ -107,7 +130,7 @@ function KanaSelector({ type }) {
             selectedGroupSetter={setDakutenKanaSelected}
           />
         </GridItem>
-        <GridItem rowSpan={5} colSpan={2}>
+        <GridItem rowSpan={5} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"combination"}
             label={"All Combination Kana"}
@@ -135,13 +158,69 @@ function KanaSelector({ type }) {
                 ],
               });
               kanaDispatch({ type: "typeSet", payload: type });
-              navigate("/kana-quiz");
+              onOpen();
             }}
           >
             Load Selected Kana
           </Button>
         </GridItem>
       </Grid>
+
+      <Modal
+        isCentered
+        onClose={onClose}
+        isOpen={isOpen}
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay />
+        <ModalContent bg={bg}>
+          <ModalHeader>Kanas To load</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <SimpleGrid columns={kanaGroup.length ? 5 : 1} spacing={3}>
+              {kanaGroup.length ? (
+                kanaGroup.map((value) => {
+                  return (
+                    <Tag
+                      size="md"
+                      minW="3em"
+                      key={value}
+                      borderRadius="full"
+                      variant="outline"
+                    >
+                      <TagLabel p="0.25em" textAlign="center">
+                        <Text>
+                          <ChevronRightIcon mr="0.25em" />
+                          {value}
+                        </Text>
+                      </TagLabel>
+                    </Tag>
+                  );
+                })
+              ) : (
+                <Text>
+                  <ChevronRightIcon mr="0.25em" />
+                  Select Kanas to load
+                </Text>
+              )}
+            </SimpleGrid>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              isDisabled={!kanaGroup.length}
+              colorScheme="blue"
+              onClick={() => {
+                navigate("/kana-quiz");
+              }}
+            >
+              Proceed
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Container>
   );
 }
