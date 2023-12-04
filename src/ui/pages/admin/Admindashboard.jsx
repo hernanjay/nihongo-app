@@ -21,10 +21,9 @@ export default function Admindashboard() {
     w: "100%",
     h: { base: "8rem", lg: "11rem" },
     shadow: "lg",
-    bgColor: "RGBA(0, 0, 0, 0.06)",
   };
   const headStyle = {
-    color: fontColor,
+    color: "white",
     textAlign: "left",
     p: 3,
     m: 2,
@@ -62,27 +61,27 @@ export default function Admindashboard() {
             gap={6}
             mt="5%"
           >
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle} bg="#CC7722">
               <Heading sx={headStyle} size="md">
                 N1
               </Heading>
             </Box>
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle} bg="#BE2ED6">
               <Heading sx={headStyle} size="md">
                 N2
               </Heading>
-            </Box>
-            <Box sx={boxStyle}>
+            </Box >
+            <Box sx={boxStyle} bg="#F01E2C">
               <Heading sx={headStyle} size="md">
                 N3
               </Heading>
             </Box>
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle}bg="#EE7600">
               <Heading sx={headStyle} size="md">
                 N4
               </Heading>
             </Box>
-            <Box sx={boxStyle}>
+            <Box sx={boxStyle} bg="#00CC67">
               <Heading sx={headStyle} size="md">
                 N5
               </Heading>
