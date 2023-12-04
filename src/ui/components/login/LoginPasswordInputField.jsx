@@ -32,7 +32,7 @@ function LoginPasswordInputField({
         onClose={onClose}
         popOverAlertText="Password field is empty"
       >
-        <InputGroup size="sm">
+        <InputGroup size="md">
           <Input
             fontSize={{ base: "0.75em", lg: "1em" }}
             id="login-password-input"

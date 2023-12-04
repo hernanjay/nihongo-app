@@ -209,7 +209,7 @@ function HomeUserProfileCard() {
             <Image
               borderRadius="full"
               boxSize={{ base: "25vw", lg: "10vw" }}
-              src="https://bit.ly/dan-abramov"
+              src="https://w0.peakpx.com/wallpaper/167/11/HD-wallpaper-lazy-egg6-egg-gudetama-kawaii-lazy-egg.jpg"
               alt="Dan Abramov"
             />
           </Center>

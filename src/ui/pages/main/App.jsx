@@ -25,96 +25,65 @@ import Grading from "../admin/Grading";
 import ManageQuestioner from "../manageQuestionare/ManageQuestioner";
 import Side from "../dummies/Side";
 import Comp from "../dummies/Comp";
-import LearnVocab from "../dummies/LearnVocab";
 import Users from "../admin/Users";
+import LearnVocab from "../learnVocab/LearnVocab";
+import RegisterStepper from "../register/RegisterStepper";
 
 function App() {
-    const { user, isLoading } = useUserContext();
-    // 4. Wrap ChakraProvider at the root of your app
-    return (
-        <ChakraProvider theme={theme}>
+  const { user, isLoading } = useUserContext();
+  // 4. Wrap ChakraProvider at the root of your app
+  return (
+    <ChakraProvider theme={theme}>
+      <>
+        <BrowserRouter>
+          {isLoading && <Loader isLoading={isLoading} />}
+          {!isLoading && (
             <>
-                <BrowserRouter>
-                    {isLoading && <Loader isLoading={isLoading} />}
-                    {!isLoading && (
-                        <>
-                            <NavBar />
-                            <Routes>
-                                <Route
-                                    path="/"
-                                    element={user ? <Home /> : <LandingPage />}
-                                />
-                                <Route
-                                    path="/login"
-                                    element={
-                                        !user ? <Login /> : <Navigate to="/" />
-                                    }
-                                />
-                                <Route
-                                    path="/register"
-                                    element={
-                                        !user ? (
-                                            <Register />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route
-                                    path="/admin"
-                                    element={<Admindashboard />}
-                                />
-                                <Route path="/chart" element={<AdminChart />} />
-                                <Route
-                                    path="/userprofile"
-                                    element={<UserProfile />}
-                                />
-                                <Route
-                                    path="/kana-quiz"
-                                    element={
-                                        user ? (
-                                            <KanaLayout />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route
-                                    path="/managequestioner"
-                                    element={<ManageQuestioner />}
-                                />
-                                <Route path="/comp" element={<Comp />} />
-                                <Route
-                                    path="/questions/:level/:type/:set"
-                                    element={
-                                        user ? (
-                                            <QuestionLayout />
-                                        ) : (
-                                            <Navigate to="/" />
-                                        )
-                                    }
-                                />
-                                <Route path="users" element={<Users />} />
-                                <Route path="/grading" element={<Grading />} />
-                                <Route
-                                    path="/managequestioner"
-                                    element={<ManageQuestioner />}
-                                />
-                                <Route path="/list" element={<List />} />
-                                <Route path="/dummy" element={<Side />} />
-                                <Route
-                                    path="/learnVocab"
-                                    element={<LearnVocab />}
-                                />
+              <NavBar />
+              <Routes>
+                <Route path="/" element={user ? <Home /> : <LandingPage />} />
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/register"
+                  element={!user ? <RegisterStepper /> : <Navigate to="/" />}
+                />
+                <Route path="/admin" element={<Admindashboard />} />
+                <Route path="/chart" element={<AdminChart />} />
+                <Route path="/userprofile" element={<UserProfile />} />
+                <Route
+                  path="/kana-quiz"
+                  element={user ? <KanaLayout /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/managequestioner"
+                  element={<ManageQuestioner />}
+                />
+                <Route path="/comp" element={<Comp />} />
+                <Route
+                  path="/questions/:level/:type/:set"
+                  element={user ? <QuestionLayout /> : <Navigate to="/" />}
+                />
+                <Route path="users" element={<Users />} />
+                <Route path="/grading" element={<Grading />} />
+                <Route
+                  path="/managequestioner"
+                  element={<ManageQuestioner />}
+                />
+                <Route path="/list" element={<List />} />
+                <Route path="/dummy" element={<Side />} />
+                <Route path="/learnVocab" element={<LearnVocab />} />
 
-                                <Route path="*" element={<Navigate to="/" />} />
-                            </Routes>
-                        </>
-                    )}
-                </BrowserRouter>
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
             </>
-        </ChakraProvider>
-    );
+          )}
+        </BrowserRouter>
+      </>
+    </ChakraProvider>
+  );
 }
 
 export default App;
