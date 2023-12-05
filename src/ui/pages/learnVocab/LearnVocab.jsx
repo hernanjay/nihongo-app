@@ -50,6 +50,7 @@ function LearnVocab() {
       <Box
         minW="100vw"
         h="90vh"
+        pb="10vh"
         boxShadow="lg"
         overflow="auto"
         overscrollBehavior="auto"
