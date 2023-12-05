@@ -3,6 +3,7 @@ import {
   Center,
   Container,
   Divider,
+  Flex,
   HStack,
   InputGroup,
   useBoolean,
@@ -68,8 +69,19 @@ function LearnVocab() {
         }}
       >
         <Container minW="80vw">
-          <HStack mt="2.5vh" bg={bg} borderRadius="lg" p="0.25em">
-            <Box w="100%" bg={bg} borderRadius="lg">
+          <Flex
+            direction={{ base: "column", lg: "row" }}
+            mt="2.5vh"
+            bg={bg}
+            borderRadius="lg"
+            p="0.25em"
+          >
+            <Box
+              w="100%"
+              mb={{ base: "1.5vh", lg: "0" }}
+              bg={bg}
+              borderRadius="lg"
+            >
               <InputGroup zIndex="1" h="2.5em">
                 <LearnVocabLevelMenu
                   searchValueLevel={searchValueLevel}
@@ -93,7 +105,7 @@ function LearnVocab() {
               toggleMode={toggleMode}
               setToggleMode={setToggleMode}
             />
-          </HStack>
+          </Flex>
         </Container>
         <Container mb="5vh" minH="80vh" minW="80vw">
           {toggleMode ? (

@@ -35,7 +35,8 @@ function LearnVocabList({ searchResults, pageNumber }) {
             <Button
               // size={{ base: "xs", lg: "sm ", xl: "md" }}
               fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
-              mr={{ base: "-1.5em", lg: "0" }}
+              mr={{ base: "-3.25em", lg: "0" }}
+              textAlign="left"
               variant="unstyled"
             >
               Kanji
