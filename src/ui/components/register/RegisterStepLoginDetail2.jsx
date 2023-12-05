@@ -36,6 +36,7 @@ function RegisterStepLoginDetail2({
   formData,
   isLoading,
   handleSubmit,
+  isEmailValidFormat,
   isPassValidFormat,
   isPassValidLength,
   isPassContainUpper,
@@ -165,6 +166,7 @@ function RegisterStepLoginDetail2({
                   type="submit"
                   isDisabled={
                     isLoading ||
+                    !isEmailValidFormat ||
                     !isSamePassword ||
                     formData.confirmPassword === "" ||
                     !isPassValidFormat ||

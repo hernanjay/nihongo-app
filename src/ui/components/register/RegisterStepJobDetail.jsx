@@ -15,13 +15,17 @@ import {
 import React from "react";
 import ThemeColors from "../../pages/main/ThemeColors";
 
-function RegisterStepJobDetail({ setActiveStep }) {
+function RegisterStepJobDetail({
+  formData,
+  handleChangeFormData,
+  setActiveStep,
+}) {
   const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
   return (
     <Card mt="2em" bg={bg} variant="elevated" size="sm" boxShadow="none">
       <CardBody>
         <form>
-          <FormControl isRequired>
+          <FormControl>
             <HStack>
               <Box w="50%">
                 <FormLabel>Current Job Title</FormLabel>
@@ -31,6 +35,9 @@ function RegisterStepJobDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Jr. R&D Engineer"
                     colorScheme="blackAlpha"
+                    name="currentJobTitle"
+                    value={formData.currentJobTitle}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -43,6 +50,9 @@ function RegisterStepJobDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Advanced World Solutions, Inc"
                     colorScheme="blackAlpha"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -57,6 +67,9 @@ function RegisterStepJobDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Dev G"
                     colorScheme="blackAlpha"
+                    name="businessUnit"
+                    value={formData.businessUnit}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -69,6 +82,9 @@ function RegisterStepJobDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Cebu IT Park"
                     colorScheme="blackAlpha"
+                    name="location"
+                    value={formData.location}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -83,6 +99,9 @@ function RegisterStepJobDetail({ setActiveStep }) {
                     type="text"
                     placeholder="ESD"
                     colorScheme="blackAlpha"
+                    name="division"
+                    value={formData.division}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -95,6 +114,9 @@ function RegisterStepJobDetail({ setActiveStep }) {
                     type="text"
                     placeholder="SDG2"
                     colorScheme="blackAlpha"
+                    name="sdg"
+                    value={formData.sdg}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
