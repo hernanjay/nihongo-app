@@ -38,36 +38,25 @@ const QuestionLayout = () => {
 
   const { dispatch: gradeDispatch } = useGradeContext();
 
-    // status === "success" && console.log(isGettingSpcfGrade);
-    // status === "success" && console.log(data);
-    // const { data: questions } = useQueries({
-    //     queries:
-    //         !isGettingSpcfGrade && data
-    //             ? [
-    //                   {
-    //                       queryKey: ["questions"],
-    //                       queryFn: () =>
-    //                           fetchQuestionsByIds(data.idPerQuestion),
-    //                   },
-    //               ]
-    //             : [
-    //                   {
-    //                       queryKey: ["questions"],
-    //                       queryFn: () => fetchQuestions(level, type, set),
-    //                   },
-    //               ],
-    // });
-
-    useEffect(() => {
-        const fetchGradeAndQuestions = async () => {
-            setIsLoading(true);
-            try {
-                const specificGrade = await fetchSpecificGrade(
-                    user,
-                    level,
-                    type,
-                    set
-                );
+  // status === "success" && console.log(isGettingSpcfGrade);
+  // status === "success" && console.log(data);
+  // const { data: questions } = useQueries({
+  //     queries:
+  //         !isGettingSpcfGrade && data
+  //             ? [
+  //                   {
+  //                       queryKey: ["questions"],
+  //                       queryFn: () =>
+  //                           fetchQuestionsByIds(data.idPerQuestion),
+  //                   },
+  //               ]
+  //             : [
+  //                   {
+  //                       queryKey: ["questions"],
+  //                       queryFn: () => fetchQuestions(level, type, set),
+  //                   },
+  //               ],
+  // });
 
   // fetch the grades
   useEffect(() => {

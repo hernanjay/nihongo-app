@@ -9,6 +9,7 @@ const QuestionRow = ({
     deleteQuestion,
     setQnPreview,
     setIsEdit,
+    setPreviewIndex,
 }) => {
     const { bg } = ThemeColors();
     const {
@@ -43,6 +44,7 @@ const QuestionRow = ({
                     onClick={() => {
                         setIsView(true);
                         setQnPreview(question);
+                        setPreviewIndex(index);
                     }}
                 />
                 &nbsp;&nbsp;
@@ -53,6 +55,8 @@ const QuestionRow = ({
                     cursor="pointer"
                     onClick={() => {
                         setIsEdit(true);
+                        setQnPreview(question);
+                        setPreviewIndex(index);
                     }}
                 />
                 &nbsp;&nbsp;

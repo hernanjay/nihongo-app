@@ -24,9 +24,80 @@ import { useState } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
 
-const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
+const ViewEditQuestion = ({
+    isView,
+    setIsView,
+    isEdit,
+    setIsEdit,
+    setQuestions,
+    qn,
+}) => {
     const { fontColor, border } = ThemeColors();
     const isOpen = isView || isEdit;
+
+    const optLength = qn.options.length;
+
+    const isErrorSet = qn.set === "";
+    const isErrorQuestion = qn.question === "";
+    const isErrorOptions = optLength === 0 || qn.options.includes("");
+    const isErrorAnswer = qn.answer === "";
+    const [hasSubmit, setHasSubmit] = useState(false);
+
+    const addOption = () => {
+        if (optLength < 4) {
+            setQn((prevQn) => ({
+                ...prevQn,
+                options: [...prevQn.options, ""],
+                optionsTranslate: [...prevQn.optionsTranslate, ""],
+            }));
+        }
+    };
+
+    const deleteOption = (curIndex) => {
+        const updatedOptions = qn.options.filter(
+            (option, index) => index !== curIndex
+        );
+
+        const updatedOptionsTranslate = qn.optionsTranslate.filter(
+            (optionTranslate, index) => index !== curIndex
+        );
+
+        setQn((prevQn) => ({
+            ...prevQn,
+            options: updatedOptions,
+            optionsTranslate: updatedOptionsTranslate,
+        }));
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setQn((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleOptionsChange = (index, value) => {
+        setQn((prevQn) => {
+            const updatedOptions = [...prevQn.options];
+            updatedOptions[index] = value;
+            return {
+                ...prevQn,
+                options: updatedOptions,
+            };
+        });
+    };
+
+    const handleOptionsTranslateChange = (index, value) => {
+        setQn((prevQn) => {
+            const updatedOptions = [...prevQn.optionsTranslate];
+            updatedOptions[index] = value;
+            return {
+                ...prevQn,
+                optionsTranslate: updatedOptions,
+            };
+        });
+    };
     return (
         <Modal isOpen={isOpen} size="3xl" isCloseable={false}>
             <ModalOverlay />
@@ -43,7 +114,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                                 _disabled={{
                                     color: fontColor,
                                     borderColor: border,
-                                    opacity: 100,
                                 }}
                             >
                                 <option>N1</option>
@@ -62,7 +132,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                                 _disabled={{
                                     color: fontColor,
                                     borderColor: border,
-                                    opacity: 100,
                                 }}
                             >
                                 <option value="vocab">Vocab</option>
@@ -72,7 +141,7 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                         </FormControl>
                         <FormControl
                             isRequired
-                            // isInvalid={hasSubmit && isErrorSet}
+                            isInvalid={hasSubmit && isErrorSet}
                         >
                             <FormLabel>Set</FormLabel>
                             <Input
@@ -83,7 +152,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                                 _disabled={{
                                     color: fontColor,
                                     borderColor: border,
-                                    opacity: 100,
                                 }}
                                 // placeholder="1"
                                 // defaultValue="1"
@@ -109,7 +177,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                             _disabled={{
                                 color: fontColor,
                                 borderColor: border,
-                                opacity: 100,
                             }}
                         />
                         {/* {isErrorQuestion && (
@@ -168,7 +235,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                                                 _disabled={{
                                                     color: fontColor,
                                                     borderColor: border,
-                                                    opacity: 100,
                                                 }}
                                                 // onChange={(e) =>
                                                 //     handleChange(e)
@@ -208,7 +274,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                                             _disabled={{
                                                 color: fontColor,
                                                 borderColor: border,
-                                                opacity: 100,
                                             }}
                                             // onChange={(e) => {
                                             //     handleOptionsChange(
@@ -264,7 +329,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                                                     _disabled={{
                                                         color: fontColor,
                                                         borderColor: border,
-                                                        opacity: 100,
                                                     }}
                                                     // onChange={(e) =>
                                                     //     handleOptionsTranslateChange(
@@ -293,7 +357,6 @@ const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
                             _disabled={{
                                 color: fontColor,
                                 borderColor: border,
-                                opacity: 100,
                             }}
                         />
                     </FormControl>
