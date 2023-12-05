@@ -30,9 +30,16 @@ function LearnVocabList({ searchResults, pageNumber }) {
         templateColumns="repeat(8, 1fr)"
         w="100%"
       >
-        <GridItem colSpan={1} pl="0.5em">
+        <GridItem colSpan={1} pl={{ base: "0", lg: "0.75em", xl: "1em" }}>
           <HStack cursor="pointer" onClick={setToggleKanji.toggle}>
-            <Button variant="unstyled">Kanji</Button>
+            <Button
+              // size={{ base: "xs", lg: "sm ", xl: "md" }}
+              fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
+              mr={{ base: "-1.5em", lg: "0" }}
+              variant="unstyled"
+            >
+              Kanji
+            </Button>
             {toggleKanji ? (
               <ViewIcon color="gray.400" boxSize="0.75em" />
             ) : (
@@ -42,7 +49,14 @@ function LearnVocabList({ searchResults, pageNumber }) {
         </GridItem>
         <GridItem colSpan={2}>
           <HStack cursor="pointer" onClick={setToggleHirKat.toggle}>
-            <Button variant="unstyled">Hiragana / Katakana</Button>
+            <Button
+              // size={{ base: "xs", lg: "sm ", xl: "md" }}
+              fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
+              variant="unstyled"
+              mr={{ base: "-1em", lg: "0" }}
+            >
+              Hiragana
+            </Button>
             {toggleHirKat ? (
               <ViewIcon color="gray.400" boxSize="0.75em" />
             ) : (
@@ -52,7 +66,14 @@ function LearnVocabList({ searchResults, pageNumber }) {
         </GridItem>
         <GridItem colSpan={2}>
           <HStack cursor="pointer" onClick={setToggleRomaji.toggle}>
-            <Button variant="unstyled">Romaji</Button>
+            <Button
+              // size={{ base: "xs", lg: "sm ", xl: "md" }}
+              fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
+              variant="unstyled"
+              mr={{ base: "-1em", lg: "0" }}
+            >
+              Romaji
+            </Button>
             {toggleRomaji ? (
               <ViewIcon color="gray.400" boxSize="0.75em" />
             ) : (
@@ -62,7 +83,14 @@ function LearnVocabList({ searchResults, pageNumber }) {
         </GridItem>
         <GridItem colSpan={3}>
           <HStack cursor="pointer" onClick={setToggleDef.toggle}>
-            <Button variant="unstyled">Definition</Button>
+            <Button
+              // size={{ base: "xs", lg: "sm ", xl: "md" }}
+              fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
+              variant="unstyled"
+              mr={{ base: "-1em", lg: "0" }}
+            >
+              Definition
+            </Button>
             {toggleDef ? (
               <ViewIcon color="gray.400" boxSize="0.75em" />
             ) : (
@@ -91,15 +119,22 @@ function LearnVocabList({ searchResults, pageNumber }) {
                     colSpan={1}
                     fontStyle="oblique"
                     fontWeight="light"
-                    fontSize="0.75em"
+                    fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
                     color="GrayText"
+                    pl={{ base: "0.25em", lg: "0.75em", xl: "1em" }}
                   >
                     {toggleKanji ? value.kanji : "・・・・・"}
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                    colSpan={2}
+                    fontSize={{ base: "0.75em", lg: "1em", xl: "1.25em" }}
+                  >
                     {toggleHirKat ? value.hiragana : "・・・・・"}
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                    colSpan={2}
+                    fontSize={{ base: "0.75em", lg: "1em", xl: "1.25em" }}
+                  >
                     {toggleRomaji ? value.romaji : "・・・・・"}
                   </GridItem>
                   <GridItem
@@ -107,7 +142,7 @@ function LearnVocabList({ searchResults, pageNumber }) {
                     my="auto"
                     fontStyle="oblique"
                     fontWeight="light"
-                    fontSize="0.75em"
+                    fontSize={{ base: "0.5em", lg: "0.75em", xl: "1em" }}
                     color="GrayText"
                   >
                     {toggleDef ? value.meaning : "・・・・・"}

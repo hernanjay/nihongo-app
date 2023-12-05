@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Container,
   Divider,
   HStack,
@@ -51,8 +52,10 @@ function LearnVocab() {
         minW="100vw"
         h="90vh"
         boxShadow="lg"
-        overflow="auto"
-        overscrollBehavior="auto"
+        overflowX="hidden"
+        overflowY="auto"
+        overscrollBehaviorX="auto"
+        overscrollBehaviorY="none"
         sx={{
           "&::-webkit-scrollbar": {
             width: "12px",
