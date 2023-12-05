@@ -20,6 +20,7 @@ export default function Home() {
         <Box
           pt={{ base: "2.5vh", lg: "5vh" }}
           h="90vh"
+          pb={{ base: "10vh", lg: "0" }}
           overflow="auto"
           overscrollBehavior="auto"
           sx={{

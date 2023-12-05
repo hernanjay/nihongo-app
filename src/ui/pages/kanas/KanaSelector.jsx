@@ -98,6 +98,7 @@ function KanaSelector({ type }) {
           <Button
             key="ButtonAllKana"
             size={{ base: "xs", lg: "sm", xl: "md" }}
+            mb={{ base: "1vh", lg: "0" }}
             mt="1vh"
             w="100%"
             variant="outline"

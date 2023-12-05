@@ -1,7 +1,7 @@
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Box, Flex, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Skeleton, Spacer } from "@chakra-ui/react";
 import KanaCards from "./KanaCards";
 import KanaSelectorTabSide from "./KanaSelectorTabSide";
 import Loader from "../../components/Loader";
@@ -55,7 +55,6 @@ function KanaLayout() {
         position="relative"
         id="kanaPageScroll"
         h="90vh"
-        maxH="100vh"
         overflow="auto"
         overscrollBehavior="auto"
         sx={{
@@ -104,6 +103,7 @@ function KanaLayout() {
               );
             })}
           </SimpleGrid>
+          <Spacer minH={{ base: "10vh", lg: "0" }} />
         </Box>
       </Flex>
     </Box>
