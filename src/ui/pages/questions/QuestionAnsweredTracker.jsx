@@ -32,6 +32,7 @@ const QuestionAnsweredTracker = ({
 
     const toast = useToast();
     const { user } = useUserContext();
+
     const { dispatch: gradeDispatch } = useGradeContext();
     // Check if all questions are answered
     const allAnswered = userAnswers ? userAnswers.includes(null) : false;

@@ -28,6 +28,7 @@ import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
 import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
+import { useQuery } from "@tanstack/react-query";
 
 function HomeUserProfileCard() {
   const { bg } = ThemeColors();
