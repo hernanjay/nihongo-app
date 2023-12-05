@@ -48,7 +48,7 @@ function App() {
                 />
                 <Route
                   path="/register"
-                  element={!user ? <RegisterStepper /> : <Navigate to="/" />}
+                  element={!user ? <Register /> : <Navigate to="/" />}
                 />
                 <Route path="/admin" element={<Admindashboard />} />
                 <Route path="/chart" element={<AdminChart />} />

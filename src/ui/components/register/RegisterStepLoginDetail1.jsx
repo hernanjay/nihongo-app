@@ -11,6 +11,7 @@ import {
   InputRightAddon,
   CardBody,
   InputGroup,
+  FormHelperText,
 } from "@chakra-ui/react";
 
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -18,11 +19,13 @@ import ThemeColors from "../../pages/main/ThemeColors";
 
 function RegisterStepLoginDetail1({
   handleChangeFormData,
+  isEmailValidFormat,
   formData,
   handleSubmit,
   setActiveStep,
 }) {
-  const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
+  const { body, bg, border, fontColor, error, success, warning, info } =
+    ThemeColors();
 
   return (
     <Card bg={bg} variant="elevated" size="sm" boxShadow="none">
@@ -58,6 +61,14 @@ function RegisterStepLoginDetail1({
               />
               <InputRightAddon children="@awsys-i.com" />
             </InputGroup>
+            <FormHelperText
+              mt="1.5em"
+              fontSize="0.75em"
+              color={isEmailValidFormat ? "green.300" : "gray.400"}
+            >
+              <ChevronRightIcon />
+              Email may only contain letters (a-z), numebrs (0-9) and periods.
+            </FormHelperText>
             <Flex mt="2.5em">
               <Spacer />
               <Button
@@ -65,7 +76,7 @@ function RegisterStepLoginDetail1({
                 fontWeight="normal"
                 colorScheme="gray"
                 variant="ghost"
-                onClick={() => setActiveStep(3)}
+                onClick={() => setActiveStep(4)}
               >
                 Next
               </Button>

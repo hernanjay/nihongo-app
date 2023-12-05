@@ -97,12 +97,12 @@ describe("-------------- User is Logged out --------------", () => {
       });
 
       it("UT_NAV-201 - Should Show register button if user not logged in", () => {
-        const registerButton = screen.getByText(/register/i);
-        expect(registerButton).toBeInTheDocument();
+        const registerButton = screen.getAllByText(/register/i);
+        expect(registerButton[1]).toBeInTheDocument();
       });
       it("UT_NAV-202 - Should Show login button if user not logged in", () => {
-        const loginButton = screen.getByText(/login/i);
-        expect(loginButton).toBeInTheDocument();
+        const loginButton = screen.getAllByText(/login/i);
+        expect(loginButton[1]).toBeInTheDocument();
       });
     });
   });
@@ -117,16 +117,14 @@ describe("-------------- User is Logged out --------------", () => {
         );
       });
       it("IT_NAV-101 Should go to login page on login button click", () => {
-        const loginButton = screen.getByRole("button", { name: /login/i });
-        fireEvent.click(loginButton);
+        const loginButton = screen.getAllByText(/login/i);
+        fireEvent.click(loginButton[1]);
         const textDisplay = screen.getByText(/Don't have an account yet?/i);
         expect(textDisplay).toBeInTheDocument();
       });
       it("IT_NAV-102 Should go to Register page on register button click", () => {
-        const registerButton = screen.getByRole("button", {
-          name: /register/i,
-        });
-        fireEvent.click(registerButton);
+        const registerButton = screen.getAllByText(/register/i);
+        fireEvent.click(registerButton[1]);
         const textDisplay = screen.getByText(/Already have an account?/i);
         expect(textDisplay).toBeInTheDocument();
       });
@@ -179,7 +177,7 @@ describe("-------------- User is Logged in --------------", () => {
       });
       it("IT_NAV-201 Should logout the user when logout button is clicked", async () => {
         await waitForLoader();
-        const logoutButton = screen.getByRole("button", { name: /logout/i });
+        const logoutButton = screen.getByText(/logout/i);
         expect(logoutButton).toBeInTheDocument();
         fireEvent.click(logoutButton);
         const user = localStorage.getItem("token");

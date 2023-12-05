@@ -29,8 +29,8 @@ describe("-------------- Login Render Testing --------------", () => {
         );
       });
       it("VITEST_UT_LOGIN-101 Should Show the entire login page", () => {
-        const loginButton = screen.getByRole("button", { name: /login/i });
-        fireEvent.click(loginButton);
+        const loginButton = screen.getAllByText(/login/i);
+        fireEvent.click(loginButton[1]);
         const textDisplay = screen.getByText(/Don't have an account yet?/i);
         expect(textDisplay).toBeInTheDocument();
       });
