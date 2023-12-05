@@ -94,10 +94,12 @@ function KanaSelector({ type }) {
         templateColumns="repeat(6, 1fr)"
         gap={4}
       >
-        <GridItem mt={{ base: "2.5vh", lg: "auto" }} rowSpan={1} colSpan={6}>
+        <GridItem mt={{ base: "2.5vh", lg: "0.5vh" }} rowSpan={1} colSpan={6}>
           <Button
             key="ButtonAllKana"
-            minW="100%"
+            size={{ base: "xs", lg: "sm", xl: "md" }}
+            mt="1vh"
+            w="100%"
             variant="outline"
             borderColor={border}
             fontWeight="normal"
@@ -110,8 +112,8 @@ function KanaSelector({ type }) {
           >
             All Kana
           </Button>
-          <Divider h="2vh" />
         </GridItem>
+
         <GridItem rowSpan={4} colSpan={2} mb={{ base: "2.5vh", lg: "0" }}>
           <KanaSelectorButtonGroup
             mode={"main"}
@@ -142,8 +144,9 @@ function KanaSelector({ type }) {
         <GridItem rowSpan={1} colSpan={4}>
           <Button
             key="ButtonAllKana"
-            mb="2.5"
-            minW="100%"
+            size={{ base: "xs", lg: "sm", xl: "md" }}
+            w="100%"
+            fontSize="0.75em"
             variant="outline"
             borderColor={border}
             fontWeight="normal"

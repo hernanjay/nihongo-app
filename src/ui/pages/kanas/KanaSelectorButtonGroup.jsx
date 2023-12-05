@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
+import { useEffect } from "react";
 
 function KanaSelectorButtonGroup({
   mode,
@@ -40,6 +41,27 @@ function KanaSelectorButtonGroup({
     return items;
   });
 
+  useEffect(() => {
+    setCheckedItems(() => {
+      let items = [];
+      const storedKanaGroup = sessionStorage.getItem("kanaGroup");
+      kanaGroup.map((value) => {
+        if (storedKanaGroup) {
+          const splitKanaGroup = storedKanaGroup.split(",");
+          const strippedDownValue = value.split("・")[1];
+          if (splitKanaGroup.includes(strippedDownValue)) {
+            items.push(true);
+          } else {
+            items.push(false);
+          }
+        } else {
+          items.push(false);
+        }
+      });
+      return items;
+    });
+  }, [kanaGroup]);
+
   //Checks if all buttons are checked
   const allChecked = checkedItems.every(Boolean);
   //Checks if all child buttons aren't checked
@@ -49,6 +71,8 @@ function KanaSelectorButtonGroup({
     <Box textAlign="center">
       <Flex mb="1.5vh">
         <Button
+          size={{ base: "xs", lg: "sm", xl: "md" }}
+          w="100%"
           _hover={{ bg: allChecked ? success : hover }}
           textAlign="center"
           border="1px"
@@ -89,7 +113,12 @@ function KanaSelectorButtonGroup({
               ml={{ base: "2.5vw", lg: "1vw" }}
               py="1"
             ></Checkbox> */}
-          <Text minW="80%" display="inline-block" textAlign="center">
+          <Text
+            fontSize={{ base: "0.75em", lg: "0.75em", xl: "1em" }}
+            minW="80%"
+            display="inline-block"
+            textAlign="center"
+          >
             {label}
           </Text>
         </Button>
@@ -100,6 +129,8 @@ function KanaSelectorButtonGroup({
             <Button
               _hover={{ bg: allChecked ? success : hover }}
               key={`ButtonGroup${kana}:${index}`}
+              size={{ base: "xs", lg: "sm", xl: "md" }}
+              w="100%"
               border="1px"
               borderRadius="md"
               borderColor={border}
@@ -139,7 +170,12 @@ function KanaSelectorButtonGroup({
                   ml="0.25vw"
                   py="1"
                 ></Checkbox> */}
-              <Text textAlign="center">{kana}</Text>
+              <Text
+                fontSize={{ base: "0.75em", lg: "0.75em", xl: "1em" }}
+                textAlign="center"
+              >
+                {kana}
+              </Text>
             </Button>
           );
         })}
