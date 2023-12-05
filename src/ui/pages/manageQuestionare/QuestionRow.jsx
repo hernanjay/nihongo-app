@@ -1,15 +1,5 @@
-import {
-    Button,
-    Icon,
-    IconButton,
-    Td,
-    Textarea,
-    Tr,
-    useDisclosure,
-} from "@chakra-ui/react";
+import { IconButton, Td, Tr } from "@chakra-ui/react";
 import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import ViewQuestion from "./viewQuestion";
 import ThemeColors from "../main/ThemeColors";
 
 const QuestionRow = ({

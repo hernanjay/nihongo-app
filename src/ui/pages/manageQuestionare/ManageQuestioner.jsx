@@ -4,42 +4,25 @@ import { useState } from "react";
 import {
     Flex,
     Heading,
-    IconButton,
     Table,
     Thead,
     Tbody,
     Tr,
     Th,
-    Td,
     Box,
     Button,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    // ModalCloseButton,
-    ModalBody,
-    ModalFooter,
     useDisclosure,
-    FormControl,
-    FormLabel,
-    Input,
-    Select,
-    Grid,
-    Textarea,
     useBoolean,
     TableContainer,
-    Tfoot,
-    Spacer,
     useToast,
 } from "@chakra-ui/react";
-import { FiCheckCircle, FiPlusCircle, FiTrash2 } from "react-icons/fi";
+import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
 import AddQuestions from "./AddQuestions";
 import QuestionRow from "./QuestionRow";
 import { addQuestions } from "../../../logic/services/apiQuestions";
-import ViewQuestion from "./viewQuestion";
+import ViewQuestion from "./ViewQuestion";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
