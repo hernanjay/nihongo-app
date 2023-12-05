@@ -14,7 +14,7 @@ function LearnVocabCards({ searchResults, pageNumber }) {
   const { body, bg, border, fontColor, success, error, warning, info, hover } =
     ThemeColors();
   return (
-    <SimpleGrid mt="2.5vh" columns={4} gap={10}>
+    <SimpleGrid mt="2.5vh" columns={{ base: 1, lg: 3, xl: 4 }} gap={10}>
       {!searchResults.length && <LearnVocabNotFound />}
       {searchResults.map((value, index) => {
         if (index >= 0 + pageNumber * 12 && index <= 11 + pageNumber * 12) {

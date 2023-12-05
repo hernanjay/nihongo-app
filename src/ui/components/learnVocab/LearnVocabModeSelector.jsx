@@ -6,7 +6,12 @@ function LearnVocabModeSelector({ toggleMode, setToggleMode }) {
   const { body, bg, border, fontColor, success, error, warning, info, hover } =
     ThemeColors();
   return (
-    <Stack w="25%" justifyContent="center" direction="row">
+    <Stack
+      w={{ base: "100%", lg: "25%" }}
+      mb={{ base: "1.5vh", lg: "0" }}
+      justifyContent="center"
+      direction="row"
+    >
       <Tabs borderRadius="lg" bg={bg} variant="unstyled">
         <TabList>
           <Tab
