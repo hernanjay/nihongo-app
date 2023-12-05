@@ -22,19 +22,19 @@ import ThemeColors from "../main/ThemeColors";
 import AddQuestions from "./AddQuestions";
 import QuestionRow from "./QuestionRow";
 import { addQuestions } from "../../../logic/services/apiQuestions";
-import ViewQuestion from "./ViewQuestion";
+import ViewEditQuestion from "./ViewEditQuestion";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
     const [questions, setQuestions] = useState([]);
     const [isView, setIsView] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
 
     const { isOpen, onOpen, onClose } = useDisclosure({
         closeOnOverlayClick: false,
         closeOnEsc: false,
     });
-    console.log(isView);
 
     const [toggle, setToggle] = useBoolean();
     const { bg, fontColor, body } = ThemeColors();
@@ -105,10 +105,12 @@ function ManageQuestioner() {
                             onClose={onClose}
                             setQuestions={setQuestions}
                         />
-                        {isView && (
-                            <ViewQuestion
+                        {(isView || isEdit) && (
+                            <ViewEditQuestion
                                 isView={isView}
                                 setIsView={setIsView}
+                                isEdit={isEdit}
+                                setIsEdit={setIsEdit}
                                 qn={qnPreview}
                             />
                         )}
@@ -140,6 +142,7 @@ function ManageQuestioner() {
                                         setIsView={setIsView}
                                         setQnPreview={setQnPreview}
                                         deleteQuestion={deleteQuestion}
+                                        setIsEdit={setIsEdit}
                                     />
                                 ))}
                             </Tbody>

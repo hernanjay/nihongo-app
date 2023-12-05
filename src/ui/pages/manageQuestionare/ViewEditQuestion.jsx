@@ -24,10 +24,11 @@ import { useState } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
 
-const ViewQuestion = ({ isView, setIsView, qn }) => {
+const ViewEditQuestion = ({ isView, setIsView, isEdit, setIsEdit, qn }) => {
     const { fontColor, border } = ThemeColors();
+    const isOpen = isView || isEdit;
     return (
-        <Modal isOpen={isView} size="3xl" isCloseable={false}>
+        <Modal isOpen={isOpen} size="3xl" isCloseable={false}>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Questionnaire Form</ModalHeader>
@@ -38,7 +39,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                             <Select
                                 name="level"
                                 defaultValue="N5"
-                                isDisabled
+                                isDisabled={isView}
                                 _disabled={{
                                     color: fontColor,
                                     borderColor: border,
@@ -57,7 +58,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                             <Select
                                 name="type"
                                 value={qn.type}
-                                isDisabled
+                                isDisabled={isView}
                                 _disabled={{
                                     color: fontColor,
                                     borderColor: border,
@@ -78,7 +79,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                 type="number"
                                 name="set"
                                 value={qn.set}
-                                isDisabled
+                                isDisabled={isView}
                                 _disabled={{
                                     color: fontColor,
                                     borderColor: border,
@@ -104,7 +105,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                             placeholder="Write Question"
                             name="question"
                             value={qn.question}
-                            isDisabled
+                            isDisabled={isView}
                             _disabled={{
                                 color: fontColor,
                                 borderColor: border,
@@ -131,12 +132,12 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                             label="Add options and options translate"
                                             openDelay={500}
                                             gutter={10}
-                                            // isDisabled={optLength === 4}
+                                            // isDisabled={isView}th === 4}
                                         >
                                             <Button
                                                 onClick={addOption}
                                                 leftIcon={<FiPlusCircle />}
-                                                isDisabled={optLength === 4}
+                                                isDisabled={isView}th === 4}
                                                 size={"sm"}
                                             >
                                                 Add
@@ -163,7 +164,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                                 size="sm"
                                                 name="answer"
                                                 value={qn.answer}
-                                                isDisabled
+                                                isDisabled={isView}
                                                 _disabled={{
                                                     color: fontColor,
                                                     borderColor: border,
@@ -174,7 +175,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                                 // }
                                                 placeholder="Select Answer"
                                                 question
-                                                // isDisabled={isErrorOptions}
+                                                // isDisabled={isView}Options}
                                             >
                                                 {qn.options.map(
                                                     (opt, index) => (
@@ -203,7 +204,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                             id={`options-${index + 1}`}
                                             value={value}
                                             name="options"
-                                            isDisabled
+                                            isDisabled={isView}
                                             _disabled={{
                                                 color: fontColor,
                                                 borderColor: border,
@@ -259,7 +260,7 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                                     }`}
                                                     name="optionsTranslate"
                                                     value={value}
-                                                    isDisabled
+                                                    isDisabled={isView}
                                                     _disabled={{
                                                         color: fontColor,
                                                         borderColor: border,
@@ -285,10 +286,15 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                     <FormControl>
                         <FormLabel>Question Translate</FormLabel>
                         <Textarea
-                            placeholder="Enter Translation"
+                            // placeholder="Enter Translation"
                             name="questionTranslate"
                             value={qn.questionTranslate}
-                            isReadOnly
+                            isDisabled={isView}
+                            _disabled={{
+                                color: fontColor,
+                                borderColor: border,
+                                opacity: 100,
+                            }}
                         />
                     </FormControl>
                 </ModalBody>
@@ -297,14 +303,18 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                     <Button
                         colorScheme="blue"
                         mr={3}
-                        onClick={() => setIsView(false)}
+                        onClick={() => {
+                            setIsView(false);
+                            setIsEdit(true);
+                        }}
                     >
-                        Edit
+                        {isEdit ? "Update" : "Edit"}
                     </Button>
                     <Button
                         colorScheme="red"
                         onClick={() => {
                             setIsView(false);
+                            setIsEdit(false);
                         }}
                     >
                         Close
@@ -314,4 +324,4 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
         </Modal>
     );
 };
-export default ViewQuestion;
+export default ViewEditQuestion;
