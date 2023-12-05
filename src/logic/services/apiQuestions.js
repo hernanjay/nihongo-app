@@ -51,3 +51,38 @@ export async function fetchCountQuestionsByLevelTypeSet() {
 
     return json;
 }
+
+export async function addQuestions(questions) {
+    const token = JSON.parse(localStorage.getItem("token"));
+
+    if (!token) {
+        return {
+            status: 0,
+            json: { error: "Authentication failed! Please login first!" },
+        };
+    }
+    console.log(questions);
+
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/create`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                questions,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        return { status: 0, json };
+    }
+
+    if (res.ok) return { status: 1, json };
+}

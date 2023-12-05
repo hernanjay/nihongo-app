@@ -28,29 +28,21 @@ import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
 import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { retrieveProfile } from "../../logic/services/apiUsers";
-import Loader from "./Loader";
+import { useQuery } from "@tanstack/react-query";
 
 function HomeUserProfileCard() {
   const { bg } = ThemeColors();
   const { user } = useUserContext();
-  const { totalScoresNumItems, dispatch: gradeDispatch } = useGradeContext();
 
-  // const queryClient = useQueryClient();
-
-  // const user = queryClient.getQueryData(["user"]);
-
-  // const {
-  //   isLoading: isLoadingTSNI,
-  //   data: totalScoresNumItems,
-  //   error: errorTSNI,
-  // } = useQuery({
-  //   queryKey: ["totalScoresNumItems"],
-  //   queryFn: () => fetchTotalScoresAndItems(user._id),
-  // });
-
-  // console.log(totalScoresNumItems);
+  const {
+    isLoading,
+    data: totalScoresNumItems,
+    error,
+  } = useQuery({
+    queryKey: ["totalScoresNumItems"],
+    queryFn: () => fetchTotalScoresAndItems(user._id),
+    enabled: !!user,
+  });
 
   const [level, setLevel] = useState("N5");
   const [score, setScore] = useState({});
@@ -131,6 +123,15 @@ function HomeUserProfileCard() {
         ...prevTotal,
         kanji: kanjiScoreForLevel.totalItems,
       }));
+    } else {
+      setScore((prevScore) => ({
+        ...prevScore,
+        kanji: 0,
+      }));
+      setTotal((prevTotal) => ({
+        ...prevTotal,
+        kanji: 0,
+      }));
     }
 
     const vocabScoreForLevel = vocabScores?.find(
@@ -145,6 +146,15 @@ function HomeUserProfileCard() {
       setTotal((prevTotal) => ({
         ...prevTotal,
         vocab: vocabScoreForLevel.totalItems,
+      }));
+    } else {
+      setScore((prevScore) => ({
+        ...prevScore,
+        vocab: 0,
+      }));
+      setTotal((prevTotal) => ({
+        ...prevTotal,
+        vocab: 0,
       }));
     }
 
@@ -161,21 +171,17 @@ function HomeUserProfileCard() {
         ...prevTotal,
         grammar: grammarScoreForLevel.totalItems,
       }));
+    } else {
+      setScore((prevScore) => ({
+        ...prevScore,
+        grammar: 0,
+      }));
+      setTotal((prevTotal) => ({
+        ...prevTotal,
+        grammar: 0,
+      }));
     }
   };
-
-  useEffect(() => {
-    const fetchScores = async () => {
-      const scoresNumItems = await fetchTotalScoresAndItems(user._id);
-
-      gradeDispatch({
-        type: "receivedTotalScoresNumItems",
-        payload: scoresNumItems,
-      });
-    };
-
-    fetchScores();
-  }, [user, gradeDispatch]);
 
   return (
     <Box

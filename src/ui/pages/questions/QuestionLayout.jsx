@@ -18,7 +18,8 @@ import {
   fetchQuestionsByIds,
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
-import { useQuery } from "@tanstack/react-query";
+// import { useQueries, useQuery } from "@tanstack/react-query";
+// import { useCallback } from "react";
 
 const QuestionLayout = () => {
   //   useQuery({
@@ -37,7 +38,36 @@ const QuestionLayout = () => {
 
   const { dispatch: gradeDispatch } = useGradeContext();
 
-  const { level, type, set } = useParams();
+    // status === "success" && console.log(isGettingSpcfGrade);
+    // status === "success" && console.log(data);
+    // const { data: questions } = useQueries({
+    //     queries:
+    //         !isGettingSpcfGrade && data
+    //             ? [
+    //                   {
+    //                       queryKey: ["questions"],
+    //                       queryFn: () =>
+    //                           fetchQuestionsByIds(data.idPerQuestion),
+    //                   },
+    //               ]
+    //             : [
+    //                   {
+    //                       queryKey: ["questions"],
+    //                       queryFn: () => fetchQuestions(level, type, set),
+    //                   },
+    //               ],
+    // });
+
+    useEffect(() => {
+        const fetchGradeAndQuestions = async () => {
+            setIsLoading(true);
+            try {
+                const specificGrade = await fetchSpecificGrade(
+                    user,
+                    level,
+                    type,
+                    set
+                );
 
   // fetch the grades
   useEffect(() => {

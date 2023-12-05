@@ -110,5 +110,5 @@ export async function fetchTotalScoresAndItems(userId) {
 
     if (!res.ok) console.log(json.error);
 
-    return json;
+    if (res.ok) return json;
 }
