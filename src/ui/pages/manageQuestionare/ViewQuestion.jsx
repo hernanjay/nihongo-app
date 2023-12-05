@@ -35,7 +35,16 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                     <Grid templateColumns="repeat(3, 1fr)" gap={4}>
                         <FormControl isRequired>
                             <FormLabel>Select Level</FormLabel>
-                            <Select name="level" defaultValue="N5" isReadOnly>
+                            <Select
+                                name="level"
+                                defaultValue="N5"
+                                isDisabled
+                                _disabled={{
+                                    color: fontColor,
+                                    borderColor: border,
+                                    opacity: 100,
+                                }}
+                            >
                                 <option>N1</option>
                                 <option>N2</option>
                                 <option>N3</option>
@@ -50,8 +59,9 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                 value={qn.type}
                                 isDisabled
                                 _disabled={{
-                                    color: "var(--chakra-colors-light.400)",
-                                    borderColor: "var(--chakra-colors-blue)",
+                                    color: fontColor,
+                                    borderColor: border,
+                                    opacity: 100,
                                 }}
                             >
                                 <option value="vocab">Vocab</option>
@@ -68,7 +78,12 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                 type="number"
                                 name="set"
                                 value={qn.set}
-                                isReadOnly
+                                isDisabled
+                                _disabled={{
+                                    color: fontColor,
+                                    borderColor: border,
+                                    opacity: 100,
+                                }}
                                 // placeholder="1"
                                 // defaultValue="1"
                             />
@@ -89,7 +104,12 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                             placeholder="Write Question"
                             name="question"
                             value={qn.question}
-                            isReadOnly
+                            isDisabled
+                            _disabled={{
+                                color: fontColor,
+                                borderColor: border,
+                                opacity: 100,
+                            }}
                         />
                         {/* {isErrorQuestion && (
                             <FormErrorMessage>
@@ -132,18 +152,23 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                     >
                                         <Flex alignItems="center">
                                             <FormLabel mt={1}>Answer</FormLabel>
-                                            <Tooltip
+                                            {/* <Tooltip
                                                 hasArrow
                                                 label="Make sure options are not empty"
                                                 openDelay={300}
                                             >
                                                 <QuestionOutlineIcon me={2} />
-                                            </Tooltip>
+                                            </Tooltip> */}
                                             <Select
                                                 size="sm"
                                                 name="answer"
                                                 value={qn.answer}
-                                                isReadOnly
+                                                isDisabled
+                                                _disabled={{
+                                                    color: fontColor,
+                                                    borderColor: border,
+                                                    opacity: 100,
+                                                }}
                                                 // onChange={(e) =>
                                                 //     handleChange(e)
                                                 // }
@@ -178,7 +203,12 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                             id={`options-${index + 1}`}
                                             value={value}
                                             name="options"
-                                            isReadOnly
+                                            isDisabled
+                                            _disabled={{
+                                                color: fontColor,
+                                                borderColor: border,
+                                                opacity: 100,
+                                            }}
                                             // onChange={(e) => {
                                             //     handleOptionsChange(
                                             //         index,
@@ -229,7 +259,12 @@ const ViewQuestion = ({ isView, setIsView, qn }) => {
                                                     }`}
                                                     name="optionsTranslate"
                                                     value={value}
-                                                    isReadOnly
+                                                    isDisabled
+                                                    _disabled={{
+                                                        color: fontColor,
+                                                        borderColor: border,
+                                                        opacity: 100,
+                                                    }}
                                                     // onChange={(e) =>
                                                     //     handleOptionsTranslateChange(
                                                     //         index,
