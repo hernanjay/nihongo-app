@@ -111,7 +111,7 @@ function ManageQuestioner() {
         w={"100%"}
         //   marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
         transition={"800ms"}
-        pl={toggle ? "25vw" : "5vw"}
+        pl={toggle ? "25vw" : "8vw"}
         pr={"5vw"}
         pt="10vh"
         flexDir={"column"}
