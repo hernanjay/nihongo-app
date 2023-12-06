@@ -247,7 +247,7 @@
 
   {
     "id": 44,
-    "kanji": "JLPT",
+    "kanji": "文",
     "hiragana": "ぶん",
     "romaji": "bun",
     "meaning": " 文 (bun)"
@@ -623,13 +623,6 @@
     "hiragana": "ひどい",
     "romaji": "hidoi",
     "meaning": " cruel, heartless"
-  },
-  {
-    "id": 101,
-    "kanji": "Learn",
-    "hiragana": "1085 ぱげs",
-    "romaji": "1085 pages",
-    "meaning": " Learn JLPT N4 Vocabulary (1085 pages)"
   },
 
   {

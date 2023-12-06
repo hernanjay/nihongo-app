@@ -1,9 +1,4 @@
-import {
-  ChevronRightIcon,
-  ExternalLinkIcon,
-  InfoOutlineIcon,
-  SettingsIcon,
-} from "@chakra-ui/icons";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   AvatarBadge,
@@ -24,8 +19,7 @@ import ThemeColors from "../../pages/main/ThemeColors";
 function NavbarUserMenu() {
   const { user } = useUserContext();
 
-  const { body, bg, border, fontColor, success, error, warning, info, hover } =
-    ThemeColors();
+  const { bg, hover } = ThemeColors();
 
   const { logout } = useLogout();
   return (
