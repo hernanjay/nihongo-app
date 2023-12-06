@@ -19,22 +19,23 @@ import {
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
-import AddQuestions from "./AddQuestions";
 import QuestionRow from "./QuestionRow";
+import AddViewEditQuestion from "./AddViewEditQuestion";
+
 import { addQuestions } from "../../../logic/services/apiQuestions";
-import ViewQuestion from "./ViewQuestion";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
     const [questions, setQuestions] = useState([]);
     const [isView, setIsView] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
+    const [previewIndex, setPreviewIndex] = useState(null);
 
     const { isOpen, onOpen, onClose } = useDisclosure({
         closeOnOverlayClick: false,
         closeOnEsc: false,
     });
-    console.log(isView);
 
     const [toggle, setToggle] = useBoolean();
     const { bg, fontColor, body } = ThemeColors();
@@ -79,6 +80,7 @@ function ManageQuestioner() {
 
         if (lsQuestions) setQuestions(lsQuestions);
     }, []);
+
     return (
         <Box>
             <Flex flexDir={"row"} justifyContent={"center"} overflow={"auto"}>
@@ -100,18 +102,17 @@ function ManageQuestioner() {
                         >
                             Add Question
                         </Button>
-                        <AddQuestions
-                            isOpen={isOpen}
+                        <AddViewEditQuestion
+                            isAdd={isOpen}
                             onClose={onClose}
                             setQuestions={setQuestions}
+                            isView={isView}
+                            setIsView={setIsView}
+                            isEdit={isEdit}
+                            setIsEdit={setIsEdit}
+                            qnPreview={qnPreview}
+                            previewIndex={previewIndex}
                         />
-                        {isView && (
-                            <ViewQuestion
-                                isView={isView}
-                                setIsView={setIsView}
-                                qn={qnPreview}
-                            />
-                        )}
                     </Box>
                     <TableContainer mt="2rem" overflowY="auto" maxH="60vh">
                         <Table variant="unstyled">
@@ -140,6 +141,8 @@ function ManageQuestioner() {
                                         setIsView={setIsView}
                                         setQnPreview={setQnPreview}
                                         deleteQuestion={deleteQuestion}
+                                        setIsEdit={setIsEdit}
+                                        setPreviewIndex={setPreviewIndex}
                                     />
                                 ))}
                             </Tbody>

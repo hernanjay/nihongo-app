@@ -2,7 +2,7 @@
 import React from "react";
 
 // 2. import `ChakraProvider` component
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, flattenTokens } from "@chakra-ui/react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
@@ -34,15 +34,15 @@ function App() {
   const { user, isLoading } = useUserContext();
 
   // Placeholder user null error handling
-  let userRole = "none";
-  try {
-    userRole = user.role;
-  } catch (error) {
-    console.warn({
-      Comment: "Null User handling is not yet defined -Nan",
-      ErrorMsg: error,
-    });
-  }
+  // let userRole = "none";
+  // try {
+  //   userRole = user.role;
+  // } catch (error) {
+  //   console.warn({
+  //     Comment: "Null User handling is not yet defined -Nan",
+  //     ErrorMsg: error,
+  //   });
+  // }
 
   return (
     <ChakraProvider theme={theme}>
@@ -68,7 +68,7 @@ function App() {
                 <Route
                   path="/userprofile"
                   element={
-                    userRole === "student" ? (
+                    user?.role === "student" ? (
                       <UserProfile />
                     ) : (
                       <Navigate to="/" />
@@ -89,7 +89,7 @@ function App() {
                 <Route
                   path="/admin"
                   element={
-                    userRole === "admin" ? (
+                    user?.role === "admin" ? (
                       <Admindashboard />
                     ) : (
                       <Navigate to="/" />
@@ -100,7 +100,7 @@ function App() {
                 <Route
                   path="/managequestioner"
                   element={
-                    userRole === "admin" ? (
+                    user?.role === "admin" ? (
                       <ManageQuestioner />
                     ) : (
                       <Navigate to="/" />
@@ -111,28 +111,32 @@ function App() {
                 <Route
                   path="/users"
                   element={
-                    userRole === "admin" ? <Users /> : <Navigate to="/" />
+                    user?.role === "admin" ? <Users /> : <Navigate to="/" />
                   }
                 />
 
                 <Route
                   path="/chart"
                   element={
-                    userRole === "admin" ? <AdminChart /> : <Navigate to="/" />
+                    user?.role === "admin" ? (
+                      <AdminChart />
+                    ) : (
+                      <Navigate to="/" />
+                    )
                   }
                 />
 
                 <Route
                   path="/grading"
                   element={
-                    userRole === "admin" ? <Grading /> : <Navigate to="/" />
+                    user?.role === "admin" ? <Grading /> : <Navigate to="/" />
                   }
                 />
 
                 <Route
                   path="/list"
                   element={
-                    userRole === "admin" ? <List /> : <Navigate to="/" />
+                    user?.role === "admin" ? <List /> : <Navigate to="/" />
                   }
                 />
 

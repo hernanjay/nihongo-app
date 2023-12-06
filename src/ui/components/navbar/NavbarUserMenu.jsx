@@ -15,6 +15,7 @@ import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import NavbarLogoutButton from "./NavbarLogoutButton";
 import { useLogout } from "../../../logic/hooks/user/useLogout";
 import ThemeColors from "../../pages/main/ThemeColors";
+import { useQueryClient } from "@tanstack/react-query";
 
 function NavbarUserMenu() {
   const { user } = useUserContext();
@@ -71,7 +72,10 @@ function NavbarUserMenu() {
           bg="transparent"
           icon={<ChevronRightIcon />}
           _hover={{ bg: hover }}
-          onClick={logout}
+          onClick={() => {
+            logout();
+            queryClient.invalidateQueries(["user"]);
+          }}
         >
           Logout
         </NavbarLogoutButton>

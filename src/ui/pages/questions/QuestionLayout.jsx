@@ -22,6 +22,11 @@ import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobil
 // import { useCallback } from "react";
 
 const QuestionLayout = () => {
+  //   useQuery({
+  //     queryKey: ["scores"],
+  //     queryFn: () => fetchSpecificGrade(user, level, type, set),
+  //   });
+
   const { bg, border } = ThemeColors();
   const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,8 +37,6 @@ const QuestionLayout = () => {
   const { user } = useUserContext();
 
   const { dispatch: gradeDispatch } = useGradeContext();
-
-  const { level, type, set } = useParams();
 
   // status === "success" && console.log(isGettingSpcfGrade);
   // status === "success" && console.log(data);
@@ -55,6 +58,7 @@ const QuestionLayout = () => {
   //               ],
   // });
 
+  // fetch the grades
   useEffect(() => {
     const fetchGradeAndQuestions = async () => {
       setIsLoading(true);
