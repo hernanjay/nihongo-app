@@ -57,7 +57,7 @@ function NavbarUserMenu() {
                         Admin Dashboard
                     </MenuItem>
                 )}
-                {user.role === "teacher" && (
+                {(user.role === "teacher" || user.role === "admin") && (
                     <MenuItem
                         bg="transparent"
                         _hover={{ bg: hover }}
