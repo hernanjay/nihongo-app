@@ -66,12 +66,6 @@ const AddViewEditQuestion = ({
   const isErrorAnswer = qn.answer === "";
   const isErrorKanji = isKanji && !hasBracket;
 
-  console.log(isKanji);
-
-  console.log(hasBracket);
-
-  console.log(isErrorKanji);
-
   const addOption = () => {
     if (optLength < 4) {
       setQn((prevQn) => ({
@@ -130,7 +124,13 @@ const AddViewEditQuestion = ({
 
   const addUpdateQuestion = () => {
     setHasSubmit(true);
-    if (!isErrorSet && !isErrorQuestion && !isErrorOptions && !isErrorAnswer) {
+    if (
+      !isErrorSet &&
+      !isErrorQuestion &&
+      !isErrorOptions &&
+      !isErrorAnswer &&
+      !isErrorKanji
+    ) {
       const lsQuestions = JSON.parse(localStorage.getItem("questions"));
 
       if (!lsQuestions) {
