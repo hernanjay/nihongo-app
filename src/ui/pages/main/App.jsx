@@ -24,7 +24,6 @@ import List from "../admin/List";
 import Grading from "../admin/Grading";
 import ManageQuestioner from "../manageQuestionare/ManageQuestioner";
 import Side from "../dummies/Side";
-import Comp from "../dummies/Comp";
 import Users from "../admin/Users";
 import LearnVocab from "../learnVocab/LearnVocab";
 import RegisterStepper from "../register/RegisterStepper";
@@ -32,6 +31,16 @@ import RegisterStepper from "../register/RegisterStepper";
 function App() {
   const { user, isLoading } = useUserContext();
   // 4. Wrap ChakraProvider at the root of your app
+  let userRole = "none";
+  try {
+    userRole = user.role;
+  } catch (error) {
+    console.warn({
+      Comment: "Null User handling is not yet defined -Nan",
+      ErrorMsg: error,
+    });
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <>
@@ -41,7 +50,9 @@ function App() {
             <>
               <NavBar />
               <Routes>
+                {/* Brings user to homepage */}
                 <Route path="/" element={user ? <Home /> : <LandingPage />} />
+
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Navigate to="/" />}
@@ -50,33 +61,84 @@ function App() {
                   path="/register"
                   element={!user ? <Register /> : <Navigate to="/" />}
                 />
-                <Route path="/admin" element={<Admindashboard />} />
-                <Route path="/chart" element={<AdminChart />} />
-                <Route path="/userprofile" element={<UserProfile />} />
+
+                <Route
+                  path="/userprofile"
+                  element={
+                    userRole === "student" ? (
+                      <UserProfile />
+                    ) : (
+                      <Navigate to="/" />
+                    )
+                  }
+                />
+
                 <Route
                   path="/kana-quiz"
                   element={user ? <KanaLayout /> : <Navigate to="/" />}
                 />
+
+                <Route
+                  path="/learnVocab"
+                  element={user ? <LearnVocab /> : <Navigate to="/" />}
+                />
+
+                <Route
+                  path="/admin"
+                  element={
+                    userRole === "admin" ? (
+                      <Admindashboard />
+                    ) : (
+                      <Navigate to="/" />
+                    )
+                  }
+                />
+
                 <Route
                   path="/managequestioner"
-                  element={<ManageQuestioner />}
+                  element={
+                    userRole === "admin" ? (
+                      <ManageQuestioner />
+                    ) : (
+                      <Navigate to="/" />
+                    )
+                  }
                 />
-                <Route path="/comp" element={<Comp />} />
+
+                <Route
+                  path="/users"
+                  element={
+                    userRole === "admin" ? <Users /> : <Navigate to="/" />
+                  }
+                />
+
+                <Route
+                  path="/chart"
+                  element={
+                    userRole === "admin" ? <AdminChart /> : <Navigate to="/" />
+                  }
+                />
+
+                <Route
+                  path="/grading"
+                  element={
+                    userRole === "admin" ? <Grading /> : <Navigate to="/" />
+                  }
+                />
+
+                <Route
+                  path="/list"
+                  element={
+                    userRole === "admin" ? <List /> : <Navigate to="/" />
+                  }
+                />
+
+                <Route path="*" element={<Navigate to="/" />} />
+
                 <Route
                   path="/questions/:level/:type/:set"
                   element={user ? <QuestionLayout /> : <Navigate to="/" />}
                 />
-                <Route path="users" element={<Users />} />
-                <Route path="/grading" element={<Grading />} />
-                <Route
-                  path="/managequestioner"
-                  element={<ManageQuestioner />}
-                />
-                <Route path="/list" element={<List />} />
-                <Route path="/dummy" element={<Side />} />
-                <Route path="/learnVocab" element={<LearnVocab />} />
-
-                <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </>
           )}

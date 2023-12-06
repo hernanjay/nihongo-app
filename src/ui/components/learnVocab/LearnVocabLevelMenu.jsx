@@ -8,18 +8,23 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import ThemeColors from "../../pages/main/ThemeColors";
 
 function LearnVocabLevelMenu({ onClick, searchValueLevel }) {
+  const { body, bg, border, fontColor, success, error, warning, info, hover } =
+    ThemeColors();
   const levels = ["N1", "N2", "N3", "N4", "N5"];
   return (
-    <Menu>
+    <Menu bg={bg}>
       <MenuButton mx="1em" variant="outline">
         <HStack>
           <Text>{searchValueLevel}</Text> <ChevronDownIcon />
         </HStack>
       </MenuButton>
-      <MenuList fontSize="0.75em">
+      <MenuList bg={bg} fontSize="0.75em">
         <MenuItem
+          bg={bg}
+          _hover={{ bg: hover }}
           onClick={() => {
             onClick("All");
           }}
@@ -29,6 +34,8 @@ function LearnVocabLevelMenu({ onClick, searchValueLevel }) {
         {levels.map((level) => {
           return (
             <MenuItem
+              bg={bg}
+              _hover={{ bg: hover }}
               key={level}
               onClick={() => {
                 onClick(level);

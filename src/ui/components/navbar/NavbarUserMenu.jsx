@@ -23,6 +23,7 @@ import ThemeColors from "../../pages/main/ThemeColors";
 
 function NavbarUserMenu() {
   const { user } = useUserContext();
+
   const { body, bg, border, fontColor, success, error, warning, info, hover } =
     ThemeColors();
 
@@ -61,15 +62,17 @@ function NavbarUserMenu() {
             Admin Dashboard
           </MenuItem>
         )}
-        <MenuItem
-          bg="transparent"
-          icon={<ChevronRightIcon />}
-          _hover={{ bg: hover }}
-          as={Link}
-          to="/userprofile"
-        >
-          User Profile
-        </MenuItem>
+        {user.role === "student" && (
+          <MenuItem
+            bg="transparent"
+            icon={<ChevronRightIcon />}
+            _hover={{ bg: hover }}
+            as={Link}
+            to="/userprofile"
+          >
+            User Profile
+          </MenuItem>
+        )}
         <NavbarLogoutButton
           bg="transparent"
           icon={<ChevronRightIcon />}
