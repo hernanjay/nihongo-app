@@ -19,8 +19,9 @@ import {
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
-import AddViewEditQuestion from "./AddViewEditQuestion";
 import QuestionRow from "./QuestionRow";
+import AddViewEditQuestion from "./AddViewEditQuestion";
+
 import { addQuestions } from "../../../logic/services/apiQuestions";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
@@ -67,8 +68,6 @@ function ManageQuestioner() {
             });
         }
     }
-
-    console.log(questions);
 
     function deleteQuestion(i) {
         const updatedQuestions = questions.filter((qn, index) => index !== i);

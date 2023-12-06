@@ -19,6 +19,7 @@ import {
     Select,
     Textarea,
     Tooltip,
+    usePrevious,
     useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -26,7 +27,7 @@ import { useEffect } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
 
-const AddQuestions = ({
+const AddViewEditQuestion = ({
     isAdd,
     onClose,
     setQuestions,
@@ -51,139 +52,137 @@ const AddQuestions = ({
     const { fontColor, border } = ThemeColors();
 
     const [hasSubmit, setHasSubmit] = useState(false);
-    const [questionUpdate, setQuestionUpdate] = useState();
 
-    // set the questionUpdate at first run
-    useEffect(() => {
-        setQuestionUpdate(qnPreview);
-    }, [qnPreview]);
+    const isKanji = qn.type === "kanji";
 
-    const optLength = isAdd
-        ? qn.options.length
-        : questionUpdate?.options?.length;
+    const hasBracket = qn.question.includes("[") && qn.question.includes("]");
 
-    const isErrorSet = isAdd ? qn.set === "" : questionUpdate?.set === "";
-    const isErrorQuestion = isAdd
-        ? qn.question === ""
-        : questionUpdate?.question === "";
-    const isErrorOptions = isAdd
-        ? optLength === 0 || qn.options.includes("")
-        : optLength === 0 || questionUpdate?.options?.includes("");
-    const isErrorAnswer = isAdd
-        ? qn.answer === ""
-        : questionUpdate?.answer === "";
+    const optLength = qn.options?.length;
+
+    const isErrorSet = qn.set === "";
+    const isErrorQuestion = qn.question === "";
+    const isErrorOptions = qn.optLength === 0 || qn.options.includes("");
+    const isErrorAnswer = qn.answer === "";
+    const isErrorKanji = isKanji && !hasBracket;
 
     const addOption = () => {
         if (optLength < 4) {
-            isAdd &&
-                setQn((prevQn) => ({
-                    ...prevQn,
-                    options: [...prevQn.options, ""],
-                    optionsTranslate: [...prevQn.optionsTranslate, ""],
-                }));
+            // if (isAdd) {
+            setQn((prevQn) => ({
+                ...prevQn,
+                options: [...prevQn.options, ""],
+                optionsTranslate: [...prevQn.optionsTranslate, ""],
+            }));
+            // }
+            // if (isEdit) {
+            //     setQuestionPreviewUpdate((prevQn) => ({
+            //         ...prevQn,
+            //         options: [...prevQn.options, ""],
+            //         optionsTranslate: [...prevQn.optionsTranslate, ""],
+            //     }));
+            // }
         }
     };
 
     const deleteOption = (curIndex) => {
-        if (isAdd) {
-            const updatedOptions = qn.options.filter(
-                (option, index) => index !== curIndex
-            );
+        // if (isAdd) {
+        const updatedOptions = qn.options.filter(
+            (option, index) => index !== curIndex
+        );
 
-            const updatedOptionsTranslate = qn.optionsTranslate.filter(
-                (optionTranslate, index) => index !== curIndex
-            );
+        const updatedOptionsTranslate = qn.optionsTranslate.filter(
+            (optionTranslate, index) => index !== curIndex
+        );
 
-            setQn((prevQn) => ({
-                ...prevQn,
-                options: updatedOptions,
-                optionsTranslate: updatedOptionsTranslate,
-            }));
-        }
-        if (isEdit) {
-            const updatedOptions = questionUpdate?.options?.filter(
-                (option, index) => index !== curIndex
-            );
+        setQn((prevQn) => ({
+            ...prevQn,
+            options: updatedOptions,
+            optionsTranslate: updatedOptionsTranslate,
+        }));
+        // }
+        // if (isEdit) {
+        //     const updatedOptions = questionPreviewUpdate?.options?.filter(
+        //         (option, index) => index !== curIndex
+        //     );
 
-            const updatedOptionsTranslate =
-                questionUpdate?.optionsTranslate?.filter(
-                    (optionTranslate, index) => index !== curIndex
-                );
+        //     const updatedOptionsTranslate =
+        //         questionPreviewUpdate?.optionsTranslate?.filter(
+        //             (optionTranslate, index) => index !== curIndex
+        //         );
 
-            setQuestionUpdate((prevQn) => ({
-                ...prevQn,
-                options: updatedOptions,
-                optionsTranslate: updatedOptionsTranslate,
-            }));
-        }
+        //     setQuestionPreviewUpdate((prevQn) => ({
+        //         ...prevQn,
+        //         options: updatedOptions,
+        //         optionsTranslate: updatedOptionsTranslate,
+        //     }));
+        // }
     };
 
     const handleChange = (e) => {
-        if (isAdd) {
-            const { name, value } = e.target;
-            setQn((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
-        if (isEdit) {
-            const { name, value } = e.target;
-            setQuestionUpdate((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
+        // if (isAdd) {
+        const { name, value } = e.target;
+        setQn((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+        // }
+        // if (isEdit) {
+        //     const { name, value } = e.target;
+        //     setQuestionPreviewUpdate((prevData) => ({
+        //         ...prevData,
+        //         [name]: value,
+        //     }));
+        // }
     };
 
     const handleOptionsChange = (index, value) => {
-        if (isAdd) {
-            setQn((prevQn) => {
-                const updatedOptions = [...prevQn.options];
-                updatedOptions[index] = value;
-                return {
-                    ...prevQn,
-                    options: updatedOptions,
-                };
-            });
-        }
-        if (isEdit) {
-            setQuestionUpdate((prevQn) => {
-                const updatedOptions = [...prevQn.options];
-                updatedOptions[index] = value;
-                return {
-                    ...prevQn,
-                    options: updatedOptions,
-                };
-            });
-        }
+        // if (isAdd) {
+        setQn((prevQn) => {
+            const updatedOptions = [...prevQn.options];
+            updatedOptions[index] = value;
+            return {
+                ...prevQn,
+                options: updatedOptions,
+            };
+        });
+        // }
+        // if (isEdit) {
+        //     setQuestionPreviewUpdate((prevQn) => {
+        //         const updatedOptions = [...prevQn.options];
+        //         updatedOptions[index] = value;
+        //         return {
+        //             ...prevQn,
+        //             options: updatedOptions,
+        //         };
+        //     });
+        // }
     };
 
     const handleOptionsTranslateChange = (index, value) => {
-        if (isAdd) {
-            setQn((prevQn) => {
-                const updatedOptions = [...prevQn.optionsTranslate];
-                updatedOptions[index] = value;
-                return {
-                    ...prevQn,
-                    optionsTranslate: updatedOptions,
-                };
-            });
-        }
-        if (isEdit) {
-            setQuestionUpdate((prevQn) => {
-                const updatedOptions = [...prevQn.optionsTranslate];
-                updatedOptions[index] = value;
-                return {
-                    ...prevQn,
-                    optionsTranslate: updatedOptions,
-                };
-            });
-        }
+        // if (isAdd) {
+        setQn((prevQn) => {
+            const updatedOptions = [...prevQn.optionsTranslate];
+            updatedOptions[index] = value;
+            return {
+                ...prevQn,
+                optionsTranslate: updatedOptions,
+            };
+        });
+        // }
+        // if (isEdit) {
+        //     setQuestionPreviewUpdate((prevQn) => {
+        //         const updatedOptions = [...prevQn.optionsTranslate];
+        //         updatedOptions[index] = value;
+        //         return {
+        //             ...prevQn,
+        //             optionsTranslate: updatedOptions,
+        //         };
+        //     });
+        // }
     };
 
-    const addQuestion = () => {
+    const addUpdateQuestion = () => {
         setHasSubmit(true);
-
         if (
             !isErrorSet &&
             !isErrorQuestion &&
@@ -195,10 +194,34 @@ const AddQuestions = ({
             if (!lsQuestions) {
                 localStorage.setItem("questions", JSON.stringify([qn]));
             } else {
-                lsQuestions.push(qn);
-                localStorage.setItem("questions", JSON.stringify(lsQuestions));
+                if (isAdd) {
+                    lsQuestions.push(qn);
+                    localStorage.setItem(
+                        "questions",
+                        JSON.stringify(lsQuestions)
+                    );
+                    setQuestions((prevData) => [...prevData, qn]);
+                }
+
+                if (isEdit) {
+                    const updatedLSQuestions = lsQuestions.filter(
+                        (qn, index) => index !== previewIndex
+                    );
+                    updatedLSQuestions.push(qn);
+
+                    // Update the items in Local Storage
+                    localStorage.setItem(
+                        "questions",
+                        JSON.stringify(updatedLSQuestions)
+                    );
+
+                    setQuestions((prevData) =>
+                        prevData.map((question, index) =>
+                            index === previewIndex ? qn : question
+                        )
+                    );
+                }
             }
-            setQuestions((prevData) => [...prevData, qn]);
             resetQn();
         } else {
             toast({
@@ -212,58 +235,38 @@ const AddQuestions = ({
         }
     };
 
-    function updateQuestion() {
-        setHasSubmit(true);
-
-        if (
-            !isErrorSet &&
-            !isErrorQuestion &&
-            !isErrorOptions &&
-            !isErrorAnswer
-        ) {
-            const lsQuestions = JSON.parse(localStorage.getItem("questions"));
-            const updatedLSQuestions =
-                lsQuestions.filter((qn, index) => index !== previewIndex) || [];
-            updatedLSQuestions.push(questionUpdate);
-            localStorage.setItem(
-                "questions",
-                JSON.stringify(updatedLSQuestions)
-            );
-
-            // setQuestions(
-            //     (prevData) => (prevData[previewIndex] = updateQuestion)
-            // );
-            // resetQn();
-        } else {
-            toast({
-                title: "Questions Not Added!",
-                position: "top",
-                status: "error",
-                description: `Please fill-up required fields`,
-                duration: 3000,
-                isClosable: true,
-            });
-        }
-    }
-
     function resetQn() {
         setHasSubmit(false);
-        isAdd &&
-            setQn({
-                question: "",
-                options: [],
-                type: "vocab",
-                level: "5",
-                set: "1",
-                answer: "",
-                optionsTranslate: [],
-                questionTranslate: "",
-            });
-
-        isView && setIsView(false);
-        isEdit && setIsEdit(false);
+        setQn({
+            question: "",
+            options: [],
+            type: "vocab",
+            level: "5",
+            set: "1",
+            answer: "",
+            optionsTranslate: [],
+            questionTranslate: "",
+        });
+        setIsView(false);
+        setIsEdit(false);
         onClose();
     }
+
+    // set the questionPreviewUpdate at first run
+    useEffect(() => {
+        (isEdit || isView) && setQn(qnPreview);
+    }, [qnPreview, isEdit, isView]);
+
+    // Keep track of the previous options
+    const prevOptions = usePrevious(qn.options);
+
+    useEffect(() => {
+        // Check if options have been deleted
+        if (prevOptions && prevOptions.length > qn.options.length) {
+            const isInOptions = qn.options.includes(qn.answer);
+            !isInOptions && setQn((prevData) => ({ ...prevData, answer: "" }));
+        }
+    }, [qn.options, prevOptions, qn.answer]);
     return (
         <Modal
             isOpen={isAdd || isView || isEdit}
@@ -280,20 +283,20 @@ const AddQuestions = ({
                 </ModalHeader>
                 <ModalBody>
                     <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+                        {/* LEVEL */}
                         <GridItem>
                             <FormControl isRequired>
                                 <FormLabel>Select Level</FormLabel>
                                 <Select
                                     name="level"
                                     defaultValue="5"
-                                    value={
-                                        isAdd ? qn.level : questionUpdate?.level
-                                    }
+                                    value={qn.level}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isView}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
+                                        opacity: 1,
                                     }}
                                 >
                                     <option>1</option>
@@ -305,20 +308,20 @@ const AddQuestions = ({
                             </FormControl>
                         </GridItem>
 
+                        {/* TYPE */}
                         <GridItem>
                             <FormControl isRequired>
                                 <FormLabel>Select Type</FormLabel>
                                 <Select
                                     name="type"
                                     defaultValue="vocab"
-                                    value={
-                                        isAdd ? qn.type : questionUpdate?.type
-                                    }
+                                    value={qn.type}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isView}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
+                                        opacity: 1,
                                     }}
                                 >
                                     <option value="vocab">Vocab</option>
@@ -328,18 +331,19 @@ const AddQuestions = ({
                             </FormControl>
                         </GridItem>
 
+                        {/* SET */}
                         <GridItem>
                             <FormControl
                                 isRequired
                                 isInvalid={hasSubmit && isErrorSet}
                             >
-                                <FormLabel>Set</FormLabel>
+                                <FormLabel>Set No.</FormLabel>
                                 <Input
                                     type="number"
                                     name="set"
                                     placeholder="1"
                                     defaultValue="1"
-                                    value={isAdd ? qn.set : questionUpdate?.set}
+                                    value={qn.set}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isView}
                                     _disabled={{
@@ -355,22 +359,22 @@ const AddQuestions = ({
                             </FormControl>
                         </GridItem>
 
+                        {/* QUESTION */}
                         <GridItem colSpan={3}>
                             <FormControl
                                 isRequired
                                 mt={4}
-                                isInvalid={hasSubmit && isErrorQuestion}
+                                isInvalid={
+                                    hasSubmit &&
+                                    (isErrorQuestion || isErrorKanji)
+                                }
                             >
                                 <FormLabel>Question</FormLabel>
                                 <Textarea
                                     placeholder="Write Question"
                                     name="question"
                                     onChange={(e) => handleChange(e)}
-                                    value={
-                                        isAdd
-                                            ? qn.question
-                                            : questionUpdate?.question
-                                    }
+                                    value={qn.question}
                                     isDisabled={isView}
                                     _disabled={{
                                         color: fontColor,
@@ -382,35 +386,22 @@ const AddQuestions = ({
                                         Question is required.
                                     </FormErrorMessage>
                                 )}
+                                {isErrorKanji && (
+                                    <FormErrorMessage>
+                                        Kanji question requires
+                                        &quot;[kanji/hiragana]&quot; ex. [山] or
+                                        [やま]
+                                    </FormErrorMessage>
+                                )}
                             </FormControl>
                         </GridItem>
 
+                        {/* OPTIONS BUTTON */}
                         <GridItem colSpan={1}>
-                            <FormControl
-                                isRequired
-                                isInvalid={hasSubmit && isErrorOptions}
-                            >
+                            <FormControl isRequired>
                                 <Flex alignItems="center">
                                     <FormLabel mt={2}>Options</FormLabel>
-                                    {isAdd && (
-                                        <Tooltip
-                                            hasArrow
-                                            label="Add options and options translate"
-                                            openDelay={500}
-                                            gutter={10}
-                                            isDisabled={optLength === 4}
-                                        >
-                                            <Button
-                                                onClick={addOption}
-                                                leftIcon={<FiPlusCircle />}
-                                                isDisabled={optLength === 4}
-                                                size={"sm"}
-                                            >
-                                                Add
-                                            </Button>
-                                        </Tooltip>
-                                    )}
-                                    {isEdit && (
+                                    {(isAdd || isEdit) && (
                                         <Tooltip
                                             hasArrow
                                             label="Add options and options translate"
@@ -432,6 +423,7 @@ const AddQuestions = ({
                             </FormControl>
                         </GridItem>
 
+                        {/* ANSWER */}
                         <GridItem colSpan={2}>
                             <FormControl
                                 isRequired
@@ -439,7 +431,7 @@ const AddQuestions = ({
                             >
                                 <Flex alignItems="center">
                                     <FormLabel mt={2}>Answer</FormLabel>
-                                    {isAdd && (
+                                    {(isAdd || isEdit) && (
                                         <Tooltip
                                             hasArrow
                                             label="Make sure options are not empty"
@@ -451,64 +443,57 @@ const AddQuestions = ({
                                     <Select
                                         size="sm"
                                         name="answer"
-                                        value={
-                                            isAdd
-                                                ? qn.answer
-                                                : questionUpdate?.answer
-                                        }
+                                        value={qn.answer}
                                         onChange={(e) => handleChange(e)}
                                         placeholder="Select Answer"
                                         isDisabled={isErrorOptions || isView}
                                         _disabled={{
                                             color: fontColor,
+                                            borderColor: border,
+                                            opacity: 1,
                                         }}
                                     >
-                                        {isAdd &&
-                                            qn.options.map((opt, index) => (
-                                                <option key={index}>
-                                                    {opt}
-                                                </option>
-                                            ))}
-                                        {(isView || isEdit) &&
-                                            questionUpdate?.options?.map(
-                                                (opt, index) => (
-                                                    <option key={index}>
-                                                        {opt}
-                                                    </option>
-                                                )
-                                            )}
+                                        {qn.options.map((opt, index) => (
+                                            <option key={index}>{opt}</option>
+                                        ))}
                                     </Select>
                                 </Flex>
                             </FormControl>
                         </GridItem>
 
+                        {/* OPTIONS CHOICES */}
                         <GridItem colSpan={3}>
                             <FormControl
                                 isRequired
                                 isInvalid={hasSubmit && isErrorOptions}
                             >
-                                {isAdd &&
-                                    qn.options.map((value, index) => (
-                                        <Flex key={index} mt={5} mb={5}>
-                                            <FormLabel
-                                                mt={2}
-                                                htmlFor={`options-${index + 1}`}
-                                            >{`${String.fromCharCode(
-                                                65 + index
-                                            )}.`}</FormLabel>
-                                            <Input
-                                                type="text"
-                                                id={`options-${index + 1}`}
-                                                value={value}
-                                                name="options"
-                                                onChange={(e) => {
-                                                    handleOptionsChange(
-                                                        index,
-                                                        e.target.value
-                                                    );
-                                                }}
-                                            />
+                                {qn.options.map((value, index) => (
+                                    <Flex key={index} my={index > 0 && 5}>
+                                        <FormLabel
+                                            mt={2}
+                                            htmlFor={`options-${index + 1}`}
+                                        >{`${String.fromCharCode(
+                                            65 + index
+                                        )}.`}</FormLabel>
+                                        <Input
+                                            type="text"
+                                            id={`options-${index + 1}`}
+                                            value={value}
+                                            name="options"
+                                            onChange={(e) => {
+                                                handleOptionsChange(
+                                                    index,
+                                                    e.target.value
+                                                );
+                                            }}
+                                            isDisabled={isView}
+                                            _disabled={{
+                                                color: fontColor,
+                                                borderColor: border,
+                                            }}
+                                        />
 
+                                        {(isAdd || isEdit) && (
                                             <IconButton
                                                 onClick={() =>
                                                     deleteOption(index)
@@ -518,52 +503,10 @@ const AddQuestions = ({
                                                 colorScheme="red"
                                                 ms="1rem"
                                             />
-                                        </Flex>
-                                    ))}
-                                {(isEdit || isView) &&
-                                    questionUpdate?.options?.map(
-                                        (value, index) => (
-                                            <Flex key={index} mt={5} mb={5}>
-                                                <FormLabel
-                                                    mt={2}
-                                                    htmlFor={`options-${
-                                                        index + 1
-                                                    }`}
-                                                >{`${String.fromCharCode(
-                                                    65 + index
-                                                )}.`}</FormLabel>
-                                                <Input
-                                                    type="text"
-                                                    id={`options-${index + 1}`}
-                                                    value={value}
-                                                    name="options"
-                                                    onChange={(e) => {
-                                                        handleOptionsChange(
-                                                            index,
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                    isDisabled={isView}
-                                                    _disabled={{
-                                                        color: fontColor,
-                                                        borderColor: border,
-                                                    }}
-                                                />
+                                        )}
+                                    </Flex>
+                                ))}
 
-                                                {isEdit && (
-                                                    <IconButton
-                                                        onClick={() =>
-                                                            deleteOption(index)
-                                                        }
-                                                        icon={<FiTrash2 />}
-                                                        bg="red.500"
-                                                        colorScheme="red"
-                                                        ms="1rem"
-                                                    />
-                                                )}
-                                            </Flex>
-                                        )
-                                    )}
                                 {isErrorOptions && (
                                     <FormErrorMessage>
                                         Options is required.
@@ -578,78 +521,41 @@ const AddQuestions = ({
                                     Options Translate (optional)
                                 </FormLabel>
 
-                                {isAdd &&
-                                    qn.optionsTranslate.map((value, index) => (
-                                        <Flex key={index} mt={5} mb={5}>
-                                            {index <= 3 && (
-                                                <>
-                                                    <FormLabel
-                                                        mt={2}
-                                                        htmlFor={`optionsTranslate-${
-                                                            index + 1
-                                                        }`}
-                                                    >{`${String.fromCharCode(
-                                                        65 + index
-                                                    )}.`}</FormLabel>
-                                                    <Input
-                                                        type="text"
-                                                        id={`optionsTranslate-${
-                                                            index + 1
-                                                        }`}
-                                                        name="optionsTranslate"
-                                                        value={value}
-                                                        onChange={(e) =>
-                                                            handleOptionsTranslateChange(
-                                                                index,
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                    />
-                                                </>
-                                            )}
-                                        </Flex>
-                                    ))}
-
-                                {(isEdit || isView) &&
-                                    questionUpdate?.optionsTranslate?.map(
-                                        (value, index) => (
-                                            <Flex key={index} mt={5} mb={5}>
-                                                {index <= 3 && (
-                                                    <>
-                                                        <FormLabel
-                                                            mt={2}
-                                                            htmlFor={`optionsTranslate-${
-                                                                index + 1
-                                                            }`}
-                                                        >{`${String.fromCharCode(
-                                                            65 + index
-                                                        )}.`}</FormLabel>
-                                                        <Input
-                                                            type="text"
-                                                            id={`optionsTranslate-${
-                                                                index + 1
-                                                            }`}
-                                                            name="optionsTranslate"
-                                                            value={value}
-                                                            onChange={(e) =>
-                                                                handleOptionsTranslateChange(
-                                                                    index,
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                            isDisabled={isView}
-                                                            _disabled={{
-                                                                color: fontColor,
-                                                                borderColor:
-                                                                    border,
-                                                            }}
-                                                        />
-                                                    </>
-                                                )}
-                                            </Flex>
-                                        )
-                                    )}
+                                {qn.optionsTranslate.map((value, index) => (
+                                    <Flex key={index} mt={5} mb={5}>
+                                        {index <= 3 && (
+                                            <>
+                                                <FormLabel
+                                                    mt={2}
+                                                    htmlFor={`optionsTranslate-${
+                                                        index + 1
+                                                    }`}
+                                                >{`${String.fromCharCode(
+                                                    65 + index
+                                                )}.`}</FormLabel>
+                                                <Input
+                                                    type="text"
+                                                    id={`optionsTranslate-${
+                                                        index + 1
+                                                    }`}
+                                                    name="optionsTranslate"
+                                                    value={value}
+                                                    onChange={(e) =>
+                                                        handleOptionsTranslateChange(
+                                                            index,
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    isDisabled={isView}
+                                                    _disabled={{
+                                                        color: fontColor,
+                                                        borderColor: border,
+                                                    }}
+                                                />
+                                            </>
+                                        )}
+                                    </Flex>
+                                ))}
                             </FormControl>
                         </GridItem>
 
@@ -659,11 +565,7 @@ const AddQuestions = ({
                                 <Textarea
                                     placeholder="Enter Translation"
                                     name="questionTranslate"
-                                    value={
-                                        isAdd
-                                            ? qn.questionTranslate
-                                            : questionUpdate?.questionTranslate
-                                    }
+                                    value={qn.questionTranslate}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isView}
                                     _disabled={{
@@ -681,8 +583,7 @@ const AddQuestions = ({
                         colorScheme="blue"
                         mr={3}
                         onClick={() => {
-                            isAdd && addQuestion();
-                            isEdit && updateQuestion();
+                            (isAdd || isEdit) && addUpdateQuestion();
                             if (isView) {
                                 setIsEdit(true);
                                 setIsView(false);
@@ -697,8 +598,6 @@ const AddQuestions = ({
                         colorScheme="red"
                         onClick={() => {
                             resetQn();
-                            setIsEdit(false);
-                            setIsView(false);
                         }}
                     >
                         {(isAdd || isEdit) && "Cancel"}
@@ -709,4 +608,5 @@ const AddQuestions = ({
         </Modal>
     );
 };
-export default AddQuestions;
+
+export default AddViewEditQuestion;
