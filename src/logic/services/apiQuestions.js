@@ -61,10 +61,9 @@ export async function addQuestions(questions) {
             json: { error: "Authentication failed! Please login first!" },
         };
     }
-    console.log(questions);
 
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/create`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/create`,
         {
             method: "POST",
             headers: {

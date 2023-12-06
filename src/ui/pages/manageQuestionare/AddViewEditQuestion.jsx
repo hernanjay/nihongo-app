@@ -65,27 +65,23 @@ const AddViewEditQuestion = ({
     const isErrorAnswer = qn.answer === "";
     const isErrorKanji = isKanji && !hasBracket;
 
+    console.log(isKanji);
+
+    console.log(hasBracket);
+
+    console.log(isErrorKanji);
+
     const addOption = () => {
         if (optLength < 4) {
-            // if (isAdd) {
             setQn((prevQn) => ({
                 ...prevQn,
                 options: [...prevQn.options, ""],
                 optionsTranslate: [...prevQn.optionsTranslate, ""],
             }));
-            // }
-            // if (isEdit) {
-            //     setQuestionPreviewUpdate((prevQn) => ({
-            //         ...prevQn,
-            //         options: [...prevQn.options, ""],
-            //         optionsTranslate: [...prevQn.optionsTranslate, ""],
-            //     }));
-            // }
         }
     };
 
     const deleteOption = (curIndex) => {
-        // if (isAdd) {
         const updatedOptions = qn.options.filter(
             (option, index) => index !== curIndex
         );
@@ -102,24 +98,14 @@ const AddViewEditQuestion = ({
     };
 
     const handleChange = (e) => {
-        // if (isAdd) {
         const { name, value } = e.target;
         setQn((prevData) => ({
             ...prevData,
             [name]: value,
         }));
-        // }
-        // if (isEdit) {
-        //     const { name, value } = e.target;
-        //     setQuestionPreviewUpdate((prevData) => ({
-        //         ...prevData,
-        //         [name]: value,
-        //     }));
-        // }
     };
 
     const handleOptionsChange = (index, value) => {
-        // if (isAdd) {
         setQn((prevQn) => {
             const updatedOptions = [...prevQn.options];
             updatedOptions[index] = value;
@@ -128,21 +114,9 @@ const AddViewEditQuestion = ({
                 options: updatedOptions,
             };
         });
-        // }
-        // if (isEdit) {
-        //     setQuestionPreviewUpdate((prevQn) => {
-        //         const updatedOptions = [...prevQn.options];
-        //         updatedOptions[index] = value;
-        //         return {
-        //             ...prevQn,
-        //             options: updatedOptions,
-        //         };
-        //     });
-        // }
     };
 
     const handleOptionsTranslateChange = (index, value) => {
-        // if (isAdd) {
         setQn((prevQn) => {
             const updatedOptions = [...prevQn.optionsTranslate];
             updatedOptions[index] = value;
@@ -151,17 +125,6 @@ const AddViewEditQuestion = ({
                 optionsTranslate: updatedOptions,
             };
         });
-        // }
-        // if (isEdit) {
-        //     setQuestionPreviewUpdate((prevQn) => {
-        //         const updatedOptions = [...prevQn.optionsTranslate];
-        //         updatedOptions[index] = value;
-        //         return {
-        //             ...prevQn,
-        //             optionsTranslate: updatedOptions,
-        //         };
-        //     });
-        // }
     };
 
     const addUpdateQuestion = () => {
