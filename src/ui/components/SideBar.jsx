@@ -7,6 +7,7 @@ import {
   List,
   ListItem,
   Slide,
+  VStack,
 } from "@chakra-ui/react";
 // import { useState } from "react";
 // import React from "react";
@@ -60,7 +61,7 @@ function SideBar({ toggle, onClick }) {
       bg={bg}
       h="100vh"
       pt="6.50rem"
-      w="20vw"
+      w="22vw"
       flexDir={["column"]}
       alignItems={"center"}
       flexWrap={"wrap"}
@@ -76,66 +77,68 @@ function SideBar({ toggle, onClick }) {
         fontSize={"1.2rem"}
         bg={bg}
         _hover={{ bg: bg }}
-        left={"19vw"}
+        left={"21vw"}
         onClick={onClick}
         borderRightRadius={"50%"}
         position={"absolute"}
         zIndex={1}
         mt={"2.4rem"}
-        pl={"0.75vw"}
+        pl={".75vw"}
         color={fontColor}
         h={"5rem"}
       ></IconButton>
-      <Flex mt={"2rem"}>
-        <Avatar
-          size="xl"
-          name="Dan Abrahmov"
-          src="https://bit.ly/dan-abramov"
-        />
-      </Flex>
-      <Flex pt={"1rem"} fontSize={"xl"} fontWeight={"bold"} color={fontColor}>
-        @Username
-      </Flex>
-      <List
-        mt={"1.8rem"}
-        color={fontColor}
-        width={"100%"}
-        alignItems={"center"}
-        p={2}
-      >
-        {menus.map((value, key) => {
-          return (
-            <ListItem
-              key={key}
-              display={"flex"}
-              pt={"1.3rem"}
-              pb={"1.3rem"}
-              pl={"2rem"}
-              alignItems={"center"}
-              fontSize={"md"}
-              onClick={() => navigate(`${value.link}`)}
-              cursor={"pointer"}
-              _hover={{ bg: hover }}
-              width={"100%"}
-              borderRadius={"00.75rem"}
-            >
-              <Box pt={"0.188rem"} pb={"0.188rem"} pr={"1.8rem"}>
-                {value.icon}
-              </Box>
-              <Box pt={"0.1rem"}>{value.title}</Box>
-            </ListItem>
-          );
-        })}
-      </List>
-      <Button
-        mt={"1.5rem"}
-        bg={body}
-        // _hover={{ bg: "#61777F" }}
-        color={fontColor}
-        rightIcon={<FiLogOut />}
-      >
-        Logout
-      </Button>
+      <VStack hidden={!toggle}>
+        <Flex mt={"2rem"}>
+          <Avatar
+            size="xl"
+            name="Dan Abrahmov"
+            src="https://bit.ly/dan-abramov"
+          />
+        </Flex>
+        <Flex pt={"1rem"} fontSize={"xl"} fontWeight={"bold"} color={fontColor}>
+          @Username
+        </Flex>
+        <List
+          mt={"1.8rem"}
+          color={fontColor}
+          width={"100%"}
+          alignItems={"center"}
+          p={2}
+        >
+          {menus.map((value, key) => {
+            return (
+              <ListItem
+                key={key}
+                display={"flex"}
+                mt={"1.3rem"}
+                mb={"1.3rem"}
+                p="0.5em"
+                alignItems={"center"}
+                fontSize={"sm"}
+                onClick={() => navigate(`${value.link}`)}
+                cursor={"pointer"}
+                _hover={{ bg: hover }}
+                width={"100%"}
+                borderRadius={"00.75rem"}
+              >
+                <Box pt={"0.188rem"} pb={"0.188rem"} pr={"1.8rem"} pl={"1em"}>
+                  {value.icon}
+                </Box>
+                <Box pt={"0.1rem"}>{value.title}</Box>
+              </ListItem>
+            );
+          })}
+        </List>
+        <Button
+          mt={"1.5rem"}
+          bg={body}
+          // _hover={{ bg: "#61777F" }}
+          color={fontColor}
+          rightIcon={<FiLogOut />}
+        >
+          Logout
+        </Button>
+      </VStack>
     </Flex>
   );
 }
