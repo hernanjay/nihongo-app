@@ -62,7 +62,7 @@ const Users = () => {
             <Box bg={bg} p="1em" mb="1em" borderRadius="lg" boxShadow="lg">
               <Heading fontSize="1.75em">Manage Users</Heading>
             </Box>
-            <Box bg={bg} p="1em" borderRadius="lg" boxShadow="lg">
+            <Box bg={bg} py="2em" px="1em" borderRadius="lg" boxShadow="lg">
               <TableContainer overflowY="auto" maxH="60vh">
                 <Table variant="unstyled" minH="6vh">
                   <Thead position="sticky" top={0} bg={bg} zIndex={2}>
