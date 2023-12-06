@@ -35,11 +35,7 @@ const menus = [
     link: "/grading",
     icon: <FiBook />,
   },
-  {
-    title: "List of Students",
-    link: "/list",
-    icon: <FiUser />,
-  },
+  
   {
     title: "Manage Questionnaire",
     link: "/manage-questionaire",

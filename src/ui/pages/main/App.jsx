@@ -19,7 +19,6 @@ import QuestionLayout from "../questions/QuestionLayout";
 import Admindashboard from "../admin/Admindashboard";
 import UserProfile from "../userProfile/UserProfile";
 import KanaLayout from "../kanas/KanaLayout";
-import List from "../admin/List";
 import Grading from "../admin/Grading";
 import ManageQuestioner from "../manageQuestionare/ManageQuestioner";
 import Side from "../dummies/Side";
@@ -61,7 +60,7 @@ function App() {
                   path="/managequestioner"
                   element={<ManageQuestioner />}
                 />
-                <Route path="/comp" element={<Comp />} />
+                {/* <Route path="/comp" element={<Comp />} /> */}
                 <Route
                   path="/questions/:level/:type/:set"
                   element={user ? <QuestionLayout /> : <Navigate to="/" />}
@@ -72,7 +71,6 @@ function App() {
                   path="/managequestioner"
                   element={<ManageQuestioner />}
                 />
-                <Route path="/list" element={<List />} />
                 <Route path="/dummy" element={<Side />} />
                 <Route path="/learnVocab" element={<LearnVocab />} />
 

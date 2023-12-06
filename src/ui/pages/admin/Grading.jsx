@@ -16,7 +16,7 @@ import {
   Link,
 
 } from "@chakra-ui/react";
-import HomeUserProfileCard from "../../components/HomeUserProfileCard";
+import UserProfileCard from "../../components/UserProfileCard";
 import {
   Heading,
   useBoolean,
@@ -92,7 +92,7 @@ const Grading = () => {
         <SideBar toggle={toggle} onClick={setToggle.toggle} />
         <Flex
           minH={"100vh"}
-          marginLeft={toggle ? "20rem" : "20px"}
+          marginLeft={toggle ? "20rem" : "30px"}
           transition={"800ms"}
 
           flexDir={"column"}
@@ -116,7 +116,7 @@ const Grading = () => {
             }}
           >
            
-            <HomeUserProfileCard />
+            <UserProfileCard />
 
            
             <Box
