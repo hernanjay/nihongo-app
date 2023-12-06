@@ -27,6 +27,7 @@ import AddViewEditQuestion from "./AddViewEditQuestion";
 
 import { addQuestions } from "../../../logic/services/apiQuestions";
 import AlerPopUp from "../../components/AlerPopUp";
+import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
@@ -35,11 +36,16 @@ function ManageQuestioner() {
     const [isEdit, setIsEdit] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
+
+    const { dispatch: questionDispatch } = useQuestionContext();
+
+    // For delete all button
     const {
         isOpen: isAlertOpen,
         onOpen: onAlertOpen,
         onClose: onAlertClose,
     } = useDisclosure();
+
     const { isOpen, onOpen, onClose } = useDisclosure({
         closeOnOverlayClick: false,
         closeOnEsc: false,
@@ -56,7 +62,6 @@ function ManageQuestioner() {
 
     async function handleSubmit() {
         const isAdded = await addQuestions(questions);
-
         if (isAdded.status) {
             toast({
                 title: "Questions Added Successfully!",
@@ -65,6 +70,7 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
+            // questionDispatch({ type: "addQuestion", payload: questions[0] });
             handleClearBtn();
         } else {
             toast({
@@ -81,6 +87,7 @@ function ManageQuestioner() {
     function deleteQuestion(i) {
         const updatedQuestions = questions.filter((qn, index) => index !== i);
         localStorage.setItem("questions", JSON.stringify(updatedQuestions));
+        console.log(updatedQuestions);
         setQuestions(updatedQuestions);
     }
 
