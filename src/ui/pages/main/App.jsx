@@ -26,11 +26,14 @@ import ManageQuestioner from "../manageQuestionare/ManageQuestioner";
 import Side from "../dummies/Side";
 import Users from "../admin/Users";
 import LearnVocab from "../learnVocab/LearnVocab";
+
+// Under development version of Register page
 import RegisterStepper from "../register/RegisterStepper";
 
 function App() {
   const { user, isLoading } = useUserContext();
-  // 4. Wrap ChakraProvider at the root of your app
+
+  // Placeholder user null error handling
   let userRole = "none";
   try {
     userRole = user.role;
