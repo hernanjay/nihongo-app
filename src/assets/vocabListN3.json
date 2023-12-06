@@ -212,7 +212,7 @@
 
   {
     "id": 39,
-    "kanji": "JLPT",
+    "kanji": "民",
     "hiragana": "みん",
     "romaji": "min",
     "meaning": " 民 (min)"
@@ -739,13 +739,6 @@
     "hiragana": "ちょうしょ",
     "romaji": "chousho",
     "meaning": "strong point, merit, virtue"
-  },
-  {
-    "id": 121,
-    "kanji": "Learn",
-    "hiragana": "3373 ぱげs",
-    "romaji": "3373 pages",
-    "meaning": " Learn JLPT N3 Vocabulary (3373 pages)"
   },
 
   {
