@@ -49,7 +49,7 @@ function ManageQuestioner() {
   const { bg, fontColor, body, hover, border } = ThemeColors();
 
   function handleClearBtn() {
-    onAlertClose;
+    onAlertClose();
     setQuestions([]);
     localStorage.removeItem("questions");
   }
