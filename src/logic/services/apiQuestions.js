@@ -1,3 +1,5 @@
+const token = JSON.parse(localStorage.getItem("token"));
+
 export async function fetchQuestions(level, type, set) {
     const res = await fetch(
         `${
@@ -53,18 +55,15 @@ export async function fetchCountQuestionsByLevelTypeSet() {
 }
 
 export async function addQuestions(questions) {
-    const token = JSON.parse(localStorage.getItem("token"));
-
     if (!token) {
         return {
             status: 0,
             json: { error: "Authentication failed! Please login first!" },
         };
     }
-    console.log(questions);
 
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/create`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/create`,
         {
             method: "POST",
             headers: {
@@ -79,6 +78,46 @@ export async function addQuestions(questions) {
 
     const json = await res.json();
 
+    if (!res.ok) {
+        console.error(json.error);
+        return { status: 0, json };
+    }
+
+    if (res.ok) return { status: 1, json };
+}
+
+export async function deleteQuestion(questionId) {
+    if (!token) {
+        return {
+            status: 0,
+            json: { error: "Authentication failed! Please login first!" },
+        };
+    }
+
+    if (!questionId) {
+        return {
+            status: 0,
+            json: { error: "Question ID not found" },
+        };
+    }
+
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/delete`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                questionId,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    console.log(res.ok);
     if (!res.ok) {
         console.error(json.error);
         return { status: 0, json };

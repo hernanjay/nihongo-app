@@ -17,6 +17,7 @@ import {
     ModalHeader,
     ModalOverlay,
     Select,
+    Text,
     Textarea,
     Tooltip,
     usePrevious,
@@ -49,7 +50,7 @@ const AddViewEditQuestion = ({
         questionTranslate: "",
     });
     const toast = useToast();
-    const { fontColor, border } = ThemeColors();
+    const { fontColor, border, bg } = ThemeColors();
 
     const [hasSubmit, setHasSubmit] = useState(false);
 
@@ -67,25 +68,15 @@ const AddViewEditQuestion = ({
 
     const addOption = () => {
         if (optLength < 4) {
-            // if (isAdd) {
             setQn((prevQn) => ({
                 ...prevQn,
                 options: [...prevQn.options, ""],
                 optionsTranslate: [...prevQn.optionsTranslate, ""],
             }));
-            // }
-            // if (isEdit) {
-            //     setQuestionPreviewUpdate((prevQn) => ({
-            //         ...prevQn,
-            //         options: [...prevQn.options, ""],
-            //         optionsTranslate: [...prevQn.optionsTranslate, ""],
-            //     }));
-            // }
         }
     };
 
     const deleteOption = (curIndex) => {
-        // if (isAdd) {
         const updatedOptions = qn.options.filter(
             (option, index) => index !== curIndex
         );
@@ -102,24 +93,14 @@ const AddViewEditQuestion = ({
     };
 
     const handleChange = (e) => {
-        // if (isAdd) {
         const { name, value } = e.target;
         setQn((prevData) => ({
             ...prevData,
             [name]: value,
         }));
-        // }
-        // if (isEdit) {
-        //     const { name, value } = e.target;
-        //     setQuestionPreviewUpdate((prevData) => ({
-        //         ...prevData,
-        //         [name]: value,
-        //     }));
-        // }
     };
 
     const handleOptionsChange = (index, value) => {
-        // if (isAdd) {
         setQn((prevQn) => {
             const updatedOptions = [...prevQn.options];
             updatedOptions[index] = value;
@@ -128,21 +109,9 @@ const AddViewEditQuestion = ({
                 options: updatedOptions,
             };
         });
-        // }
-        // if (isEdit) {
-        //     setQuestionPreviewUpdate((prevQn) => {
-        //         const updatedOptions = [...prevQn.options];
-        //         updatedOptions[index] = value;
-        //         return {
-        //             ...prevQn,
-        //             options: updatedOptions,
-        //         };
-        //     });
-        // }
     };
 
     const handleOptionsTranslateChange = (index, value) => {
-        // if (isAdd) {
         setQn((prevQn) => {
             const updatedOptions = [...prevQn.optionsTranslate];
             updatedOptions[index] = value;
@@ -151,17 +120,6 @@ const AddViewEditQuestion = ({
                 optionsTranslate: updatedOptions,
             };
         });
-        // }
-        // if (isEdit) {
-        //     setQuestionPreviewUpdate((prevQn) => {
-        //         const updatedOptions = [...prevQn.optionsTranslate];
-        //         updatedOptions[index] = value;
-        //         return {
-        //             ...prevQn,
-        //             optionsTranslate: updatedOptions,
-        //         };
-        //     });
-        // }
     };
 
     const addUpdateQuestion = () => {
@@ -170,7 +128,8 @@ const AddViewEditQuestion = ({
             !isErrorSet &&
             !isErrorQuestion &&
             !isErrorOptions &&
-            !isErrorAnswer
+            !isErrorAnswer &&
+            !isErrorKanji
         ) {
             const lsQuestions = JSON.parse(localStorage.getItem("questions"));
 
@@ -258,7 +217,7 @@ const AddViewEditQuestion = ({
             isCloseable={false}
         >
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent bg={bg}>
                 <ModalHeader>
                     {(isAdd && "Add ") ||
                         (isEdit && "Edit ") ||
@@ -272,6 +231,7 @@ const AddViewEditQuestion = ({
                             <FormControl isRequired>
                                 <FormLabel>Select Level</FormLabel>
                                 <Select
+                                    bg={bg}
                                     name="level"
                                     defaultValue="5"
                                     value={qn.level}
@@ -283,11 +243,41 @@ const AddViewEditQuestion = ({
                                         opacity: 1,
                                     }}
                                 >
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                    >
+                                        1
+                                    </option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                    >
+                                        2
+                                    </option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                    >
+                                        3
+                                    </option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                    >
+                                        4
+                                    </option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                    >
+                                        5
+                                    </option>
                                 </Select>
                             </FormControl>
                         </GridItem>
@@ -297,6 +287,7 @@ const AddViewEditQuestion = ({
                             <FormControl isRequired>
                                 <FormLabel>Select Type</FormLabel>
                                 <Select
+                                    bg={bg}
                                     name="type"
                                     defaultValue="vocab"
                                     value={qn.type}
@@ -308,9 +299,30 @@ const AddViewEditQuestion = ({
                                         opacity: 1,
                                     }}
                                 >
-                                    <option value="vocab">Vocab</option>
-                                    <option value="grammar">Grammar</option>
-                                    <option value="kanji">Kanji</option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                        value="vocab"
+                                    >
+                                        Vocab
+                                    </option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                        value="grammar"
+                                    >
+                                        Grammar
+                                    </option>
+                                    <option
+                                        style={{
+                                            backgroundColor: "transparent",
+                                        }}
+                                        value="kanji"
+                                    >
+                                        Kanji
+                                    </option>
                                 </Select>
                             </FormControl>
                         </GridItem>
@@ -380,7 +392,7 @@ const AddViewEditQuestion = ({
                             </FormControl>
                         </GridItem>
 
-                        {/* OPTIONS BUTTON */}
+                        {/* OPTIONS ADD BUTTON */}
                         <GridItem colSpan={1}>
                             <FormControl isRequired>
                                 <Flex alignItems="center">
@@ -424,21 +436,35 @@ const AddViewEditQuestion = ({
                                             <QuestionOutlineIcon me={2} />
                                         </Tooltip>
                                     )}
+                                    {console.log(isView)}
                                     <Select
+                                        bg={bg}
                                         size="sm"
                                         name="answer"
                                         value={qn.answer}
                                         onChange={(e) => handleChange(e)}
                                         placeholder="Select Answer"
                                         isDisabled={isErrorOptions || isView}
-                                        _disabled={{
-                                            color: fontColor,
-                                            borderColor: border,
-                                            opacity: 1,
-                                        }}
+                                        _disabled={
+                                            isView
+                                                ? {
+                                                      color: fontColor,
+                                                      borderColor: border,
+                                                      opacity: 1,
+                                                  }
+                                                : {}
+                                        }
                                     >
                                         {qn.options.map((opt, index) => (
-                                            <option key={index}>{opt}</option>
+                                            <option
+                                                style={{
+                                                    backgroundColor:
+                                                        "transparent",
+                                                }}
+                                                key={index}
+                                            >
+                                                {opt}
+                                            </option>
                                         ))}
                                     </Select>
                                 </Flex>
