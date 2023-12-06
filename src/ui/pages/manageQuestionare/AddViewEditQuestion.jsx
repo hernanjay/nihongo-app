@@ -99,23 +99,6 @@ const AddViewEditQuestion = ({
             options: updatedOptions,
             optionsTranslate: updatedOptionsTranslate,
         }));
-        // }
-        // if (isEdit) {
-        //     const updatedOptions = questionPreviewUpdate?.options?.filter(
-        //         (option, index) => index !== curIndex
-        //     );
-
-        //     const updatedOptionsTranslate =
-        //         questionPreviewUpdate?.optionsTranslate?.filter(
-        //             (optionTranslate, index) => index !== curIndex
-        //         );
-
-        //     setQuestionPreviewUpdate((prevQn) => ({
-        //         ...prevQn,
-        //         options: updatedOptions,
-        //         optionsTranslate: updatedOptionsTranslate,
-        //     }));
-        // }
     };
 
     const handleChange = (e) => {
@@ -193,6 +176,7 @@ const AddViewEditQuestion = ({
 
             if (!lsQuestions) {
                 localStorage.setItem("questions", JSON.stringify([qn]));
+                setQuestions((prevData) => [...prevData, qn]);
             } else {
                 if (isAdd) {
                     lsQuestions.push(qn);
