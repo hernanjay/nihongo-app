@@ -39,7 +39,7 @@ const menus = [
     },
     {
         title: "Manage Questionnaire",
-        link: "/managequestioner",
+        link: "/manage-questionaire",
         icon: <FiPaperclip />,
     },
     {

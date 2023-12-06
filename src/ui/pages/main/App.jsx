@@ -31,128 +31,159 @@ import LearnVocab from "../learnVocab/LearnVocab";
 import RegisterStepper from "../register/RegisterStepper";
 
 function App() {
-  const { user, isLoading } = useUserContext();
+    const { user, isLoading } = useUserContext();
 
-  // Placeholder user null error handling
-  // let userRole = "none";
-  // try {
-  //   userRole = user.role;
-  // } catch (error) {
-  //   console.warn({
-  //     Comment: "Null User handling is not yet defined -Nan",
-  //     ErrorMsg: error,
-  //   });
-  // }
-
-  return (
-    <ChakraProvider theme={theme}>
-      <>
-        <BrowserRouter>
-          {isLoading && <Loader isLoading={isLoading} />}
-          {!isLoading && (
+    return (
+        <ChakraProvider theme={theme}>
             <>
-              <NavBar />
-              <Routes>
-                {/* Brings user to homepage */}
-                <Route path="/" element={user ? <Home /> : <LandingPage />} />
+                <BrowserRouter>
+                    {isLoading && <Loader isLoading={isLoading} />}
+                    {!isLoading && (
+                        <>
+                            <NavBar />
+                            <Routes>
+                                {/* Brings user to homepage */}
+                                <Route
+                                    path="/"
+                                    element={user ? <Home /> : <LandingPage />}
+                                />
 
-                <Route
-                  path="/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
-                <Route
-                  path="/register"
-                  element={!user ? <Register /> : <Navigate to="/" />}
-                />
+                                <Route
+                                    path="/login"
+                                    element={
+                                        !user ? <Login /> : <Navigate to="/" />
+                                    }
+                                />
+                                <Route
+                                    path="/register"
+                                    element={
+                                        !user ? (
+                                            <Register />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/userprofile"
-                  element={
-                    user?.role === "student" ? (
-                      <UserProfile />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
+                                <Route
+                                    path="/userprofile"
+                                    element={
+                                        user?.role === "student" ? (
+                                            <UserProfile />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/kana-quiz"
-                  element={user ? <KanaLayout /> : <Navigate to="/" />}
-                />
+                                <Route
+                                    path="/kana-quiz"
+                                    element={
+                                        user ? (
+                                            <KanaLayout />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/learnVocab"
-                  element={user ? <LearnVocab /> : <Navigate to="/" />}
-                />
+                                <Route
+                                    path="/learnVocab"
+                                    element={
+                                        user ? (
+                                            <LearnVocab />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/admin"
-                  element={
-                    user?.role === "admin" ? (
-                      <Admindashboard />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
+                                <Route
+                                    path="/admin"
+                                    element={
+                                        user?.role === "admin" ? (
+                                            <Admindashboard />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/managequestioner"
-                  element={
-                    user?.role === "admin" ? (
-                      <ManageQuestioner />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
+                                <Route
+                                    path="/manage-questionaire"
+                                    element={
+                                        user?.role === "admin" ||
+                                        user?.role === "teacher" ? (
+                                            <ManageQuestioner />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/users"
-                  element={
-                    user?.role === "admin" ? <Users /> : <Navigate to="/" />
-                  }
-                />
+                                <Route
+                                    path="/users"
+                                    element={
+                                        user?.role === "admin" ? (
+                                            <Users />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/chart"
-                  element={
-                    user?.role === "admin" ? (
-                      <AdminChart />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
+                                <Route
+                                    path="/chart"
+                                    element={
+                                        user?.role === "admin" ? (
+                                            <AdminChart />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/grading"
-                  element={
-                    user?.role === "admin" ? <Grading /> : <Navigate to="/" />
-                  }
-                />
+                                <Route
+                                    path="/grading"
+                                    element={
+                                        user?.role === "admin" ? (
+                                            <Grading />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route
-                  path="/list"
-                  element={
-                    user?.role === "admin" ? <List /> : <Navigate to="/" />
-                  }
-                />
+                                <Route
+                                    path="/list"
+                                    element={
+                                        user?.role === "admin" ? (
+                                            <List />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
 
-                <Route path="*" element={<Navigate to="/" />} />
+                                <Route path="*" element={<Navigate to="/" />} />
 
-                <Route
-                  path="/questions/:level/:type/:set"
-                  element={user ? <QuestionLayout /> : <Navigate to="/" />}
-                />
-              </Routes>
+                                <Route
+                                    path="/questions/:level/:type/:set"
+                                    element={
+                                        user ? (
+                                            <QuestionLayout />
+                                        ) : (
+                                            <Navigate to="/" />
+                                        )
+                                    }
+                                />
+                            </Routes>
+                        </>
+                    )}
+                </BrowserRouter>
             </>
-          )}
-        </BrowserRouter>
-      </>
-    </ChakraProvider>
-  );
+        </ChakraProvider>
+    );
 }
 
 export default App;
