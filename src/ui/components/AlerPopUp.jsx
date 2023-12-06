@@ -22,7 +22,7 @@ function AlerPopUp({ isOpen, onClose, onClick }) {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete User?
+            Delete?
           </AlertDialogHeader>
 
           <AlertDialogBody>

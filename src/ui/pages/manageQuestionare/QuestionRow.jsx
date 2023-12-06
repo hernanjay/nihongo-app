@@ -1,17 +1,24 @@
-import { IconButton, Td, Tr } from "@chakra-ui/react";
+import { IconButton, Td, Tr, useDisclosure } from "@chakra-ui/react";
 import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
+import AlerPopUp from "../../components/AlerPopUp";
 
 const QuestionRow = ({
   question,
   index,
   setIsView,
-  deleteQuestion,
   setQnPreview,
+  deleteQuestion,
   setIsEdit,
   setPreviewIndex,
 }) => {
   const { bg, hover } = ThemeColors();
+  // For individual question delete
+  const {
+    isOpen: isAlertRowOpen,
+    onOpen: onAlertRowOpen,
+    onClose: onAlertRowClose,
+  } = useDisclosure();
   const {
     level,
     type,
@@ -64,9 +71,17 @@ const QuestionRow = ({
           size="lg"
           bg="transparent"
           cursor="pointer"
-          onClick={() => deleteQuestion(index)}
+          onClick={onAlertRowOpen}
         />
         &nbsp;
+        <AlerPopUp
+          isOpen={isAlertRowOpen}
+          onClose={onAlertRowClose}
+          onClick={() => {
+            deleteQuestion(index);
+            onAlertRowClose();
+          }}
+        />
       </Td>
     </Tr>
   );
