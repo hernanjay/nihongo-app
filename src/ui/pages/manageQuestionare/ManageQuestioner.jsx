@@ -84,42 +84,31 @@ function ManageQuestioner() {
         setQuestions(updatedQuestions);
     }
 
-  return (
-    <Box bg={body}>
-      <SideBar toggle={toggle} onClick={setToggle.toggle} />
-      <Box h="10%" alignSelf="flex-end">
-        <AddViewEditQuestion
-          isAdd={isOpen}
-          onClose={onClose}
-          setQuestions={setQuestions}
-          isView={isView}
-          setIsView={setIsView}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-          qnPreview={qnPreview}
-          previewIndex={previewIndex}
-        />
-      </Box>
-      <Flex
-        h={"100vh"}
-        w={"100%"}
-        //   marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
-        transition={"800ms"}
-        pl={toggle ? "25vw" : "8vw"}
-        pr={"5vw"}
-        pt="10vh"
-        flexDir={"column"}
-      >
-        <Box mt="3vh" minH="80vh" pb={{ base: "10vh", lg: "2em" }}>
-          <HStack mb="1em" bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
-            <Heading fontSize="1.75em">Manage Questionnaires</Heading>
-            <Spacer />
-            <Button
-              variant="outline"
-              leftIcon={<FiPlusCircle />}
-              onClick={onOpen}
-              bg={bg}
-              borderColor={border}
+    return (
+        <Box bg={body}>
+            <SideBar toggle={toggle} onClick={setToggle.toggle} />
+            <Box h="10%" alignSelf="flex-end">
+                <AddViewEditQuestion
+                    isAdd={isOpen}
+                    onClose={onClose}
+                    setQuestions={setQuestions}
+                    isView={isView}
+                    setIsView={setIsView}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
+                    qnPreview={qnPreview}
+                    previewIndex={previewIndex}
+                />
+            </Box>
+            <Flex
+                h={"100vh"}
+                w={"100%"}
+                //   marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
+                transition={"800ms"}
+                pl={toggle ? "25vw" : "8vw"}
+                pr={"5vw"}
+                pt="10vh"
+                flexDir={"column"}
             >
                 <Box mt="3vh" minH="80vh" pb={{ base: "10vh", lg: "2em" }}>
                     <HStack
