@@ -50,6 +50,7 @@ export default function RegisterStepper() {
   const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const [isEmailValidFormat, setIsEmailValidFormat] = useState(false);
   const [isPassValidFormat, setIsPassValidFormat] = useState(false);
   const [isPassValidLength, setIsPassValidLength] = useState(false);
   const [isPassContainUpper, setIsPassContainUpper] = useState(false);
@@ -59,6 +60,44 @@ export default function RegisterStepper() {
   const [isSamePassword, setIsSamePassword] = useState(false);
 
   const [formData, setFormData] = useState({
+    // Personal Details
+    firstNameEng: "",
+    middleNameEng: "",
+    lastNameEng: "",
+    nickNameEng: "",
+    firstNameJap: "",
+    middleNameJap: "",
+    lastNameJap: "",
+    nickNameJap: "",
+    suffix: "",
+
+    // Job Detail
+    currentJobTitle: "",
+    companyName: "",
+    businessUnit: "",
+    location: "",
+    division: "",
+    sdg: "",
+
+    //Contact Detail
+    currentCountry: "",
+    currentProvinceRegion: "",
+    currentTownCity: "",
+    currentStreet: "",
+    currentPostal: "",
+
+    permanentCountry: "",
+    permanentProvinceRegion: "",
+    permanentTownCity: "",
+    permanentStreet: "",
+    permanentPostal: "",
+
+    cellphoneNo: "",
+    phoneNo: "",
+    contactPerson: "",
+    contactNumber: "",
+
+    //Login Detail
     username: "",
     email: "",
     password: "",
@@ -76,6 +115,11 @@ export default function RegisterStepper() {
         [name]: value,
       };
     });
+
+    if (name === "email") {
+      emailChecker(value);
+    }
+
     if (name === "password") {
       passwordChecker(e.target.value);
     }
@@ -96,6 +140,14 @@ export default function RegisterStepper() {
       formData.confirmPassword
     );
   };
+
+  function emailChecker(str) {
+    // Check if does not contains following characters
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
+    !specialChars.test(str) && str.length > 0
+      ? setIsEmailValidFormat(true)
+      : setIsEmailValidFormat(false);
+  }
 
   function passwordChecker(str) {
     const strNumChars = /[0-9]/;
@@ -154,15 +206,34 @@ export default function RegisterStepper() {
 
   function inputField(activeStep) {
     if (activeStep === 0) {
-      return <RegisterStepPersonalDetail setActiveStep={setActiveStep} />;
+      return (
+        <RegisterStepPersonalDetail
+          formData={formData}
+          handleChangeFormData={handleChangeFormData}
+          setActiveStep={setActiveStep}
+        />
+      );
     } else if (activeStep === 1) {
-      return <RegisterStepJobDetail setActiveStep={setActiveStep} />;
+      return (
+        <RegisterStepJobDetail
+          formData={formData}
+          handleChangeFormData={handleChangeFormData}
+          setActiveStep={setActiveStep}
+        />
+      );
     } else if (activeStep === 2) {
-      return <RegisterStepContactDetail setActiveStep={setActiveStep} />;
+      return (
+        <RegisterStepContactDetail
+          formData={formData}
+          handleChangeFormData={handleChangeFormData}
+          setActiveStep={setActiveStep}
+        />
+      );
     } else if (activeStep === 3) {
       return (
         <RegisterStepLoginDetail1
           handleChangeFormData={handleChangeFormData}
+          isEmailValidFormat={isEmailValidFormat}
           formData={formData}
           isLoading={isLoading}
           setActiveStep={setActiveStep}
@@ -175,6 +246,7 @@ export default function RegisterStepper() {
           formData={formData}
           isLoading={isLoading}
           handleSubmit={handleSubmit}
+          isEmailValidFormat={isEmailValidFormat}
           isPassValidFormat={isPassValidLength}
           isPassValidLength={isPassValidLength}
           isPassContainUpper={isPassContainUpper}
@@ -204,7 +276,7 @@ export default function RegisterStepper() {
         },
       }}
     >
-      <Center p="5%">
+      <Center p="5%" class="notranslate">
         <Modal isOpen={isLoading} size="full" bg="gray.100">
           <ModalOverlay />
           <ModalContent bg="blackAlpha.100">

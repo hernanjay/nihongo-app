@@ -15,7 +15,11 @@ import {
 import React from "react";
 import ThemeColors from "../../pages/main/ThemeColors";
 
-function RegisterStepContactDetail({ setActiveStep }) {
+function RegisterStepContactDetail({
+  formData,
+  handleChangeFormData,
+  setActiveStep,
+}) {
   const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
   return (
     <Card mt="2em" bg={bg} variant="elevated" size="sm" boxShadow="none">
@@ -30,10 +34,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Country</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Country"
                     colorScheme="blackAlpha"
+                    name="currentCountry"
+                    value={formData.currentCountry}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -42,10 +48,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Province/Region</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Province/Region"
                     colorScheme="blackAlpha"
+                    name="currentProvinceRegion"
+                    value={formData.currentProvinceRegion}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -56,10 +64,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Town/City</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Town/City"
                     colorScheme="blackAlpha"
+                    name="currentTownCity"
+                    value={formData.currentTownCity}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -68,10 +78,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Street</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Street"
                     colorScheme="blackAlpha"
+                    name="currentStreet"
+                    value={formData.currentStreet}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -82,10 +94,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Postal</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Postal"
                     colorScheme="blackAlpha"
+                    name="currentPostal"
+                    value={formData.currentPostal}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -100,10 +114,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Country</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Country"
                     colorScheme="blackAlpha"
+                    name="permanentCountry"
+                    value={formData.permanentCountry}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -112,10 +128,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Province/Region</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Province/Region"
                     colorScheme="blackAlpha"
+                    name="permanentProvinceRegion"
+                    value={formData.permanentProvinceRegion}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -126,10 +144,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Town/City</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Town/City"
                     colorScheme="blackAlpha"
+                    name="permanentTownCity"
+                    value={formData.permanentTownCity}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -138,10 +158,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Street</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Street"
                     colorScheme="blackAlpha"
+                    name="permanentStreet"
+                    value={formData.permanentStreet}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -152,10 +174,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Postal</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Postal"
                     colorScheme="blackAlpha"
+                    name="permanentPostal"
+                    value={formData.permanentPostal}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -167,10 +191,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Cellphone No</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
-                    type="text"
+                    type="number"
                     placeholder="XXX-XXX-XXXX"
                     colorScheme="blackAlpha"
+                    name="cellphoneNo"
+                    value={formData.cellphoneNo}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -179,10 +205,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Phone No</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
-                    type="text"
+                    type="number"
                     placeholder="XXX-XXX-XXXX"
                     colorScheme="blackAlpha"
+                    name="phoneNo"
+                    value={formData.phoneNo}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -193,10 +221,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Contact person</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
                     type="text"
                     placeholder="Contact person"
                     colorScheme="blackAlpha"
+                    name="contactPerson"
+                    value={formData.contactPerson}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -205,10 +235,12 @@ function RegisterStepContactDetail({ setActiveStep }) {
                 <FormLabel>Contact number</FormLabel>
                 <InputGroup mt="0.75em" size="md">
                   <Input
-                    id="register-username-input"
-                    type="text"
+                    type="number"
                     placeholder="XXX-XXX-XXXX"
                     colorScheme="blackAlpha"
+                    name="contactNumber"
+                    value={formData.contactNumber}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>

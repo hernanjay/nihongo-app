@@ -10,21 +10,24 @@ import {
   HStack,
   Input,
   InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
   Spacer,
-  VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import ThemeColors from "../../pages/main/ThemeColors";
 
-function RegisterStepPersonalDetail({ setActiveStep }) {
+function RegisterStepPersonalDetail({
+  formData,
+  handleChangeFormData,
+  setActiveStep,
+}) {
   const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
+
   return (
     <Card mt="2em" bg={bg} variant="elevated" size="sm" boxShadow="none">
+      <Box id="google_translate_element"></Box>
       <CardBody>
         <form>
-          <FormControl isRequired>
+          <FormControl>
             {/*First Name input Form */}
             <HStack>
               <Box w="50%">
@@ -35,6 +38,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="First Name"
                     colorScheme="blackAlpha"
+                    name="firstNameEng"
+                    value={formData.firstNameEng}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -47,6 +53,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="フルスト名前"
                     colorScheme="blackAlpha"
+                    name="firstNameJap"
+                    value={formData.firstNameJap}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -62,6 +71,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Middle Name"
                     colorScheme="blackAlpha"
+                    name="middleNameEng"
+                    value={formData.middleNameEng}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -74,6 +86,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="ミッヅロ名前"
                     colorScheme="blackAlpha"
+                    name="middleNameJap"
+                    value={formData.middleNameJap}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -89,6 +104,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Last Name"
                     colorScheme="blackAlpha"
+                    name="lastNameEng"
+                    value={formData.lastNameEng}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -101,6 +119,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="ラスト名前"
                     colorScheme="blackAlpha"
+                    name="lastNameJap"
+                    value={formData.lastNameJap}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -117,6 +138,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Nickname"
                     colorScheme="blackAlpha"
+                    name="nickNameEng"
+                    value={formData.nickNameEng}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -129,6 +153,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="ニックネーム"
                     colorScheme="blackAlpha"
+                    name="nickNameJap"
+                    value={formData.nickNameJap}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>
@@ -141,6 +168,9 @@ function RegisterStepPersonalDetail({ setActiveStep }) {
                     type="text"
                     placeholder="Suffix [N/A if not applicable]"
                     colorScheme="blackAlpha"
+                    name="suffix"
+                    value={formData.suffix}
+                    onChange={(e) => handleChangeFormData(e)}
                     pb="-10em"
                   />
                 </InputGroup>

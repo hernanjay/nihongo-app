@@ -1,7 +1,7 @@
 import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Box, Flex, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Skeleton, Spacer } from "@chakra-ui/react";
 import KanaCards from "./KanaCards";
 import KanaSelectorTabSide from "./KanaSelectorTabSide";
 import Loader from "../../components/Loader";
@@ -55,7 +55,6 @@ function KanaLayout() {
         position="relative"
         id="kanaPageScroll"
         h="90vh"
-        maxH="100vh"
         overflow="auto"
         overscrollBehavior="auto"
         sx={{
@@ -72,20 +71,20 @@ function KanaLayout() {
         <Box
           position="fixed"
           minW="25vw"
-          ml="1.5vw"
+          ml={{ base: "0", xl: "1.5vw" }}
           display={{ base: "none", lg: "block" }}
         >
           <KanaSelectorTabSide key="Tabside" isLoading={isLoading} />
         </Box>
         <Box
-          minW={{ base: "25vw", lg: "62.5vw" }}
-          ml={{ base: "2.5vw", lg: "30vw" }}
-          mr={{ base: "2.5vw", lg: "0" }}
+          minW={{ base: "25vw", lg: "50vw", xl: "62.5vw" }}
+          ml={{ base: "2.5vw", lg: "28vw", xl: "30vw" }}
+          mr={{ base: "2.5vw", lg: "0", xl: "0" }}
         >
           <SimpleGrid
             id="kanaBody"
             columns={{ base: 2, lg: 3 }}
-            gap={{ base: "2.5vw", lg: "5vh" }}
+            gap={{ base: "2.5vw", lg: "1.5vw", xl: "5vh" }}
             py="2.5vh"
           >
             {kanaData.map((kana, index) => {
@@ -104,6 +103,7 @@ function KanaLayout() {
               );
             })}
           </SimpleGrid>
+          <Spacer minH={{ base: "10vh", lg: "0" }} />
         </Box>
       </Flex>
     </Box>

@@ -17,11 +17,14 @@ function KanaSelectorTabSide() {
     kanaGroup,
     dispatch: kanaDispatch,
   } = useKanaContext();
+
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
+
   const mainKana = getMainKanaList(kanaType);
   const dakutenKana = getKanaDakutenList(kanaType);
   const combinationKana = getKanaCombinationList(kanaType);
+
   const [mainKanaSelected, setMainKanaSelected] = useState(() => {
     const temp = [];
     mainKana.map((value) => {
@@ -119,6 +122,7 @@ function KanaSelectorTabSide() {
           variant="outline"
           borderColor={border}
           loadingText="All Kana"
+          isDisabled={!kanaGroup.length || !kanaMode.length}
           w="45%"
           mr="1vw"
           fontSize="2vh"
@@ -127,6 +131,9 @@ function KanaSelectorTabSide() {
             kanaDispatch({ type: "modeSet", payload: [] });
             kanaDispatch({ type: "typeSet", payload: kanaType });
             kanaDispatch({ type: "groupSet", payload: [] });
+            setMainKanaSelected([]);
+            setDakutenKanaSelected([]);
+            setCombinationKanaSelected([]);
           }}
         >
           All Kana
@@ -136,6 +143,7 @@ function KanaSelectorTabSide() {
           variant="outline"
           borderColor={border}
           loadingText="Custom Kana"
+          isDisabled={kanaGroup.length || kanaMode.length}
           w="45%"
           fontSize="2vh"
           fontWeight="light"

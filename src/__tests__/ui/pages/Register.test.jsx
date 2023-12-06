@@ -35,8 +35,8 @@ describe("-------------- Register Vitest Testing --------------", () => {
         );
       });
       it("VITEST_UT_REGISTER-101 Should Show the entire register page", () => {
-        const registerButton = screen.getByText(/register/i);
-        fireEvent.click(registerButton);
+        const registerButton = screen.getAllByText(/register/i);
+        fireEvent.click(registerButton[1]);
         const textDisplay = screen.getByText(/Already have an account?/i);
         expect(textDisplay).toBeInTheDocument();
       });

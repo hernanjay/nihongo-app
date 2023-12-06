@@ -28,6 +28,7 @@ import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
 import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
+import { useQuery } from "@tanstack/react-query";
 
 function HomeUserProfileCard() {
   const { bg } = ThemeColors();
@@ -191,7 +192,7 @@ function HomeUserProfileCard() {
   return (
     <Box
       position={{ base: "relative", lg: "fixed" }}
-      minW={{ base: "90vw", lg: "30vw" }}
+      w={{ base: "90vw", lg: "30vw" }}
       ml={{ base: "2.5vw", lg: "2vw" }}
       mr={{ base: "2.5vw", lg: "0vw" }}
       mb="2.25vh"
@@ -205,10 +206,13 @@ function HomeUserProfileCard() {
           backgroundSize="cover"
           backgroundPosition="center"
         >
-          <Center position="relative" top={{ base: "2.5vh", lg: "5vh" }}>
+          <Center
+            position="relative"
+            top={{ base: "6.5vh", lg: "3vh", xl: "5vh" }}
+          >
             <Image
               borderRadius="full"
-              boxSize={{ base: "25vw", lg: "10vw" }}
+              boxSize={{ base: "25vw", lg: "10vw", xl: "8vw" }}
               src="https://w0.peakpx.com/wallpaper/167/11/HD-wallpaper-lazy-egg6-egg-gudetama-kawaii-lazy-egg.jpg"
               alt="Dan Abramov"
             />
@@ -217,11 +221,15 @@ function HomeUserProfileCard() {
 
         {/* Body */}
         <CardBody bg={bg} roundedBottom={"lg"}>
-          <Box minH={{ base: "5vh", lg: "12.5vh" }}></Box>
+          <Box minH={{ base: "5vh", lg: "8vh ", xl: "10vh" }}></Box>
 
           {/* Name and email */}
           <Box>
-            <Heading fontWeight="normal" textAlign="center">
+            <Heading
+              fontWeight="normal"
+              textAlign="center"
+              fontSize={{ base: "5vh", lg: "1.5em ", xl: "2em" }}
+            >
               @{user.username}
             </Heading>
             <Divider my="0.5em" />
@@ -231,19 +239,24 @@ function HomeUserProfileCard() {
           </Box>
 
           {/* Scoreboard */}
-          <TableContainer mt="5vh" mx="1.5vw">
+          <TableContainer mt="5vh">
             <Table fontSize="0.75em" variant="simple">
               <Thead>
-                <Tr>
-                  <Th>Category</Th>
+                <Tr fontSize="0.75em">
+                  <Th>
+                    <Text fontSize="0.75em">Category </Text>
+                  </Th>
                   <Th>
                     <Menu>
                       <MenuButton
+                        display="flex"
+                        size="xs"
+                        justifyContent="end"
                         variant="unstyled"
                         as={Button}
                         rightIcon={<ChevronDownIcon />}
                       >
-                        Level
+                        <Text display="inline">Level</Text>
                       </MenuButton>
                       <MenuList>
                         <MenuItem onClick={() => handleLevelChange("N1")}>
@@ -267,8 +280,12 @@ function HomeUserProfileCard() {
                       </MenuList>
                     </Menu>
                   </Th>
-                  <Th isNumeric>Score</Th>
-                  <Th isNumeric>Total</Th>
+                  <Th isNumeric>
+                    <Text fontSize="0.75em">Score </Text>
+                  </Th>
+                  <Th isNumeric>
+                    <Text fontSize="0.75em">Total </Text>
+                  </Th>
                 </Tr>
               </Thead>
               <Tbody>

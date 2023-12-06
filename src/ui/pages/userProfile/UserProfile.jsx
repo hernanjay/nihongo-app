@@ -1,28 +1,19 @@
-import { ChevronRightIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
-  useColorModeValue,
   Heading,
   Image,
   Center,
-  FormControl,
-  FormLabel,
   Input,
   Card,
   CardHeader,
   CardFooter,
   CardBody,
   Text,
-  Stack,
-  Wrap,
-  WrapItem,
   Divider,
   Box,
   Grid,
   GridItem,
-  Button,
-  SimpleGrid,
   HStack,
-  Flex,
   VStack,
   Spacer,
   Container,
@@ -30,7 +21,6 @@ import {
   InputLeftAddon,
 } from "@chakra-ui/react";
 import React from "react";
-import HomeUserProfileCard from "../../components/HomeUserProfileCard";
 import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import ThemeColors from "../main/ThemeColors";
 import UserProfileDrawerButton from "./UserProfileDrawerButton";

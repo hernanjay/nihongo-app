@@ -14,7 +14,13 @@ function LearnVocabPagination({ pageNumber, setPageNumber, searchResults }) {
     ThemeColors();
 
   return (
-    <Stack w="50%" justifyContent="center" direction="row" spacing={5}>
+    <Stack
+      w={{ base: "100%", lg: "50%" }}
+      mb={{ base: "1.5vh", lg: "0" }}
+      justifyContent="center"
+      direction="row"
+      spacing={5}
+    >
       <IconButton
         icon={<ChevronLeftIcon />}
         variant="outline"

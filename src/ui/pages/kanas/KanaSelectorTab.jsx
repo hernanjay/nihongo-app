@@ -20,12 +20,11 @@ function KanaSelectorTab() {
         isFitted
         variant="line"
         colorScheme="white"
-        h="71vh"
         minW={{ base: "92vw", lg: "60vw" }}
+        h="auto"
         bg={bg}
         borderRadius="10"
         boxShadow="lg"
-        pb="2.25vh"
       >
         <TabList>
           <Tab>Learn Hiragana</Tab>
