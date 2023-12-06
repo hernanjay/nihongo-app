@@ -118,7 +118,7 @@ function ManageQuestioner() {
       >
         <Box mt="3vh" minH="80vh" pb={{ base: "10vh", lg: "2em" }}>
           <HStack mb="1em" bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
-            <Heading fontSize="1.75em">Manage Questionnairesss</Heading>
+            <Heading fontSize="1.75em">Manage Questionnaires</Heading>
             <Spacer />
             <Button
               variant="outline"
