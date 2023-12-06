@@ -8,6 +8,8 @@ const QuestionRow = ({
     setIsView,
     deleteQuestion,
     setQnPreview,
+    setIsEdit,
+    setPreviewIndex,
 }) => {
     const { bg } = ThemeColors();
     const {
@@ -35,26 +37,32 @@ const QuestionRow = ({
             <Td>{questionTranslate}</Td>
             <Td position="sticky" right="0" bg={bg}>
                 <IconButton
-                    as={FiEye}
-                    size={"xs"}
+                    icon={<FiEye />}
+                    size="lg"
                     bg="transparent"
                     cursor="pointer"
                     onClick={() => {
                         setIsView(true);
                         setQnPreview(question);
+                        setPreviewIndex(index);
                     }}
                 />
                 &nbsp;&nbsp;
                 <IconButton
-                    as={FiEdit}
-                    size={"xs"}
+                    icon={<FiEdit />}
+                    size="lg"
                     bg="transparent"
                     cursor="pointer"
+                    onClick={() => {
+                        setIsEdit(true);
+                        setQnPreview(question);
+                        setPreviewIndex(index);
+                    }}
                 />
                 &nbsp;&nbsp;
                 <IconButton
-                    as={FiTrash2}
-                    size="xs"
+                    icon={<FiTrash2 />}
+                    size="lg"
                     bg="transparent"
                     cursor="pointer"
                     onClick={() => deleteQuestion(index)}
