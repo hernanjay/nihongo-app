@@ -105,19 +105,22 @@ function ManageQuestioner() {
     return (
         <Box bg={body}>
             <SideBar toggle={toggle} onClick={setToggle.toggle} />
-            <Box h="10%" alignSelf="flex-end">
-                <AddViewEditQuestion
-                    isAdd={isOpen}
-                    onClose={onClose}
-                    setQuestions={setQuestions}
-                    isView={isView}
-                    setIsView={setIsView}
-                    isEdit={isEdit}
-                    setIsEdit={setIsEdit}
-                    qnPreview={qnPreview}
-                    previewIndex={previewIndex}
-                />
-            </Box>
+            {/* Just render this if it is open, viewed or edit */}
+            {(isOpen || isView || isEdit) && (
+                <Box h="10%" alignSelf="flex-end">
+                    <AddViewEditQuestion
+                        isAdd={isOpen}
+                        onClose={onClose}
+                        setQuestions={setQuestions}
+                        isView={isView}
+                        setIsView={setIsView}
+                        isEdit={isEdit}
+                        setIsEdit={setIsEdit}
+                        qnPreview={qnPreview}
+                        previewIndex={previewIndex}
+                    />
+                </Box>
+            )}
             <Flex
                 h={"100vh"}
                 w={"100%"}
