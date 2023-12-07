@@ -95,7 +95,7 @@ function ManageQuestioner() {
 
     useEffect(() => {
         const getLSQuestions = JSON.parse(localStorage.getItem("questions"));
-        setQuestions(getLSQuestions);
+        getLSQuestions && setQuestions(getLSQuestions);
     }, []);
 
     return (
