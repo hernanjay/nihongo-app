@@ -37,6 +37,7 @@ function ManageQuestioner() {
     const [isEdit, setIsEdit] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
@@ -62,8 +63,10 @@ function ManageQuestioner() {
     }
 
     async function handleSubmit() {
+        setIsLoading(true);
         // questionDispatch({ type: "addQuestion", payload: questions[0] });
         const isAdded = await addQuestions(questions);
+
         if (isAdded.status) {
             toast({
                 title: "Questions Added Successfully!",
@@ -72,7 +75,7 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
-
+            setIsLoading(false);
             handleClearBtn();
         } else {
             toast({
@@ -83,6 +86,7 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
+            setIsLoading(false);
         }
     }
 
@@ -215,6 +219,7 @@ function ManageQuestioner() {
                                 onClick={handleClearBtn}
                             />
                             <Button
+                                isLoading={isLoading}
                                 hidden={questions.length < 1}
                                 bg="green.500"
                                 colorScheme="green"
