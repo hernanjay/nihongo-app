@@ -1,6 +1,5 @@
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
-    Box,
     Button,
     Flex,
     FormControl,
@@ -16,8 +15,12 @@ import {
     ModalFooter,
     ModalHeader,
     ModalOverlay,
+    NumberDecrementStepper,
+    NumberIncrementStepper,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
     Select,
-    Text,
     Textarea,
     Tooltip,
     usePrevious,
@@ -27,6 +30,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
+import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
 const AddViewEditQuestion = ({
     isAdd,
@@ -49,10 +53,31 @@ const AddViewEditQuestion = ({
         optionsTranslate: [],
         questionTranslate: "",
     });
+
     const toast = useToast();
     const { fontColor, border, bg } = ThemeColors();
-
     const [hasSubmit, setHasSubmit] = useState(false);
+
+    const { countBySetVocab, countBySetGrammar, countBySetKanji } =
+        useQuestionContext();
+
+    //**** GET THE LENGTH OF SETS PER LEVEL AND TYPE TO TRACK MAX SET NUMBER*/
+    const maxSetLengthKanji = countBySetKanji.filter(
+        (kanji) => kanji._id.level === qn.level && kanji._id.type === qn.type
+    ).length;
+
+    const maxSetLengthVocab = countBySetVocab.filter(
+        (vocab) => vocab._id.level === qn.level && vocab._id.type === qn.type
+    ).length;
+
+    const maxSetLengthGrammar = countBySetGrammar.filter(
+        (grammar) =>
+            grammar._id.level === qn.level && grammar._id.type === qn.type
+    ).length;
+
+    // This is the maxlength of all types depending on type and level
+    const maxSetLength =
+        maxSetLengthKanji || maxSetLengthVocab || maxSetLengthGrammar;
 
     const isKanji = qn.type === "kanji";
 
@@ -129,6 +154,7 @@ const AddViewEditQuestion = ({
             !isErrorSet &&
             !isErrorQuestion &&
             !isErrorOptions &&
+            !isErrorOptionChoices &&
             !isErrorAnswer &&
             !isErrorKanji
         ) {
@@ -211,6 +237,7 @@ const AddViewEditQuestion = ({
             !isInOptions && setQn((prevData) => ({ ...prevData, answer: "" }));
         }
     }, [qn.options, prevOptions, qn.answer]);
+
     return (
         <Modal
             isOpen={isAdd || isView || isEdit}
@@ -335,19 +362,34 @@ const AddViewEditQuestion = ({
                                 isInvalid={hasSubmit && isErrorSet}
                             >
                                 <FormLabel>Set No.</FormLabel>
-                                <Input
-                                    type="number"
-                                    name="set"
-                                    placeholder="1"
-                                    defaultValue="1"
-                                    value={qn.set}
-                                    onChange={(e) => handleChange(e)}
-                                    isDisabled={isView}
-                                    _disabled={{
-                                        color: fontColor,
-                                        borderColor: border,
+                                <NumberInput
+                                    defaultValue={1}
+                                    min={1}
+                                    max={maxSetLength + 1}
+                                    onChange={(valueString) => {
+                                        const value = parseInt(valueString, 10); // Parse the string to an integer
+                                        handleChange({
+                                            target: { name: "set", value },
+                                        }); // Simulate the structure of an event object
                                     }}
-                                />
+                                    isDisabled={isView}
+                                >
+                                    <NumberInputField
+                                        value={console.log(qn.set) && qn.set}
+                                        name="set"
+                                        placeholder={`min: 1, max: ${
+                                            maxSetLength + 1
+                                        }`}
+                                        _disabled={{
+                                            color: fontColor,
+                                            borderColor: border,
+                                        }}
+                                    />
+                                    <NumberInputStepper>
+                                        <NumberIncrementStepper />
+                                        <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                </NumberInput>
                                 {isErrorSet && (
                                     <FormErrorMessage>
                                         Set is required.

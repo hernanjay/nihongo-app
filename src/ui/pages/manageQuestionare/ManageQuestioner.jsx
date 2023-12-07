@@ -18,6 +18,18 @@ import {
     HStack,
     Spacer,
     IconButton,
+    Tabs,
+    TabList,
+    TabPanels,
+    Tab,
+    TabPanel,
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionIcon,
+    AccordionPanel,
+    VStack,
+    Container,
 } from "@chakra-ui/react";
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
@@ -27,8 +39,11 @@ import AddViewEditQuestion from "./AddViewEditQuestion";
 
 import { addQuestions } from "../../../logic/services/apiQuestions";
 import AlerPopUp from "../../components/AlerPopUp";
+import QuestionType from "../questionHomePage/QuestionType";
+import ManageQuestionKanji from "./ManageQuestionKanji";
+import ManageQuestionVocab from "./ManageQuestionVocab";
+import ManageQuestionGrammar from "./ManageQuestionGrammar";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
-import { UserContext } from "./../../../logic/context/UserContext";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
@@ -38,6 +53,13 @@ function ManageQuestioner() {
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentlySelectedKanji, setCurrentlySelectedKanji] =
+        useState("none");
+    const [currentlySelectedVocab, setCurrentlySelectedVocab] =
+        useState("none");
+    const [currentlySelectedGrammar, setCurrentlySelectedGrammar] =
+        useState("none");
+    const numberOfLevel = [1, 2, 3, 4, 5];
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
@@ -75,7 +97,6 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
-            setIsLoading(false);
             handleClearBtn();
         } else {
             toast({
@@ -86,8 +107,8 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
-            setIsLoading(false);
         }
+        setIsLoading(false);
     }
 
     function deleteQuestion(i) {
@@ -105,19 +126,22 @@ function ManageQuestioner() {
     return (
         <Box bg={body}>
             <SideBar toggle={toggle} onClick={setToggle.toggle} />
-            <Box h="10%" alignSelf="flex-end">
-                <AddViewEditQuestion
-                    isAdd={isOpen}
-                    onClose={onClose}
-                    setQuestions={setQuestions}
-                    isView={isView}
-                    setIsView={setIsView}
-                    isEdit={isEdit}
-                    setIsEdit={setIsEdit}
-                    qnPreview={qnPreview}
-                    previewIndex={previewIndex}
-                />
-            </Box>
+            {/* Just render this if it is open, viewed or edit */}
+            {(isOpen || isView || isEdit) && (
+                <Box h="10%" alignSelf="flex-end">
+                    <AddViewEditQuestion
+                        isAdd={isOpen}
+                        onClose={onClose}
+                        setQuestions={setQuestions}
+                        isView={isView}
+                        setIsView={setIsView}
+                        isEdit={isEdit}
+                        setIsEdit={setIsEdit}
+                        qnPreview={qnPreview}
+                        previewIndex={previewIndex}
+                    />
+                </Box>
+            )}
             <Flex
                 h={"100vh"}
                 w={"100%"}
@@ -127,109 +151,276 @@ function ManageQuestioner() {
                 pr={"5vw"}
                 pt="10vh"
                 flexDir={"column"}
+                overflow="auto"
+                overscrollBehavior="auto"
+                sx={{
+                    "&::-webkit-scrollbar": {
+                        width: "12px",
+                        borderRadius: "8px",
+                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
+                    },
+                }}
             >
                 <Box mt="3vh" minH="80vh" pb={{ base: "10vh", lg: "2em" }}>
-                    <HStack
-                        mb="1em"
-                        bg={bg}
-                        p="1em"
-                        boxShadow="lg"
-                        borderRadius="lg"
-                    >
-                        <Heading fontSize="1.75em">
-                            Manage Questionnaires
-                        </Heading>
-                        <Spacer />
-                        <Button
-                            variant="outline"
-                            leftIcon={<FiPlusCircle />}
-                            onClick={onOpen}
+                    <Tabs variant="soft-rounded">
+                        {/* ======================================================================================= */}
+                        <HStack
                             bg={bg}
-                            borderColor={border}
-                        >
-                            Add Question
-                        </Button>
-                    </HStack>
-                    <Box bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
-                        <TableContainer
-                            maxH="57.5vh"
-                            overflowY="visible"
+                            p="1em"
+                            boxShadow="lg"
                             borderRadius="lg"
-                            sx={{
-                                "&::-webkit-scrollbar": {
-                                    width: "10px",
-                                    backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                    borderRightRadius: "lg",
-                                },
-                                "&::-webkit-scrollbar-thumb": {
-                                    backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                    borderRightRadius: "lg",
-                                },
-                            }}
-                            bg={bg}
                         >
-                            <Table>
-                                <Thead
-                                    position="sticky"
-                                    zIndex={3}
-                                    top={0}
-                                    bg={hover}
+                            <Heading fontSize="1.75em">
+                                Manage Questionnaires
+                            </Heading>
+                            <Spacer />
+                            <TabList gap={4}>
+                                <Tab
+                                    color={fontColor}
+                                    bg={bg}
+                                    borderColor={border}
+                                    border={"1px"}
                                 >
-                                    <Tr color={fontColor}>
-                                        <Th w="5%">ID</Th>
-                                        <Th w="5%">Level</Th>
-                                        <Th w="10%">Type</Th>
-                                        <Th w="5%">Set</Th>
-                                        <Th w="100%">Question</Th>
-                                        <Th w="10%" textAlign="center">
-                                            Action
-                                        </Th>
-                                    </Tr>
-                                </Thead>
-                                <Tbody borderTopRadius="lg">
-                                    {questions.map((question, index) => (
-                                        <QuestionRow
-                                            question={question}
-                                            key={index}
-                                            index={index}
-                                            setIsView={setIsView}
-                                            setQnPreview={setQnPreview}
-                                            deleteQuestion={deleteQuestion}
-                                            setIsEdit={setIsEdit}
-                                            setPreviewIndex={setPreviewIndex}
+                                    Add Question
+                                </Tab>
+                                <Tab
+                                    color={fontColor}
+                                    bg={bg}
+                                    borderColor={border}
+                                    border={"1px"}
+                                >
+                                    Delete Question
+                                </Tab>
+                            </TabList>
+                        </HStack>
+                        {/* ======================================================================================= */}
+                        <TabPanels>
+                            <TabPanel>
+                                {/* ======================================================================================= */}
+                                <HStack
+                                    mb="1em"
+                                    bg={bg}
+                                    p="1em"
+                                    boxShadow="lg"
+                                    borderRadius="lg"
+                                >
+                                    <Heading fontSize="1.25em">
+                                        List of Questions to Add
+                                    </Heading>
+                                    <Spacer />
+                                    <Button
+                                        size="sm"
+                                        my="-1em"
+                                        fontSize="0.75em"
+                                        variant="outline"
+                                        leftIcon={<FiPlusCircle />}
+                                        onClick={onOpen}
+                                        bg={bg}
+                                        borderColor={border}
+                                    >
+                                        Add Question
+                                    </Button>
+                                </HStack>
+                                {/* ======================================================================================= */}
+                                {/* For Adding questions */}
+                                <Box
+                                    bg={bg}
+                                    p="1em"
+                                    boxShadow="lg"
+                                    borderRadius="lg"
+                                >
+                                    <TableContainer
+                                        maxH="50vh"
+                                        overflowY="visible"
+                                        borderRadius="lg"
+                                        sx={{
+                                            "&::-webkit-scrollbar": {
+                                                width: "10px",
+                                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                                                borderRightRadius: "lg",
+                                            },
+                                            "&::-webkit-scrollbar-thumb": {
+                                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                                                borderRightRadius: "lg",
+                                            },
+                                        }}
+                                        bg={bg}
+                                    >
+                                        <Table>
+                                            <Thead
+                                                position="sticky"
+                                                zIndex={3}
+                                                top={0}
+                                                bg={hover}
+                                            >
+                                                <Tr color={fontColor}>
+                                                    <Th w="5%">ID</Th>
+                                                    <Th w="5%">Level</Th>
+                                                    <Th w="10%">Type</Th>
+                                                    <Th w="5%">Set</Th>
+                                                    <Th w="100%">Question</Th>
+                                                    <Th
+                                                        w="10%"
+                                                        textAlign="center"
+                                                    >
+                                                        Action
+                                                    </Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody borderTopRadius="lg">
+                                                {questions.map(
+                                                    (question, index) => (
+                                                        <QuestionRow
+                                                            question={question}
+                                                            key={index}
+                                                            index={index}
+                                                            setIsView={
+                                                                setIsView
+                                                            }
+                                                            setQnPreview={
+                                                                setQnPreview
+                                                            }
+                                                            deleteQuestion={
+                                                                deleteQuestion
+                                                            }
+                                                            setIsEdit={
+                                                                setIsEdit
+                                                            }
+                                                            setPreviewIndex={
+                                                                setPreviewIndex
+                                                            }
+                                                        />
+                                                    )
+                                                )}
+                                            </Tbody>
+                                        </Table>
+                                    </TableContainer>
+                                    <Flex mt="1.5em" mb="0.5em">
+                                        <Button
+                                            ms="auto"
+                                            bg="red.500"
+                                            colorScheme="red"
+                                            hidden={questions.length < 1}
+                                            me={4}
+                                            onClick={onAlertOpen}
+                                        >
+                                            Delete All
+                                        </Button>
+                                        <AlerPopUp
+                                            isOpen={isAlertOpen}
+                                            onClose={onAlertClose}
+                                            onClick={handleClearBtn}
                                         />
-                                    ))}
-                                </Tbody>
-                            </Table>
-                        </TableContainer>
-                        <Flex mt="1.5em" mb="0.5em">
-                            <Button
-                                ms="auto"
-                                bg="red.500"
-                                colorScheme="red"
-                                hidden={questions.length < 1}
-                                me={4}
-                                onClick={onAlertOpen}
-                            >
-                                Delete All
-                            </Button>
-                            <AlerPopUp
-                                isOpen={isAlertOpen}
-                                onClose={onAlertClose}
-                                onClick={handleClearBtn}
-                            />
-                            <Button
-                                isLoading={isLoading}
-                                hidden={questions.length < 1}
-                                bg="green.500"
-                                colorScheme="green"
-                                leftIcon={<FiCheckCircle />}
-                                onClick={handleSubmit}
-                            >
-                                Submit
-                            </Button>
-                        </Flex>
-                    </Box>
+                                        <Button
+                                            isLoading={isLoading}
+                                            hidden={questions.length < 1}
+                                            bg="green.500"
+                                            colorScheme="green"
+                                            leftIcon={<FiCheckCircle />}
+                                            onClick={handleSubmit}
+                                        >
+                                            Submit
+                                        </Button>
+                                    </Flex>
+                                </Box>
+                                {/* ======================================================================================= */}
+                            </TabPanel>
+                            {/* ======================================================================================= */}
+                            {/* For Deleteing Questions */}
+                            <TabPanel>
+                                {/* ======================================================================================= */}
+                                <HStack
+                                    mb="1em"
+                                    bg={bg}
+                                    p="1em"
+                                    boxShadow="lg"
+                                    borderRadius="lg"
+                                >
+                                    <Heading
+                                        fontSize="1.25em"
+                                        onClick={() =>
+                                            console.log(currentlySelected)
+                                        }
+                                    >
+                                        List of Questions
+                                    </Heading>
+                                </HStack>
+                                {/* ======================================================================================= */}
+                                <Box
+                                    bg={bg}
+                                    p="1em"
+                                    boxShadow="lg"
+                                    borderRadius="lg"
+                                >
+                                    <QuestionType type="Kanji" bg={bg}>
+                                        {numberOfLevel.map((num, index) => (
+                                            <ManageQuestionKanji
+                                                index={index + 1}
+                                                key={index}
+                                                type="Kanji"
+                                                currentlySelected={
+                                                    currentlySelectedKanji
+                                                }
+                                                setCurrentlySelected={
+                                                    setCurrentlySelectedKanji
+                                                }
+                                            ></ManageQuestionKanji>
+                                        ))}
+                                    </QuestionType>
+                                </Box>
+                                <Box
+                                    bg={bg}
+                                    p="1em"
+                                    my="1.5em"
+                                    boxShadow="lg"
+                                    borderRadius="lg"
+                                >
+                                    <QuestionType type="Vocab" bg={bg}>
+                                        {numberOfLevel.map((num, index) => (
+                                            <ManageQuestionVocab
+                                                index={index + 1}
+                                                key={index}
+                                                type="Vocab"
+                                                currentlySelected={
+                                                    currentlySelectedVocab
+                                                }
+                                                setCurrentlySelected={
+                                                    setCurrentlySelectedVocab
+                                                }
+                                            ></ManageQuestionVocab>
+                                        ))}
+                                    </QuestionType>
+                                </Box>
+                                <Box
+                                    bg={bg}
+                                    p="1em"
+                                    boxShadow="lg"
+                                    borderRadius="lg"
+                                >
+                                    <QuestionType type="Grammar" bg={bg}>
+                                        {numberOfLevel.map((num, index) => (
+                                            <ManageQuestionGrammar
+                                                index={index + 1}
+                                                key={index}
+                                                type="Grammar"
+                                                currentlySelected={
+                                                    currentlySelectedGrammar
+                                                }
+                                                setCurrentlySelected={
+                                                    setCurrentlySelectedGrammar
+                                                }
+                                            ></ManageQuestionGrammar>
+                                        ))}
+                                    </QuestionType>
+                                </Box>
+                                {/* ======================================================================================= */}
+                            </TabPanel>
+                        </TabPanels>
+                        {/* ======================================================================================= */}
+                    </Tabs>
                 </Box>
             </Flex>
         </Box>
