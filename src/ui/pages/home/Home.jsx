@@ -45,11 +45,6 @@ export default function Home() {
             maxW={{ base: "90vw", lg: "60vw" }}
           >
             {/*#region WIP */}
-            {/* <Flex
-              display={{ base: "none", lg: "flex" }}
-              maxW={{ base: "90vw", lg: "60vw" }}
-              mb="2.25vh"
-            > */}
             <Box
               boxShadow="lg"
               py="1.5vh"
@@ -69,7 +64,6 @@ export default function Home() {
                 日本語辞書　・　Japanese Dictionary
               </Text>
             </Box>
-            {/* </Flex> */}
             {/*#endregion WIP */}
 
             {/*Nan's Kana Pages */}

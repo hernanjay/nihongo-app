@@ -10,21 +10,35 @@ import { useKanaContext } from "../../../logic/hooks/kana/useKanaContext";
 import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
 import ThemeColors from "../main/ThemeColors";
 
+// Gets stored values for the following data
 function KanaSelectorTabSide() {
   const {
+    // kanaMode values are Main, Dakuten or Combination
     kanaMode,
+    // kanatype are Hiragana or Katakana
     kanaType,
+    // Groups are individual selected kanas 'grouped'
     kanaGroup,
     dispatch: kanaDispatch,
   } = useKanaContext();
 
+  {
+    /* ================================================================================ */
+  }
   const { body, bg, border, fontColor, success, error, warning, info } =
     ThemeColors();
 
+  //  Gets a list of all kanas per modes for the type that is selected
   const mainKana = getMainKanaList(kanaType);
   const dakutenKana = getKanaDakutenList(kanaType);
   const combinationKana = getKanaCombinationList(kanaType);
 
+  {
+    /* ================================================================================ */
+  }
+
+  // Checks if the currently stored groups of kana exists inside this specific mode if it does put it inside an array
+  // After checking every kana on the list return the array and set it as the value for the state
   const [mainKanaSelected, setMainKanaSelected] = useState(() => {
     const temp = [];
     mainKana.map((value) => {
@@ -33,6 +47,12 @@ function KanaSelectorTabSide() {
     });
     return temp;
   });
+  {
+    /* ================================================================================ */
+  }
+
+  // Checks if the currently stored groups of kana exists inside this specific mode if it does put it inside an array
+  // After checking every kana on the list return the array and set it as the value for the state
   const [dakutenKanaSelected, setDakutenKanaSelected] = useState(() => {
     const temp = [];
     dakutenKana.map((value) => {
@@ -41,6 +61,12 @@ function KanaSelectorTabSide() {
     });
     return temp;
   });
+  {
+    /* ================================================================================ */
+  }
+
+  // Checks if the currently stored groups of kana exists inside this specific mode if it does put it inside an array
+  // After checking every kana on the list return the array and set it as the value for the state
   const [combinationKanaSelected, setCombinationKanaSelected] = useState(() => {
     const temp = [];
     combinationKana.map((value) => {
@@ -50,6 +76,12 @@ function KanaSelectorTabSide() {
     return temp;
   });
 
+  {
+    /* ================================================================================ */
+  }
+
+  // Checks for which state has data inside it , if it does add the mode into an array
+  // Return the array as the modes the user has selected
   function setMode() {
     let mode = [];
     if (mainKanaSelected.length) {
@@ -62,6 +94,9 @@ function KanaSelectorTabSide() {
       mode.push("combination");
     }
     return mode;
+  }
+  {
+    /* ================================================================================ */
   }
 
   return (
@@ -90,6 +125,7 @@ function KanaSelectorTabSide() {
         borderWidth={"1px"}
         borderColor={border}
       >
+        {/* ================================================================================  */}
         <Button
           bg={bg}
           variant="outline"
@@ -106,6 +142,7 @@ function KanaSelectorTabSide() {
         >
           {`Switch to ${kanaType === "hiragana" ? "Katakana" : "Hiragana"}`}
         </Button>
+        {/* ================================================================================  */}
       </Box>
 
       <Box
@@ -118,6 +155,7 @@ function KanaSelectorTabSide() {
         borderWidth={"1px"}
         borderColor={border}
       >
+        {/* ================================================================================  */}
         <Button
           variant="outline"
           borderColor={border}
@@ -138,7 +176,7 @@ function KanaSelectorTabSide() {
         >
           All Kana
         </Button>
-
+        {/* ================================================================================  */}
         <Button
           variant="outline"
           borderColor={border}

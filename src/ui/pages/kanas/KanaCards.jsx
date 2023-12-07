@@ -65,7 +65,7 @@ function KanaCards({ totalItems, kana, index }) {
         </Heading>
         <Input
           textAlign="center"
-          autocomplete="off"
+          autoComplete="off"
           focusBorderColor="gray.400"
           // onFocus={setIsFocused.on}
           onBlur={setIsFocused.off}
