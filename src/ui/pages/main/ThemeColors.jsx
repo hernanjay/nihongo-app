@@ -1,6 +1,8 @@
 import { useColorModeValue } from "@chakra-ui/react";
 
 // Setting up Object to hold light and dark mode color values for module exportation
+//useColorModeValue changes what color to use depending on the color mode light mode (first argument) or dark mode (second argument)
+//color values light.### and dark.### are defined inside the Theme.jsx file
 
 function ThemeColors() {
   return {

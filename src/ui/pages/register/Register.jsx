@@ -17,7 +17,6 @@ import {
   Text,
   Link,
   InputRightElement,
-  InputLeftAddon,
   InputGroup,
   AbsoluteCenter,
   Modal,
@@ -51,7 +50,6 @@ export default function Register() {
   const navigate = useNavigate();
   const { body, bg, border, fontColor, success, warning, info } = ThemeColors();
   const highlight = useColorModeValue("gray.200", "dark.200");
-  const [isEmailValidFormat, setIisEmailValidFormat] = useState(false);
   const [isPassValidFormat, setIsPassValidFormat] = useState(false);
   const [isPassValidLength, setIsPassValidLength] = useState(false);
   const [isPassContainUpper, setIsPassContainUpper] = useState(false);
