@@ -28,6 +28,7 @@ import AddViewEditQuestion from "./AddViewEditQuestion";
 import { addQuestions } from "../../../logic/services/apiQuestions";
 import AlerPopUp from "../../components/AlerPopUp";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { UserContext } from "./../../../logic/context/UserContext";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
@@ -36,6 +37,7 @@ function ManageQuestioner() {
     const [isEdit, setIsEdit] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
@@ -61,7 +63,10 @@ function ManageQuestioner() {
     }
 
     async function handleSubmit() {
+        setIsLoading(true);
+        // questionDispatch({ type: "addQuestion", payload: questions[0] });
         const isAdded = await addQuestions(questions);
+
         if (isAdded.status) {
             toast({
                 title: "Questions Added Successfully!",
@@ -70,7 +75,7 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
-            // questionDispatch({ type: "addQuestion", payload: questions[0] });
+            setIsLoading(false);
             handleClearBtn();
         } else {
             toast({
@@ -81,6 +86,7 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
+            setIsLoading(false);
         }
     }
 
@@ -90,6 +96,11 @@ function ManageQuestioner() {
         console.log(updatedQuestions);
         setQuestions(updatedQuestions);
     }
+
+    useEffect(() => {
+        const getLSQuestions = JSON.parse(localStorage.getItem("questions"));
+        getLSQuestions && setQuestions(getLSQuestions);
+    }, []);
 
     return (
         <Box bg={body}>
@@ -208,6 +219,7 @@ function ManageQuestioner() {
                                 onClick={handleClearBtn}
                             />
                             <Button
+                                isLoading={isLoading}
                                 hidden={questions.length < 1}
                                 bg="green.500"
                                 colorScheme="green"
