@@ -27,22 +27,39 @@ function KanaLayout() {
   useEffect(() => {
     setIsLoading(true);
     async function fetchData() {
-      let res;
-      if (kanaType && kanaMode.length && kanaGroup.length) {
-        res = await fetchSpecificKana(kanaMode, kanaGroup, kanaType);
-      } else if (kanaType && kanaMode.length && !kanaGroup.length) {
-        res = await fetchSpecificMode(kanaMode, kanaType);
-      } else if (kanaType && !kanaMode.length && !kanaGroup.length) {
-        res = await fetchAllKana(kanaType);
-      } else {
-        navigate("/");
+      const res = await fetchFunc();
+
+      async function fetchFunc() {
+        if (kanaType && kanaMode.length && kanaGroup.length) {
+          // Checks if user is fetching a specific kana with type mode and group arguments
+          return await fetchSpecificKana(kanaMode, kanaGroup, kanaType);
+        } else if (kanaType && kanaMode.length && !kanaGroup.length) {
+          // Checks if user is fetching all kana from a specific type and from specific mode with type and mode arguments
+          return await fetchSpecificMode(kanaMode, kanaType);
+        } else if (kanaType && !kanaMode.length && !kanaGroup.length) {
+          // Checks if user is fetching all kana from a scpecific type with only the type argument
+          return await fetchAllKana(kanaType);
+        } else {
+          // Sesssion storage must have atleast a kanatype to work, if session storage is tampered and kanatype is removed throw error
+          navigate("/");
+          throw new Error(
+            "Problem with session storage have atleast kanaType present"
+          );
+        }
       }
 
-      if (kanaType) {
+      // Error handilng for reponse handling
+      try {
         const json = await res.json();
-        if (!res.ok) console.error(json.error);
+        //throws error if API returns an error
+        if (!res.ok) throw new Error(json.error);
+
+        //saves fetched data
         if (res.ok) kanaDispatch({ type: "dataReceived", payload: json });
+      } catch (error) {
+        console.warn(error);
       }
+
       setIsLoading(false);
     }
     fetchData();
@@ -50,7 +67,9 @@ function KanaLayout() {
 
   return (
     <Box pt="10vh">
+      {/* ================================================================================ */}
       <Loader isLoading={isLoading} />
+      {/* ================================================================================ */}
       <Flex
         position="relative"
         id="kanaPageScroll"
@@ -74,7 +93,9 @@ function KanaLayout() {
           ml={{ base: "0", xl: "1.5vw" }}
           display={{ base: "none", lg: "block" }}
         >
+          {/* ================================================================================ */}
           <KanaSelectorTabSide key="Tabside" isLoading={isLoading} />
+          {/* ================================================================================ */}
         </Box>
         <Box
           minW={{ base: "25vw", lg: "50vw", xl: "62.5vw" }}
@@ -87,6 +108,7 @@ function KanaLayout() {
             gap={{ base: "2.5vw", lg: "1.5vw", xl: "5vh" }}
             py="2.5vh"
           >
+            {/* ================================================================================ */}
             {kanaData.map((kana, index) => {
               return (
                 <Skeleton
@@ -94,14 +116,17 @@ function KanaLayout() {
                   isLoaded={!isLoading}
                   fadeDuration={3}
                 >
+                  {/* ================================================================================ */}
                   <KanaCards
                     totalItems={kanaData.length}
                     kana={kana}
                     index={index}
                   />
+                  {/* ================================================================================ */}
                 </Skeleton>
               );
             })}
+            {/* ================================================================================ */}
           </SimpleGrid>
           <Spacer minH={{ base: "10vh", lg: "0" }} />
         </Box>

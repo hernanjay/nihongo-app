@@ -47,7 +47,6 @@ const UsersRow = ({ user }) => {
                         <Heading size="sm" letterSpacing="tight">
                             {user.username}
                         </Heading>
-                        {/* <Text fontSize="sm" color="gray">Name of Student</Text> */}
                     </Flex>
                 </Flex>
             </Td>
