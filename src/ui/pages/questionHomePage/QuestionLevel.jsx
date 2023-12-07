@@ -33,8 +33,6 @@ const QuestionLevel = ({ index, type }) => {
     let grammarCtr = 0;
     let grammarGradedCtr = 0;
 
-    console.log(countBySetKanji);
-
     type === "Kanji"
         ? countBySetKanji?.map(
               (kanji) => kanji._id.level == index && kanjiCtr++

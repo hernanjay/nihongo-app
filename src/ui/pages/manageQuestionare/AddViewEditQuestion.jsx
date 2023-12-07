@@ -445,7 +445,6 @@ const AddViewEditQuestion = ({
                                             <QuestionOutlineIcon me={2} />
                                         </Tooltip>
                                     )}
-                                    {console.log(isView)}
                                     <Select
                                         bg={bg}
                                         size="sm"
