@@ -142,7 +142,7 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
             {after}
           </Text>
 
-          {(user.role === "admin" || user.role === "teacher") && (
+          {/* {(user.role === "admin" || user.role === "teacher") && (
             <>
               <Button onClick={onOpen} mt={7} colorScheme="red" bg="red.500">
                 <FiTrash2 />
@@ -154,7 +154,7 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
                 message={"Question"}
               />
             </>
-          )}
+          )} */}
         </Flex>
 
         <SimpleGrid columns={2} spacing={{ base: 2, lg: 6 }}>
