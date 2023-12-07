@@ -72,7 +72,7 @@ const UsersRow = ({ user }) => {
                     <AlerPopUp
                         isOpen={isOpen}
                         onClose={onClose}
-                        onClick={() => handleSubmit(qn._id)}
+                        onClick={() => handleSubmit(user._id)}
                         message={"User"}
                     />
                 </Link>

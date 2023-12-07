@@ -28,6 +28,7 @@ import AddViewEditQuestion from "./AddViewEditQuestion";
 import { addQuestions } from "../../../logic/services/apiQuestions";
 import AlerPopUp from "../../components/AlerPopUp";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { UserContext } from "./../../../logic/context/UserContext";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
@@ -61,6 +62,7 @@ function ManageQuestioner() {
     }
 
     async function handleSubmit() {
+        // questionDispatch({ type: "addQuestion", payload: questions[0] });
         const isAdded = await addQuestions(questions);
         if (isAdded.status) {
             toast({
@@ -70,7 +72,7 @@ function ManageQuestioner() {
                 duration: 3000,
                 isClosable: true,
             });
-            // questionDispatch({ type: "addQuestion", payload: questions[0] });
+
             handleClearBtn();
         } else {
             toast({
@@ -90,6 +92,11 @@ function ManageQuestioner() {
         console.log(updatedQuestions);
         setQuestions(updatedQuestions);
     }
+
+    useEffect(() => {
+        const getLSQuestions = JSON.parse(localStorage.getItem("questions"));
+        getLSQuestions && setQuestions(getLSQuestions);
+    }, []);
 
     return (
         <Box bg={body}>

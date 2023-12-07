@@ -117,7 +117,6 @@ export async function deleteQuestion(questionId) {
 
     const json = await res.json();
 
-    console.log(res.ok);
     if (!res.ok) {
         console.error(json.error);
         return { status: 0, json };

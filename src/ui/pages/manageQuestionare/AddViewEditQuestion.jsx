@@ -62,7 +62,8 @@ const AddViewEditQuestion = ({
 
     const isErrorSet = qn.set === "";
     const isErrorQuestion = qn.question === "";
-    const isErrorOptions = qn.optLength === 0 || qn.options.includes("");
+    const isErrorOptions = optLength === 0;
+    const isErrorOptionChoices = qn.options.includes("");
     const isErrorAnswer = qn.answer === "";
     const isErrorKanji = isKanji && !hasBracket;
 
@@ -394,7 +395,10 @@ const AddViewEditQuestion = ({
 
                         {/* OPTIONS ADD BUTTON */}
                         <GridItem colSpan={1}>
-                            <FormControl isRequired>
+                            <FormControl
+                                isRequired
+                                isInvalid={hasSubmit && isErrorOptions}
+                            >
                                 <Flex alignItems="center">
                                     <FormLabel mt={2}>Options</FormLabel>
                                     {(isAdd || isEdit) && (
@@ -416,6 +420,11 @@ const AddViewEditQuestion = ({
                                         </Tooltip>
                                     )}
                                 </Flex>
+                                {isErrorOptions && (
+                                    <FormErrorMessage>
+                                        Options is required.
+                                    </FormErrorMessage>
+                                )}
                             </FormControl>
                         </GridItem>
 
@@ -475,7 +484,7 @@ const AddViewEditQuestion = ({
                         <GridItem colSpan={3}>
                             <FormControl
                                 isRequired
-                                isInvalid={hasSubmit && isErrorOptions}
+                                isInvalid={hasSubmit && isErrorOptionChoices}
                             >
                                 {qn.options.map((value, index) => (
                                     <Flex key={index} my={index > 0 && 5}>
@@ -517,9 +526,9 @@ const AddViewEditQuestion = ({
                                     </Flex>
                                 ))}
 
-                                {isErrorOptions && (
+                                {isErrorOptionChoices && (
                                     <FormErrorMessage>
-                                        Options is required.
+                                        Option must not be empty.
                                     </FormErrorMessage>
                                 )}
                             </FormControl>
