@@ -30,33 +30,41 @@ const questionReducer = (state, action) => {
             };
         case "addQuestion":
             const { type, level, set } = action.payload;
+            const data = { _id: { type, level, set } };
 
-            const updatedKanji =
-                action.payload.type === "kanji"
-                    ? state.countBySetVocab.push({
-                          _id: { type, level, set },
-                      })
-                    : state.countBySetKanji;
+            let updatedKanji = state.countBySetKanji;
+            let updatedVocab = state.countBySetVocab;
+            let updatedGrammar = state.countBySetGrammar;
+            let updatedQuantity = state.questionsQty;
 
-            const updateVocab =
-                action.payload.type === "vocab"
-                    ? state.countBySetVocab.push({
-                          _id: { type, level, set },
-                      })
-                    : state.countBySetVocab;
+            if (action.payload.type === "kanji") {
+                updatedKanji = [...updatedKanji, data];
+                console.log(updatedKanji);
+            }
 
-            const updateGrammar =
-                action.payload.type === "grammar"
-                    ? state.countBySetVocab.push({
-                          _id: { type, level, set },
-                      })
-                    : state.countBySetGrammar;
+            if (action.payload.type === "vocab") {
+                updatedVocab = [...updatedVocab, data];
+                console.log(data);
+            }
+
+            if (action.payload.type === "grammar") {
+                updatedGrammar = [...updatedGrammar, data];
+            }
+
+            updatedQuantity = updatedQuantity.map((qty) =>
+                qty._id.level == level &&
+                qty._id.type == type &&
+                qty._id.set == set
+                    ? { ...qty, count: qty.count++ }
+                    : qty
+            );
 
             return {
                 ...state,
-                countBySetKanji: updatedKanji,
-                countBySetVocab: updateVocab,
-                countBySetGrammar: updateGrammar,
+                // countBySetKanji: updatedKanji,
+                // countBySetVocab: updatedVocab,
+                // countBySetGrammar: updatedGrammar,
+                // questionsQty: updatedQuantity,
             };
         case "receivedQuestionQty":
             return {
