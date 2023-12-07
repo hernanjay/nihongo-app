@@ -30,6 +30,8 @@ import {
   AccordionPanel,
   VStack,
   Container,
+  Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
@@ -71,7 +73,7 @@ function ManageQuestioner() {
 
   const [toggle, setToggle] = useBoolean();
   const { bg, fontColor, body, hover, border } = ThemeColors();
-
+  const colorMode = useColorMode().colorMode;
   function handleClearBtn() {
     onAlertClose();
     setQuestions([]);
@@ -160,14 +162,21 @@ function ManageQuestioner() {
         }}
       >
         <Box mt="3vh" minH="80vh" pb={{ base: "10vh", lg: "2em" }}>
-          <Tabs variant="soft-rounded" colorScheme="blackAlpha">
+          <Tabs
+            variant="soft-rounded"
+            colorScheme={colorMode === "light" ? "blackAlpha" : "whiteAlpha"}
+          >
             {/* ======================================================================================= */}
             <HStack bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
               <Heading fontSize="1.75em">Manage Questionnaires</Heading>
               <Spacer />
               <TabList>
-                <Tab>Add Question</Tab>
-                <Tab>Delete Question</Tab>
+                <Tab>
+                  <Text color={fontColor}>Add Question</Text>
+                </Tab>
+                <Tab>
+                  <Text color={fontColor}>Delete Question</Text>
+                </Tab>
               </TabList>
             </HStack>
             {/* ======================================================================================= */}
