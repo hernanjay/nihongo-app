@@ -1,6 +1,5 @@
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -16,8 +15,12 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Select,
-  Text,
   Textarea,
   Tooltip,
   usePrevious,
@@ -27,6 +30,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
+import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
 const AddViewEditQuestion = ({
   isAdd,
@@ -49,10 +53,30 @@ const AddViewEditQuestion = ({
     optionsTranslate: [],
     questionTranslate: "",
   });
+
   const toast = useToast();
   const { fontColor, border, bg } = ThemeColors();
-
   const [hasSubmit, setHasSubmit] = useState(false);
+
+  const { countBySetVocab, countBySetGrammar, countBySetKanji } =
+    useQuestionContext();
+
+  //**** GET THE LENGTH OF SETS PER LEVEL AND TYPE TO TRACK MAX SET NUMBER*/
+  const maxSetLengthKanji = countBySetKanji.filter(
+    (kanji) => kanji._id.level === qn.level && kanji._id.type === qn.type
+  ).length;
+
+  const maxSetLengthVocab = countBySetVocab.filter(
+    (vocab) => vocab._id.level === qn.level && vocab._id.type === qn.type
+  ).length;
+
+  const maxSetLengthGrammar = countBySetGrammar.filter(
+    (grammar) => grammar._id.level === qn.level && grammar._id.type === qn.type
+  ).length;
+
+  // This is the maxlength of all types depending on type and level
+  const maxSetLength =
+    maxSetLengthKanji || maxSetLengthVocab || maxSetLengthGrammar;
 
   const isKanji = qn.type === "kanji";
 
@@ -62,7 +86,8 @@ const AddViewEditQuestion = ({
 
   const isErrorSet = qn.set === "";
   const isErrorQuestion = qn.question === "";
-  const isErrorOptions = qn.optLength === 0 || qn.options.includes("");
+  const isErrorOptions = optLength === 0;
+  const isErrorOptionChoices = qn.options.includes("");
   const isErrorAnswer = qn.answer === "";
   const isErrorKanji = isKanji && !hasBracket;
 
@@ -319,19 +344,27 @@ const AddViewEditQuestion = ({
             <GridItem>
               <FormControl isRequired isInvalid={hasSubmit && isErrorSet}>
                 <FormLabel>Set No.</FormLabel>
-                <Input
-                  type="number"
-                  name="set"
-                  placeholder="1"
-                  defaultValue="1"
-                  value={qn.set}
-                  onChange={(e) => handleChange(e)}
+                <NumberInput
+                  defaultValue={1}
+                  min={1}
+                  max={maxSetLength + 1}
                   isDisabled={isView}
                   _disabled={{
                     color: fontColor,
                     borderColor: border,
                   }}
-                />
+                >
+                  <NumberInputField
+                    value={qn.set}
+                    name="set"
+                    placeholder={`min: 1, max: ${maxSetLength + 1}`}
+                    onChange={(e) => handleChange(e)}
+                  />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
                 {isErrorSet && (
                   <FormErrorMessage>Set is required.</FormErrorMessage>
                 )}
@@ -371,7 +404,7 @@ const AddViewEditQuestion = ({
 
             {/* OPTIONS ADD BUTTON */}
             <GridItem colSpan={1}>
-              <FormControl isRequired>
+              <FormControl isRequired isInvalid={hasSubmit && isErrorOptions}>
                 <Flex alignItems="center">
                   <FormLabel mt={2}>Options</FormLabel>
                   {(isAdd || isEdit) && (
@@ -393,6 +426,9 @@ const AddViewEditQuestion = ({
                     </Tooltip>
                   )}
                 </Flex>
+                {isErrorOptions && (
+                  <FormErrorMessage>Options is required.</FormErrorMessage>
+                )}
               </FormControl>
             </GridItem>
 
@@ -410,7 +446,6 @@ const AddViewEditQuestion = ({
                       <QuestionOutlineIcon me={2} />
                     </Tooltip>
                   )}
-                  {/* {console.log(isView)} */}
                   <Select
                     bg={bg}
                     size="sm"
@@ -446,7 +481,10 @@ const AddViewEditQuestion = ({
 
             {/* OPTIONS CHOICES */}
             <GridItem colSpan={3}>
-              <FormControl isRequired isInvalid={hasSubmit && isErrorOptions}>
+              <FormControl
+                isRequired
+                isInvalid={hasSubmit && isErrorOptionChoices}
+              >
                 {qn.options.map((value, index) => (
                   <Flex key={index} my={index > 0 && 5}>
                     <FormLabel
@@ -480,8 +518,8 @@ const AddViewEditQuestion = ({
                   </Flex>
                 ))}
 
-                {isErrorOptions && (
-                  <FormErrorMessage>Options is required.</FormErrorMessage>
+                {isErrorOptionChoices && (
+                  <FormErrorMessage>Option must not be empty.</FormErrorMessage>
                 )}
               </FormControl>
             </GridItem>

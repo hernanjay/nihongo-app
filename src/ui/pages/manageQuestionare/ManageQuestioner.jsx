@@ -51,6 +51,7 @@ function ManageQuestioner() {
   const [isEdit, setIsEdit] = useState(false);
   const [qnPreview, setQnPreview] = useState(null);
   const [previewIndex, setPreviewIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentlySelectedKanji, setCurrentlySelectedKanji] = useState("none");
   const [currentlySelectedVocab, setCurrentlySelectedVocab] = useState("none");
   const [currentlySelectedGrammar, setCurrentlySelectedGrammar] =
@@ -78,7 +79,10 @@ function ManageQuestioner() {
   }
 
   async function handleSubmit() {
+    setIsLoading(true);
+    // questionDispatch({ type: "addQuestion", payload: questions[0] });
     const isAdded = await addQuestions(questions);
+
     if (isAdded.status) {
       toast({
         title: "Questions Added Successfully!",
@@ -87,7 +91,7 @@ function ManageQuestioner() {
         duration: 3000,
         isClosable: true,
       });
-      // questionDispatch({ type: "addQuestion", payload: questions[0] });
+      setIsLoading(false);
       handleClearBtn();
     } else {
       toast({
@@ -98,6 +102,7 @@ function ManageQuestioner() {
         duration: 3000,
         isClosable: true,
       });
+      setIsLoading(false);
     }
   }
 
@@ -108,22 +113,30 @@ function ManageQuestioner() {
     setQuestions(updatedQuestions);
   }
 
+  useEffect(() => {
+    const getLSQuestions = JSON.parse(localStorage.getItem("questions"));
+    getLSQuestions && setQuestions(getLSQuestions);
+  }, []);
+
   return (
     <Box bg={body}>
       <SideBar toggle={toggle} onClick={setToggle.toggle} />
-      <Box h="10%" alignSelf="flex-end">
-        <AddViewEditQuestion
-          isAdd={isOpen}
-          onClose={onClose}
-          setQuestions={setQuestions}
-          isView={isView}
-          setIsView={setIsView}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-          qnPreview={qnPreview}
-          previewIndex={previewIndex}
-        />
-      </Box>
+      {/* Just render this if it is open, viewed or edit */}
+      {(isOpen || isView || isEdit) && (
+        <Box h="10%" alignSelf="flex-end">
+          <AddViewEditQuestion
+            isAdd={isOpen}
+            onClose={onClose}
+            setQuestions={setQuestions}
+            isView={isView}
+            setIsView={setIsView}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
+            qnPreview={qnPreview}
+            previewIndex={previewIndex}
+          />
+        </Box>
+      )}
       <Flex
         h={"100vh"}
         w={"100%"}
@@ -249,6 +262,7 @@ function ManageQuestioner() {
                       onClick={handleClearBtn}
                     />
                     <Button
+                      isLoading={isLoading}
                       hidden={questions.length < 1}
                       bg="green.500"
                       colorScheme="green"
