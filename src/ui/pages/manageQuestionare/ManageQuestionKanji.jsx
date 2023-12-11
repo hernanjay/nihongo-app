@@ -18,6 +18,7 @@ const ManageQuestionKanji = ({
   setCurrentlySelected,
 }) => {
   const { countBySetKanji } = useQuestionContext();
+  const [isPreview, setIsPreview] = useState(false);
   const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
 
   let kanjiCtr = 0;
@@ -48,9 +49,12 @@ const ManageQuestionKanji = ({
           onClick={() => {
             if (currentlySelected === `N${index}`) {
               setCurrentlySelected("none");
+              setIsPreview(false);
             } else {
               setCurrentlySelected(`N${index}`);
+              setIsPreview(true);
             }
+            setCurrenlySelectedQn("none");
           }}
           variant="solid"
         >
@@ -78,7 +82,8 @@ const ManageQuestionKanji = ({
             },
           }}
         >
-          {type === "Kanji" &&
+          {isPreview &&
+            type === "Kanji" &&
             countBySetKanji?.map((kanji) =>
               kanji._id.level == index ? (
                 <ManageQuestionSets

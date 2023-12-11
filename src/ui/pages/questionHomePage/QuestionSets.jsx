@@ -11,7 +11,6 @@ const QuestionSets = ({ type, level, set }) => {
   const navigate = useNavigate();
   const { questionsQty } = useQuestionContext();
   const { grades } = useGradeContext();
-
   const dynamicScore =
     (type === "kanji" &&
       grades?.kanjiGrades

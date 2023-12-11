@@ -18,6 +18,7 @@ const ManageQuestionGrammar = ({
   setCurrentlySelected,
 }) => {
   const { countBySetGrammar } = useQuestionContext();
+  const [isPreview, setIsPreview] = useState(false);
   const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
 
   let grammarCtr = 0;
@@ -50,8 +51,10 @@ const ManageQuestionGrammar = ({
           onClick={() => {
             if (currentlySelected === `N${index}`) {
               setCurrentlySelected("none");
+              setIsPreview(false);
             } else {
               setCurrentlySelected(`N${index}`);
+              setIsPreview(true);
             }
           }}
           variant="solid"
@@ -80,7 +83,8 @@ const ManageQuestionGrammar = ({
             },
           }}
         >
-          {type === "Grammar" &&
+          {isPreview &&
+            type === "Grammar" &&
             countBySetGrammar?.map((grammar) =>
               grammar._id.level == index ? (
                 <ManageQuestionSets

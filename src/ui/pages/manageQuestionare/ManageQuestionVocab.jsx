@@ -18,6 +18,7 @@ const ManageQuestionVocab = ({
   setCurrentlySelected,
 }) => {
   const { countBySetVocab } = useQuestionContext();
+  const [isPreview, setIsPreview] = useState(false);
   const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
 
   let vocabCtr = 0;
@@ -48,8 +49,10 @@ const ManageQuestionVocab = ({
           onClick={() => {
             if (currentlySelected === `N${index}`) {
               setCurrentlySelected("none");
+              setIsPreview(false);
             } else {
               setCurrentlySelected(`N${index}`);
+              setIsPreview(true);
             }
           }}
           variant="solid"
@@ -78,7 +81,8 @@ const ManageQuestionVocab = ({
             },
           }}
         >
-          {type === "Vocab" &&
+          {isPreview &&
+            type === "Vocab" &&
             countBySetVocab?.map((vocab) =>
               vocab._id.level == index ? (
                 <ManageQuestionSets

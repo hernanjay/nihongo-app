@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import ThemeColors from "../main/ThemeColors";
+import { useState } from "react";
 
 const ManageQuestionSets = ({
   type,
@@ -24,6 +25,7 @@ const ManageQuestionSets = ({
   setCurrenlySelectedQn,
 }) => {
   const { hover } = ThemeColors();
+  const [isPreview, setIsPreview] = useState(false);
   const questions = [
     "Q1",
     "Q2",
@@ -39,7 +41,6 @@ const ManageQuestionSets = ({
 
   return (
     <Collapse
-      id="test"
       style={{ overflow: "visible" }}
       animateOpacity
       in={
@@ -54,9 +55,14 @@ const ManageQuestionSets = ({
             <AccordionButton
               pr="2em"
               onClick={() => {
-                currentlySelectedQn === `Q${set}`
-                  ? setCurrenlySelectedQn("none")
-                  : setCurrenlySelectedQn(`Q${set}`);
+                if (currentlySelectedQn === `Q${set}`) {
+                  setCurrenlySelectedQn("none");
+                  setIsPreview(false);
+                  console.log(isPreview);
+                } else {
+                  setCurrenlySelectedQn(`Q${set}`);
+                  setIsPreview(true);
+                }
               }}
             >
               <Box ml="1em" as="span" flex="1" textAlign="left">
@@ -83,18 +89,12 @@ const ManageQuestionSets = ({
               {questions.map((qn, index) => {
                 return (
                   <Box>
-                    <HStack
-                      cursor="pointer"
-                      _hover={{ bg: hover }}
-                      py="0.5em"
-                      pl="1.25em"
-                    >
+                    <HStack py="0.5em" ml="2em">
                       <ChevronRightIcon />
                       <Text>{qn}</Text>
                       <Spacer />
                       <IconButton
-                        size="sm"
-                        mr="2em"
+                        size="xs"
                         colorScheme="red"
                         icon={<DeleteIcon />}
                       />
