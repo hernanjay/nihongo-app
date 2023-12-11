@@ -17,21 +17,10 @@ const ManageQuestionGrammar = ({
   currentlySelected,
   setCurrentlySelected,
 }) => {
-  const { countBySetVocab, countBySetGrammar, countBySetKanji } =
-    useQuestionContext();
+  const { countBySetGrammar } = useQuestionContext();
   const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
 
-  let kanjiCtr = 0;
-  let vocabCtr = 0;
   let grammarCtr = 0;
-
-  type === "Kanji"
-    ? countBySetKanji?.map((kanji) => kanji._id.level == index && kanjiCtr++)
-    : null;
-
-  type === "Vocab"
-    ? countBySetVocab?.map((vocab) => vocab._id.level == index && vocabCtr++)
-    : null;
 
   type === "Grammar"
     ? countBySetGrammar?.map(
@@ -54,11 +43,7 @@ const ManageQuestionGrammar = ({
       <AccordionItem
         key={index}
         my="1"
-        isDisabled={
-          (type === "Kanji" && !kanjiCtr) ||
-          (type === "Vocab" && !vocabCtr) ||
-          (type === "Grammar" && !grammarCtr)
-        }
+        isDisabled={type === "Grammar" && !grammarCtr}
         verticalAlign="center"
       >
         <AccordionButton
@@ -78,7 +63,23 @@ const ManageQuestionGrammar = ({
           <AccordionIcon />
         </AccordionButton>
 
-        <AccordionPanel pb={4}>
+        <AccordionPanel
+          pb={4}
+          maxH="50vh"
+          overflowY={currentlySelectedQn === "none" ? "auto" : "hidden"}
+          borderRadius="lg"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: "10px",
+              backgroundColor: `rgba(0, 0, 0, 0.15)`,
+              borderRightRadius: "lg",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: `rgba(0, 0, 0, 0.15)`,
+              borderRightRadius: "lg",
+            },
+          }}
+        >
           {type === "Grammar" &&
             countBySetGrammar?.map((grammar) =>
               grammar._id.level == index ? (

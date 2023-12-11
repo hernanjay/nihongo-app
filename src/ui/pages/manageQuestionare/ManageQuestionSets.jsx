@@ -39,6 +39,8 @@ const ManageQuestionSets = ({
 
   return (
     <Collapse
+      id="test"
+      style={{ overflow: "visible" }}
       animateOpacity
       in={
         currentlySelectedQn === "none"
@@ -48,8 +50,9 @@ const ManageQuestionSets = ({
     >
       <Box key={`questions/n${level}/${type}/${set}`} mx="-1em">
         <Accordion allowToggle>
-          <AccordionItem>
+          <AccordionItem my="1">
             <AccordionButton
+              pr="2em"
               onClick={() => {
                 currentlySelectedQn === `Q${set}`
                   ? setCurrenlySelectedQn("none")
@@ -61,23 +64,46 @@ const ManageQuestionSets = ({
               </Box>
               <AccordionIcon />
             </AccordionButton>
-            {questions.map((qn, index) => {
-              return (
-                <AccordionPanel py="-1" _hover={{ bg: hover }}>
-                  <HStack py="0.5em" ml="2em">
-                    <ChevronRightIcon />
-                    <Text>{qn}</Text>
-                    <Spacer />
-                    <IconButton
-                      size="xs"
-                      colorScheme="red"
-                      icon={<DeleteIcon />}
-                    />
-                  </HStack>
-                  <Divider />
-                </AccordionPanel>
-              );
-            })}
+            <AccordionPanel
+              maxH="50vh"
+              overflowY="scroll"
+              borderRadius="lg"
+              sx={{
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                  backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                  borderRightRadius: "lg",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                  borderRightRadius: "lg",
+                },
+              }}
+            >
+              {questions.map((qn, index) => {
+                return (
+                  <Box>
+                    <HStack
+                      cursor="pointer"
+                      _hover={{ bg: hover }}
+                      py="0.5em"
+                      pl="1.25em"
+                    >
+                      <ChevronRightIcon />
+                      <Text>{qn}</Text>
+                      <Spacer />
+                      <IconButton
+                        size="sm"
+                        mr="2em"
+                        colorScheme="red"
+                        icon={<DeleteIcon />}
+                      />
+                    </HStack>
+                    <Divider />
+                  </Box>
+                );
+              })}
+            </AccordionPanel>
           </AccordionItem>
         </Accordion>
       </Box>

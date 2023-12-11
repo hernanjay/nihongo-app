@@ -17,19 +17,11 @@ import {
   useToast,
   HStack,
   Spacer,
-  IconButton,
   Tabs,
   TabList,
   TabPanels,
   Tab,
   TabPanel,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
-  VStack,
-  Container,
   Text,
   useColorMode,
 } from "@chakra-ui/react";
@@ -166,6 +158,7 @@ function ManageQuestioner() {
             variant="soft-rounded"
             colorScheme={colorMode === "light" ? "blackAlpha" : "whiteAlpha"}
           >
+            {/*Start of Headers at the very top of the page */}
             {/* ======================================================================================= */}
             <HStack bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
               <Heading fontSize="1.75em">Manage Questionnaires</Heading>
@@ -181,7 +174,9 @@ function ManageQuestioner() {
             </HStack>
             {/* ======================================================================================= */}
             <TabPanels>
+              {/*Start of add questions list panel */}
               <TabPanel>
+                {/*Start of add questions list header */}
                 {/* ======================================================================================= */}
                 <HStack
                   mb="1em"
@@ -225,6 +220,8 @@ function ManageQuestioner() {
                     }}
                     bg={bg}
                   >
+                    {/*Start of add questions table header */}
+                    {/* ======================================================================================= */}
                     <Table>
                       <Thead position="sticky" zIndex={3} top={0} bg={hover}>
                         <Tr color={fontColor}>
@@ -238,6 +235,8 @@ function ManageQuestioner() {
                           </Th>
                         </Tr>
                       </Thead>
+                      {/*Start of add questions body */}
+                      {/* ======================================================================================= */}
                       <Tbody borderTopRadius="lg">
                         {questions.map((question, index) => (
                           <QuestionRow
@@ -254,6 +253,9 @@ function ManageQuestioner() {
                       </Tbody>
                     </Table>
                   </TableContainer>
+                  {/*Start of add questions button group */}
+                  {/*Start of add questions only visible if more than one question is present */}
+                  {/* ======================================================================================= */}
                   <Flex mt="1.5em" mb="0.5em">
                     <Button
                       ms="auto"
@@ -265,11 +267,14 @@ function ManageQuestioner() {
                     >
                       Delete All
                     </Button>
+                    {/*A confirmation popup for deleting*/}
+                    {/* ======================================================================================= */}
                     <AlerPopUp
                       isOpen={isAlertOpen}
                       onClose={onAlertClose}
                       onClick={handleClearBtn}
                     />
+                    {/* ======================================================================================= */}
                     <Button
                       isLoading={isLoading}
                       hidden={questions.length < 1}
@@ -316,6 +321,7 @@ function ManageQuestioner() {
                     ))}
                   </QuestionType>
                 </Box>
+                {/* ======================================================================================= */}
                 <Box
                   bg={bg}
                   p="1em"
@@ -335,6 +341,7 @@ function ManageQuestioner() {
                     ))}
                   </QuestionType>
                 </Box>
+                {/* ======================================================================================= */}
                 <Box bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
                   <QuestionType type="Grammar" bg={bg}>
                     {numberOfLevel.map((num, index) => (
