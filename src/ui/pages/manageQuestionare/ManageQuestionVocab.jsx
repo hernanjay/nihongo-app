@@ -66,7 +66,7 @@ const ManageQuestionVocab = ({
 
         <AccordionPanel
           pb={4}
-          maxH="50vh"
+          maxH={currentlySelectedQn === "none" ? "50vh" : "auto"}
           overflowY={currentlySelectedQn === "none" ? "auto" : "hidden"}
           borderRadius="lg"
           sx={{

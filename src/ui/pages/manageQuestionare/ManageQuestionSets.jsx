@@ -71,7 +71,7 @@ const ManageQuestionSets = ({
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel
-              maxH="50vh"
+              maxH="40vh"
               overflowY="scroll"
               borderRadius="lg"
               sx={{
@@ -88,7 +88,7 @@ const ManageQuestionSets = ({
             >
               {questions.map((qn, index) => {
                 return (
-                  <Box>
+                  <Box _hover={{ bg: hover }}>
                     <HStack py="0.5em" ml="2em">
                       <ChevronRightIcon />
                       <Text>{qn}</Text>
@@ -97,6 +97,7 @@ const ManageQuestionSets = ({
                         size="xs"
                         colorScheme="red"
                         icon={<DeleteIcon />}
+                        mr="1.5em"
                       />
                     </HStack>
                     <Divider />

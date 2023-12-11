@@ -6,6 +6,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Fade,
   Flex,
   Heading,
   Input,
