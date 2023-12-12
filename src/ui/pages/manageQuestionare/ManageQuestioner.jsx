@@ -24,6 +24,8 @@ import {
   TabPanel,
   Text,
   useColorMode,
+  Input,
+  FormLabel,
 } from "@chakra-ui/react";
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
