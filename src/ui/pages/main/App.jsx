@@ -29,6 +29,7 @@ import LearnVocab from "../learnVocab/LearnVocab";
 
 // Under development version of Register page
 import RegisterStepper from "../register/RegisterStepper";
+import BatchQnAdd from "../dummies/BatchQnAdd";
 
 function App() {
   // Retrieves user details
@@ -145,6 +146,8 @@ function App() {
 
                 {/* General routing that sends users back to "/" when entering invalid url routes */}
                 <Route path="*" element={<Navigate to="/" />} />
+
+                <Route path="/MulQnAdd" element={<BatchQnAdd />} />
 
                 <Route
                   path="/questions/:level/:type/:set"
