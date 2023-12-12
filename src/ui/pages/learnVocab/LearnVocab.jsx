@@ -69,7 +69,7 @@ function LearnVocab() {
           },
         }}
       >
-        <Container minW="80vw">
+        <Container minW="90vw">
           <Flex
             direction={{ base: "column", lg: "row" }}
             mt="2.5vh"
@@ -108,7 +108,7 @@ function LearnVocab() {
             />
           </Flex>
         </Container>
-        <Container mb="5vh" minH="80vh" minW="80vw">
+        <Container mb="5vh" minH="80vh" minW="90vw">
           {toggleMode ? (
             <LearnVocabCards
               searchResults={searchResults}
