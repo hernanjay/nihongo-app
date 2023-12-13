@@ -79,33 +79,6 @@ function ManageQuestioner() {
         localStorage.removeItem("questions");
     }
 
-    async function handleSubmit() {
-        setIsLoading(true);
-        // questionDispatch({ type: "addQuestion", payload: questions[0] });
-        const isAdded = await addQuestions(questions);
-
-        if (isAdded.status) {
-            toast({
-                title: "Questions Added Successfully!",
-                position: "top",
-                status: "success",
-                duration: 3000,
-                isClosable: true,
-            });
-            setIsLoading(false);
-            handleClearBtn();
-        } else {
-            toast({
-                title: "Questions Not Added!",
-                position: "top",
-                status: "error",
-                description: `${isAdded.json.error}`,
-                duration: 3000,
-                isClosable: true,
-            });
-            setIsLoading(false);
-        }
-    }
 
     async function handleSubmit() {
         setIsLoading(true);
