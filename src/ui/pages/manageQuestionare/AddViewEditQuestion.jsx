@@ -375,7 +375,7 @@ const AddViewEditQuestion = ({
                                     isDisabled={isView}
                                 >
                                     <NumberInputField
-                                        value={console.log(qn.set) && qn.set}
+                                        value={qn.set}
                                         name="set"
                                         placeholder={`min: 1, max: ${
                                             maxSetLength + 1

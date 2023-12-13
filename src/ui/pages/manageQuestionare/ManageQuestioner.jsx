@@ -103,17 +103,33 @@ function ManageQuestioner() {
     }
   }
 
-  function deleteQuestion(i) {
-    const updatedQuestions = questions.filter((qn, index) => index !== i);
-    localStorage.setItem("questions", JSON.stringify(updatedQuestions));
-    console.log(updatedQuestions);
-    setQuestions(updatedQuestions);
-  }
+    async function handleSubmit() {
+        setIsLoading(true);
+        const isAdded = await addQuestions(questions);
 
-  useEffect(() => {
-    const getLSQuestions = JSON.parse(localStorage.getItem("questions"));
-    getLSQuestions && setQuestions(getLSQuestions);
-  }, []);
+        if (isAdded.status) {
+            toast({
+                title: "Questions Added Successfully!",
+                position: "top",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+            questionDispatch({ type: "addQuestion", payload: questions });
+
+            handleClearBtn();
+        } else {
+            toast({
+                title: "Questions Not Added!",
+                position: "top",
+                status: "error",
+                description: `${isAdded.json.error}`,
+                duration: 3000,
+                isClosable: true,
+            });
+        }
+        setIsLoading(false);
+    }
 
   return (
     <Box bg={body}>

@@ -32,134 +32,150 @@ import RegisterStepper from "../register/RegisterStepper";
 import BatchQnAdd from "../dummies/BatchQnAdd";
 
 function App() {
-  // Retrieves user details
-  const { user, isLoading } = useUserContext();
+    // Retrieves user details
+    const { user, isLoading } = useUserContext();
 
-  return (
-    // Chakra wrapper do not remove
-    <ChakraProvider theme={theme}>
-      <>
-        <BrowserRouter>
-          {isLoading && <Loader isLoading={isLoading} />}
-          {!isLoading && (
-            <>
-              <NavBar />
-              <Routes>
-                {/* Brings user to landing page if user is not logged in or to homepage if user is logged in */}
-                <Route path="/" element={user ? <Home /> : <LandingPage />} />
+    return (
+        // Chakra wrapper do not remove
+        <ChakraProvider theme={theme}>
+            <BrowserRouter>
+                {isLoading && <Loader isLoading={isLoading} />}
+                {!isLoading && (
+                    <>
+                        <NavBar />
+                        <Routes>
+                            {/* Brings user to landing page if user is not logged in or to homepage if user is logged in */}
+                            <Route
+                                path="/"
+                                element={user ? <Home /> : <LandingPage />}
+                            />
+                            {/* Goes to login page */}
+                            <Route
+                                path="/login"
+                                // User validation if user exists go to page if not redirect to "/"
+                                //Same goes for other routings
+                                element={
+                                    !user ? <Login /> : <Navigate to="/" />
+                                }
+                            />
+                            {/* Goes to register page */}
+                            <Route
+                                path="/register"
+                                element={
+                                    !user ? <Register /> : <Navigate to="/" />
+                                }
+                            />
+                            {/* Goes to student profile page where users can view their account details */}
+                            <Route
+                                path="/userprofile"
+                                element={
+                                    user?.role === "student" ? (
+                                        <UserProfile />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            {/* Goes to a page where users can practice typing hiragana or katakana characters */}
+                            <Route
+                                path="/kana-quiz"
+                                element={
+                                    user ? <KanaLayout /> : <Navigate to="/" />
+                                }
+                            />
+                            {/* Currently being used as a Dictionary type feature planned to make it a Vocab learning quiz type page */}
+                            <Route
+                                path="/learnVocab"
+                                element={
+                                    user ? <LearnVocab /> : <Navigate to="/" />
+                                }
+                            />
+                            {/* Admin Pages */}
+                            {/* Goes to main admin page */}
+                            <Route
+                                path="/admin"
+                                element={
+                                    user?.role === "admin" ? (
+                                        <Admindashboard />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            {/* Goes to page where users can add questions */}
+                            <Route
+                                path="/manage-questionaire"
+                                element={
+                                    user?.role === "admin" ||
+                                    user?.role === "teacher" ? (
+                                        <ManageQuestioner />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            {/* Under Development? */}
+                            <Route
+                                path="/users"
+                                element={
+                                    user?.role === "admin" ? (
+                                        <Users />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            <Route
+                                path="/chart"
+                                element={
+                                    user?.role === "admin" ? (
+                                        <AdminChart />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            <Route
+                                path="/grading"
+                                element={
+                                    user?.role === "admin" ? (
+                                        <Grading />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            <Route
+                                path="/list"
+                                element={
+                                    user?.role === "admin" ? (
+                                        <List />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
+                            <Route
+                                path="/questions/:level/:type/:set"
+                                element={
+                                    user ? (
+                                        <QuestionLayout />
+                                    ) : (
+                                        <Navigate to="/" />
+                                    )
+                                }
+                            />
 
-                {/* Goes to login page */}
-                <Route
-                  path="/login"
-                  // User validation if user exists go to page if not redirect to "/"
-                  //Same goes for other routings
-                  element={!user ? <Login /> : <Navigate to="/" />}
-                />
+                            <Route path="/MulQnAdd" element={<BatchQnAdd />} />
 
-                {/* Goes to register page */}
-                <Route
-                  path="/register"
-                  element={!user ? <Register /> : <Navigate to="/" />}
-                />
-
-                {/* Goes to student profile page where users can view their account details */}
-                <Route
-                  path="/userprofile"
-                  element={
-                    user?.role === "student" ? (
-                      <UserProfile />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
-
-                {/* Goes to a page where users can practice typing hiragana or katakana characters */}
-                <Route
-                  path="/kana-quiz"
-                  element={user ? <KanaLayout /> : <Navigate to="/" />}
-                />
-
-                {/* Currently being used as a Dictionary type feature planned to make it a Vocab learning quiz type page */}
-                <Route
-                  path="/learnVocab"
-                  element={user ? <LearnVocab /> : <Navigate to="/" />}
-                />
-
-                {/* Admin Pages */}
-                {/* Goes to main admin page */}
-                <Route
-                  path="/admin"
-                  element={
-                    user?.role === "admin" ? (
-                      <Admindashboard />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
-
-                {/* Goes to page where users can add questions */}
-                <Route
-                  path="/manage-questionaire"
-                  element={
-                    user?.role === "admin" || user?.role === "teacher" ? (
-                      <ManageQuestioner />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
-
-                {/* Under Development? */}
-                <Route
-                  path="/users"
-                  element={
-                    user?.role === "admin" ? <Users /> : <Navigate to="/" />
-                  }
-                />
-
-                <Route
-                  path="/chart"
-                  element={
-                    user?.role === "admin" ? (
-                      <AdminChart />
-                    ) : (
-                      <Navigate to="/" />
-                    )
-                  }
-                />
-
-                <Route
-                  path="/grading"
-                  element={
-                    user?.role === "admin" ? <Grading /> : <Navigate to="/" />
-                  }
-                />
-
-                <Route
-                  path="/list"
-                  element={
-                    user?.role === "admin" ? <List /> : <Navigate to="/" />
-                  }
-                />
-
-                {/* General routing that sends users back to "/" when entering invalid url routes */}
-                <Route path="*" element={<Navigate to="/" />} />
-
-                <Route path="/MulQnAdd" element={<BatchQnAdd />} />
-
-                <Route
-                  path="/questions/:level/:type/:set"
-                  element={user ? <QuestionLayout /> : <Navigate to="/" />}
-                />
-              </Routes>
-            </>
-          )}
-        </BrowserRouter>
-      </>
-    </ChakraProvider>
-  );
+                            {/* General routing that sends users back to "/" when entering invalid url routes */}
+                            <Route path="*" element={<Navigate to="/" />} />
+                        </Routes>
+                    </>
+                )}
+            </BrowserRouter>
+        </ChakraProvider>
+    );
 }
 
 export default App;

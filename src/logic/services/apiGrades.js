@@ -1,11 +1,15 @@
-export async function fetchGrades(user) {
+const token = JSON.parse(localStorage.getItem("token"));
+
+// get the grades of this user
+export async function fetchGrades(userId) {
+    if (!userId) throw new Error("userId is empty");
     const res = await fetch(
         `${import.meta.env.VITE_LOCALHOST_API}/api/grades/user-grades`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                userId: user?._id,
+                userId,
             }),
         }
     );
@@ -111,4 +115,27 @@ export async function fetchTotalScoresAndItems(userId) {
     if (!res.ok) console.log(json.error);
 
     if (res.ok) return json;
+}
+
+export async function deleteGradesByQuestionSetId(questionSetId) {
+    if (!token) throw new Error(`Token is ${token}`);
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/grades/delete-grades`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error("Failed to delete grades");
+    }
+
+    return json;
 }
