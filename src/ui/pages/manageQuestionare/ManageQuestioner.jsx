@@ -63,8 +63,6 @@ function ManageQuestioner() {
         onClose: onAlertClose,
     } = useDisclosure();
 
-    const { dispatch: questionDispatch } = useQuestionContext();
-
     const { isOpen, onOpen, onClose } = useDisclosure({
         closeOnOverlayClick: false,
         closeOnEsc: false,
@@ -109,7 +107,6 @@ function ManageQuestioner() {
 
     async function handleSubmit() {
         setIsLoading(true);
-
         const isAdded = await addQuestions(questions);
 
         if (isAdded.status) {
@@ -135,11 +132,6 @@ function ManageQuestioner() {
         }
         setIsLoading(false);
     }
-
-    useEffect(() => {
-        const lsQuestions = JSON.parse(localStorage.getItem("questions"));
-        lsQuestions && setQuestions(lsQuestions);
-    }, []);
 
     return (
         <Box bg={body}>
@@ -305,7 +297,9 @@ function ManageQuestioner() {
                                                             setQnPreview={
                                                                 setQnPreview
                                                             }
-                                                            // deleteQuestion={deleteQuestion}
+                                                            deleteQuestion={
+                                                                deleteQuestion
+                                                            }
                                                             setIsEdit={
                                                                 setIsEdit
                                                             }
