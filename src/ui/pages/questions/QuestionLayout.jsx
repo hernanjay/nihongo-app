@@ -73,20 +73,24 @@ const QuestionLayout = () => {
 
                 // if specificGrade not equal to null it means the user already answered this set
                 if (specificGrade) {
+                    // add the grades to front-end UI
                     gradeDispatch({
                         type: "receivedSpecificGrade",
                         payload: specificGrade,
                     });
 
+                    // fetch the questions of the user answered
                     const gradedQuestions = await fetchQuestionsByIds(
                         specificGrade.idPerQuestion
                     );
 
+                    // add the questions to front-end UI
                     questionDispatch({
                         type: "questionReceived",
                         payload: gradedQuestions,
                     });
 
+                    // add the answers of the graded question
                     questionDispatch({
                         type: "gradedQnAnswers",
                         payload: specificGrade.userAnswers,
