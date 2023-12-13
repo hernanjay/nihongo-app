@@ -106,7 +106,7 @@ export const GradeContextProvider = ({ children }) => {
 
     useEffect(() => {
         async function fetchGrd() {
-            const grades = await fetchGrades(user);
+            const grades = await fetchGrades(user._id);
             const scores = await fetchTotalScoresAndItems(user._id);
 
             if (grades) dispatch({ type: "receivedGrades", payload: grades });

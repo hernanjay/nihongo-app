@@ -29,42 +29,122 @@ const questionReducer = (state, action) => {
                 userAnswers: action.payload.map((qn) => null),
             };
         case "addQuestion":
-            const { type, level, set } = action.payload;
-            const data = { _id: { type, level, set } };
-
             let updatedKanji = state.countBySetKanji;
             let updatedVocab = state.countBySetVocab;
             let updatedGrammar = state.countBySetGrammar;
             let updatedQuantity = state.questionsQty;
 
-            if (action.payload.type === "kanji") {
-                updatedKanji = [...updatedKanji, data];
-                console.log(updatedKanji);
-            }
+            for (let i = 0; i < action.payload.length - 1; i++) {
+                //** THIS IS FOR THE KANJI */
+                if (action.payload[i].type === "kanji") {
+                    // Find if it already exist
+                    const isKanjiExist = updatedKanji.findIndex((kanji) => {
+                        const { _id } = kanji;
+                        if (
+                            _id.type == action.payload[i].type &&
+                            _id.level == action.payload[i].level &&
+                            _id.set == action.payload[i].set
+                        )
+                            return kanji;
+                    });
 
-            if (action.payload.type === "vocab") {
-                updatedVocab = [...updatedVocab, data];
-                console.log(data);
-            }
+                    // if isKanjiExist -1 it means it did not exist yet so we push the data
+                    if (isKanjiExist < 0)
+                        updatedKanji.push({
+                            _id: {
+                                type: action.payload[i].type,
+                                level: action.payload[i].level,
+                                set: action.payload[i].set,
+                            },
+                        });
+                }
 
-            if (action.payload.type === "grammar") {
-                updatedGrammar = [...updatedGrammar, data];
-            }
+                //** THIS IS FOR THE VOCAB */
+                if (action.payload[i].type === "vocab") {
+                    // Find if it already exist
+                    const isVocabExist = updatedVocab.findIndex((vocab) => {
+                        const { _id } = vocab;
+                        if (
+                            _id.type == action.payload[i].type &&
+                            _id.level == action.payload[i].level &&
+                            _id.set == action.payload[i].set
+                        )
+                            return vocab;
+                    });
 
-            updatedQuantity = updatedQuantity.map((qty) =>
-                qty._id.level == level &&
-                qty._id.type == type &&
-                qty._id.set == set
-                    ? { ...qty, count: qty.count++ }
-                    : qty
-            );
+                    // if isVocabExist -1 it means it did not exist yet so we push the data
+                    if (isVocabExist < 0)
+                        updatedVocab.push({
+                            _id: {
+                                type: action.payload[i].type,
+                                level: action.payload[i].level,
+                                set: action.payload[i].set,
+                            },
+                        });
+                    console.log(updatedVocab);
+                }
+
+                //** THIS IS FOR THE GRAMMAR */
+                if (action.payload[i].type === "grammar") {
+                    // Find if it already exist
+                    const isGrammarExist = updatedGrammar.findIndex(
+                        (grammar) => {
+                            const { _id } = grammar;
+                            if (
+                                _id.type == type &&
+                                _id.level == level &&
+                                _id.set == set
+                            )
+                                return grammar;
+                        }
+                    );
+
+                    // if isVocabExist -1 it means it did not exist yet so we update the updatedGrammar
+                    if (isGrammarExist < 0)
+                        updatedGrammar.push({
+                            _id: {
+                                type: action.payload[i].type,
+                                level: action.payload[i].level,
+                                set: action.payload[i].set,
+                            },
+                        });
+                }
+
+                //** THIS IS FOR THE QUANTITY */
+                const isQuantityExist = updatedQuantity.findIndex(
+                    (qty) =>
+                        qty._id.level == action.payload[i].level &&
+                        qty._id.type == action.payload[i].type &&
+                        qty._id.set == action.payload[i].set
+                );
+
+                if (isQuantityExist < 0) {
+                    updatedQuantity.push({
+                        _id: {
+                            type: action.payload[i].type,
+                            level: action.payload[i].level,
+                            set: action.payload[i].set,
+                        },
+                        count: 1,
+                    });
+                } else {
+                    updatedQuantity = updatedQuantity.map((qty) =>
+                        qty._id.level == action.payload[i].level &&
+                        qty._id.type == action.payload[i].type &&
+                        qty._id.set == action.payload[i].set
+                            ? { ...qty, count: qty.count++ }
+                            : qty
+                    );
+                }
+                console.log(updatedQuantity);
+            }
 
             return {
                 ...state,
-                // countBySetKanji: updatedKanji,
-                // countBySetVocab: updatedVocab,
-                // countBySetGrammar: updatedGrammar,
-                // questionsQty: updatedQuantity,
+                countBySetKanji: updatedKanji,
+                countBySetVocab: updatedVocab,
+                countBySetGrammar: updatedGrammar,
+                questionsQty: updatedQuantity,
             };
         case "receivedQuestionQty":
             return {
