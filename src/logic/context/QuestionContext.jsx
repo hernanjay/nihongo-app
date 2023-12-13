@@ -34,7 +34,7 @@ const questionReducer = (state, action) => {
             let updatedGrammar = state.countBySetGrammar;
             let updatedQuantity = state.questionsQty;
 
-            for (let i = 0; i < action.payload.length - 1; i++) {
+            for (let i = 0; i < action.payload.length; i++) {
                 //** THIS IS FOR THE KANJI */
                 if (action.payload[i].type === "kanji") {
                     // Find if it already exist
@@ -73,7 +73,7 @@ const questionReducer = (state, action) => {
                     });
 
                     // if isVocabExist -1 it means it did not exist yet so we push the data
-                    if (isVocabExist < 0)
+                    if (isVocabExist < 0) {
                         updatedVocab.push({
                             _id: {
                                 type: action.payload[i].type,
@@ -81,7 +81,7 @@ const questionReducer = (state, action) => {
                                 set: action.payload[i].set,
                             },
                         });
-                    console.log(updatedVocab);
+                    }
                 }
 
                 //** THIS IS FOR THE GRAMMAR */
@@ -111,6 +111,7 @@ const questionReducer = (state, action) => {
                 }
 
                 //** THIS IS FOR THE QUANTITY */
+                // Find if it is exist using index
                 const isQuantityExist = updatedQuantity.findIndex(
                     (qty) =>
                         qty._id.level == action.payload[i].level &&
@@ -118,6 +119,7 @@ const questionReducer = (state, action) => {
                         qty._id.set == action.payload[i].set
                 );
 
+                // IF NOT EXIST Or -1, PUSH NEW DATA
                 if (isQuantityExist < 0) {
                     updatedQuantity.push({
                         _id: {
@@ -128,17 +130,16 @@ const questionReducer = (state, action) => {
                         count: 1,
                     });
                 } else {
+                    // IF EXIST ADD THE COUNT
                     updatedQuantity = updatedQuantity.map((qty) =>
                         qty._id.level == action.payload[i].level &&
                         qty._id.type == action.payload[i].type &&
                         qty._id.set == action.payload[i].set
-                            ? { ...qty, count: qty.count++ }
+                            ? { ...qty, count: qty.count + 1 }
                             : qty
                     );
                 }
-                console.log(updatedQuantity);
             }
-
             return {
                 ...state,
                 countBySetKanji: updatedKanji,
