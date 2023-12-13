@@ -120,7 +120,7 @@ export async function fetchTotalScoresAndItems(userId) {
 export async function deleteGradesByQuestionSetId(questionSetId) {
     if (!token) throw new Error(`Token is ${token}`);
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/grades/delete-grades`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/delete-grades`,
         {
             method: "DELETE",
             headers: {
