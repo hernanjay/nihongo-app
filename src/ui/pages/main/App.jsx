@@ -29,6 +29,7 @@ import LearnVocab from "../learnVocab/LearnVocab";
 
 // Under development version of Register page
 import RegisterStepper from "../register/RegisterStepper";
+import BatchQnAdd from "../dummies/BatchQnAdd";
 
 function App() {
     // Retrieves user details
@@ -177,6 +178,7 @@ function App() {
                                 }
                             />
 
+<<<<<<< HEAD
                             {/* General routing that sends users back to "/" when entering invalid url routes */}
                             <Route path="*" element={<Navigate to="/" />} />
                         </Routes>
@@ -185,6 +187,21 @@ function App() {
             </BrowserRouter>
         </ChakraProvider>
     );
+=======
+                <Route path="/MulQnAdd" element={<BatchQnAdd />} />
+
+                <Route
+                  path="/questions/:level/:type/:set"
+                  element={user ? <QuestionLayout /> : <Navigate to="/" />}
+                />
+              </Routes>
+            </>
+          )}
+        </BrowserRouter>
+      </>
+    </ChakraProvider>
+  );
+>>>>>>> 593ce6722c84fca8fd2d6e0ebdd7ed0c30156e39
 }
 
 export default App;
