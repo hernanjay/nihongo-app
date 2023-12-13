@@ -86,28 +86,29 @@ function ManageQuestioner() {
 
     async function handleSubmit() {
         setIsLoading(true);
-        questionDispatch({ type: "addQuestion", payload: questions });
-        // const isAdded = await addQuestions(questions);
+        const isAdded = await addQuestions(questions);
 
-        // if (isAdded.status) {
-        //     toast({
-        //         title: "Questions Added Successfully!",
-        //         position: "top",
-        //         status: "success",
-        //         duration: 3000,
-        //         isClosable: true,
-        //     });
-        //     handleClearBtn();
-        // } else {
-        //     toast({
-        //         title: "Questions Not Added!",
-        //         position: "top",
-        //         status: "error",
-        //         description: `${isAdded.json.error}`,
-        //         duration: 3000,
-        //         isClosable: true,
-        //     });
-        // }
+        if (isAdded.status) {
+            toast({
+                title: "Questions Added Successfully!",
+                position: "top",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+            questionDispatch({ type: "addQuestion", payload: questions });
+
+            handleClearBtn();
+        } else {
+            toast({
+                title: "Questions Not Added!",
+                position: "top",
+                status: "error",
+                description: `${isAdded.json.error}`,
+                duration: 3000,
+                isClosable: true,
+            });
+        }
         setIsLoading(false);
     }
 

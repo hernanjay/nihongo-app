@@ -23,8 +23,6 @@ import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 const QuestionLevel = ({ index, type }) => {
     const { countBySetVocab, countBySetGrammar, countBySetKanji } =
         useQuestionContext();
-
-    console.log(countBySetVocab);
     const { grades } = useGradeContext();
 
     let kanjiCtr = 0;
