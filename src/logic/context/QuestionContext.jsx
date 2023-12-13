@@ -91,9 +91,9 @@ const questionReducer = (state, action) => {
                         (grammar) => {
                             const { _id } = grammar;
                             if (
-                                _id.type == type &&
-                                _id.level == level &&
-                                _id.set == set
+                                _id.type == action.payload[i].type &&
+                                _id.level == action.payload[i].level &&
+                                _id.set == action.payload[i].set
                             )
                                 return grammar;
                         }
@@ -195,6 +195,7 @@ export const QuestionContextProvider = ({ children }) => {
                     dispatch({ type: "LOGOUT" });
                     // remove token from local storage
                     localStorage.removeItem("token");
+                    localStorage.removeItem("questions");
                 }
             }
 
