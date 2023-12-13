@@ -49,7 +49,6 @@ function App() {
                                 path="/"
                                 element={user ? <Home /> : <LandingPage />}
                             />
-
                             {/* Goes to login page */}
                             <Route
                                 path="/login"
@@ -59,7 +58,6 @@ function App() {
                                     !user ? <Login /> : <Navigate to="/" />
                                 }
                             />
-
                             {/* Goes to register page */}
                             <Route
                                 path="/register"
@@ -67,7 +65,6 @@ function App() {
                                     !user ? <Register /> : <Navigate to="/" />
                                 }
                             />
-
                             {/* Goes to student profile page where users can view their account details */}
                             <Route
                                 path="/userprofile"
@@ -79,7 +76,6 @@ function App() {
                                     )
                                 }
                             />
-
                             {/* Goes to a page where users can practice typing hiragana or katakana characters */}
                             <Route
                                 path="/kana-quiz"
@@ -87,7 +83,6 @@ function App() {
                                     user ? <KanaLayout /> : <Navigate to="/" />
                                 }
                             />
-
                             {/* Currently being used as a Dictionary type feature planned to make it a Vocab learning quiz type page */}
                             <Route
                                 path="/learnVocab"
@@ -95,7 +90,6 @@ function App() {
                                     user ? <LearnVocab /> : <Navigate to="/" />
                                 }
                             />
-
                             {/* Admin Pages */}
                             {/* Goes to main admin page */}
                             <Route
@@ -108,7 +102,6 @@ function App() {
                                     )
                                 }
                             />
-
                             {/* Goes to page where users can add questions */}
                             <Route
                                 path="/manage-questionaire"
@@ -121,7 +114,6 @@ function App() {
                                     )
                                 }
                             />
-
                             {/* Under Development? */}
                             <Route
                                 path="/users"
@@ -133,7 +125,6 @@ function App() {
                                     )
                                 }
                             />
-
                             <Route
                                 path="/chart"
                                 element={
@@ -144,7 +135,6 @@ function App() {
                                     )
                                 }
                             />
-
                             <Route
                                 path="/grading"
                                 element={
@@ -155,7 +145,6 @@ function App() {
                                     )
                                 }
                             />
-
                             <Route
                                 path="/list"
                                 element={
@@ -166,7 +155,6 @@ function App() {
                                     )
                                 }
                             />
-
                             <Route
                                 path="/questions/:level/:type/:set"
                                 element={
@@ -178,7 +166,8 @@ function App() {
                                 }
                             />
 
-<<<<<<< HEAD
+                            <Route path="/MulQnAdd" element={<BatchQnAdd />} />
+
                             {/* General routing that sends users back to "/" when entering invalid url routes */}
                             <Route path="*" element={<Navigate to="/" />} />
                         </Routes>
@@ -187,21 +176,6 @@ function App() {
             </BrowserRouter>
         </ChakraProvider>
     );
-=======
-                <Route path="/MulQnAdd" element={<BatchQnAdd />} />
-
-                <Route
-                  path="/questions/:level/:type/:set"
-                  element={user ? <QuestionLayout /> : <Navigate to="/" />}
-                />
-              </Routes>
-            </>
-          )}
-        </BrowserRouter>
-      </>
-    </ChakraProvider>
-  );
->>>>>>> 593ce6722c84fca8fd2d6e0ebdd7ed0c30156e39
 }
 
 export default App;
