@@ -28,10 +28,13 @@ import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
 import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
+import { useProfile } from "../../logic/hooks/user/useProfile";
+import { useUser } from "../../logic/hooks/user/useUser";
 
 function HomeUserProfileCard() {
     const { bg } = ThemeColors();
-    const { user } = useUserContext();
+    // const { user } = useUserContext();
+    const { user } = useUser();
     const { totalScoresNumItems, dispatch: gradeDispatch } = useGradeContext();
 
     const [level, setLevel] = useState("N5");

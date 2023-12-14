@@ -1,5 +1,20 @@
 const token = JSON.parse(localStorage.getItem("token"));
 
+export async function fetchAllQuestions() {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/all`
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error("Fetching questions failed");
+    }
+
+    return json;
+}
+
 export async function fetchQuestions(level, type, set) {
     const res = await fetch(
         `${

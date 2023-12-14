@@ -1,52 +1,32 @@
-import { useState } from "react";
-import { useRetrieveProfile } from "./useRetrieveProfile";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { loginAPI } from "../../services/apiUsers";
 import { useToast } from "@chakra-ui/react";
-import { useKanaContext } from "../kana/useKanaContext";
+import { useUser } from "./useUser";
 
-export const useLogin = () => {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const { retrieveProfile } = useRetrieveProfile();
-  const toast = useToast();
-  const { dispatch: kanaDispatch } = useKanaContext();
+export function useLogin() {
+    const queryClient = useQueryClient();
+    const toast = useToast();
 
-  const login = async (email, password) => {
-    setIsLoading(true);
+    const retrieveProfile = useUser();
 
-    const response = await fetch(
-      `${import.meta.env.VITE_LOCALHOST_API}/api/users/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
-    const json = await response.json();
+    const { mutate: login, isLoading } = useMutation({
+        mutationFn: ({ email, password }) => loginAPI(email, password),
+        onSuccess: (token) => {
+            queryClient.setQueryData(["token"], token);
+            localStorage.setItem("token", JSON.stringify(token));
+            retrieveProfile;
+        },
+        onError: (err) => {
+            toast({
+                title: "Login Failed",
+                position: "top",
+                description: `${err.message}`,
+                status: "error",
+                duration: 2500,
+                isClosable: true,
+            });
+        },
+    });
 
-    if (!response.ok) {
-      setError(json.error);
-      toast({
-        title: "Login Failed",
-        position: "top",
-        description: "Check Password and Email if input is Valid",
-        status: "error",
-        duration: 2500,
-        isClosable: true,
-      });
-      setIsLoading(false);
-    }
-
-    if (response.ok) {
-      // save the token to local storage
-      localStorage.setItem("token", JSON.stringify(json));
-      kanaDispatch({ type: "clear" });
-      retrieveProfile(json);
-      setIsLoading(false);
-    }
-  };
-
-  return { login, isLoading, error };
-};
+    return { login, isLoading };
+}
