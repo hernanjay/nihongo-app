@@ -100,7 +100,7 @@ export default function LandingPage() {
         {/* Banner */}
         <Box bg={bg} display="flex" minH="100vh" minW="100vw">
           <Center m="auto">
-            <HStack maxW="70vw">
+            <HStack mt="-10vh" maxW="70vw">
               <Image
                 boxSize="50%"
                 p="2.5em"
