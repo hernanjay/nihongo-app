@@ -16,8 +16,7 @@ import React, { useState } from "react";
 import ThemeColors from "../../pages/main/ThemeColors";
 
 function CharacterPracticeTestCard(props) {
-  const { body, bg, border, fontColor, success, error, warning, info } =
-    ThemeColors();
+  const { bg, border } = ThemeColors();
   const [hasAnswered, setHasAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -57,11 +56,7 @@ function CharacterPracticeTestCard(props) {
           isDisabled={isCorrect}
           autoComplete="off"
           onChange={(e) => {
-            e.target.value === ""
-              ? setHasAnswered(false)
-              : setHasAnswered(true);
-
-            if (hasAnswered) {
+            if (e.target.value !== "") {
               checkIfCorrect(e.target.value);
             }
           }}
