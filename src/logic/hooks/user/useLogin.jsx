@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { loginAPI } from "../../services/apiUsers";
+import { loginAPI, retrieveProfileAPI } from "../../services/apiUsers";
 import { useToast } from "@chakra-ui/react";
 import { useUser } from "./useUser";
 
@@ -7,14 +7,26 @@ export function useLogin() {
     const queryClient = useQueryClient();
     const toast = useToast();
 
-    const retrieveProfile = useUser();
+    // const { refetch: refetchUser } = useUser(); // destructure refetch function
 
     const { mutate: login, isLoading } = useMutation({
         mutationFn: ({ email, password }) => loginAPI(email, password),
-        onSuccess: (token) => {
-            queryClient.setQueryData(["token"], token);
+        onSuccess: async (token) => {
+            console.log(token);
+            // queryClient.setQueryData(["token"], token);
+            const user = await retrieveProfileAPI(token);
+            queryClient.setQueryData(["user"], user);
+
             localStorage.setItem("token", JSON.stringify(token));
-            retrieveProfile;
+
+            toast({
+                title: "Logged In Successfully",
+                position: "top",
+                description: `Welcome ${user.username}`,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
         },
         onError: (err) => {
             toast({

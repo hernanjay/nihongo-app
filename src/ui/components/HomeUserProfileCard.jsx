@@ -30,11 +30,14 @@ import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
 import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
 import { useProfile } from "../../logic/hooks/user/useProfile";
 import { useUser } from "../../logic/hooks/user/useUser";
+import { useQueryClient } from "@tanstack/react-query";
 
 function HomeUserProfileCard() {
     const { bg } = ThemeColors();
     // const { user } = useUserContext();
-    const { user } = useUser();
+    // const { user } = useUser();
+    const queryClient = useQueryClient();
+    const user = queryClient.getQueryData(["user"]);
     const { totalScoresNumItems, dispatch: gradeDispatch } = useGradeContext();
 
     const [level, setLevel] = useState("N5");
@@ -219,7 +222,11 @@ function HomeUserProfileCard() {
                     >
                         <Image
                             borderRadius="full"
-                            boxSize={{ base: "25vw", lg: "10vw", xl: "8vw" }}
+                            boxSize={{
+                                base: "25vw",
+                                lg: "10vw",
+                                xl: "8vw",
+                            }}
                             src="https://w0.peakpx.com/wallpaper/167/11/HD-wallpaper-lazy-egg6-egg-gudetama-kawaii-lazy-egg.jpg"
                             alt="Dan Abramov"
                         />
@@ -235,7 +242,11 @@ function HomeUserProfileCard() {
                         <Heading
                             fontWeight="normal"
                             textAlign="center"
-                            fontSize={{ base: "5vh", lg: "1.5em ", xl: "2em" }}
+                            fontSize={{
+                                base: "5vh",
+                                lg: "1.5em ",
+                                xl: "2em",
+                            }}
                         >
                             @{user.username}
                         </Heading>

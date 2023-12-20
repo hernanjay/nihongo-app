@@ -8,13 +8,14 @@ import NavbarContainer from "./navbar/NavbarContainer";
 import NavbarButtonGroupContainer from "./navbar/NavbarButtonGroupContainer";
 import NavbarUserLoggedInMenu from "./navbar/NavbarUserLoggedInMenu";
 import NavbarUserLoggedOutMenu from "./navbar/NavbarUserLoggedOutMenu";
-import { useProfile } from "../../logic/hooks/user/useProfile";
-import { useUser } from "../../logic/hooks/user/useUser";
+import { useQueryClient } from "@tanstack/react-query";
 //#endregion
 
 export default function NavBar() {
-    //Retrieves user details
-    const { user } = useUser();
+    const queryClient = useQueryClient();
+
+    const user = queryClient.getQueryData(["user"]);
+    console.log(user);
 
     return (
         <NavbarContainer>

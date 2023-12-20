@@ -9,94 +9,91 @@ import {
     MenuList,
     Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import NavbarLogoutButton from "./NavbarLogoutButton";
 import { useLogout } from "../../../logic/hooks/user/useLogout";
 import ThemeColors from "../../pages/main/ThemeColors";
 import { FiBookOpen, FiHome, FiLogOut, FiPieChart } from "react-icons/fi";
-import { useProfile } from "../../../logic/hooks/user/useProfile";
-import Loader from "../Loader";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "../../../logic/hooks/user/useUser";
 
 function NavbarUserMenu() {
     const { logout } = useLogout();
-    const { user } = useProfile();
+    const { user } = useUser();
 
     const { bg, hover } = ThemeColors();
 
     return (
-        user && (
-            <Menu id="nav-bar-menu">
-                <MenuButton
-                    id="nav-bar-menu-button"
-                    data-testid="nav-bar-menu-button"
-                    as={IconButton}
+        <Menu id="nav-bar-menu">
+            <MenuButton
+                id="nav-bar-menu-button"
+                data-testid="nav-bar-menu-button"
+                as={IconButton}
+                bg="transparent"
+                icon={
+                    <Avatar name={user?.username} size="sm" m={1}>
+                        <AvatarBadge boxSize="1.25em" bg="green.500" />
+                    </Avatar>
+                }
+            />
+            <MenuList bg={bg}>
+                <MenuItem
                     bg="transparent"
-                    icon={
-                        <Avatar name={user.username} size="sm" m={1}>
-                            <AvatarBadge boxSize="1.25em" bg="green.500" />
-                        </Avatar>
-                    }
-                />
-                <MenuList bg={bg}>
+                    _hover={{ bg: hover }}
+                    icon={<FiHome />}
+                    as={Link}
+                    to="/"
+                >
+                    <Text>Home</Text>
+                </MenuItem>
+                {user?.role === "admin" && (
                     <MenuItem
                         bg="transparent"
                         _hover={{ bg: hover }}
-                        icon={<FiHome />}
+                        icon={<FiPieChart />}
                         as={Link}
-                        to="/"
+                        to="/admin"
                     >
-                        <Text>Home</Text>
+                        Admin Dashboard
                     </MenuItem>
-                    {user.role === "admin" && (
-                        <MenuItem
-                            bg="transparent"
-                            _hover={{ bg: hover }}
-                            icon={<FiPieChart />}
-                            as={Link}
-                            to="/admin"
-                        >
-                            Admin Dashboard
-                        </MenuItem>
-                    )}
-                    {(user.role === "teacher" || user.role === "admin") && (
-                        <MenuItem
-                            bg="transparent"
-                            _hover={{ bg: hover }}
-                            icon={<FiBookOpen />}
-                            as={Link}
-                            to="/manage-questionaire"
-                        >
-                            Manage Questionaire
-                        </MenuItem>
-                    )}
-                    {user.role === "student" && (
-                        <MenuItem
-                            bg="transparent"
-                            icon={<ChevronRightIcon />}
-                            _hover={{ bg: hover }}
-                            as={Link}
-                            to="/userprofile"
-                        >
-                            User Profile
-                        </MenuItem>
-                    )}
-                    <NavbarLogoutButton
+                )}
+                {(user?.role === "teacher" || user?.role === "admin") && (
+                    <MenuItem
                         bg="transparent"
-                        icon={<FiLogOut />}
                         _hover={{ bg: hover }}
-                        onClick={() => {
-                            logout();
-                            // queryClient.invalidateQueries(["user"]);
-                        }}
+                        icon={<FiBookOpen />}
+                        as={Link}
+                        to="/manage-questionaire"
                     >
-                        Logout
-                    </NavbarLogoutButton>
-                </MenuList>
-            </Menu>
-        )
+                        Manage Questionaire
+                    </MenuItem>
+                )}
+                {user?.role === "student" && (
+                    <MenuItem
+                        bg="transparent"
+                        icon={<ChevronRightIcon />}
+                        _hover={{ bg: hover }}
+                        as={Link}
+                        to="/userprofile"
+                    >
+                        User Profile
+                    </MenuItem>
+                )}
+                <NavbarLogoutButton
+                    bg="transparent"
+                    icon={<FiLogOut />}
+                    _hover={{ bg: hover }}
+                    onClick={() => {
+                        logout();
+                        // queryClient.invalidateQueries(["user"]);
+                    }}
+                >
+                    Logout
+                </NavbarLogoutButton>
+            </MenuList>
+        </Menu>
     );
 }
 
-export default NavbarUserMenu;
+export default memo(NavbarUserMenu);

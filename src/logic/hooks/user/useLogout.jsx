@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "./useProfile";
 
 export const useLogout = () => {
-    const { dispatch } = useUserContext();
+    // const { dispatch } = useUserContext();
     const toast = useToast();
     const navigate = useNavigate();
     const { dispatch: kanaDispatch } = useKanaContext();
@@ -26,7 +26,7 @@ export const useLogout = () => {
         queryClient.invalidateQueries(["user"]);
 
         kanaDispatch({ type: "clear" });
-        dispatch({ type: "LOGOUT" });
+        // dispatch({ type: "LOGOUT" });
         navigate("/login");
         toast({
             title: "Logged Out",

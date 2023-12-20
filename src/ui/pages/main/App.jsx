@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { ChakraProvider, flattenTokens } from "@chakra-ui/react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+// import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 
 //Importing Website Components
 import NavBar from "../../components/NavBar";
@@ -31,6 +31,7 @@ import LearnVocab from "../learnVocab/LearnVocab";
 import RegisterStepper from "../register/RegisterStepper";
 import BatchQnAdd from "../dummies/BatchQnAdd";
 import { useUser } from "../../../logic/hooks/user/useUser";
+import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
     const { user, isLoading } = useUser();
