@@ -140,6 +140,7 @@ const questionReducer = (state, action) => {
                     );
                 }
             }
+
             return {
                 ...state,
                 countBySetKanji: updatedKanji,

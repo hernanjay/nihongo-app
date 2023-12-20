@@ -277,7 +277,6 @@ function ManageQuestioner() {
                                                             setQnPreview={
                                                                 setQnPreview
                                                             }
-                                                            // deleteQuestion={deleteQuestion}
                                                             setIsEdit={
                                                                 setIsEdit
                                                             }

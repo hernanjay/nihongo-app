@@ -11,33 +11,35 @@ const QuestionSets = ({ type, level, set }) => {
     const navigate = useNavigate();
     const { questionsQty } = useQuestionContext();
     const { grades } = useGradeContext();
+
+    const getScore = (type, level, set) => {
+        const questionSetId = type.questionSetId;
+
+        // Define a regular expression based on the type
+        const regex = /[a-zA-Z]\d/;
+
+        // Use the regular expression to find the index of the last digit in the string + 1 because search starts at 0
+        const lastDigitIndex = questionSetId.search(regex);
+
+        return (
+            questionSetId.slice(0, 1) === level &&
+            questionSetId.slice(lastDigitIndex + 1) === set &&
+            type.score
+        );
+    };
+
     const dynamicScore =
         (type === "kanji" &&
             grades?.kanjiGrades
-                ?.map(
-                    (kanji) =>
-                        kanji.questionSetId.slice(0, 1) === level &&
-                        kanji.questionSetId.slice(-1) === set &&
-                        kanji.score
-                )
+                ?.map((kanji) => getScore(kanji, level, set))
                 .filter((kanjiScore) => kanjiScore === 0 || kanjiScore)) ||
         (type === "vocab" &&
             grades?.vocabGrades
-                ?.map(
-                    (vocab) =>
-                        vocab.questionSetId.slice(0, 1) === level &&
-                        vocab.questionSetId.slice(-1) === set &&
-                        vocab.score
-                )
+                ?.map((vocab) => getScore(vocab, level, set))
                 ?.filter((vocabScore) => vocabScore === 0 || vocabScore)) ||
         (type === "grammar" &&
             grades?.grammarGrades
-                ?.map(
-                    (grammar) =>
-                        grammar.questionSetId.slice(0, 1) === level &&
-                        grammar.questionSetId.slice(-1) === set &&
-                        grammar.score
-                )
+                ?.map((grammar) => getScore(grammar, level, set))
                 .filter((grammarScore) => grammarScore === 0 || grammarScore));
 
     let numOfItems =
@@ -55,9 +57,9 @@ const QuestionSets = ({ type, level, set }) => {
             questionsQty?.map((qn) => {
                 const { _id, count } = qn;
                 return (
-                    _id.level === level &&
-                    _id.type === "vocab" &&
-                    _id.set === set &&
+                    _id.level == level &&
+                    _id.type == "vocab" &&
+                    _id.set == set &&
                     count
                 );
             })) ||
@@ -65,9 +67,9 @@ const QuestionSets = ({ type, level, set }) => {
             questionsQty?.map((qn) => {
                 const { _id, count } = qn;
                 return (
-                    _id.level === level &&
-                    _id.type === "grammar" &&
-                    _id.set === set &&
+                    _id.level == level &&
+                    _id.type == "grammar" &&
+                    _id.set == set &&
                     count
                 );
             }));
@@ -90,7 +92,7 @@ const QuestionSets = ({ type, level, set }) => {
             onClick={() => navigate(`questions/n${level}/${type}/${set}`)}
             cursor={"pointer"}
         >
-            <Td>{`Question : ${Number(set)}`}</Td>
+            <Td>{`Question : ${set}`}</Td>
             <Td>{numOfItems}</Td>
             <Td isNumeric>
                 {(dynamicScore?.[0] === 0 && "0") || dynamicScore || null}

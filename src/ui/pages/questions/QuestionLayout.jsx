@@ -18,6 +18,7 @@ import {
     fetchQuestionsByIds,
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
+import { useQueryClient } from "@tanstack/react-query";
 // import { useQueries, useQuery } from "@tanstack/react-query";
 // import { useCallback } from "react";
 
@@ -30,7 +31,10 @@ const QuestionLayout = () => {
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
-    const { user } = useUserContext();
+    // const { user } = useUserContext();
+    const queryClient = useQueryClient();
+
+    const user = queryClient.getQueryData(["user"]);
 
     const { dispatch: gradeDispatch } = useGradeContext();
 

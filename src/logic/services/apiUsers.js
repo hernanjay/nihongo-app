@@ -17,7 +17,6 @@ export const loginAPI = async (email, password) => {
     const json = await res.json();
 
     if (!res.ok) {
-        // console.error(json.error);
         throw new Error(json.error);
     }
 

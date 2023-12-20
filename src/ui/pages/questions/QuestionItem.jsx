@@ -32,7 +32,7 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
 
     const { userAnswers, dispatch: questionDispatch } = useQuestionContext();
     const { gradesBySet } = useGradeContext();
-    const { user } = useUserContext();
+    // const { user } = useUserContext();
 
     // this is to check if the user did not answer yet
     const answersAreNull = useMemo(() =>
@@ -144,32 +144,13 @@ const QuestionItem = ({ qn, index, bg, hoverColor, hasSubmit }) => {
                         </Text>
                         {after}
                     </Text>
-
-                    {/* {(user.role === "admin" || user.role === "teacher") && (
-                        <>
-                            <Button
-                                onClick={onOpen}
-                                mt={7}
-                                colorScheme="red"
-                                bg="red.500"
-                            >
-                                <FiTrash2 />
-                            </Button>
-                            <AlerPopUp
-                                isOpen={isOpen}
-                                onClose={onClose}
-                                onClick={handleDeleteBtn}
-                                message={"Question"}
-                            />
-                        </>
-                    )} */}
                 </Flex>
 
                 <SimpleGrid columns={2} spacing={{ base: 2, lg: 6 }}>
                     {options.map((option, index) => (
                         <QuestionOption
                             option={option}
-                            key={option}
+                            key={index + option}
                             index={index}
                             bg={bg}
                             hoverColor={hoverColor}

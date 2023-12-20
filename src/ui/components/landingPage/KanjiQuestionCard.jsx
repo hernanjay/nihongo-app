@@ -26,7 +26,7 @@ function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
       <SimpleGrid columns={2} spacing={10}>
         <Button
           borderColor={border}
-          bg={isChosen === question.choice1 ? "green.400" : bg}
+          bg={bg}
           variant="outline"
           onClick={() => {
             handleOnClick(question.choice1);
@@ -36,7 +36,7 @@ function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
         </Button>
         <Button
           borderColor={border}
-          bg={isChosen === question.choice2 ? "green.400" : bg}
+          bg={bg}
           variant={"outline"}
           onClick={() => {
             handleOnClick(question.choice2);
@@ -46,7 +46,7 @@ function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
         </Button>
         <Button
           borderColor={border}
-          bg={isChosen === question.choice3 ? "green.400" : bg}
+          bg={bg}
           variant={"outline"}
           onClick={() => {
             handleOnClick(question.choice3);
@@ -56,7 +56,7 @@ function KanjiQuestionCard({ index, question, handleUserHasAnswered }) {
         </Button>
         <Button
           borderColor={border}
-          bg={isChosen === question.choice4 ? "green.400" : bg}
+          bg={bg}
           variant={"outline"}
           onClick={() => {
             handleOnClick(question.choice4);
