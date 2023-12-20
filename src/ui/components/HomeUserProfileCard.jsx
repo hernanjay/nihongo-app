@@ -23,22 +23,26 @@ import {
     Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useUserContext } from "../../logic/hooks/user/useUserContext";
 import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
-import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
-import { useProfile } from "../../logic/hooks/user/useProfile";
-import { useUser } from "../../logic/hooks/user/useUser";
-import { useQueryClient } from "@tanstack/react-query";
+import {
+    fetchGrades,
+    fetchTotalScoresAndItems,
+} from "../../logic/services/apiGrades";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 function HomeUserProfileCard() {
     const { bg } = ThemeColors();
-    // const { user } = useUserContext();
-    // const { user } = useUser();
     const queryClient = useQueryClient();
     const user = queryClient.getQueryData(["user"]);
-    const { totalScoresNumItems, dispatch: gradeDispatch } = useGradeContext();
+    const { dispatch: gradeDispatch } = useGradeContext();
+
+    const { data: totalScoresNumItems } = useQuery({
+        queryKey: ["totalScoresNumItems"],
+        queryFn: () => fetchTotalScoresAndItems(user?._id),
+        enabled: !!user,
+    });
 
     const [level, setLevel] = useState("N5");
     const [score, setScore] = useState({});
@@ -46,12 +50,12 @@ function HomeUserProfileCard() {
 
     const kanjiScores = totalScoresNumItems
         ?.map((grade) => {
-            const { totalItems, totalScore, _id } = grade;
+            const { totalItems, totalScore, questionSetId } = grade;
             return (
-                _id.questionSetId.includes("kanji") && {
+                questionSetId.includes("kanji") && {
                     totalItems,
                     totalScore,
-                    lvl: "N" + _id.questionSetId.slice(0, 1),
+                    lvl: "N" + questionSetId.slice(0, 1),
                 }
             );
         })
@@ -59,12 +63,12 @@ function HomeUserProfileCard() {
 
     const vocabScores = totalScoresNumItems
         ?.map((grade) => {
-            const { totalItems, totalScore, _id } = grade;
+            const { totalItems, totalScore, questionSetId } = grade;
             return (
-                _id.questionSetId.includes("vocab") && {
+                questionSetId.includes("vocab") && {
                     totalItems,
                     totalScore,
-                    lvl: "N" + _id.questionSetId.slice(0, 1),
+                    lvl: "N" + questionSetId.slice(0, 1),
                 }
             );
         })
@@ -72,12 +76,12 @@ function HomeUserProfileCard() {
 
     const grammarScores = totalScoresNumItems
         ?.map((grade) => {
-            const { totalItems, totalScore, _id } = grade;
+            const { totalItems, totalScore, questionSetId } = grade;
             return (
-                _id.questionSetId.includes("grammar") && {
+                questionSetId.includes("grammar") && {
                     totalItems,
                     totalScore,
-                    lvl: "N" + _id.questionSetId.slice(0, 1),
+                    lvl: "N" + questionSetId.slice(0, 1),
                 }
             );
         })

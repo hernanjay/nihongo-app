@@ -17,6 +17,33 @@ export const loginAPI = async (email, password) => {
     const json = await res.json();
 
     if (!res.ok) {
+        console.log(json.error);
+        throw new Error(json.error);
+    }
+
+    return json;
+};
+
+// SIGN-UP USER
+export const signupAPI = async (username, email, password, confirmPassword) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/signup`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+                confirmPassword,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.log(json.error);
         throw new Error(json.error);
     }
 

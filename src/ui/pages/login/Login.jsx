@@ -26,8 +26,6 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { border } = ThemeColors();
-
-    // const { login, isLoading } = useLogin();
     const { login, isLoading } = useLogin();
     const { isOpen, onToggle, onClose } = useDisclosure();
 

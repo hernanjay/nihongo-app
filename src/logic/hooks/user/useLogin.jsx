@@ -12,8 +12,6 @@ export function useLogin() {
     const { mutate: login, isLoading } = useMutation({
         mutationFn: ({ email, password }) => loginAPI(email, password),
         onSuccess: async (token) => {
-            console.log(token);
-            // queryClient.setQueryData(["token"], token);
             const user = await retrieveProfileAPI(token);
             queryClient.setQueryData(["user"], user);
 

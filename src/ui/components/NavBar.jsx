@@ -15,7 +15,6 @@ export default function NavBar() {
     const queryClient = useQueryClient();
 
     const user = queryClient.getQueryData(["user"]);
-    console.log(user);
 
     return (
         <NavbarContainer>
