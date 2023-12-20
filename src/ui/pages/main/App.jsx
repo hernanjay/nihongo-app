@@ -1,11 +1,11 @@
 //
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // 2. import `ChakraProvider` component
 import { ChakraProvider, flattenTokens } from "@chakra-ui/react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+// import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 
 //Importing Website Components
 import NavBar from "../../components/NavBar";
@@ -30,10 +30,11 @@ import LearnVocab from "../learnVocab/LearnVocab";
 // Under development version of Register page
 import RegisterStepper from "../register/RegisterStepper";
 import BatchQnAdd from "../dummies/BatchQnAdd";
+import { useUser } from "../../../logic/hooks/user/useUser";
+import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
-    // Retrieves user details
-    const { user, isLoading } = useUserContext();
+    const { user, isLoading } = useUser();
 
     return (
         // Chakra wrapper do not remove

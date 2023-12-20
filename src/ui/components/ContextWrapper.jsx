@@ -6,28 +6,28 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0,
+    defaultOptions: {
+        queries: {
+            staleTime: 0,
+        },
     },
-  },
 });
 
 function ContextWrapper({ children }) {
-  return (
-    <UserContextProvider>
-      <KanaContextProvider>
-        <QuestionContextProvider>
-          <GradeContextProvider>
-            <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools />
-              {children}
-            </QueryClientProvider>
-          </GradeContextProvider>
-        </QuestionContextProvider>
-      </KanaContextProvider>
-    </UserContextProvider>
-  );
+    return (
+        // <UserContextProvider>
+        <QueryClientProvider client={queryClient}>
+            <KanaContextProvider>
+                <QuestionContextProvider>
+                    <GradeContextProvider>
+                        <ReactQueryDevtools />
+                        {children}
+                    </GradeContextProvider>
+                </QuestionContextProvider>
+            </KanaContextProvider>
+        </QueryClientProvider>
+        // </UserContextProvider>
+    );
 }
 
 export default ContextWrapper;

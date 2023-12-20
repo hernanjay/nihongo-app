@@ -18,15 +18,11 @@ import {
     fetchQuestionsByIds,
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
+import { useQueryClient } from "@tanstack/react-query";
 // import { useQueries, useQuery } from "@tanstack/react-query";
 // import { useCallback } from "react";
 
 const QuestionLayout = () => {
-    //   useQuery({
-    //     queryKey: ["scores"],
-    //     queryFn: () => fetchSpecificGrade(user, level, type, set),
-    //   });
-
     const { bg, border } = ThemeColors();
     const hoverColor = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
     const [isLoading, setIsLoading] = useState(false);
@@ -35,29 +31,12 @@ const QuestionLayout = () => {
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
-    const { user } = useUserContext();
+    // const { user } = useUserContext();
+    const queryClient = useQueryClient();
+
+    const user = queryClient.getQueryData(["user"]);
 
     const { dispatch: gradeDispatch } = useGradeContext();
-
-    // status === "success" && console.log(isGettingSpcfGrade);
-    // status === "success" && console.log(data);
-    // const { data: questions } = useQueries({
-    //     queries:
-    //         !isGettingSpcfGrade && data
-    //             ? [
-    //                   {
-    //                       queryKey: ["questions"],
-    //                       queryFn: () =>
-    //                           fetchQuestionsByIds(data.idPerQuestion),
-    //                   },
-    //               ]
-    //             : [
-    //                   {
-    //                       queryKey: ["questions"],
-    //                       queryFn: () => fetchQuestions(level, type, set),
-    //                   },
-    //               ],
-    // });
 
     // fetch the grades
     useEffect(() => {

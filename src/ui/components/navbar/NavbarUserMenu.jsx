@@ -9,20 +9,21 @@ import {
     MenuList,
     Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import NavbarLogoutButton from "./NavbarLogoutButton";
 import { useLogout } from "../../../logic/hooks/user/useLogout";
 import ThemeColors from "../../pages/main/ThemeColors";
 import { FiBookOpen, FiHome, FiLogOut, FiPieChart } from "react-icons/fi";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "../../../logic/hooks/user/useUser";
 
 function NavbarUserMenu() {
-    const { user } = useUserContext();
+    const { logout } = useLogout();
+    const { user } = useUser();
 
     const { bg, hover } = ThemeColors();
 
-    const { logout } = useLogout();
     return (
         <Menu id="nav-bar-menu">
             <MenuButton
@@ -31,7 +32,7 @@ function NavbarUserMenu() {
                 as={IconButton}
                 bg="transparent"
                 icon={
-                    <Avatar name={user.username} size="sm" m={1}>
+                    <Avatar name={user?.username} size="sm" m={1}>
                         <AvatarBadge boxSize="1.25em" bg="green.500" />
                     </Avatar>
                 }
@@ -46,7 +47,7 @@ function NavbarUserMenu() {
                 >
                     <Text>Home</Text>
                 </MenuItem>
-                {user.role === "admin" && (
+                {user?.role === "admin" && (
                     <MenuItem
                         bg="transparent"
                         _hover={{ bg: hover }}
@@ -57,7 +58,7 @@ function NavbarUserMenu() {
                         Admin Dashboard
                     </MenuItem>
                 )}
-                {(user.role === "teacher" || user.role === "admin") && (
+                {(user?.role === "teacher" || user?.role === "admin") && (
                     <MenuItem
                         bg="transparent"
                         _hover={{ bg: hover }}
@@ -68,7 +69,7 @@ function NavbarUserMenu() {
                         Manage Questionaire
                     </MenuItem>
                 )}
-                {user.role === "student" && (
+                {user?.role === "student" && (
                     <MenuItem
                         bg="transparent"
                         icon={<ChevronRightIcon />}
@@ -95,4 +96,4 @@ function NavbarUserMenu() {
     );
 }
 
-export default NavbarUserMenu;
+export default memo(NavbarUserMenu);
