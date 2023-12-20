@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import { createContext } from "react";
 import { fetchGrades, fetchTotalScoresAndItems } from "../services/apiGrades";
 import { useUserContext } from "./../hooks/user/useUserContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const GradeContext = createContext();
 
@@ -102,7 +103,10 @@ const gradeReducer = (state, action) => {
 export const GradeContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(gradeReducer, initialGradeState);
 
-    const { user } = useUserContext();
+    // const { user } = useUserContext();
+    const queryClient = useQueryClient();
+
+    const user = queryClient.getQueryData(["user"]);
 
     useEffect(() => {
         async function fetchGrd() {

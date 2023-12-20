@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { CardFooter, useDisclosure } from "@chakra-ui/react";
 
 import {
-  Flex,
-  FormControl,
-  Button,
-  Spacer,
-  CardBody,
-  Link,
+    Flex,
+    FormControl,
+    Button,
+    Spacer,
+    CardBody,
+    Link,
 } from "@chakra-ui/react";
 
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
@@ -22,90 +22,89 @@ import LoginEmailInputField from "../../components/login/LoginEmailInputField";
 import LoginPasswordInputField from "../../components/login/LoginPasswordInputField";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { border } = ThemeColors();
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { border } = ThemeColors();
+    const { login, isLoading } = useLogin();
+    const { isOpen, onToggle, onClose } = useDisclosure();
 
-  const { login, isLoading } = useLogin();
-  const { isOpen, onToggle, onClose } = useDisclosure();
-
-  function isEmailEmpty() {
-    return email === "" ? true : false;
-  }
-
-  function isPasswordEmpty() {
-    return password === "" ? true : false;
-  }
-
-  const handleSubmit = async (e) => {
-    onToggle();
-    e.preventDefault();
-    if (!isEmailEmpty() && !isPasswordEmpty()) {
-      await login(email + "@awsys-i.com", password);
+    function isEmailEmpty() {
+        return email === "" ? true : false;
     }
-  };
 
-  return (
-    <>
-      {isLoading && <Loader isLoading={isLoading} />}
+    function isPasswordEmpty() {
+        return password === "" ? true : false;
+    }
 
-      <LoginFormContainer>
-        <LoginFormCard>
-          <LoginFormCardHeader />
-          {/* Login Form */}
-          <CardBody mx={{ base: "-1em" }}>
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                {/* Email Input */}
-                <LoginEmailInputField
-                  email={email}
-                  isEmailEmpty={isEmailEmpty}
-                  setEmail={setEmail}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                />
+    const handleSubmit = async (e) => {
+        onToggle();
+        e.preventDefault();
+        if (!isEmailEmpty() && !isPasswordEmpty()) {
+            login({ email: email + "@awsys-i.com", password });
+        }
+    };
 
-                {/* Password Input */}
-                <LoginPasswordInputField
-                  password={password}
-                  setPassword={setPassword}
-                  isPasswordEmpty={isPasswordEmpty}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                />
+    return (
+        <>
+            {isLoading && <Loader isLoading={isLoading} />}
 
-                {/* Forgot password */}
-                <Flex>
-                  <Spacer />
-                  <Link
-                    fontSize={{ base: "0.75em", lg: "1em" }}
-                    my={{ base: "1.5em", lg: "1em" }}
-                    onClick={() => {
-                      navigate("/recovery");
-                    }}
-                  >
-                    Forgot Password <QuestionOutlineIcon />
-                  </Link>
-                </Flex>
-                <Flex>
-                  <Spacer />
-                  <Button
-                    mb={{ base: "2.5vh" }}
-                    data-testid="login-button"
-                    variant="outline"
-                    borderColor={border}
-                    type="submit"
-                    isDisabled={isLoading}
-                  >
-                    Login
-                  </Button>
-                </Flex>
-              </FormControl>
-            </form>
-          </CardBody>
-        </LoginFormCard>
-      </LoginFormContainer>
-    </>
-  );
+            <LoginFormContainer>
+                <LoginFormCard>
+                    <LoginFormCardHeader />
+                    {/* Login Form */}
+                    <CardBody mx={{ base: "-1em" }}>
+                        <form onSubmit={handleSubmit}>
+                            <FormControl>
+                                {/* Email Input */}
+                                <LoginEmailInputField
+                                    email={email}
+                                    isEmailEmpty={isEmailEmpty}
+                                    setEmail={setEmail}
+                                    isOpen={isOpen}
+                                    onClose={onClose}
+                                />
+
+                                {/* Password Input */}
+                                <LoginPasswordInputField
+                                    password={password}
+                                    setPassword={setPassword}
+                                    isPasswordEmpty={isPasswordEmpty}
+                                    isOpen={isOpen}
+                                    onClose={onClose}
+                                />
+
+                                {/* Forgot password */}
+                                <Flex>
+                                    <Spacer />
+                                    <Link
+                                        fontSize={{ base: "0.75em", lg: "1em" }}
+                                        my={{ base: "1.5em", lg: "1em" }}
+                                        onClick={() => {
+                                            navigate("/recovery");
+                                        }}
+                                    >
+                                        Forgot Password <QuestionOutlineIcon />
+                                    </Link>
+                                </Flex>
+                                <Flex>
+                                    <Spacer />
+                                    <Button
+                                        mb={{ base: "2.5vh" }}
+                                        data-testid="login-button"
+                                        variant="outline"
+                                        borderColor={border}
+                                        type="submit"
+                                        isDisabled={isLoading}
+                                    >
+                                        Login
+                                    </Button>
+                                </Flex>
+                            </FormControl>
+                        </form>
+                    </CardBody>
+                </LoginFormCard>
+            </LoginFormContainer>
+        </>
+    );
 }
