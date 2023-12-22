@@ -23,7 +23,7 @@ const QuestionSets = ({ type, level, set }) => {
 
         return (
             questionSetId.slice(0, 1) === level &&
-            questionSetId.slice(lastDigitIndex + 1) === set &&
+            questionSetId.slice(lastDigitIndex + 1) == set &&
             type.score
         );
     };

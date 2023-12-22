@@ -2,7 +2,7 @@ const token = JSON.parse(localStorage.getItem("token"));
 
 export async function fetchAllQuestions() {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/all`
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/all`
     );
 
     const json = await res.json();
@@ -56,7 +56,7 @@ export async function fetchQuestionsByIds(idPerQuestion) {
 
 export async function fetchCountQuestionsByLevelTypeSet() {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/count-by-sets`
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/count-by-sets`
     );
 
     const json = await res.json();

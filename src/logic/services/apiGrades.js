@@ -4,7 +4,7 @@ const token = JSON.parse(localStorage.getItem("token"));
 export async function fetchGrades(userId) {
     if (!userId) throw new Error("userId is empty");
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/grades/user-grades`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/user-grades`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -99,7 +99,7 @@ export async function addScore(
 
 export async function fetchTotalScoresAndItems(userId) {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/grades/scores-total`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/grades/scores-total`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },

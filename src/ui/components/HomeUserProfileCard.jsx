@@ -40,7 +40,7 @@ function HomeUserProfileCard() {
 
     const { data: totalScoresNumItems } = useQuery({
         queryKey: ["totalScoresNumItems"],
-        queryFn: () => fetchTotalScoresAndItems(user?._id),
+        queryFn: () => fetchTotalScoresAndItems(user._id),
         enabled: !!user,
     });
 

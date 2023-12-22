@@ -21,7 +21,7 @@ import QuestionSets from "./QuestionSets";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 
-const QuestionLevel = ({ index, type }) => {
+const QuestionLevel = ({ level, type, bg }) => {
     const { countBySetVocab, countBySetGrammar, countBySetKanji } =
         useQuestionContext();
     const { grades } = useGradeContext();
@@ -33,59 +33,63 @@ const QuestionLevel = ({ index, type }) => {
     let grammarCtr = 0;
     let grammarGradedCtr = 0;
 
-    type === "Kanji"
+    const isKanji = type === "kanji";
+    const isVocab = type === "vocab";
+    const isGrammar = type === "grammar";
+
+    isKanji
         ? countBySetKanji?.map(
-              (kanji) => kanji._id.level == index && kanjiCtr++
+              (kanji) => kanji._id.level == level && kanjiCtr++
           ) &&
           grades?.kanjiGrades?.map(
-              (kg) => kg.questionSetId?.slice(0, 1) == index && kanjiGradedCtr++
+              (kg) => kg.questionSetId?.slice(0, 1) == level && kanjiGradedCtr++
           )
         : null;
 
-    type === "Vocab"
+    isVocab
         ? countBySetVocab?.map(
-              (vocab) => vocab._id.level == index && vocabCtr++
+              (vocab) => vocab._id.level == level && vocabCtr++
           ) &&
           grades?.vocabGrades?.map(
-              (vg) => vg.questionSetId?.slice(0, 1) == index && vocabGradedCtr++
+              (vg) => vg.questionSetId?.slice(0, 1) == level && vocabGradedCtr++
           )
         : null;
 
-    type === "Grammar"
+    isGrammar
         ? countBySetGrammar?.map(
-              (grammar) => grammar._id.level == index && grammarCtr++
+              (grammar) => grammar._id.level == level && grammarCtr++
           ) &&
           grades?.grammarGrades?.map(
               (gg) =>
-                  gg.questionSetId?.slice(0, 1) == index && grammarGradedCtr++
+                  gg.questionSetId?.slice(0, 1) == level && grammarGradedCtr++
           )
         : null;
 
     return (
         <AccordionItem
-            key={index}
+            key={level}
             my="1"
             isDisabled={
-                (type === "Kanji" && !kanjiCtr) ||
-                (type === "Vocab" && !vocabCtr) ||
-                (type === "Grammar" && !grammarCtr)
+                (isKanji && !kanjiCtr) ||
+                (isVocab && !vocabCtr) ||
+                (isGrammar && !grammarCtr)
             }
             verticalAlign="center"
         >
             <AccordionButton variant="solid">
                 <HStack as="span" flex="1" textAlign="left">
                     <ChevronRightIcon />
-                    <Text fontSize="1em">{`N${index}`}</Text>
+                    <Text fontSize="1em">{`N${level}`}</Text>
                 </HStack>
                 <Box as="span" flex="1" textAlign="right" mx="5">
                     <Text fontSize="1em">
-                        {(type === "Kanji" && (kanjiGradedCtr || "0")) ||
-                            (type === "Vocab" && (vocabGradedCtr || "0")) ||
-                            (type === "Grammar" && (grammarGradedCtr || "0"))}
+                        {(isKanji && (kanjiGradedCtr || "0")) ||
+                            (isVocab && (vocabGradedCtr || "0")) ||
+                            (isGrammar && (grammarGradedCtr || "0"))}
                         /
-                        {(type === "Kanji" && (kanjiCtr || "0")) ||
-                            (type === "Vocab" && (vocabCtr || "0")) ||
-                            (type === "Grammar" && (grammarCtr || "0"))}
+                        {(isKanji && (kanjiCtr || "0")) ||
+                            (isVocab && (vocabCtr || "0")) ||
+                            (isGrammar && (grammarCtr || "0"))}
                     </Text>
                 </Box>
                 <AccordionIcon />
@@ -107,7 +111,7 @@ const QuestionLevel = ({ index, type }) => {
                 }}
             >
                 <TableContainer>
-                    <Table variant="simple">
+                    <Table variant="simple" colorScheme={bg}>
                         <Thead>
                             <Tr>
                                 <Th>Question #</Th>
@@ -117,9 +121,9 @@ const QuestionLevel = ({ index, type }) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {type === "Kanji" &&
+                            {isKanji &&
                                 countBySetKanji?.map((kanji) =>
-                                    kanji._id.level == index ? (
+                                    kanji._id.level == level ? (
                                         <QuestionSets
                                             key={
                                                 kanji._id.level +
@@ -132,9 +136,9 @@ const QuestionLevel = ({ index, type }) => {
                                         />
                                     ) : null
                                 )}
-                            {type === "Vocab" &&
+                            {isVocab &&
                                 countBySetVocab?.map((vocab) =>
-                                    vocab._id.level == index ? (
+                                    vocab._id.level == level ? (
                                         <QuestionSets
                                             key={
                                                 vocab._id.level +
@@ -147,9 +151,9 @@ const QuestionLevel = ({ index, type }) => {
                                         />
                                     ) : null
                                 )}
-                            {type === "Grammar" &&
+                            {isGrammar &&
                                 countBySetGrammar?.map((grammar) =>
-                                    grammar._id.level == index ? (
+                                    grammar._id.level == level ? (
                                         <QuestionSets
                                             key={
                                                 grammar._id.level +
