@@ -26,6 +26,7 @@ import {
     useColorMode,
     Input,
     FormLabel,
+    Tooltip,
 } from "@chakra-ui/react";
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
@@ -293,16 +294,23 @@ function ManageQuestioner() {
                                     {/*Start of add questions only visible if more than one question is present */}
                                     {/* ======================================================================================= */}
                                     <Flex mt="1.5em" mb="0.5em">
-                                        <Button
-                                            ms="auto"
-                                            bg="red.500"
-                                            colorScheme="red"
-                                            hidden={questions.length < 1}
-                                            me={4}
-                                            onClick={onAlertOpen}
+                                        <Tooltip
+                                            label="Delete all question in the list"
+                                            fontSize="md"
+                                            offset={[0, -70]}
+                                            closeOnClick
                                         >
-                                            Delete All
-                                        </Button>
+                                            <Button
+                                                ms="auto"
+                                                bg="red.500"
+                                                colorScheme="red"
+                                                hidden={questions.length < 1}
+                                                me={4}
+                                                onClick={onAlertOpen}
+                                            >
+                                                Delete All
+                                            </Button>
+                                        </Tooltip>
                                         {/*A confirmation popup for deleting*/}
                                         {/* ======================================================================================= */}
                                         <AlerPopUp
@@ -311,16 +319,23 @@ function ManageQuestioner() {
                                             onClick={handleClearBtn}
                                         />
                                         {/* ======================================================================================= */}
-                                        <Button
-                                            isLoading={isLoading}
-                                            hidden={questions.length < 1}
-                                            bg="green.500"
-                                            colorScheme="green"
-                                            leftIcon={<FiCheckCircle />}
-                                            onClick={handleSubmit}
+                                        <Tooltip
+                                            label="Submit to add questions to database"
+                                            fontSize="md"
+                                            offset={[0, -70]}
+                                            closeOnClick
                                         >
-                                            Submit
-                                        </Button>
+                                            <Button
+                                                isLoading={isLoading}
+                                                hidden={questions.length < 1}
+                                                bg="green.500"
+                                                colorScheme="green"
+                                                leftIcon={<FiCheckCircle />}
+                                                onClick={handleSubmit}
+                                            >
+                                                Submit
+                                            </Button>
+                                        </Tooltip>
                                     </Flex>
                                 </Box>
                                 {/* ======================================================================================= */}

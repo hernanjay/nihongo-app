@@ -12,6 +12,7 @@ import {
     IconButton,
     Spacer,
     Text,
+    Tooltip,
 } from "@chakra-ui/react";
 import {
     ChevronRightIcon,
@@ -94,27 +95,50 @@ const ManageQuestionSets = ({
                                 return (
                                     <Box _hover={{ bg: hover }}>
                                         <HStack py="0.5em" ml="2em">
-                                            {/* <ChevronRightIcon /> */}
                                             <Text>{qn}</Text>
                                             <Spacer />
-                                            <IconButton
-                                                size="xs"
-                                                colorScheme="green"
-                                                icon={<ViewIcon />}
-                                                mr="1.5em"
-                                            />
-                                            <IconButton
-                                                size="xs"
-                                                colorScheme="blue"
-                                                icon={<EditIcon />}
-                                                mr="1.5em"
-                                            />
-                                            <IconButton
-                                                size="xs"
-                                                colorScheme="red"
-                                                icon={<DeleteIcon />}
-                                                mr="1.5em"
-                                            />
+                                            <Tooltip
+                                                label="View"
+                                                fontSize="md"
+                                                offset={[0, -70]}
+                                                closeOnClick
+                                            >
+                                                <IconButton
+                                                    size="sm"
+                                                    bg="green.400"
+                                                    colorScheme="green"
+                                                    icon={<ViewIcon />}
+                                                    mr="1rem"
+                                                />
+                                            </Tooltip>
+                                            <Tooltip
+                                                label="Edit"
+                                                fontSize="md"
+                                                offset={[0, -70]}
+                                                closeOnClick
+                                            >
+                                                <IconButton
+                                                    size="sm"
+                                                    bg="blue.400"
+                                                    colorScheme="blue"
+                                                    icon={<EditIcon />}
+                                                    mr="1rem"
+                                                />
+                                            </Tooltip>
+                                            <Tooltip
+                                                label="Delete"
+                                                fontSize="md"
+                                                offset={[0, -70]}
+                                                closeOnClick
+                                            >
+                                                <IconButton
+                                                    size="sm"
+                                                    bg="red.400"
+                                                    colorScheme="red"
+                                                    icon={<DeleteIcon />}
+                                                    mr="1rem"
+                                                />
+                                            </Tooltip>
                                         </HStack>
                                         <Divider />
                                     </Box>

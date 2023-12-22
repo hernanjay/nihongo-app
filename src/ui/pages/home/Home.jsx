@@ -15,37 +15,10 @@ export default function Home() {
     const { body, bg, border, fontColor, success, error, warning, info } =
         ThemeColors();
     const numberOfLevel = [1, 2, 3, 4, 5];
-    const questionTypes = ["kanji", "grammar", "vocab"];
+    const questionTypes = ["kanji", "vocab", "grammar"];
     const navigate = useNavigate();
-    const [separatedQuestions, setSeparatedQuestions] = useState({
-        kanjiQuestions: [],
-        vocabQuestions: [],
-        grammarQuestions: [],
-    });
-    const [kanjiQuestions, setKanjiQuestions] = useState([]);
-    const [vocabQuestions, setVocabQuestions] = useState([]);
-    const [grammarQuestions, setGrammarQuestions] = useState([]);
 
-    // Run this function to fetch
-    const { questions, isLoading } = useQuestions();
-
-    useEffect(() => {
-        if (!isLoading) {
-            questions.map((question) => {
-                if (question.type === "kanji") {
-                    separatedQuestions.kanjiQuestions.push(question);
-                } else if (question.type === "vocab") {
-                    separatedQuestions.vocabQuestions.push(question);
-                } else if (question.type === "grammar") {
-                    separatedQuestions.grammarQuestions.push(question);
-                }
-            });
-        }
-    }, [isLoading]);
-
-    return isLoading ? (
-        <Loader isLoading={isLoading} />
-    ) : (
+    return (
         <Box data-testid="home-container" pb={"5vw"}>
             <Divider minH="10vh" />
             <Box

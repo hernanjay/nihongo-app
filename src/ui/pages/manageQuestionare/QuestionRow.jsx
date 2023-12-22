@@ -1,4 +1,4 @@
-import { IconButton, Td, Tr, useDisclosure } from "@chakra-ui/react";
+import { IconButton, Td, Tooltip, Tr, useDisclosure } from "@chakra-ui/react";
 import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
 import AlerPopUp from "../../components/AlerPopUp";
@@ -31,7 +31,15 @@ const QuestionRow = ({
     } = question;
 
     return (
-        <Tr cursor="pointer" _hover={{ bg: hover }}>
+        <Tr
+            cursor="pointer"
+            _hover={{ bg: hover }}
+            onClick={() => {
+                setIsView(true);
+                setQnPreview(question);
+                setPreviewIndex(index);
+            }}
+        >
             <Td>{index + 1}</Td>
             <Td>{level}</Td>
             <Td>{type}</Td>
@@ -42,37 +50,61 @@ const QuestionRow = ({
             <Td>{optionsTranslate.join(", ")}</Td>
             <Td>{questionTranslate}</Td> */}
             <Td py="-2.5em">
-                <IconButton
-                    icon={<FiEye />}
-                    size="lg"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick={() => {
-                        setIsView(true);
-                        setQnPreview(question);
-                        setPreviewIndex(index);
-                    }}
-                />
+                <Tooltip
+                    label="View"
+                    fontSize="md"
+                    offset={[0, -70]}
+                    closeOnClick
+                >
+                    <IconButton
+                        icon={<FiEye />}
+                        colorScheme="green"
+                        bg="green.400"
+                        size="md"
+                        cursor="pointer"
+                        onClick={() => {
+                            setIsView(true);
+                            setQnPreview(question);
+                            setPreviewIndex(index);
+                        }}
+                    />
+                </Tooltip>
                 &nbsp;&nbsp;
-                <IconButton
-                    icon={<FiEdit />}
-                    size="lg"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick={() => {
-                        setIsEdit(true);
-                        setQnPreview(question);
-                        setPreviewIndex(index);
-                    }}
-                />
+                <Tooltip
+                    label="Edit"
+                    fontSize="md"
+                    offset={[0, -70]}
+                    closeOnClick
+                >
+                    <IconButton
+                        icon={<FiEdit />}
+                        colorScheme="blue"
+                        bg="blue.400"
+                        size="md"
+                        cursor="pointer"
+                        onClick={() => {
+                            setIsEdit(true);
+                            setQnPreview(question);
+                            setPreviewIndex(index);
+                        }}
+                    />
+                </Tooltip>
                 &nbsp;&nbsp;
-                <IconButton
-                    icon={<FiTrash2 />}
-                    size="lg"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick={onAlertRowOpen}
-                />
+                <Tooltip
+                    label="Delete"
+                    fontSize="md"
+                    offset={[0, -70]}
+                    closeOnClick
+                >
+                    <IconButton
+                        icon={<FiTrash2 />}
+                        colorScheme="red"
+                        bg="red.400"
+                        size="md"
+                        cursor="pointer"
+                        onClick={onAlertRowOpen}
+                    />
+                </Tooltip>
                 &nbsp;
                 <AlerPopUp
                     isOpen={isAlertRowOpen}
