@@ -56,7 +56,7 @@ export async function fetchQuestionsByIds(idPerQuestion) {
 
 export async function fetchCountQuestionsByLevelTypeSet() {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/count-by-sets`
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/count-by-sets`
     );
 
     const json = await res.json();
@@ -137,5 +137,28 @@ export async function deleteQuestion(questionId) {
         return { status: 0, json };
     }
 
-    if (res.ok) return { status: 1, json };
+    return { status: 1, json };
+}
+
+export async function fetchQuestionsType(type) {
+    if (!type) throw new Error("Type is empty");
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/get-by-type`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        return { status: 0, json };
+    }
+
+    return { status: 1, json };
 }

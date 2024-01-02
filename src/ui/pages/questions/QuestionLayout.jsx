@@ -103,7 +103,6 @@ const QuestionLayout = () => {
     return (
         <Box minW="100vw">
             {isLoading && <Loader isLoading={isLoading} />}
-            <Loader />
             <Spacer minH="10vh" />
             <Box
                 id="questionLayoutContainer"

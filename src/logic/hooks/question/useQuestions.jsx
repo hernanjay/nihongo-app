@@ -1,15 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllQuestions } from "../../services/apiQuestions";
+import {
+    fetchAllQuestions,
+    fetchCountQuestionsByLevelTypeSet,
+    fetchQuestionsType,
+} from "../../services/apiQuestions";
 
 export function useQuestions() {
     const {
-        isLoading,
+        isLoading: isGettingQuestions,
         data: questions,
-        error,
+        error: questionsError,
     } = useQuery({
         queryKey: ["questions"],
         queryFn: fetchAllQuestions,
     });
 
-    return { isLoading, questions, error };
+    const {
+        isLoading: isGettingQuestionsByTypeLevelSet,
+        data: questionsByTypeLevelSet,
+        error: questionsTypeLevelSetError,
+    } = useQuery({
+        queryKey: ["questionsByTypeLevelSet"],
+        queryFn: fetchCountQuestionsByLevelTypeSet,
+    });
+
+    return {
+        isGettingQuestions,
+        isGettingQuestionsByTypeLevelSet,
+        questions,
+        questionsByTypeLevelSet,
+        questionsError,
+        questionsTypeLevelSetError,
+    };
 }

@@ -20,46 +20,69 @@ import {
 import QuestionSets from "./QuestionSets";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { useGrades } from "../../../logic/hooks/grade/useGrades";
 
 const QuestionLevel = ({ level, type, bg }) => {
-    const { countBySetVocab, countBySetGrammar, countBySetKanji } =
-        useQuestionContext();
-    const { grades } = useGradeContext();
+    const queryClient = useQueryClient();
 
-    let kanjiCtr = 0;
+    const user = queryClient.getQueryData(["user"]);
+
+    const { grades, isLoading } = useGrades(user._id);
+
+    const questionsByTypeLevelSet = queryClient.getQueryData([
+        "questionsByTypeLevelSet",
+    ]);
+
     let kanjiGradedCtr = 0;
-    let vocabCtr = 0;
     let vocabGradedCtr = 0;
-    let grammarCtr = 0;
     let grammarGradedCtr = 0;
+
+    let ctr = 0;
+    let gradedCtr = 0;
 
     const isKanji = type === "kanji";
     const isVocab = type === "vocab";
     const isGrammar = type === "grammar";
 
+    questionsByTypeLevelSet?.map(
+        (question) =>
+            question._id.type == type && question._id.level == level && ctr++
+    );
+
+    const filteredQuestions = questionsByTypeLevelSet.filter(
+        (question) =>
+            question._id.type == type && question._id.level == level && question
+    );
+    !isLoading &&
+        grades.grades.map((grade) => {
+            // Using regular expression to extract the type
+            const match = grade.questionSetId.match(/\d*([a-zA-Z]+)\d*/);
+
+            // Check if a match is found and get the type
+            const gradeType = match && match[1];
+
+            return (
+                gradeType == type &&
+                grade.questionSetId.slice(0, 1) == level &&
+                gradedCtr++
+            );
+        });
+
     isKanji
-        ? countBySetKanji?.map(
-              (kanji) => kanji._id.level == level && kanjiCtr++
-          ) &&
-          grades?.kanjiGrades?.map(
+        ? grades?.kanjiGrades?.map(
               (kg) => kg.questionSetId?.slice(0, 1) == level && kanjiGradedCtr++
           )
         : null;
 
     isVocab
-        ? countBySetVocab?.map(
-              (vocab) => vocab._id.level == level && vocabCtr++
-          ) &&
-          grades?.vocabGrades?.map(
+        ? grades?.vocabGrades?.map(
               (vg) => vg.questionSetId?.slice(0, 1) == level && vocabGradedCtr++
           )
         : null;
 
     isGrammar
-        ? countBySetGrammar?.map(
-              (grammar) => grammar._id.level == level && grammarCtr++
-          ) &&
-          grades?.grammarGrades?.map(
+        ? grades?.grammarGrades?.map(
               (gg) =>
                   gg.questionSetId?.slice(0, 1) == level && grammarGradedCtr++
           )
@@ -69,11 +92,7 @@ const QuestionLevel = ({ level, type, bg }) => {
         <AccordionItem
             key={level}
             my="1"
-            isDisabled={
-                (isKanji && !kanjiCtr) ||
-                (isVocab && !vocabCtr) ||
-                (isGrammar && !grammarCtr)
-            }
+            isDisabled={!ctr}
             verticalAlign="center"
         >
             <AccordionButton variant="solid">
@@ -83,13 +102,14 @@ const QuestionLevel = ({ level, type, bg }) => {
                 </HStack>
                 <Box as="span" flex="1" textAlign="right" mx="5">
                     <Text fontSize="1em">
-                        {(isKanji && (kanjiGradedCtr || "0")) ||
+                        {gradedCtr}
+                        {/* {(isKanji && (kanjiGradedCtr || "0")) ||
                             (isVocab && (vocabGradedCtr || "0")) ||
-                            (isGrammar && (grammarGradedCtr || "0"))}
-                        /
-                        {(isKanji && (kanjiCtr || "0")) ||
+                            (isGrammar && (grammarGradedCtr || "0"))} */}
+                        /{ctr}
+                        {/* {(isKanji && (kanjiCtr || "0")) ||
                             (isVocab && (vocabCtr || "0")) ||
-                            (isGrammar && (grammarCtr || "0"))}
+                            (isGrammar && (grammarCtr || "0"))} */}
                     </Text>
                 </Box>
                 <AccordionIcon />
@@ -121,51 +141,17 @@ const QuestionLevel = ({ level, type, bg }) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {isKanji &&
-                                countBySetKanji?.map((kanji) =>
-                                    kanji._id.level == level ? (
-                                        <QuestionSets
-                                            key={
-                                                kanji._id.level +
-                                                kanji._id.type +
-                                                kanji._id.set
-                                            }
-                                            type={kanji._id.type}
-                                            level={kanji._id.level}
-                                            set={kanji._id.set}
-                                        />
-                                    ) : null
-                                )}
-                            {isVocab &&
-                                countBySetVocab?.map((vocab) =>
-                                    vocab._id.level == level ? (
-                                        <QuestionSets
-                                            key={
-                                                vocab._id.level +
-                                                vocab._id.type +
-                                                vocab._id.set
-                                            }
-                                            type={vocab._id.type}
-                                            level={vocab._id.level}
-                                            set={vocab._id.set}
-                                        />
-                                    ) : null
-                                )}
-                            {isGrammar &&
-                                countBySetGrammar?.map((grammar) =>
-                                    grammar._id.level == level ? (
-                                        <QuestionSets
-                                            key={
-                                                grammar._id.level +
-                                                grammar._id.type +
-                                                grammar._id.set
-                                            }
-                                            type={grammar._id.type}
-                                            level={grammar._id.level}
-                                            set={grammar._id.set}
-                                        />
-                                    ) : null
-                                )}
+                            {filteredQuestions.map((question) => (
+                                <QuestionSets
+                                    key={question._id}
+                                    type={question._id.type}
+                                    level={question._id.level}
+                                    set={question._id.set}
+                                    grades={grades}
+                                    isLoading={isLoading}
+                                    numOfItems={question.count}
+                                />
+                            ))}
                         </Tbody>
                     </Table>
                 </TableContainer>

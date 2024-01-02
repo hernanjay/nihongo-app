@@ -18,7 +18,12 @@ export default function Home() {
     const questionTypes = ["kanji", "vocab", "grammar"];
     const navigate = useNavigate();
 
-    return (
+    // Run this function to fetch
+    const { isGettingQuestions } = useQuestions();
+
+    return isGettingQuestions ? (
+        <Loader isLoading={isGettingQuestions} />
+    ) : (
         <Box data-testid="home-container" pb={"5vw"}>
             <Divider minH="10vh" />
             <Box

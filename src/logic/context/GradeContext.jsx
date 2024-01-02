@@ -106,22 +106,22 @@ export const GradeContextProvider = ({ children }) => {
     // const { user } = useUserContext();
     const queryClient = useQueryClient();
 
-    const user = queryClient.getQueryData(["user"]);
+    // const user = queryClient.getQueryData(["user"]);
 
-    useEffect(() => {
-        async function fetchGrd() {
-            const grades = await fetchGrades(user._id);
-            const scores = await fetchTotalScoresAndItems(user._id);
+    // useEffect(() => {
+    //     async function fetchGrd() {
+    //         const grades = await fetchGrades(user._id);
+    //         const scores = await fetchTotalScoresAndItems(user._id);
 
-            if (grades) dispatch({ type: "receivedGrades", payload: grades });
-            if (scores)
-                dispatch({
-                    type: "receivedTotalScoresNumItems",
-                    payload: scores,
-                });
-        }
-        user && fetchGrd();
-    }, [user]);
+    //         if (grades) dispatch({ type: "receivedGrades", payload: grades });
+    //         if (scores)
+    //             dispatch({
+    //                 type: "receivedTotalScoresNumItems",
+    //                 payload: scores,
+    //             });
+    //     }
+    //     user && fetchGrd();
+    // }, [user]);
 
     return (
         <GradeContext.Provider value={{ ...state, dispatch }}>

@@ -184,7 +184,7 @@ export const QuestionContextProvider = ({ children }) => {
         async function fetchQuestions() {
             const response = await fetch(
                 `${
-                    import.meta.env.VITE_LOCALHOST_API_3000
+                    import.meta.env.VITE_LOCALHOST_API
                 }/api/questions/count-type-level`
             );
 
