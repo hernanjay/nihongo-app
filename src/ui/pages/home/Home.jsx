@@ -12,17 +12,16 @@ import QuestionSkeletonLoader from "../questionHomePage/QuestionSkeletonLoader";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-    const { body, bg, border, fontColor, success, error, warning, info } =
-        ThemeColors();
+    const { bg } = ThemeColors();
     const numberOfLevel = [1, 2, 3, 4, 5];
     const questionTypes = ["kanji", "vocab", "grammar"];
     const navigate = useNavigate();
 
     // Run this function to fetch
-    const { isGettingQuestions } = useQuestions();
+    const { isGettingQuestionsByTypeLevelSet } = useQuestions();
 
-    return isGettingQuestions ? (
-        <Loader isLoading={isGettingQuestions} />
+    return isGettingQuestionsByTypeLevelSet ? (
+        <Loader isLoading={isGettingQuestionsByTypeLevelSet} />
     ) : (
         <Box data-testid="home-container" pb={"5vw"}>
             <Divider minH="10vh" />

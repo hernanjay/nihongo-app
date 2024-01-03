@@ -69,7 +69,7 @@ export async function fetchCountQuestionsByLevelTypeSet() {
     return json;
 }
 
-export async function addQuestions(questions) {
+export async function addQuestionsAPI(questions) {
     if (!token) {
         return {
             status: 0,
@@ -98,7 +98,7 @@ export async function addQuestions(questions) {
         return { status: 0, json };
     }
 
-    if (res.ok) return { status: 1, json };
+    return { status: 1, message: json.message };
 }
 
 export async function deleteQuestion(questionId) {

@@ -4,9 +4,9 @@ import { fetchGrades } from "../../services/apiGrades";
 export const useGrades = (userId) => {
     const {
         data: grades,
-        isLoading,
+        isLoading: isGettingGrades,
         error,
     } = useQuery({ queryKey: ["grades"], queryFn: () => fetchGrades(userId) });
 
-    return { grades, isLoading, error };
+    return { grades, isGettingGrades, error };
 };

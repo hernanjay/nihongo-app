@@ -28,22 +28,13 @@ const QuestionLevel = ({ level, type, bg }) => {
 
     const user = queryClient.getQueryData(["user"]);
 
-    const { grades, isLoading } = useGrades(user._id);
+    const { grades, isGettingGrades } = useGrades(user._id);
 
     const questionsByTypeLevelSet = queryClient.getQueryData([
         "questionsByTypeLevelSet",
     ]);
-
-    let kanjiGradedCtr = 0;
-    let vocabGradedCtr = 0;
-    let grammarGradedCtr = 0;
-
     let ctr = 0;
     let gradedCtr = 0;
-
-    const isKanji = type === "kanji";
-    const isVocab = type === "vocab";
-    const isGrammar = type === "grammar";
 
     questionsByTypeLevelSet?.map(
         (question) =>
@@ -54,7 +45,7 @@ const QuestionLevel = ({ level, type, bg }) => {
         (question) =>
             question._id.type == type && question._id.level == level && question
     );
-    !isLoading &&
+    !isGettingGrades &&
         grades.grades.map((grade) => {
             // Using regular expression to extract the type
             const match = grade.questionSetId.match(/\d*([a-zA-Z]+)\d*/);
@@ -68,25 +59,6 @@ const QuestionLevel = ({ level, type, bg }) => {
                 gradedCtr++
             );
         });
-
-    isKanji
-        ? grades?.kanjiGrades?.map(
-              (kg) => kg.questionSetId?.slice(0, 1) == level && kanjiGradedCtr++
-          )
-        : null;
-
-    isVocab
-        ? grades?.vocabGrades?.map(
-              (vg) => vg.questionSetId?.slice(0, 1) == level && vocabGradedCtr++
-          )
-        : null;
-
-    isGrammar
-        ? grades?.grammarGrades?.map(
-              (gg) =>
-                  gg.questionSetId?.slice(0, 1) == level && grammarGradedCtr++
-          )
-        : null;
 
     return (
         <AccordionItem
@@ -102,14 +74,7 @@ const QuestionLevel = ({ level, type, bg }) => {
                 </HStack>
                 <Box as="span" flex="1" textAlign="right" mx="5">
                     <Text fontSize="1em">
-                        {gradedCtr}
-                        {/* {(isKanji && (kanjiGradedCtr || "0")) ||
-                            (isVocab && (vocabGradedCtr || "0")) ||
-                            (isGrammar && (grammarGradedCtr || "0"))} */}
-                        /{ctr}
-                        {/* {(isKanji && (kanjiCtr || "0")) ||
-                            (isVocab && (vocabCtr || "0")) ||
-                            (isGrammar && (grammarCtr || "0"))} */}
+                        {gradedCtr}/{ctr}
                     </Text>
                 </Box>
                 <AccordionIcon />
@@ -148,7 +113,7 @@ const QuestionLevel = ({ level, type, bg }) => {
                                     level={question._id.level}
                                     set={question._id.set}
                                     grades={grades}
-                                    isLoading={isLoading}
+                                    isGettingGrades={isGettingGrades}
                                     numOfItems={question.count}
                                 />
                             ))}

@@ -19,36 +19,15 @@ const QuestionRow = ({
         onOpen: onAlertRowOpen,
         onClose: onAlertRowClose,
     } = useDisclosure();
-    const {
-        level,
-        type,
-        set,
-        question: qn,
-        options,
-        answer,
-        optionsTranslate,
-        questionTranslate,
-    } = question;
+    const { level, type, set, question: qn } = question;
 
     return (
-        <Tr
-            cursor="pointer"
-            _hover={{ bg: hover }}
-            onClick={() => {
-                setIsView(true);
-                setQnPreview(question);
-                setPreviewIndex(index);
-            }}
-        >
+        <Tr>
             <Td>{index + 1}</Td>
             <Td>{level}</Td>
             <Td>{type}</Td>
             <Td>{set}</Td>
             <Td>{qn}</Td>
-            {/* <Td>{options.join(", ")}</Td>
-            <Td>{answer}</Td>
-            <Td>{optionsTranslate.join(", ")}</Td>
-            <Td>{questionTranslate}</Td> */}
             <Td py="-2.5em">
                 <Tooltip
                     label="View"

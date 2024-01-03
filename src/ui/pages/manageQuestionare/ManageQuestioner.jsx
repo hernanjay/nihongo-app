@@ -31,16 +31,16 @@ import {
 import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
-import QuestionRow from "./QuestionRow";
-import AddViewEditQuestion from "./AddViewEditQuestion";
+import AddViewEditQuestionModal from "./AddViewEditQuestionModal";
 
-import { addQuestions } from "../../../logic/services/apiQuestions";
+import { addQuestionsAPI } from "../../../logic/services/apiQuestions";
 import AlerPopUp from "../../components/AlerPopUp";
 import QuestionType from "../questionHomePage/QuestionType";
 import ManageQuestionKanji from "./ManageQuestionKanji";
 import ManageQuestionVocab from "./ManageQuestionVocab";
 import ManageQuestionGrammar from "./ManageQuestionGrammar";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import AddQuestionsPanel from "./AddQuestionsPanel";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
     const toast = useToast();
@@ -83,11 +83,11 @@ function ManageQuestioner() {
     async function handleSubmit() {
         setIsLoading(true);
 
-        const isAdded = await addQuestions(questions);
+        const isAdded = await addQuestionsAPI(questions);
 
         if (isAdded.status) {
             toast({
-                title: "Questions Added Successfully!",
+                title: `${isAdded.message}`,
                 position: "top",
                 status: "success",
                 duration: 3000,
@@ -120,7 +120,7 @@ function ManageQuestioner() {
             {/* Just render this if it is open, viewed or edit */}
             {(isOpen || isView || isEdit) && (
                 <Box h="10%" alignSelf="flex-end">
-                    <AddViewEditQuestion
+                    <AddViewEditQuestionModal
                         isAdd={isOpen}
                         onClose={onClose}
                         setQuestions={setQuestions}
@@ -175,12 +175,12 @@ function ManageQuestioner() {
                             </Heading>
                             <Spacer />
                             <TabList>
-                                <Tab>
+                                <Tab border={"1px"} mx="1">
                                     <Text color={fontColor}>Add Question</Text>
                                 </Tab>
-                                <Tab>
+                                <Tab border={"1px"} mx="1">
                                     <Text color={fontColor}>
-                                        Delete Question
+                                        Delete/Update Question
                                     </Text>
                                 </Tab>
                             </TabList>
@@ -188,8 +188,27 @@ function ManageQuestioner() {
                         {/* ======================================================================================= */}
                         <TabPanels>
                             {/*Start of add questions list panel */}
+                            <AddQuestionsPanel
+                                bg={bg}
+                                border={border}
+                                onOpen={onOpen}
+                                hover={hover}
+                                fontColor={fontColor}
+                                onAlertOpen={onAlertOpen}
+                                isAlertOpen={isAlertOpen}
+                                onAlertClose={onAlertClose}
+                                handleClearBtn={handleClearBtn}
+                                isLoading={isLoading}
+                                handleSubmit={handleSubmit}
+                                questions={questions}
+                                setIsView={setIsView}
+                                setQnPreview={setQnPreview}
+                                setIsEdit={setIsEdit}
+                                setPreviewIndex={setPreviewIndex}
+                            />
+                            {/* ======================================================================================= */}
+                            {/* For Deleting/Editing Questions */}
                             <TabPanel>
-                                {/*Start of add questions list header */}
                                 {/* ======================================================================================= */}
                                 <HStack
                                     mb="1em"
@@ -199,164 +218,6 @@ function ManageQuestioner() {
                                     borderRadius="lg"
                                 >
                                     <Heading fontSize="1.25em">
-                                        List of Questions to Add
-                                    </Heading>
-                                    <Spacer />
-                                    <Button
-                                        size="sm"
-                                        my="-1em"
-                                        fontSize="0.75em"
-                                        variant="outline"
-                                        leftIcon={<FiPlusCircle />}
-                                        onClick={onOpen}
-                                        bg={bg}
-                                        borderColor={border}
-                                    >
-                                        Add Question
-                                    </Button>
-                                </HStack>
-                                {/* ======================================================================================= */}
-                                {/* For Adding questions */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <TableContainer
-                                        maxH="50vh"
-                                        overflowY="visible"
-                                        borderRadius="lg"
-                                        sx={{
-                                            "&::-webkit-scrollbar": {
-                                                width: "10px",
-                                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                                borderRightRadius: "lg",
-                                            },
-                                            "&::-webkit-scrollbar-thumb": {
-                                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                                borderRightRadius: "lg",
-                                            },
-                                        }}
-                                        bg={bg}
-                                    >
-                                        {/*Start of add questions table header */}
-                                        {/* ======================================================================================= */}
-                                        <Table>
-                                            <Thead
-                                                position="sticky"
-                                                zIndex={3}
-                                                top={0}
-                                                bg={hover}
-                                            >
-                                                <Tr color={fontColor}>
-                                                    <Th w="5%">ID</Th>
-                                                    <Th w="5%">Level</Th>
-                                                    <Th w="10%">Type</Th>
-                                                    <Th w="5%">Set</Th>
-                                                    <Th w="100%">Question</Th>
-                                                    <Th
-                                                        w="10%"
-                                                        textAlign="center"
-                                                    >
-                                                        Action
-                                                    </Th>
-                                                </Tr>
-                                            </Thead>
-                                            {/*Start of add questions body */}
-                                            {/* ======================================================================================= */}
-                                            <Tbody borderTopRadius="lg">
-                                                {questions.map(
-                                                    (question, index) => (
-                                                        <QuestionRow
-                                                            question={question}
-                                                            key={index}
-                                                            index={index}
-                                                            setIsView={
-                                                                setIsView
-                                                            }
-                                                            setQnPreview={
-                                                                setQnPreview
-                                                            }
-                                                            setIsEdit={
-                                                                setIsEdit
-                                                            }
-                                                            setPreviewIndex={
-                                                                setPreviewIndex
-                                                            }
-                                                        />
-                                                    )
-                                                )}
-                                            </Tbody>
-                                        </Table>
-                                    </TableContainer>
-                                    {/*Start of add questions button group */}
-                                    {/*Start of add questions only visible if more than one question is present */}
-                                    {/* ======================================================================================= */}
-                                    <Flex mt="1.5em" mb="0.5em">
-                                        <Tooltip
-                                            label="Delete all question in the list"
-                                            fontSize="md"
-                                            offset={[0, -70]}
-                                            closeOnClick
-                                        >
-                                            <Button
-                                                ms="auto"
-                                                bg="red.500"
-                                                colorScheme="red"
-                                                hidden={questions.length < 1}
-                                                me={4}
-                                                onClick={onAlertOpen}
-                                            >
-                                                Delete All
-                                            </Button>
-                                        </Tooltip>
-                                        {/*A confirmation popup for deleting*/}
-                                        {/* ======================================================================================= */}
-                                        <AlerPopUp
-                                            isOpen={isAlertOpen}
-                                            onClose={onAlertClose}
-                                            onClick={handleClearBtn}
-                                        />
-                                        {/* ======================================================================================= */}
-                                        <Tooltip
-                                            label="Submit to add questions to database"
-                                            fontSize="md"
-                                            offset={[0, -70]}
-                                            closeOnClick
-                                        >
-                                            <Button
-                                                isLoading={isLoading}
-                                                hidden={questions.length < 1}
-                                                bg="green.500"
-                                                colorScheme="green"
-                                                leftIcon={<FiCheckCircle />}
-                                                onClick={handleSubmit}
-                                            >
-                                                Submit
-                                            </Button>
-                                        </Tooltip>
-                                    </Flex>
-                                </Box>
-                                {/* ======================================================================================= */}
-                            </TabPanel>
-                            {/* ======================================================================================= */}
-                            {/* For Deleteing Questions */}
-                            <TabPanel>
-                                {/* ======================================================================================= */}
-                                <HStack
-                                    mb="1em"
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <Heading
-                                        fontSize="1.25em"
-                                        onClick={() =>
-                                            console.log(currentlySelected)
-                                        }
-                                    >
                                         List of Questions
                                     </Heading>
                                 </HStack>

@@ -6,12 +6,19 @@ import ThemeColors from "../main/ThemeColors";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useEffect } from "react";
 
-const QuestionSets = ({ type, level, set, grades, isLoading, numOfItems }) => {
+const QuestionSets = ({
+    type,
+    level,
+    set,
+    grades,
+    isGettingGrades,
+    numOfItems,
+}) => {
     const { hover } = ThemeColors();
     const navigate = useNavigate();
 
     const score =
-        !isLoading &&
+        !isGettingGrades &&
         grades.grades
             .filter((grade) => {
                 // Using regular expression to extract the type, level, and set

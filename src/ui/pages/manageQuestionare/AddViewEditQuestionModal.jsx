@@ -32,7 +32,7 @@ import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 
-const AddViewEditQuestion = ({
+const AddViewEditQuestionModal = ({
     isAdd,
     onClose,
     setQuestions,
@@ -669,4 +669,4 @@ const AddViewEditQuestion = ({
     );
 };
 
-export default AddViewEditQuestion;
+export default AddViewEditQuestionModal;
