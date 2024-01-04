@@ -1,5 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteQuestionAPI } from "../../services/apiQuestions";
+import {
+    deleteQuestionAPI,
+    deleteQuestionWithGradesAPI,
+} from "../../services/apiQuestions";
 import { useToast } from "@chakra-ui/react";
 
 export function useDeleteQuestion() {
@@ -7,7 +10,7 @@ export function useDeleteQuestion() {
     const queryClient = useQueryClient();
 
     const { mutate: deleteQuestion, isLoading: isDeleting } = useMutation({
-        mutationFn: ({ questionId }) => deleteQuestionAPI(questionId),
+        mutationFn: ({ questionId }) => deleteQuestionWithGradesAPI(questionId),
         onSuccess: () => {
             toast({
                 title: "Questions Deleted Successfully!",
@@ -17,6 +20,7 @@ export function useDeleteQuestion() {
                 isClosable: true,
             });
             queryClient.invalidateQueries({ queryKey: ["questions"] });
+            queryClient.invalidateQueries({ queryKey: ["grades"] });
         },
         onError: (err) => {
             toast({

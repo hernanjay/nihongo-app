@@ -9,15 +9,9 @@ import {
     AccordionPanel,
 } from "@chakra-ui/react";
 import ManageQuestionSets from "./ManageQuestionSets";
-import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-const ManageQuestionLevel = ({
-    level,
-    type,
-    // currentlySelected,
-    // setCurrentlySelected,
-}) => {
+const ManageQuestionLevel = ({ level, type }) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
     const [currentlySelected, setCurrentlySelected] = useState("none");
@@ -26,10 +20,11 @@ const ManageQuestionLevel = ({
         "questionsByTypeLevelSet",
     ]);
 
+    let ctr = 0;
+
     const filteredQuestions = questionsByTypeLevelSet.filter(
         (question) => question._id.type == type && question._id.level == level
     );
-    let ctr = 0;
 
     questionsByTypeLevelSet.map(
         (question) =>

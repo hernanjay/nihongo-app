@@ -98,6 +98,29 @@ export async function addQuestionsAPI(questions) {
     return json;
 }
 
+export async function fetchQuestionsType(type) {
+    if (!type) throw new Error("Type is empty");
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/get-by-type`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        return { status: 0, json };
+    }
+
+    return { status: 1, json };
+}
+
 export async function deleteQuestionAPI(questionId) {
     if (!token) {
         throw new Error("Authentication failed! Please login first!");
@@ -131,15 +154,27 @@ export async function deleteQuestionAPI(questionId) {
     return json;
 }
 
-export async function fetchQuestionsType(type) {
-    if (!type) throw new Error("Type is empty");
+export async function deleteQuestionWithGradesAPI(questionId) {
+    if (!token) {
+        throw new Error("Authentication failed! Please login first!");
+    }
+
+    if (!questionId) {
+        throw new Error("Question ID not found");
+    }
+
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/get-by-type`,
+        `${
+            import.meta.env.VITE_LOCALHOST_API
+        }/api/questions/delete-question-grades`,
         {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({
-                type,
+                questionId,
             }),
         }
     );
@@ -148,8 +183,8 @@ export async function fetchQuestionsType(type) {
 
     if (!res.ok) {
         console.error(json.error);
-        return { status: 0, json };
+        throw new Error(`${json.error}`);
     }
 
-    return { status: 1, json };
+    return json;
 }

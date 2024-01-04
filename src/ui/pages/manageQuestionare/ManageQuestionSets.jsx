@@ -50,6 +50,7 @@ const ManageQuestionSets = ({
     );
 
     const { deleteQuestion, isDeleting } = useDeleteQuestion();
+    console.log(isDeleting);
 
     function handleDeleteButton(questionId) {
         deleteQuestion({ questionId });
