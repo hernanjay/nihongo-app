@@ -1,36 +1,34 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addQuestionsAPI } from "../../services/apiQuestions";
+import { deleteQuestionAPI } from "../../services/apiQuestions";
 import { useToast } from "@chakra-ui/react";
 
-export function useAddQuestions() {
+export function useDeleteQuestion() {
     const toast = useToast();
     const queryClient = useQueryClient();
 
-    const { mutate: addQuestions, isLoading: isAddingQuestions } = useMutation({
-        mutationFn: ({ questions }) => addQuestionsAPI(questions),
+    const { mutate: deleteQuestion, isLoading: isDeleting } = useMutation({
+        mutationFn: ({ questionId }) => deleteQuestionAPI(questionId),
         onSuccess: () => {
             toast({
-                title: "Questions Added Successfully!",
+                title: "Questions Deleted Successfully!",
                 position: "top",
                 status: "success",
                 duration: 3000,
                 isClosable: true,
             });
-            queryClient.invalidateQueries({
-                queryKey: ["questionByTypeLevel"],
-            });
+            queryClient.invalidateQueries({ queryKey: ["questions"] });
         },
         onError: (err) => {
             toast({
-                title: "Questions Added Not Added!",
+                title: "Failed to delete Question!",
                 position: "top",
-                description: `${err}`,
                 status: "error",
+                description: `${err}`,
                 duration: 3000,
                 isClosable: true,
             });
         },
     });
 
-    return { addQuestions, isAddingQuestions };
+    return { deleteQuestion, isDeleting };
 }

@@ -56,14 +56,14 @@ export async function fetchQuestionsByIds(idPerQuestion) {
 
 export async function fetchCountQuestionsByLevelTypeSet() {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/count-by-sets`
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/count-by-sets`
     );
 
     const json = await res.json();
 
     if (!res.ok) {
         console.log(json.error);
-        return null;
+        throw new Error(`${json.error}`);
     }
 
     return json;
@@ -71,10 +71,7 @@ export async function fetchCountQuestionsByLevelTypeSet() {
 
 export async function addQuestionsAPI(questions) {
     if (!token) {
-        return {
-            status: 0,
-            json: { error: "Authentication failed! Please login first!" },
-        };
+        throw new Error("Authentication failed! Please login first!");
     }
 
     const res = await fetch(
@@ -95,25 +92,19 @@ export async function addQuestionsAPI(questions) {
 
     if (!res.ok) {
         console.error(json.error);
-        return { status: 0, json };
+        throw new Error(`${json.error}`);
     }
 
-    return { status: 1, message: json.message };
+    return json;
 }
 
-export async function deleteQuestion(questionId) {
+export async function deleteQuestionAPI(questionId) {
     if (!token) {
-        return {
-            status: 0,
-            json: { error: "Authentication failed! Please login first!" },
-        };
+        throw new Error("Authentication failed! Please login first!");
     }
 
     if (!questionId) {
-        return {
-            status: 0,
-            json: { error: "Question ID not found" },
-        };
+        throw new Error("Question ID not found");
     }
 
     const res = await fetch(
@@ -134,10 +125,10 @@ export async function deleteQuestion(questionId) {
 
     if (!res.ok) {
         console.error(json.error);
-        return { status: 0, json };
+        throw new Error(`${json.error}`);
     }
 
-    return { status: 1, json };
+    return json;
 }
 
 export async function fetchQuestionsType(type) {

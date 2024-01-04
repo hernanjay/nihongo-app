@@ -15,11 +15,8 @@ import {
     Tr,
     Text,
     HStack,
-    useBoolean,
 } from "@chakra-ui/react";
 import QuestionSets from "./QuestionSets";
-import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
-import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGrades } from "../../../logic/hooks/grade/useGrades";
 
@@ -36,14 +33,13 @@ const QuestionLevel = ({ level, type, bg }) => {
     let ctr = 0;
     let gradedCtr = 0;
 
-    questionsByTypeLevelSet?.map(
+    questionsByTypeLevelSet.map(
         (question) =>
             question._id.type == type && question._id.level == level && ctr++
     );
 
     const filteredQuestions = questionsByTypeLevelSet.filter(
-        (question) =>
-            question._id.type == type && question._id.level == level && question
+        (question) => question._id.type == type && question._id.level == level
     );
     !isGettingGrades &&
         grades.grades.map((grade) => {
@@ -106,9 +102,9 @@ const QuestionLevel = ({ level, type, bg }) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {filteredQuestions.map((question) => (
+                            {filteredQuestions.map((question, index) => (
                                 <QuestionSets
-                                    key={question._id}
+                                    key={question._id + index}
                                     type={question._id.type}
                                     level={question._id.level}
                                     set={question._id.set}

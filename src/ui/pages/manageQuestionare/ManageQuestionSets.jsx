@@ -11,8 +11,15 @@ import {
     HStack,
     IconButton,
     Spacer,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
     Text,
+    Th,
+    Thead,
     Tooltip,
+    Tr,
 } from "@chakra-ui/react";
 import {
     ChevronRightIcon,
@@ -22,6 +29,8 @@ import {
 } from "@chakra-ui/icons";
 import ThemeColors from "../main/ThemeColors";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useDeleteQuestion } from "../../../logic/hooks/question/useDeleteQuestion";
 
 const ManageQuestionSets = ({
     type,
@@ -30,20 +39,21 @@ const ManageQuestionSets = ({
     currentlySelectedQn,
     setCurrenlySelectedQn,
 }) => {
-    const { hover } = ThemeColors();
     const [isPreview, setIsPreview] = useState(false);
-    const questions = [
-        "Q1",
-        "Q2",
-        "Q3",
-        "Q4",
-        "Q5",
-        "Q6",
-        "Q7",
-        "Q8",
-        "Q9",
-        "Q10",
-    ];
+    const queryClient = useQueryClient();
+    const questions = queryClient.getQueryData(["questions"]);
+    const filteredQuestions = questions.filter(
+        (question) =>
+            question.type == type &&
+            question.level == level &&
+            question.set == set
+    );
+
+    const { deleteQuestion, isDeleting } = useDeleteQuestion();
+
+    function handleDeleteButton(questionId) {
+        deleteQuestion({ questionId });
+    }
 
     return (
         <Collapse
@@ -75,76 +85,155 @@ const ManageQuestionSets = ({
                             </Box>
                             <AccordionIcon />
                         </AccordionButton>
-                        <AccordionPanel
-                            maxH="40vh"
-                            overflowY="scroll"
-                            borderRadius="lg"
-                            sx={{
-                                "&::-webkit-scrollbar": {
-                                    width: "8px",
-                                    backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                    borderRightRadius: "lg",
-                                },
-                                "&::-webkit-scrollbar-thumb": {
-                                    backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                    borderRightRadius: "lg",
-                                },
-                            }}
-                        >
-                            {questions.map((qn, index) => {
-                                return (
-                                    <Box _hover={{ bg: hover }}>
-                                        <HStack py="0.5em" ml="2em">
-                                            <Text>{qn}</Text>
-                                            <Spacer />
-                                            <Tooltip
-                                                label="View"
-                                                fontSize="md"
-                                                offset={[0, -70]}
-                                                closeOnClick
-                                            >
-                                                <IconButton
-                                                    size="sm"
-                                                    bg="green.400"
-                                                    colorScheme="green"
-                                                    icon={<ViewIcon />}
-                                                    mr="1rem"
-                                                />
-                                            </Tooltip>
-                                            <Tooltip
-                                                label="Edit"
-                                                fontSize="md"
-                                                offset={[0, -70]}
-                                                closeOnClick
-                                            >
-                                                <IconButton
-                                                    size="sm"
-                                                    bg="blue.400"
-                                                    colorScheme="blue"
-                                                    icon={<EditIcon />}
-                                                    mr="1rem"
-                                                />
-                                            </Tooltip>
-                                            <Tooltip
-                                                label="Delete"
-                                                fontSize="md"
-                                                offset={[0, -70]}
-                                                closeOnClick
-                                            >
-                                                <IconButton
-                                                    size="sm"
-                                                    bg="red.400"
-                                                    colorScheme="red"
-                                                    icon={<DeleteIcon />}
-                                                    mr="1rem"
-                                                />
-                                            </Tooltip>
-                                        </HStack>
-                                        <Divider />
-                                    </Box>
-                                );
-                            })}
-                        </AccordionPanel>
+                        {isPreview && (
+                            <AccordionPanel
+                                maxH="40vh"
+                                overflowY="scroll"
+                                borderRadius="lg"
+                                sx={{
+                                    "&::-webkit-scrollbar": {
+                                        width: "8px",
+                                        backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                                        borderRightRadius: "lg",
+                                    },
+                                    "&::-webkit-scrollbar-thumb": {
+                                        backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                                        borderRightRadius: "lg",
+                                    },
+                                }}
+                            >
+                                <TableContainer>
+                                    <Table>
+                                        <Thead>
+                                            <Tr>
+                                                <Th w="10%">ID</Th>
+                                                <Th w="100%">QUESTION</Th>
+                                                <Th w="30%">ACTIONS</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
+                                            {filteredQuestions.map((qn) => (
+                                                <Tr>
+                                                    <Td>{qn._id}</Td>
+                                                    <Td>{qn.question}</Td>
+                                                    <Td>
+                                                        <Tooltip
+                                                            label="View"
+                                                            fontSize="md"
+                                                            offset={[0, -70]}
+                                                            closeOnClick
+                                                        >
+                                                            <IconButton
+                                                                size="sm"
+                                                                bg="green.400"
+                                                                colorScheme="green"
+                                                                icon={
+                                                                    <ViewIcon />
+                                                                }
+                                                                mr="1rem"
+                                                            />
+                                                        </Tooltip>
+                                                        <Tooltip
+                                                            label="Edit"
+                                                            fontSize="md"
+                                                            offset={[0, -70]}
+                                                            closeOnClick
+                                                        >
+                                                            <IconButton
+                                                                size="sm"
+                                                                bg="blue.400"
+                                                                colorScheme="blue"
+                                                                icon={
+                                                                    <EditIcon />
+                                                                }
+                                                                mr="1rem"
+                                                            />
+                                                        </Tooltip>
+                                                        <Tooltip
+                                                            label="Delete"
+                                                            fontSize="md"
+                                                            offset={[0, -70]}
+                                                            closeOnClick
+                                                        >
+                                                            <IconButton
+                                                                size="sm"
+                                                                bg="red.400"
+                                                                colorScheme="red"
+                                                                icon={
+                                                                    <DeleteIcon />
+                                                                }
+                                                                mr="1rem"
+                                                                isLoading={
+                                                                    isDeleting
+                                                                }
+                                                                onClick={() =>
+                                                                    handleDeleteButton(
+                                                                        qn._id
+                                                                    )
+                                                                }
+                                                            />
+                                                        </Tooltip>
+                                                    </Td>
+                                                </Tr>
+                                            ))}
+                                        </Tbody>
+                                    </Table>
+                                </TableContainer>
+                                {/* {questions.map((qn, index) => {
+                                    return (
+                                        <Box _hover={{ bg: hover }}>
+                                            <HStack py="0.5em" ml="2em">
+                                                <Text>{qn}</Text>
+                                                <Spacer />
+                                                <Tooltip
+                                                    label="View"
+                                                    fontSize="md"
+                                                    offset={[0, -70]}
+                                                    closeOnClick
+                                                >
+                                                    <IconButton
+                                                        size="sm"
+                                                        bg="green.400"
+                                                        colorScheme="green"
+                                                        icon={<ViewIcon />}
+                                                        mr="1rem"
+                                                    />
+                                                </Tooltip>
+                                                <Tooltip
+                                                    label="Edit"
+                                                    fontSize="md"
+                                                    offset={[0, -70]}
+                                                    closeOnClick
+                                                >
+                                                    <IconButton
+                                                        size="sm"
+                                                        bg="blue.400"
+                                                        colorScheme="blue"
+                                                        icon={<EditIcon />}
+                                                        mr="1rem"
+                                                    />
+                                                </Tooltip>
+                                                <Tooltip
+                                                    label="Delete"
+                                                    fontSize="md"
+                                                    offset={[0, -70]}
+                                                    closeOnClick
+                                                >
+                                                    <IconButton
+                                                        size="sm"
+                                                        bg="red.400"
+                                                        colorScheme="red"
+                                                        icon={<DeleteIcon />}
+                                                        mr="1rem"
+                                                    />
+                                                </Tooltip>
+                                            </HStack>
+                                            <Divider />
+                                        </Box>
+                                    );
+                                })} */}
+                            </AccordionPanel>
+                        )}
                     </AccordionItem>
                 </Accordion>
             </Box>

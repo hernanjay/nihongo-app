@@ -64,7 +64,7 @@ const QuestionAnsweredTracker = ({
                 correctAnswers,
             },
             {
-                onSuccess: (data) => {
+                onSuccess: () => {
                     setHasSubmit(true);
                 },
             }

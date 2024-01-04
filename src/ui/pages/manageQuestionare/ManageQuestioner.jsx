@@ -4,16 +4,9 @@ import { useState } from "react";
 import {
     Flex,
     Heading,
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
     Box,
-    Button,
     useDisclosure,
     useBoolean,
-    TableContainer,
     useToast,
     HStack,
     Spacer,
@@ -24,47 +17,36 @@ import {
     TabPanel,
     Text,
     useColorMode,
-    Input,
-    FormLabel,
-    Tooltip,
+    Divider,
 } from "@chakra-ui/react";
-import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
 import AddViewEditQuestionModal from "./AddViewEditQuestionModal";
-
-import { addQuestionsAPI } from "../../../logic/services/apiQuestions";
-import AlerPopUp from "../../components/AlerPopUp";
 import QuestionType from "../questionHomePage/QuestionType";
-import ManageQuestionKanji from "./ManageQuestionKanji";
-import ManageQuestionVocab from "./ManageQuestionVocab";
-import ManageQuestionGrammar from "./ManageQuestionGrammar";
-import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import ManageQuestionLevel from "./ManageQuestionLevel";
 import AddQuestionsPanel from "./AddQuestionsPanel";
+import { useAddQuestions } from "../../../logic/hooks/question/useAddQuestions";
+import { useQuestions } from "../../../logic/hooks/question/useQuestions";
+import Loader from "../../components/Loader";
+import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
+import DeleteUpdateQuestionPanel from "./DeleteUpdateQuestionPanel";
 //   const [display, changeDisplay] = useState("hide");
 function ManageQuestioner() {
-    const toast = useToast();
     const [questions, setQuestions] = useState([]);
     const [isView, setIsView] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentlySelectedKanji, setCurrentlySelectedKanji] =
-        useState("none");
-    const [currentlySelectedVocab, setCurrentlySelectedVocab] =
-        useState("none");
-    const [currentlySelectedGrammar, setCurrentlySelectedGrammar] =
-        useState("none");
-    const numberOfLevel = [1, 2, 3, 4, 5];
-    // For delete all button
+
     const {
         isOpen: isAlertOpen,
         onOpen: onAlertOpen,
         onClose: onAlertClose,
     } = useDisclosure();
 
-    const { dispatch: questionDispatch } = useQuestionContext();
+    const { addQuestions, isAddingQuestions } = useAddQuestions();
+    const { isGettingQuestions } = useQuestions();
+    const { isGettingQuestionsByTypeLevelSet } = useQuestionsTypeLevelSet();
 
     const { isOpen, onOpen, onClose } = useDisclosure({
         closeOnOverlayClick: false,
@@ -81,38 +63,24 @@ function ManageQuestioner() {
     }
 
     async function handleSubmit() {
-        setIsLoading(true);
-
-        const isAdded = await addQuestionsAPI(questions);
-
-        if (isAdded.status) {
-            toast({
-                title: `${isAdded.message}`,
-                position: "top",
-                status: "success",
-                duration: 3000,
-                isClosable: true,
-            });
-            questionDispatch({ type: "addQuestion", payload: questions });
-
-            handleClearBtn();
-        } else {
-            toast({
-                title: "Questions Not Added!",
-                position: "top",
-                status: "error",
-                description: `${isAdded.json.error}`,
-                duration: 3000,
-                isClosable: true,
-            });
-        }
-        setIsLoading(false);
+        addQuestions(
+            { questions },
+            {
+                onSuccess: () => {
+                    handleClearBtn();
+                },
+            }
+        );
     }
 
     useEffect(() => {
         const lsQuestions = JSON.parse(localStorage.getItem("questions"));
         lsQuestions && setQuestions(lsQuestions);
     }, []);
+
+    // Return loading screen if it still getting questions
+    if (isGettingQuestions && isGettingQuestionsByTypeLevelSet)
+        return <Loader isLoading={isGettingQuestions} />;
 
     return (
         <Box bg={body}>
@@ -136,7 +104,6 @@ function ManageQuestioner() {
             <Flex
                 h={"100vh"}
                 w={"100%"}
-                //   marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
                 transition={"800ms"}
                 pl={toggle ? "25vw" : "8vw"}
                 pr={"5vw"}
@@ -187,7 +154,7 @@ function ManageQuestioner() {
                         </HStack>
                         {/* ======================================================================================= */}
                         <TabPanels>
-                            {/*Start of add questions list panel */}
+                            {/*QUESTION ADD PANEL */}
                             <AddQuestionsPanel
                                 bg={bg}
                                 border={border}
@@ -198,7 +165,7 @@ function ManageQuestioner() {
                                 isAlertOpen={isAlertOpen}
                                 onAlertClose={onAlertClose}
                                 handleClearBtn={handleClearBtn}
-                                isLoading={isLoading}
+                                isLoading={isAddingQuestions}
                                 handleSubmit={handleSubmit}
                                 questions={questions}
                                 setIsView={setIsView}
@@ -207,92 +174,8 @@ function ManageQuestioner() {
                                 setPreviewIndex={setPreviewIndex}
                             />
                             {/* ======================================================================================= */}
-                            {/* For Deleting/Editing Questions */}
-                            <TabPanel>
-                                {/* ======================================================================================= */}
-                                <HStack
-                                    mb="1em"
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <Heading fontSize="1.25em">
-                                        List of Questions
-                                    </Heading>
-                                </HStack>
-                                {/* ======================================================================================= */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <QuestionType type="Kanji" bg={bg}>
-                                        {numberOfLevel.map((num, index) => (
-                                            <ManageQuestionKanji
-                                                index={index + 1}
-                                                key={index}
-                                                type="Kanji"
-                                                currentlySelected={
-                                                    currentlySelectedKanji
-                                                }
-                                                setCurrentlySelected={
-                                                    setCurrentlySelectedKanji
-                                                }
-                                            ></ManageQuestionKanji>
-                                        ))}
-                                    </QuestionType>
-                                </Box>
-                                {/* ======================================================================================= */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    my="1.5em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <QuestionType type="Vocab" bg={bg}>
-                                        {numberOfLevel.map((num, index) => (
-                                            <ManageQuestionVocab
-                                                index={index + 1}
-                                                key={index}
-                                                type="Vocab"
-                                                currentlySelected={
-                                                    currentlySelectedVocab
-                                                }
-                                                setCurrentlySelected={
-                                                    setCurrentlySelectedVocab
-                                                }
-                                            ></ManageQuestionVocab>
-                                        ))}
-                                    </QuestionType>
-                                </Box>
-                                {/* ======================================================================================= */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <QuestionType type="Grammar" bg={bg}>
-                                        {numberOfLevel.map((num, index) => (
-                                            <ManageQuestionGrammar
-                                                index={index + 1}
-                                                key={index}
-                                                type="Grammar"
-                                                currentlySelected={
-                                                    currentlySelectedGrammar
-                                                }
-                                                setCurrentlySelected={
-                                                    setCurrentlySelectedGrammar
-                                                }
-                                            ></ManageQuestionGrammar>
-                                        ))}
-                                    </QuestionType>
-                                </Box>
-                                {/* ======================================================================================= */}
-                            </TabPanel>
+                            {/*DELETING/UPDATING QUESTION PANEL */}
+                            <DeleteUpdateQuestionPanel />
                         </TabPanels>
                         {/* ======================================================================================= */}
                     </Tabs>

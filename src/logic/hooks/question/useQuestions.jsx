@@ -5,25 +5,13 @@ import {
 } from "../../services/apiQuestions";
 
 export function useQuestions() {
-    // const {
-    //     isLoading: isGettingQuestions,
-    //     data: questions,
-    //     error: questionsError,
-    // } = useQuery({
-    //     queryKey: ["questions"],
-    //     queryFn: fetchAllQuestions,
-    // });
-
-    const {
-        isLoading: isGettingQuestionsByTypeLevelSet,
-        data: questionsByTypeLevelSet,
-    } = useQuery({
-        queryKey: ["questionsByTypeLevelSet"],
-        queryFn: fetchCountQuestionsByLevelTypeSet,
+    const { isLoading: isGettingQuestions, data: questions } = useQuery({
+        queryKey: ["questions"],
+        queryFn: fetchAllQuestions,
     });
 
     return {
-        isGettingQuestionsByTypeLevelSet,
-        questionsByTypeLevelSet,
+        isGettingQuestions,
+        questions,
     };
 }

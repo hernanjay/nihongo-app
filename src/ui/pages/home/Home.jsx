@@ -6,10 +6,9 @@ import { useNavigate } from "react-router-dom";
 import HomeUserProfileCard from "../../components/HomeUserProfileCard";
 import QuestionLevel from "../questionHomePage/QuestionLevel";
 import QuestionType from "../questionHomePage/QuestionType";
-import { useQuestions } from "../../../logic/hooks/question/useQuestions";
 import Loader from "../../components/Loader";
-import QuestionSkeletonLoader from "../questionHomePage/QuestionSkeletonLoader";
-import { useEffect, useState } from "react";
+import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
+import { Fragment } from "react";
 
 export default function Home() {
     const { bg } = ThemeColors();
@@ -18,7 +17,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     // Run this function to fetch
-    const { isGettingQuestionsByTypeLevelSet } = useQuestions();
+    const { isGettingQuestionsByTypeLevelSet } = useQuestionsTypeLevelSet();
 
     return isGettingQuestionsByTypeLevelSet ? (
         <Loader isLoading={isGettingQuestionsByTypeLevelSet} />
@@ -82,7 +81,7 @@ export default function Home() {
                     {/* Divider */}
 
                     {questionTypes.map((type) => (
-                        <>
+                        <Fragment key={type}>
                             <Box
                                 bg={bg}
                                 p="5"
@@ -94,7 +93,7 @@ export default function Home() {
                                     {numberOfLevel.map((num, index) => (
                                         <QuestionLevel
                                             level={num}
-                                            key={index}
+                                            key={`${type}-${num}`}
                                             type={type}
                                             bg={bg}
                                         />
@@ -106,7 +105,7 @@ export default function Home() {
                                 maxW={{ base: "90vw", lg: "60vw" }}
                                 my="2.5vh"
                             />
-                        </>
+                        </Fragment>
                     ))}
                 </Box>
 
