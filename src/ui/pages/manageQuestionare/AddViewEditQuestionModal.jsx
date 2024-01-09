@@ -36,10 +36,12 @@ const AddViewEditQuestionModal = ({
     isAdd,
     onClose,
     setQuestions,
-    isView,
-    setIsView,
+    isViewLocal,
+    setIsViewLocal,
     isEditLocal,
     setIsEditLocal,
+    isViewDatabase,
+    setIsViewDatabase,
     isEditDatabase,
     setIsEditDatabase,
     qnPreview,
@@ -223,16 +225,18 @@ const AddViewEditQuestionModal = ({
             optionsTranslate: [],
             questionTranslate: "",
         });
-        setIsView(false);
+        setIsViewLocal(false);
         setIsEditLocal(false);
+        setIsViewDatabase(false);
         setIsEditDatabase(false);
         onClose();
     }
 
     // set the questionPreviewUpdate at first run
     useEffect(() => {
-        (isEditLocal || isEditDatabase || isView) && setQn(qnPreview);
-    }, [qnPreview, isEditLocal, isEditDatabase, isView]);
+        (isEditLocal || isEditDatabase || isViewLocal || isViewDatabase) &&
+            setQn(qnPreview);
+    }, [qnPreview, isEditLocal, isEditDatabase, isViewLocal, isViewDatabase]);
 
     // Keep track of the previous options
     const prevOptions = usePrevious(qn.options);
@@ -247,7 +251,13 @@ const AddViewEditQuestionModal = ({
 
     return (
         <Modal
-            isOpen={isAdd || isView || isEditLocal || isEditDatabase}
+            isOpen={
+                isAdd ||
+                isViewLocal ||
+                isEditLocal ||
+                isViewDatabase ||
+                isEditDatabase
+            }
             size="3xl"
             isCloseable={false}
         >
@@ -255,8 +265,8 @@ const AddViewEditQuestionModal = ({
             <ModalContent bg={bg}>
                 <ModalHeader>
                     {(isAdd && "Add ") ||
-                        (isEditLocal && "Edit ") ||
-                        (isView && "View ")}
+                        ((isEditLocal || isEditDatabase) && "Edit ") ||
+                        ((isViewLocal || isViewDatabase) && "View ")}
                     Questionaire Form
                 </ModalHeader>
                 <ModalBody>
@@ -271,7 +281,7 @@ const AddViewEditQuestionModal = ({
                                     defaultValue="5"
                                     value={qn.level}
                                     onChange={(e) => handleChange(e)}
-                                    isDisabled={isView}
+                                    isDisabled={isViewLocal || isViewDatabase}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
@@ -327,7 +337,7 @@ const AddViewEditQuestionModal = ({
                                     defaultValue="vocab"
                                     value={qn.type}
                                     onChange={(e) => handleChange(e)}
-                                    isDisabled={isView}
+                                    isDisabled={isViewLocal || isViewDatabase}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
@@ -379,7 +389,7 @@ const AddViewEditQuestionModal = ({
                                             target: { name: "set", value },
                                         }); // Simulate the structure of an event object
                                     }}
-                                    isDisabled={isView}
+                                    isDisabled={isViewLocal || isViewDatabase}
                                 >
                                     <NumberInputField
                                         value={qn.set}
@@ -421,7 +431,7 @@ const AddViewEditQuestionModal = ({
                                     name="question"
                                     onChange={(e) => handleChange(e)}
                                     value={qn.question}
-                                    isDisabled={isView}
+                                    isDisabled={isViewLocal || isViewDatabase}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
@@ -501,9 +511,13 @@ const AddViewEditQuestionModal = ({
                                         value={qn.answer}
                                         onChange={(e) => handleChange(e)}
                                         placeholder="Select Answer"
-                                        isDisabled={isErrorOptions || isView}
+                                        isDisabled={
+                                            isErrorOptions ||
+                                            isViewLocal ||
+                                            isViewDatabase
+                                        }
                                         _disabled={
-                                            isView
+                                            isViewLocal || isViewDatabase
                                                 ? {
                                                       color: fontColor,
                                                       borderColor: border,
@@ -553,7 +567,9 @@ const AddViewEditQuestionModal = ({
                                                     e.target.value
                                                 );
                                             }}
-                                            isDisabled={isView}
+                                            isDisabled={
+                                                isViewLocal || isViewDatabase
+                                            }
                                             _disabled={{
                                                 color: fontColor,
                                                 borderColor: border,
@@ -613,7 +629,10 @@ const AddViewEditQuestionModal = ({
                                                             e.target.value
                                                         )
                                                     }
-                                                    isDisabled={isView}
+                                                    isDisabled={
+                                                        isViewLocal ||
+                                                        isViewDatabase
+                                                    }
                                                     _disabled={{
                                                         color: fontColor,
                                                         borderColor: border,
@@ -634,7 +653,7 @@ const AddViewEditQuestionModal = ({
                                     name="questionTranslate"
                                     value={qn.questionTranslate}
                                     onChange={(e) => handleChange(e)}
-                                    isDisabled={isView}
+                                    isDisabled={isViewLocal || isViewDatabase}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
@@ -650,18 +669,22 @@ const AddViewEditQuestionModal = ({
                         colorScheme="blue"
                         mr={3}
                         onClick={() => {
-                            (isAdd || isEditLocal) && addUpdateQuestion();
-                            if (isView) {
-                                isEditLocal && setIsEditLocal(true);
-                                isEditDatabase && setIsEditDatabase(true);
-                                setIsView(false);
+                            (isAdd || isEditLocal, isEditDatabase) &&
+                                addUpdateQuestion();
+                            if (isViewLocal) {
+                                setIsEditLocal(true);
+                                setIsViewLocal(false);
+                            }
+                            if (isViewDatabase) {
+                                setIsEditDatabase(true);
+                                setIsViewDatabase(false);
                             }
                         }}
                     >
                         {isAdd && "Add"}
                         {isEditLocal && "Update Question Local"}
                         {isEditDatabase && "Update Question Database"}
-                        {isView && "Edit"}
+                        {(isViewLocal || isViewDatabase) && "Edit"}
                     </Button>
                     <Button
                         colorScheme="red"
@@ -670,7 +693,7 @@ const AddViewEditQuestionModal = ({
                         }}
                     >
                         {(isAdd || isEditLocal || isEditDatabase) && "Cancel"}
-                        {isView && "Close"}
+                        {(isViewLocal || isViewDatabase) && "Close"}
                     </Button>
                 </ModalFooter>
             </ModalContent>

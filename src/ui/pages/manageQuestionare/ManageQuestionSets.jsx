@@ -26,6 +26,7 @@ const ManageQuestionSets = ({
     setCurrenlySelectedQn,
     setQnPreview,
     setIsEditDatabase,
+    setIsViewDatabase,
 }) => {
     const [isPreview, setIsPreview] = useState(false);
     const queryClient = useQueryClient();
@@ -110,6 +111,9 @@ const ManageQuestionSets = ({
                                                         }
                                                         setIsEditDatabase={
                                                             setIsEditDatabase
+                                                        }
+                                                        setIsViewDatabase={
+                                                            setIsViewDatabase
                                                         }
                                                     />
                                                 ))}

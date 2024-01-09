@@ -2,7 +2,12 @@ import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import { IconButton, Td, Tooltip, Tr } from "@chakra-ui/react";
 import { useDeleteQuestion } from "../../../logic/hooks/question/useDeleteQuestion";
 
-function ManageQuestionRow({ question, setQnPreview, setIsEditDatabase }) {
+function ManageQuestionRow({
+    question,
+    setQnPreview,
+    setIsEditDatabase,
+    setIsViewDatabase,
+}) {
     const { deleteQuestion, isDeleting } = useDeleteQuestion();
 
     function handleDeleteButton(questionId) {
@@ -20,6 +25,10 @@ function ManageQuestionRow({ question, setQnPreview, setIsEditDatabase }) {
                         colorScheme="green"
                         icon={<ViewIcon />}
                         mr="1rem"
+                        onClick={() => {
+                            setIsViewDatabase(true);
+                            setQnPreview(question);
+                        }}
                     />
                 </Tooltip>
                 <Tooltip label="Edit" fontSize="md" offset={[0, -70]}>
@@ -30,7 +39,6 @@ function ManageQuestionRow({ question, setQnPreview, setIsEditDatabase }) {
                         icon={<EditIcon />}
                         mr="1rem"
                         onClick={() => {
-                            console.log("Hellow");
                             setQnPreview(question);
                             setIsEditDatabase(true);
                         }}

@@ -29,14 +29,12 @@ import { useQuestions } from "../../../logic/hooks/question/useQuestions";
 
 function ManageQuestioner() {
     const [questions, setQuestions] = useState([]);
-    const [isView, setIsView] = useState(false);
+    const [isViewLocal, setIsViewLocal] = useState(false);
     const [isEditLocal, setIsEditLocal] = useState(false);
+    const [isViewDatabase, setIsViewDatabase] = useState(false);
     const [isEditDatabase, setIsEditDatabase] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
-
-    console.log(isEditDatabase);
-    console.log(qnPreview);
 
     const {
         isOpen: isAlertOpen,
@@ -86,16 +84,22 @@ function ManageQuestioner() {
         <Box bg={body}>
             <SideBar toggle={toggle} onClick={setToggle.toggle} />
             {/* Just render this if it is open, viewed or edit */}
-            {(isOpen || isView || isEditLocal || isEditDatabase) && (
+            {(isOpen ||
+                isViewLocal ||
+                isEditLocal ||
+                isViewDatabase ||
+                isEditDatabase) && (
                 <Box h="10%" alignSelf="flex-end">
                     <AddViewEditQuestionModal
                         isAdd={isOpen}
                         onClose={onClose}
                         setQuestions={setQuestions}
-                        isView={isView}
-                        setIsView={setIsView}
+                        isViewLocal={isViewLocal}
+                        setIsViewLocal={setIsViewLocal}
                         isEditLocal={isEditLocal}
                         setIsEditLocal={setIsEditLocal}
+                        isViewDatabase={isViewDatabase}
+                        setIsViewDatabase={setIsViewDatabase}
                         isEditDatabase={isEditDatabase}
                         setIsEditDatabase={setIsEditDatabase}
                         qnPreview={qnPreview}
@@ -170,7 +174,7 @@ function ManageQuestioner() {
                                 isLoading={isAddingQuestions}
                                 handleSubmit={handleSubmit}
                                 questions={questions}
-                                setIsView={setIsView}
+                                setIsViewLocal={setIsViewLocal}
                                 setQnPreview={setQnPreview}
                                 setIsEditLocal={setIsEditLocal}
                                 setPreviewIndex={setPreviewIndex}
@@ -180,6 +184,7 @@ function ManageQuestioner() {
                             <DeleteUpdateQuestionPanel
                                 setQnPreview={setQnPreview}
                                 setIsEditDatabase={setIsEditDatabase}
+                                setIsViewDatabase={setIsViewDatabase}
                             />
                         </TabPanels>
                         {/* ======================================================================================= */}

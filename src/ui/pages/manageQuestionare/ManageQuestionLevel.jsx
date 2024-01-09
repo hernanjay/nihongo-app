@@ -16,6 +16,7 @@ const ManageQuestionLevel = ({
     type,
     setQnPreview,
     setIsEditDatabase,
+    setIsViewDatabase,
 }) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
@@ -100,6 +101,7 @@ const ManageQuestionLevel = ({
                                 setCurrenlySelectedQn={setCurrenlySelectedQn}
                                 setQnPreview={setQnPreview}
                                 setIsEditDatabase={setIsEditDatabase}
+                                setIsViewDatabase={setIsViewDatabase}
                                 key={questions._id}
                                 type={questions._id.type}
                                 level={questions._id.level}
