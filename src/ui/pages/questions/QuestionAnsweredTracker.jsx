@@ -13,11 +13,9 @@ import {
 } from "@chakra-ui/react";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useMemo } from "react";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
-import { addScore } from "../../../logic/services/apiGrades";
 import { useGradeContext } from "../../../logic/hooks/grade/useGradeContext";
-import { scrollTo } from "scroll-js";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAddGrades } from "../../../logic/hooks/grade/useAddGrades";
 
 const QuestionAnsweredTracker = ({
     bg,
@@ -32,11 +30,10 @@ const QuestionAnsweredTracker = ({
         dispatch: questionDispatch,
     } = useQuestionContext();
 
-    const toast = useToast();
-    // const { user } = useUserContext();
     const queryClient = useQueryClient();
 
     const user = queryClient.getQueryData(["user"]);
+    const { addScores } = useAddGrades();
 
     const { dispatch: gradeDispatch } = useGradeContext();
     // Check if all questions are answered
@@ -58,37 +55,20 @@ const QuestionAnsweredTracker = ({
     const questionIds = questions?.map((qn) => qn._id);
 
     function handleAddGrades() {
-        const { level, type, set } = questions[0];
-        const isScoreAdded = addScore(
-            user,
-            questions,
-            questionIds,
-            userAnswers,
-            correctAnswers
-        );
-        gradeDispatch({
-            type: "addGrades",
-            payload: {
-                type: type,
-                data: {
-                    userId: user._id,
-                    questionSetId: `${level}${type}${set}`,
-                    idPerQuestion: questionIds,
-                    userAnswers,
-                    score: correctAnswers.length,
-                },
+        addScores(
+            {
+                user,
+                questions,
+                questionIds,
+                userAnswers,
+                correctAnswers,
             },
-        });
-        if (isScoreAdded) {
-            toast({
-                title: "Score Added Successfully!",
-                position: "top",
-                status: "success",
-                duration: 3000,
-                isClosable: true,
-            });
-            setHasSubmit(true);
-        }
+            {
+                onSuccess: () => {
+                    setHasSubmit(true);
+                },
+            }
+        );
     }
 
     return (

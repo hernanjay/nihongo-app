@@ -1,69 +1,50 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import {
     Flex,
     Heading,
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
     Box,
-    Button,
     useDisclosure,
     useBoolean,
-    TableContainer,
-    useToast,
     HStack,
     Spacer,
     Tabs,
     TabList,
     TabPanels,
     Tab,
-    TabPanel,
     Text,
     useColorMode,
-    Input,
-    FormLabel,
 } from "@chakra-ui/react";
-import { FiCheckCircle, FiPlusCircle } from "react-icons/fi";
+
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
-import QuestionRow from "./QuestionRow";
-import AddViewEditQuestion from "./AddViewEditQuestion";
+import AddViewEditQuestionModal from "./AddViewEditQuestionModal";
+import AddQuestionsPanel from "./AddQuestionsPanel";
+import Loader from "../../components/Loader";
+import DeleteUpdateQuestionPanel from "./DeleteUpdateQuestionPanel";
 
-import { addQuestions } from "../../../logic/services/apiQuestions";
-import AlerPopUp from "../../components/AlerPopUp";
-import QuestionType from "../questionHomePage/QuestionType";
-import ManageQuestionKanji from "./ManageQuestionKanji";
-import ManageQuestionVocab from "./ManageQuestionVocab";
-import ManageQuestionGrammar from "./ManageQuestionGrammar";
-import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
-//   const [display, changeDisplay] = useState("hide");
+import { useAddQuestions } from "../../../logic/hooks/question/useAddQuestions";
+import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
+import { useQuestions } from "../../../logic/hooks/question/useQuestions";
+
 function ManageQuestioner() {
-    const toast = useToast();
     const [questions, setQuestions] = useState([]);
-    const [isView, setIsView] = useState(false);
-    const [isEdit, setIsEdit] = useState(false);
+    const [isViewLocal, setIsViewLocal] = useState(false);
+    const [isEditLocal, setIsEditLocal] = useState(false);
+    const [isViewDatabase, setIsViewDatabase] = useState(false);
+    const [isEditDatabase, setIsEditDatabase] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentlySelectedKanji, setCurrentlySelectedKanji] =
-        useState("none");
-    const [currentlySelectedVocab, setCurrentlySelectedVocab] =
-        useState("none");
-    const [currentlySelectedGrammar, setCurrentlySelectedGrammar] =
-        useState("none");
-    const numberOfLevel = [1, 2, 3, 4, 5];
-    // For delete all button
+
     const {
         isOpen: isAlertOpen,
         onOpen: onAlertOpen,
         onClose: onAlertClose,
     } = useDisclosure();
 
-    const { dispatch: questionDispatch } = useQuestionContext();
+    const { addQuestions, isAddingQuestions } = useAddQuestions();
+    const { isGettingQuestions } = useQuestions();
+    const { isGettingQuestionsByTypeLevelSet } = useQuestionsTypeLevelSet();
 
     const { isOpen, onOpen, onClose } = useDisclosure({
         closeOnOverlayClick: false,
@@ -80,32 +61,14 @@ function ManageQuestioner() {
     }
 
     async function handleSubmit() {
-        setIsLoading(true);
-
-        const isAdded = await addQuestions(questions);
-
-        if (isAdded.status) {
-            toast({
-                title: "Questions Added Successfully!",
-                position: "top",
-                status: "success",
-                duration: 3000,
-                isClosable: true,
-            });
-            questionDispatch({ type: "addQuestion", payload: questions });
-
-            handleClearBtn();
-        } else {
-            toast({
-                title: "Questions Not Added!",
-                position: "top",
-                status: "error",
-                description: `${isAdded.json.error}`,
-                duration: 3000,
-                isClosable: true,
-            });
-        }
-        setIsLoading(false);
+        addQuestions(
+            { questions },
+            {
+                onSuccess: () => {
+                    handleClearBtn();
+                },
+            }
+        );
     }
 
     useEffect(() => {
@@ -113,20 +76,32 @@ function ManageQuestioner() {
         lsQuestions && setQuestions(lsQuestions);
     }, []);
 
+    // Return loading screen if it still getting questions
+    if (isGettingQuestions && isGettingQuestionsByTypeLevelSet)
+        return <Loader isLoading={isGettingQuestions} />;
+
     return (
         <Box bg={body}>
             <SideBar toggle={toggle} onClick={setToggle.toggle} />
             {/* Just render this if it is open, viewed or edit */}
-            {(isOpen || isView || isEdit) && (
+            {(isOpen ||
+                isViewLocal ||
+                isEditLocal ||
+                isViewDatabase ||
+                isEditDatabase) && (
                 <Box h="10%" alignSelf="flex-end">
-                    <AddViewEditQuestion
+                    <AddViewEditQuestionModal
                         isAdd={isOpen}
                         onClose={onClose}
                         setQuestions={setQuestions}
-                        isView={isView}
-                        setIsView={setIsView}
-                        isEdit={isEdit}
-                        setIsEdit={setIsEdit}
+                        isViewLocal={isViewLocal}
+                        setIsViewLocal={setIsViewLocal}
+                        isEditLocal={isEditLocal}
+                        setIsEditLocal={setIsEditLocal}
+                        isViewDatabase={isViewDatabase}
+                        setIsViewDatabase={setIsViewDatabase}
+                        isEditDatabase={isEditDatabase}
+                        setIsEditDatabase={setIsEditDatabase}
                         qnPreview={qnPreview}
                         previewIndex={previewIndex}
                     />
@@ -135,7 +110,6 @@ function ManageQuestioner() {
             <Flex
                 h={"100vh"}
                 w={"100%"}
-                //   marginLeft={toggle ? { base: "0px", xl: "25rem" } : "0px"}
                 transition={"800ms"}
                 pl={toggle ? "25vw" : "8vw"}
                 pr={"5vw"}
@@ -174,249 +148,44 @@ function ManageQuestioner() {
                             </Heading>
                             <Spacer />
                             <TabList>
-                                <Tab>
+                                <Tab border={"1px"} mx="1">
                                     <Text color={fontColor}>Add Question</Text>
                                 </Tab>
-                                <Tab>
+                                <Tab border={"1px"} mx="1">
                                     <Text color={fontColor}>
-                                        Delete Question
+                                        Delete/Update Question
                                     </Text>
                                 </Tab>
                             </TabList>
                         </HStack>
                         {/* ======================================================================================= */}
                         <TabPanels>
-                            {/*Start of add questions list panel */}
-                            <TabPanel>
-                                {/*Start of add questions list header */}
-                                {/* ======================================================================================= */}
-                                <HStack
-                                    mb="1em"
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <Heading fontSize="1.25em">
-                                        List of Questions to Add
-                                    </Heading>
-                                    <Spacer />
-                                    <Button
-                                        size="sm"
-                                        my="-1em"
-                                        fontSize="0.75em"
-                                        variant="outline"
-                                        leftIcon={<FiPlusCircle />}
-                                        onClick={onOpen}
-                                        bg={bg}
-                                        borderColor={border}
-                                    >
-                                        Add Question
-                                    </Button>
-                                </HStack>
-                                {/* ======================================================================================= */}
-                                {/* For Adding questions */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <TableContainer
-                                        maxH="50vh"
-                                        overflowY="visible"
-                                        borderRadius="lg"
-                                        sx={{
-                                            "&::-webkit-scrollbar": {
-                                                width: "10px",
-                                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                                borderRightRadius: "lg",
-                                            },
-                                            "&::-webkit-scrollbar-thumb": {
-                                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                                                borderRightRadius: "lg",
-                                            },
-                                        }}
-                                        bg={bg}
-                                    >
-                                        {/*Start of add questions table header */}
-                                        {/* ======================================================================================= */}
-                                        <Table>
-                                            <Thead
-                                                position="sticky"
-                                                zIndex={3}
-                                                top={0}
-                                                bg={hover}
-                                            >
-                                                <Tr color={fontColor}>
-                                                    <Th w="5%">ID</Th>
-                                                    <Th w="5%">Level</Th>
-                                                    <Th w="10%">Type</Th>
-                                                    <Th w="5%">Set</Th>
-                                                    <Th w="100%">Question</Th>
-                                                    <Th
-                                                        w="10%"
-                                                        textAlign="center"
-                                                    >
-                                                        Action
-                                                    </Th>
-                                                </Tr>
-                                            </Thead>
-                                            {/*Start of add questions body */}
-                                            {/* ======================================================================================= */}
-                                            <Tbody borderTopRadius="lg">
-                                                {questions.map(
-                                                    (question, index) => (
-                                                        <QuestionRow
-                                                            question={question}
-                                                            key={index}
-                                                            index={index}
-                                                            setIsView={
-                                                                setIsView
-                                                            }
-                                                            setQnPreview={
-                                                                setQnPreview
-                                                            }
-                                                            setIsEdit={
-                                                                setIsEdit
-                                                            }
-                                                            setPreviewIndex={
-                                                                setPreviewIndex
-                                                            }
-                                                        />
-                                                    )
-                                                )}
-                                            </Tbody>
-                                        </Table>
-                                    </TableContainer>
-                                    {/*Start of add questions button group */}
-                                    {/*Start of add questions only visible if more than one question is present */}
-                                    {/* ======================================================================================= */}
-                                    <Flex mt="1.5em" mb="0.5em">
-                                        <Button
-                                            ms="auto"
-                                            bg="red.500"
-                                            colorScheme="red"
-                                            hidden={questions.length < 1}
-                                            me={4}
-                                            onClick={onAlertOpen}
-                                        >
-                                            Delete All
-                                        </Button>
-                                        {/*A confirmation popup for deleting*/}
-                                        {/* ======================================================================================= */}
-                                        <AlerPopUp
-                                            isOpen={isAlertOpen}
-                                            onClose={onAlertClose}
-                                            onClick={handleClearBtn}
-                                        />
-                                        {/* ======================================================================================= */}
-                                        <Button
-                                            isLoading={isLoading}
-                                            hidden={questions.length < 1}
-                                            bg="green.500"
-                                            colorScheme="green"
-                                            leftIcon={<FiCheckCircle />}
-                                            onClick={handleSubmit}
-                                        >
-                                            Submit
-                                        </Button>
-                                    </Flex>
-                                </Box>
-                                {/* ======================================================================================= */}
-                            </TabPanel>
+                            {/*QUESTION ADD PANEL */}
+                            <AddQuestionsPanel
+                                bg={bg}
+                                border={border}
+                                onOpen={onOpen}
+                                hover={hover}
+                                fontColor={fontColor}
+                                onAlertOpen={onAlertOpen}
+                                isAlertOpen={isAlertOpen}
+                                onAlertClose={onAlertClose}
+                                handleClearBtn={handleClearBtn}
+                                isLoading={isAddingQuestions}
+                                handleSubmit={handleSubmit}
+                                questions={questions}
+                                setIsViewLocal={setIsViewLocal}
+                                setQnPreview={setQnPreview}
+                                setIsEditLocal={setIsEditLocal}
+                                setPreviewIndex={setPreviewIndex}
+                            />
                             {/* ======================================================================================= */}
-                            {/* For Deleteing Questions */}
-                            <TabPanel>
-                                {/* ======================================================================================= */}
-                                <HStack
-                                    mb="1em"
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <Heading
-                                        fontSize="1.25em"
-                                        onClick={() =>
-                                            console.log(currentlySelected)
-                                        }
-                                    >
-                                        List of Questions
-                                    </Heading>
-                                </HStack>
-                                {/* ======================================================================================= */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <QuestionType type="Kanji" bg={bg}>
-                                        {numberOfLevel.map((num, index) => (
-                                            <ManageQuestionKanji
-                                                index={index + 1}
-                                                key={index}
-                                                type="Kanji"
-                                                currentlySelected={
-                                                    currentlySelectedKanji
-                                                }
-                                                setCurrentlySelected={
-                                                    setCurrentlySelectedKanji
-                                                }
-                                            ></ManageQuestionKanji>
-                                        ))}
-                                    </QuestionType>
-                                </Box>
-                                {/* ======================================================================================= */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    my="1.5em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <QuestionType type="Vocab" bg={bg}>
-                                        {numberOfLevel.map((num, index) => (
-                                            <ManageQuestionVocab
-                                                index={index + 1}
-                                                key={index}
-                                                type="Vocab"
-                                                currentlySelected={
-                                                    currentlySelectedVocab
-                                                }
-                                                setCurrentlySelected={
-                                                    setCurrentlySelectedVocab
-                                                }
-                                            ></ManageQuestionVocab>
-                                        ))}
-                                    </QuestionType>
-                                </Box>
-                                {/* ======================================================================================= */}
-                                <Box
-                                    bg={bg}
-                                    p="1em"
-                                    boxShadow="lg"
-                                    borderRadius="lg"
-                                >
-                                    <QuestionType type="Grammar" bg={bg}>
-                                        {numberOfLevel.map((num, index) => (
-                                            <ManageQuestionGrammar
-                                                index={index + 1}
-                                                key={index}
-                                                type="Grammar"
-                                                currentlySelected={
-                                                    currentlySelectedGrammar
-                                                }
-                                                setCurrentlySelected={
-                                                    setCurrentlySelectedGrammar
-                                                }
-                                            ></ManageQuestionGrammar>
-                                        ))}
-                                    </QuestionType>
-                                </Box>
-                                {/* ======================================================================================= */}
-                            </TabPanel>
+                            {/*DELETING/UPDATING QUESTION PANEL */}
+                            <DeleteUpdateQuestionPanel
+                                setQnPreview={setQnPreview}
+                                setIsEditDatabase={setIsEditDatabase}
+                                setIsViewDatabase={setIsViewDatabase}
+                            />
                         </TabPanels>
                         {/* ======================================================================================= */}
                     </Tabs>
