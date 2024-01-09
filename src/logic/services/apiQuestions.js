@@ -63,18 +63,15 @@ export async function fetchCountQuestionsByLevelTypeSet() {
 
     if (!res.ok) {
         console.log(json.error);
-        return null;
+        throw new Error(`${json.error}`);
     }
 
     return json;
 }
 
-export async function addQuestions(questions) {
+export async function addQuestionsAPI(questions) {
     if (!token) {
-        return {
-            status: 0,
-            json: { error: "Authentication failed! Please login first!" },
-        };
+        throw new Error("Authentication failed! Please login first!");
     }
 
     const res = await fetch(
@@ -95,25 +92,42 @@ export async function addQuestions(questions) {
 
     if (!res.ok) {
         console.error(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
+}
+
+export async function fetchQuestionsType(type) {
+    if (!type) throw new Error("Type is empty");
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/get-by-type`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
         return { status: 0, json };
     }
 
-    if (res.ok) return { status: 1, json };
+    return { status: 1, json };
 }
 
-export async function deleteQuestion(questionId) {
+export async function deleteQuestionAPI(questionId) {
     if (!token) {
-        return {
-            status: 0,
-            json: { error: "Authentication failed! Please login first!" },
-        };
+        throw new Error("Authentication failed! Please login first!");
     }
 
     if (!questionId) {
-        return {
-            status: 0,
-            json: { error: "Question ID not found" },
-        };
+        throw new Error("Question ID not found");
     }
 
     const res = await fetch(
@@ -134,8 +148,43 @@ export async function deleteQuestion(questionId) {
 
     if (!res.ok) {
         console.error(json.error);
-        return { status: 0, json };
+        throw new Error(`${json.error}`);
     }
 
-    if (res.ok) return { status: 1, json };
+    return json;
+}
+
+export async function deleteQuestionWithGradesAPI(questionId) {
+    if (!token) {
+        throw new Error("Authentication failed! Please login first!");
+    }
+
+    if (!questionId) {
+        throw new Error("Question ID not found");
+    }
+
+    const res = await fetch(
+        `${
+            import.meta.env.VITE_LOCALHOST_API
+        }/api/questions/delete-question-grades`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                questionId,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
 }
