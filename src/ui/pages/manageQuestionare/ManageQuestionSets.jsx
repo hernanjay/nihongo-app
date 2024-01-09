@@ -24,6 +24,8 @@ const ManageQuestionSets = ({
     set,
     currentlySelectedQn,
     setCurrenlySelectedQn,
+    setQnPreview,
+    setIsEditDatabase,
 }) => {
     const [isPreview, setIsPreview] = useState(false);
     const queryClient = useQueryClient();
@@ -103,6 +105,12 @@ const ManageQuestionSets = ({
                                                     <ManageQuestionRow
                                                         question={qn}
                                                         key={qn._id}
+                                                        setQnPreview={
+                                                            setQnPreview
+                                                        }
+                                                        setIsEditDatabase={
+                                                            setIsEditDatabase
+                                                        }
                                                     />
                                                 ))}
                                             </Tbody>

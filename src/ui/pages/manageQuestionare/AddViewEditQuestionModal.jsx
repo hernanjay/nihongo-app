@@ -38,8 +38,10 @@ const AddViewEditQuestionModal = ({
     setQuestions,
     isView,
     setIsView,
-    isEdit,
-    setIsEdit,
+    isEditLocal,
+    setIsEditLocal,
+    isEditDatabase,
+    setIsEditDatabase,
     qnPreview,
     previewIndex,
 }) => {
@@ -160,7 +162,7 @@ const AddViewEditQuestionModal = ({
         ) {
             const lsQuestions = JSON.parse(localStorage.getItem("questions"));
 
-            if (!lsQuestions) {
+            if (!lsQuestions && isAdd) {
                 localStorage.setItem("questions", JSON.stringify([qn]));
                 setQuestions((prevData) => [...prevData, qn]);
             } else {
@@ -173,7 +175,7 @@ const AddViewEditQuestionModal = ({
                     setQuestions((prevData) => [...prevData, qn]);
                 }
 
-                if (isEdit) {
+                if (isEditLocal) {
                     const updatedLSQuestions = lsQuestions.filter(
                         (qn, index) => index !== previewIndex
                     );
@@ -190,6 +192,10 @@ const AddViewEditQuestionModal = ({
                             index === previewIndex ? qn : question
                         )
                     );
+                }
+
+                if (isEditDatabase) {
+                    console.log("Hello World! isEdit Database");
                 }
             }
             resetQn();
@@ -218,14 +224,15 @@ const AddViewEditQuestionModal = ({
             questionTranslate: "",
         });
         setIsView(false);
-        setIsEdit(false);
+        setIsEditLocal(false);
+        setIsEditDatabase(false);
         onClose();
     }
 
     // set the questionPreviewUpdate at first run
     useEffect(() => {
-        (isEdit || isView) && setQn(qnPreview);
-    }, [qnPreview, isEdit, isView]);
+        (isEditLocal || isEditDatabase || isView) && setQn(qnPreview);
+    }, [qnPreview, isEditLocal, isEditDatabase, isView]);
 
     // Keep track of the previous options
     const prevOptions = usePrevious(qn.options);
@@ -240,7 +247,7 @@ const AddViewEditQuestionModal = ({
 
     return (
         <Modal
-            isOpen={isAdd || isView || isEdit}
+            isOpen={isAdd || isView || isEditLocal || isEditDatabase}
             size="3xl"
             isCloseable={false}
         >
@@ -248,7 +255,7 @@ const AddViewEditQuestionModal = ({
             <ModalContent bg={bg}>
                 <ModalHeader>
                     {(isAdd && "Add ") ||
-                        (isEdit && "Edit ") ||
+                        (isEditLocal && "Edit ") ||
                         (isView && "View ")}
                     Questionaire Form
                 </ModalHeader>
@@ -443,7 +450,7 @@ const AddViewEditQuestionModal = ({
                             >
                                 <Flex alignItems="center">
                                     <FormLabel mt={2}>Options</FormLabel>
-                                    {(isAdd || isEdit) && (
+                                    {(isAdd || isEditLocal) && (
                                         <Tooltip
                                             hasArrow
                                             label="Add options and options translate"
@@ -478,7 +485,7 @@ const AddViewEditQuestionModal = ({
                             >
                                 <Flex alignItems="center">
                                     <FormLabel mt={2}>Answer</FormLabel>
-                                    {(isAdd || isEdit) && (
+                                    {(isAdd || isEditLocal) && (
                                         <Tooltip
                                             hasArrow
                                             label="Make sure options are not empty"
@@ -553,7 +560,7 @@ const AddViewEditQuestionModal = ({
                                             }}
                                         />
 
-                                        {(isAdd || isEdit) && (
+                                        {(isAdd || isEditLocal) && (
                                             <IconButton
                                                 onClick={() =>
                                                     deleteOption(index)
@@ -643,15 +650,17 @@ const AddViewEditQuestionModal = ({
                         colorScheme="blue"
                         mr={3}
                         onClick={() => {
-                            (isAdd || isEdit) && addUpdateQuestion();
+                            (isAdd || isEditLocal) && addUpdateQuestion();
                             if (isView) {
-                                setIsEdit(true);
+                                isEditLocal && setIsEditLocal(true);
+                                isEditDatabase && setIsEditDatabase(true);
                                 setIsView(false);
                             }
                         }}
                     >
                         {isAdd && "Add"}
-                        {isEdit && "Update"}
+                        {isEditLocal && "Update Question Local"}
+                        {isEditDatabase && "Update Question Database"}
                         {isView && "Edit"}
                     </Button>
                     <Button
@@ -660,7 +669,7 @@ const AddViewEditQuestionModal = ({
                             resetQn();
                         }}
                     >
-                        {(isAdd || isEdit) && "Cancel"}
+                        {(isAdd || isEditLocal || isEditDatabase) && "Cancel"}
                         {isView && "Close"}
                     </Button>
                 </ModalFooter>

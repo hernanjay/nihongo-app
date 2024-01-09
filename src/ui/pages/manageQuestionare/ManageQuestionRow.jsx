@@ -2,7 +2,7 @@ import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import { IconButton, Td, Tooltip, Tr } from "@chakra-ui/react";
 import { useDeleteQuestion } from "../../../logic/hooks/question/useDeleteQuestion";
 
-function ManageQuestionRow({ question }) {
+function ManageQuestionRow({ question, setQnPreview, setIsEditDatabase }) {
     const { deleteQuestion, isDeleting } = useDeleteQuestion();
 
     function handleDeleteButton(questionId) {
@@ -13,12 +13,7 @@ function ManageQuestionRow({ question }) {
             <Td>{question._id}</Td>
             <Td>{question.question}</Td>
             <Td>
-                <Tooltip
-                    label="View"
-                    fontSize="md"
-                    offset={[0, -70]}
-                    closeOnClick
-                >
+                <Tooltip label="View" fontSize="md" offset={[0, -70]}>
                     <IconButton
                         size="sm"
                         bg="green.400"
@@ -27,26 +22,21 @@ function ManageQuestionRow({ question }) {
                         mr="1rem"
                     />
                 </Tooltip>
-                <Tooltip
-                    label="Edit"
-                    fontSize="md"
-                    offset={[0, -70]}
-                    closeOnClick
-                >
+                <Tooltip label="Edit" fontSize="md" offset={[0, -70]}>
                     <IconButton
                         size="sm"
                         bg="blue.400"
                         colorScheme="blue"
                         icon={<EditIcon />}
                         mr="1rem"
+                        onClick={() => {
+                            console.log("Hellow");
+                            setQnPreview(question);
+                            setIsEditDatabase(true);
+                        }}
                     />
                 </Tooltip>
-                <Tooltip
-                    label="Delete"
-                    fontSize="md"
-                    offset={[0, -70]}
-                    closeOnClick
-                >
+                <Tooltip label="Delete" fontSize="md" offset={[0, -70]}>
                     <IconButton
                         size="sm"
                         bg="red.400"

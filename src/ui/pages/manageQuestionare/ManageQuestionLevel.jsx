@@ -11,7 +11,12 @@ import {
 import ManageQuestionSets from "./ManageQuestionSets";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-const ManageQuestionLevel = ({ level, type }) => {
+const ManageQuestionLevel = ({
+    level,
+    type,
+    setQnPreview,
+    setIsEditDatabase,
+}) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
     const [currentlySelected, setCurrentlySelected] = useState("none");
@@ -22,7 +27,7 @@ const ManageQuestionLevel = ({ level, type }) => {
 
     let ctr = 0;
 
-    const filteredQuestions = questionsByTypeLevelSet.filter(
+    const filteredQuestions = questionsByTypeLevelSet?.filter(
         (question) => question._id.type == type && question._id.level == level
     );
 
@@ -93,6 +98,8 @@ const ManageQuestionLevel = ({ level, type }) => {
                             <ManageQuestionSets
                                 currentlySelectedQn={currentlySelectedQn}
                                 setCurrenlySelectedQn={setCurrenlySelectedQn}
+                                setQnPreview={setQnPreview}
+                                setIsEditDatabase={setIsEditDatabase}
                                 key={questions._id}
                                 type={questions._id.type}
                                 level={questions._id.level}

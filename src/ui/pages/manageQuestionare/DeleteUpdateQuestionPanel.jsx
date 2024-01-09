@@ -4,7 +4,7 @@ import ThemeColors from "../main/ThemeColors";
 import ManageQuestionLevel from "./ManageQuestionLevel";
 import { Fragment } from "react";
 
-function DeleteUpdateQuestionPanel() {
+function DeleteUpdateQuestionPanel({ setQnPreview, setIsEditDatabase }) {
     const numberOfLevel = [1, 2, 3, 4, 5];
     const questionTypes = ["kanji", "vocab", "grammar"];
     const { bg } = ThemeColors();
@@ -25,6 +25,8 @@ function DeleteUpdateQuestionPanel() {
                                     key={`${type}-${num}`}
                                     type={type}
                                     level={num}
+                                    setQnPreview={setQnPreview}
+                                    setIsEditDatabase={setIsEditDatabase}
                                 />
                             ))}
                         </QuestionType>

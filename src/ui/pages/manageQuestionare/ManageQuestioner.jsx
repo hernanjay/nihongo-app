@@ -1,42 +1,42 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import {
     Flex,
     Heading,
     Box,
     useDisclosure,
     useBoolean,
-    useToast,
     HStack,
     Spacer,
     Tabs,
     TabList,
     TabPanels,
     Tab,
-    TabPanel,
     Text,
     useColorMode,
-    Divider,
 } from "@chakra-ui/react";
+
 import SideBar from "../../components/SideBar";
 import ThemeColors from "../main/ThemeColors";
 import AddViewEditQuestionModal from "./AddViewEditQuestionModal";
-import QuestionType from "../questionHomePage/QuestionType";
-import ManageQuestionLevel from "./ManageQuestionLevel";
 import AddQuestionsPanel from "./AddQuestionsPanel";
-import { useAddQuestions } from "../../../logic/hooks/question/useAddQuestions";
-import { useQuestions } from "../../../logic/hooks/question/useQuestions";
 import Loader from "../../components/Loader";
-import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
 import DeleteUpdateQuestionPanel from "./DeleteUpdateQuestionPanel";
-//   const [display, changeDisplay] = useState("hide");
+
+import { useAddQuestions } from "../../../logic/hooks/question/useAddQuestions";
+import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
+import { useQuestions } from "../../../logic/hooks/question/useQuestions";
+
 function ManageQuestioner() {
     const [questions, setQuestions] = useState([]);
     const [isView, setIsView] = useState(false);
-    const [isEdit, setIsEdit] = useState(false);
+    const [isEditLocal, setIsEditLocal] = useState(false);
+    const [isEditDatabase, setIsEditDatabase] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
+
+    console.log(isEditDatabase);
+    console.log(qnPreview);
 
     const {
         isOpen: isAlertOpen,
@@ -86,7 +86,7 @@ function ManageQuestioner() {
         <Box bg={body}>
             <SideBar toggle={toggle} onClick={setToggle.toggle} />
             {/* Just render this if it is open, viewed or edit */}
-            {(isOpen || isView || isEdit) && (
+            {(isOpen || isView || isEditLocal || isEditDatabase) && (
                 <Box h="10%" alignSelf="flex-end">
                     <AddViewEditQuestionModal
                         isAdd={isOpen}
@@ -94,8 +94,10 @@ function ManageQuestioner() {
                         setQuestions={setQuestions}
                         isView={isView}
                         setIsView={setIsView}
-                        isEdit={isEdit}
-                        setIsEdit={setIsEdit}
+                        isEditLocal={isEditLocal}
+                        setIsEditLocal={setIsEditLocal}
+                        isEditDatabase={isEditDatabase}
+                        setIsEditDatabase={setIsEditDatabase}
                         qnPreview={qnPreview}
                         previewIndex={previewIndex}
                     />
@@ -170,12 +172,15 @@ function ManageQuestioner() {
                                 questions={questions}
                                 setIsView={setIsView}
                                 setQnPreview={setQnPreview}
-                                setIsEdit={setIsEdit}
+                                setIsEditLocal={setIsEditLocal}
                                 setPreviewIndex={setPreviewIndex}
                             />
                             {/* ======================================================================================= */}
                             {/*DELETING/UPDATING QUESTION PANEL */}
-                            <DeleteUpdateQuestionPanel />
+                            <DeleteUpdateQuestionPanel
+                                setQnPreview={setQnPreview}
+                                setIsEditDatabase={setIsEditDatabase}
+                            />
                         </TabPanels>
                         {/* ======================================================================================= */}
                     </Tabs>

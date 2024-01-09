@@ -33,7 +33,7 @@ function AddQuestionsPanel({
     questions,
     setIsView,
     setQnPreview,
-    setIsEdit,
+    setIsEditLocal,
     setPreviewIndex,
 }) {
     return (
@@ -101,7 +101,7 @@ function AddQuestionsPanel({
                                     index={index}
                                     setIsView={setIsView}
                                     setQnPreview={setQnPreview}
-                                    setIsEdit={setIsEdit}
+                                    setIsEditLocal={setIsEditLocal}
                                     setPreviewIndex={setPreviewIndex}
                                 />
                             ))}

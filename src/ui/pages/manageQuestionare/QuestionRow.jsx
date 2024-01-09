@@ -9,7 +9,7 @@ const QuestionRow = ({
     setIsView,
     setQnPreview,
     deleteQuestion,
-    setIsEdit,
+    setIsEditLocal,
     setPreviewIndex,
 }) => {
     const { bg, hover } = ThemeColors();
@@ -62,7 +62,7 @@ const QuestionRow = ({
                         size="md"
                         cursor="pointer"
                         onClick={() => {
-                            setIsEdit(true);
+                            setIsEditLocal(true);
                             setQnPreview(question);
                             setPreviewIndex(index);
                         }}
