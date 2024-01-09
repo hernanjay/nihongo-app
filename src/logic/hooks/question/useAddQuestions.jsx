@@ -6,7 +6,7 @@ export function useAddQuestions() {
     const toast = useToast();
     const queryClient = useQueryClient();
 
-    const { mutate: addQuestions, isLoading: isAddingQuestions } = useMutation({
+    const { mutate: addQuestions, isPending: isAddingQuestions } = useMutation({
         mutationFn: ({ questions }) => addQuestionsAPI(questions),
         onSuccess: () => {
             toast({
