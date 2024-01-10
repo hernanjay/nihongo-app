@@ -39,22 +39,22 @@ import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import ThemeColors from "../main/ThemeColors";
 import { useRef } from "react";
 import { FiEdit, FiEdit3 } from "react-icons/fi";
+import { useUpdateUserRole } from "../../../logic/hooks/user/useUpdateUserRole";
 
-const UserProfileModal = ({ user, isOpen, onClose }) => {
-    const {
-        body,
-        bg,
-        border,
-        fontColor,
-        success,
-        error,
-        warning,
-        info,
-        hover,
-    } = ThemeColors();
+const UserProfileModal = ({
+    user,
+    isOpen,
+    onClose,
+    isView,
+    setIsView,
+    isEdit,
+    setIsEdit,
+}) => {
+    const { bg } = ThemeColors();
 
     const [isUpdateRole, setIsUpdateRole] = useState(false);
-    const [selectedRole, setSelectedRole] = useState(null);
+    const { updateUserRole, isUpdatingUserRole } = useUpdateUserRole();
+    const [selectedRole, setSelectedRole] = useState(user.role);
 
     if (isOpen)
         return (
@@ -509,7 +509,12 @@ const UserProfileModal = ({ user, isOpen, onClose }) => {
                             </GridItem>
                             <GridItem colSpan={3} bg="transparent">
                                 <Card mr="1vw" my="2.5vh" bg="transparent">
-                                    <ModalCloseButton />
+                                    <ModalCloseButton
+                                        onClick={() => {
+                                            setIsView(false);
+                                            setIsEdit(false);
+                                        }}
+                                    />
                                     <CardHeader
                                         minH="20vh"
                                         roundedTopRight="xl"
@@ -550,7 +555,17 @@ const UserProfileModal = ({ user, isOpen, onClose }) => {
                                                     <>
                                                         <Select
                                                             size="md"
-                                                            w="30 %"
+                                                            w="30%"
+                                                            name="role"
+                                                            defaultValue={
+                                                                user.role
+                                                            }
+                                                            onChange={(e) => {
+                                                                setSelectedRole(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
                                                         >
                                                             <option>
                                                                 student
@@ -559,6 +574,7 @@ const UserProfileModal = ({ user, isOpen, onClose }) => {
                                                                 teacher
                                                             </option>
                                                         </Select>
+
                                                         <Tooltip
                                                             label="Update Role"
                                                             placement="top"
@@ -566,19 +582,47 @@ const UserProfileModal = ({ user, isOpen, onClose }) => {
                                                             <Button
                                                                 ms={2}
                                                                 size="sm"
+                                                                colorScheme="blue"
+                                                                bg="blue.500"
                                                                 onClick={() => {
                                                                     console.log(
                                                                         "role updated"
                                                                     );
 
+                                                                    console.log(
+                                                                        selectedRole
+                                                                    );
+                                                                    updateUserRole(
+                                                                        {
+                                                                            userId: user._id,
+                                                                            role: selectedRole,
+                                                                        }
+                                                                    );
+
                                                                     setIsUpdateRole(
                                                                         false
+                                                                    );
+                                                                    setSelectedRole(
+                                                                        user.role
                                                                     );
                                                                 }}
                                                             >
                                                                 Update
                                                             </Button>
                                                         </Tooltip>
+                                                        <Button
+                                                            ms={2}
+                                                            size="sm"
+                                                            colorScheme="red"
+                                                            bg="red.500"
+                                                            onClick={() => {
+                                                                setIsUpdateRole(
+                                                                    false
+                                                                );
+                                                            }}
+                                                        >
+                                                            Cancel
+                                                        </Button>
                                                     </>
                                                 ) : (
                                                     <>
@@ -589,26 +633,42 @@ const UserProfileModal = ({ user, isOpen, onClose }) => {
                                                         >
                                                             {user.role}
                                                         </Text>
-                                                        <Tooltip
-                                                            label="Update Role"
-                                                            placement="top"
-                                                        >
-                                                            <IconButton
-                                                                ms={2}
-                                                                icon={
-                                                                    <FiEdit />
-                                                                }
-                                                                size="sm"
-                                                                onClick={() =>
-                                                                    setIsUpdateRole(
-                                                                        true
-                                                                    )
-                                                                }
-                                                            />
-                                                        </Tooltip>
+                                                        {isEdit && (
+                                                            <Tooltip
+                                                                label="Update Role"
+                                                                placement="top"
+                                                            >
+                                                                <IconButton
+                                                                    ms={2}
+                                                                    icon={
+                                                                        <FiEdit />
+                                                                    }
+                                                                    size="sm"
+                                                                    onClick={() =>
+                                                                        setIsUpdateRole(
+                                                                            true
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </Tooltip>
+                                                        )}
                                                     </>
                                                 )}
                                             </Flex>
+                                            {isView && (
+                                                <Center mt="10">
+                                                    <Button
+                                                        colorScheme="blue"
+                                                        bg="blue.500"
+                                                        onClick={() => {
+                                                            setIsView(false);
+                                                            setIsEdit(true);
+                                                        }}
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                </Center>
+                                            )}
                                         </Box>
                                     </CardBody>
                                     <CardFooter

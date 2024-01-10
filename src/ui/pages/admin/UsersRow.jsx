@@ -23,9 +23,12 @@ import { useDeleteUser } from "../../../logic/hooks/user/useDeleteUser";
 import { useRef } from "react";
 import UserProfileModal from "./UserProfileModal";
 import AlerPopUp from "../../components/AlerPopUp";
+import { useState } from "react";
 
 const UsersRow = ({ user }) => {
     const { deleteUser } = useDeleteUser();
+    const [isView, setIsView] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const {
         isOpen: isOpenDelete,
@@ -39,11 +42,15 @@ const UsersRow = ({ user }) => {
 
     return (
         <Tr borderBottom="1px" borderColor="darkslategray">
-            {isOpen && (
+            {(isOpen || isView || isEdit) && (
                 <UserProfileModal
                     user={user}
                     isOpen={isOpen}
                     onClose={onClose}
+                    isView={isView}
+                    setIsView={setIsView}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
                 />
             )}
             <Td>
@@ -70,7 +77,10 @@ const UsersRow = ({ user }) => {
                         bg="green.400"
                         size="md"
                         cursor="pointer"
-                        onClick={onOpen}
+                        onClick={() => {
+                            onOpen();
+                            setIsView(true);
+                        }}
                     />
                 </Tooltip>
                 &nbsp;&nbsp;
@@ -86,7 +96,10 @@ const UsersRow = ({ user }) => {
                         bg="blue.400"
                         size="md"
                         cursor="pointer"
-                        onClick={() => {}}
+                        onClick={() => {
+                            onOpen();
+                            setIsEdit(true);
+                        }}
                     />
                 </Tooltip>
                 &nbsp;&nbsp;
