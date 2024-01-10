@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -27,8 +27,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.17.0",
-    "scroll-js": "^3.5.2",
-    "sweetalert2": "^11.9.0"
+    "scroll-js": "^3.5.2"
   },
   "devDependencies": {
     "@fontsource/raleway": "^5.0.15",

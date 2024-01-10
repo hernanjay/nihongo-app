@@ -1,6 +1,5 @@
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import { useRetrieveProfile } from "./useRetrieveProfile";
 // import { useAuthContext } from "./useAuthContext";
 // import { useRetrieveProfile } from "./useRetrieveProfile";
