@@ -25,7 +25,7 @@ export function useUpdateQuestion() {
                 title: "Failed to update Question!",
                 position: "top",
                 status: "error",
-                description: `${err}`,
+                description: `${err.message}`,
                 duration: 3000,
                 isClosable: true,
             });

@@ -24,7 +24,7 @@ export function useAddQuestions() {
             toast({
                 title: "Questions Not Added!",
                 position: "top",
-                description: `${err}`,
+                description: `${err.message}`,
                 status: "error",
                 duration: 3000,
                 isClosable: true,

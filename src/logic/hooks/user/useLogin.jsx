@@ -18,7 +18,7 @@ export function useLogin() {
             localStorage.setItem("token", JSON.stringify(token));
 
             toast({
-                title: "Logged In Successfully",
+                title: "Logged In Successfully!",
                 position: "top",
                 description: `Welcome ${user.username}`,
                 status: "success",

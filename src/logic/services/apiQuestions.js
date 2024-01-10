@@ -25,7 +25,7 @@ export async function fetchQuestions(level, type, set) {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
+        console.error(json.error);
         return null;
     }
 
@@ -47,7 +47,7 @@ export async function fetchQuestionsByIds(idPerQuestion) {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
+        console.error(json.error);
         return null;
     }
 
@@ -62,7 +62,7 @@ export async function fetchCountQuestionsByLevelTypeSet() {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
+        console.error(json.error);
         throw new Error(`${json.error}`);
     }
 
@@ -70,7 +70,6 @@ export async function fetchCountQuestionsByLevelTypeSet() {
 }
 
 export async function addQuestionsAPI(questions) {
-    console.log(token);
     if (!token) {
         throw new Error("Authentication failed! Please login first!");
     }

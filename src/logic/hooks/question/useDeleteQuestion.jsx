@@ -27,7 +27,7 @@ export function useDeleteQuestion() {
                 title: "Failed to delete Question!",
                 position: "top",
                 status: "error",
-                description: `${err}`,
+                description: `${err.message}`,
                 duration: 3000,
                 isClosable: true,
             });
