@@ -95,14 +95,18 @@ const ManageQuestionLevel = ({
                     }}
                 >
                     {isPreview &&
-                        filteredQuestions.map((questions) => (
+                        filteredQuestions.map((questions, index) => (
                             <ManageQuestionSets
                                 currentlySelectedQn={currentlySelectedQn}
                                 setCurrenlySelectedQn={setCurrenlySelectedQn}
                                 setQnPreview={setQnPreview}
                                 setIsEditDatabase={setIsEditDatabase}
                                 setIsViewDatabase={setIsViewDatabase}
-                                key={questions._id}
+                                key={
+                                    questions._id.type +
+                                    questions._id.level +
+                                    index
+                                }
                                 type={questions._id.type}
                                 level={questions._id.level}
                                 set={questions._id.set}

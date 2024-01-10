@@ -54,6 +54,13 @@ function ManageQuestioner() {
     const [toggle, setToggle] = useBoolean();
     const { bg, fontColor, body, hover, border } = ThemeColors();
     const colorMode = useColorMode().colorMode;
+
+    function deleteQuestion(i) {
+        const updatedQuestions = questions.filter((qn, index) => index !== i);
+        localStorage.setItem("questions", JSON.stringify(updatedQuestions));
+        setQuestions(updatedQuestions);
+    }
+
     function handleClearBtn() {
         onAlertClose();
         setQuestions([]);
@@ -178,6 +185,7 @@ function ManageQuestioner() {
                                 setQnPreview={setQnPreview}
                                 setIsEditLocal={setIsEditLocal}
                                 setPreviewIndex={setPreviewIndex}
+                                deleteQuestion={deleteQuestion}
                             />
                             {/* ======================================================================================= */}
                             {/*DELETING/UPDATING QUESTION PANEL */}

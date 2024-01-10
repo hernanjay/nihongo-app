@@ -8,7 +8,7 @@ export function useAddQuestions() {
 
     const { mutate: addQuestions, isPending: isAddingQuestions } = useMutation({
         mutationFn: ({ questions }) => addQuestionsAPI(questions),
-        onSuccess: () => {
+        onSuccess: async () => {
             toast({
                 title: "Questions Added Successfully!",
                 position: "top",
@@ -16,13 +16,13 @@ export function useAddQuestions() {
                 duration: 3000,
                 isClosable: true,
             });
-            queryClient.invalidateQueries({
+            await queryClient.invalidateQueries({
                 queryKey: ["questionByTypeLevel"],
             });
         },
         onError: (err) => {
             toast({
-                title: "Questions Added Not Added!",
+                title: "Questions Not Added!",
                 position: "top",
                 description: `${err}`,
                 status: "error",

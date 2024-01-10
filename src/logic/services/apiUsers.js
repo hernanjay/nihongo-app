@@ -75,3 +75,22 @@ export const retrieveProfileAPI = async (token) => {
 
     return json;
 };
+
+export const fetchAllUsersAPI = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/all`,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.log(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
+};

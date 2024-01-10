@@ -188,3 +188,57 @@ export async function deleteQuestionWithGradesAPI(questionId) {
 
     return json;
 }
+
+export async function updateQuestionAPI(question) {
+    console.log(question);
+    const {
+        _id: questionId,
+        question: qn,
+        options,
+        type,
+        level,
+        set,
+        answer,
+        optionsTranslate,
+        questionTranslate,
+    } = question;
+
+    if (!token) {
+        throw new Error("Authentication failed! Please login first!");
+    }
+
+    if (!question) {
+        throw new Error("Question not found");
+    }
+
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/update`,
+        {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                questionId,
+                question: qn,
+                options,
+                type,
+                level,
+                set,
+                answer,
+                optionsTranslate,
+                questionTranslate,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
+}
