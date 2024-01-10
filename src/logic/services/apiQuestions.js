@@ -70,6 +70,7 @@ export async function fetchCountQuestionsByLevelTypeSet() {
 }
 
 export async function addQuestionsAPI(questions) {
+    console.log(token);
     if (!token) {
         throw new Error("Authentication failed! Please login first!");
     }

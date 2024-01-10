@@ -585,13 +585,6 @@ const UserProfileModal = ({
                                                                 colorScheme="blue"
                                                                 bg="blue.500"
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        "role updated"
-                                                                    );
-
-                                                                    console.log(
-                                                                        selectedRole
-                                                                    );
                                                                     updateUserRole(
                                                                         {
                                                                             userId: user._id,
