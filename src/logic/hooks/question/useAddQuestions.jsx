@@ -17,7 +17,7 @@ export function useAddQuestions() {
                 isClosable: true,
             });
             await queryClient.invalidateQueries({
-                queryKey: ["questionByTypeLevel"],
+                queryKey: ["questionsByTypeLevel"],
             });
         },
         onError: (err) => {

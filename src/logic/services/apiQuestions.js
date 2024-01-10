@@ -190,7 +190,6 @@ export async function deleteQuestionWithGradesAPI(questionId) {
 }
 
 export async function updateQuestionAPI(question) {
-    console.log(question);
     const {
         _id: questionId,
         question: qn,
