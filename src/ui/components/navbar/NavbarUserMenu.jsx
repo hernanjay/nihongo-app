@@ -14,8 +14,13 @@ import { Link } from "react-router-dom";
 import NavbarLogoutButton from "./NavbarLogoutButton";
 import { useLogout } from "../../../logic/hooks/user/useLogout";
 import ThemeColors from "../../pages/main/ThemeColors";
-import { FiBookOpen, FiHome, FiLogOut, FiPieChart } from "react-icons/fi";
-import { useQueryClient } from "@tanstack/react-query";
+import {
+    FiBookOpen,
+    FiHome,
+    FiLogOut,
+    FiPieChart,
+    FiUsers,
+} from "react-icons/fi";
 import { useUser } from "../../../logic/hooks/user/useUser";
 
 function NavbarUserMenu() {
@@ -58,6 +63,19 @@ function NavbarUserMenu() {
                         Admin Dashboard
                     </MenuItem>
                 )}
+
+                {user?.role === "admin" && (
+                    <MenuItem
+                        bg="transparent"
+                        _hover={{ bg: hover }}
+                        icon={<FiUsers />}
+                        as={Link}
+                        to="/users"
+                    >
+                        Manage Users
+                    </MenuItem>
+                )}
+
                 {(user?.role === "teacher" || user?.role === "admin") && (
                     <MenuItem
                         bg="transparent"
@@ -69,6 +87,7 @@ function NavbarUserMenu() {
                         Manage Questionaire
                     </MenuItem>
                 )}
+
                 {user?.role === "student" && (
                     <MenuItem
                         bg="transparent"

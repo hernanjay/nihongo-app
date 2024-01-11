@@ -41,6 +41,7 @@ const QuestionLevel = ({ level, type, bg }) => {
     const filteredQuestions = questionsByTypeLevelSet.filter(
         (question) => question._id.type == type && question._id.level == level
     );
+
     !isGettingGrades &&
         grades.grades.map((grade) => {
             // Using regular expression to extract the type
