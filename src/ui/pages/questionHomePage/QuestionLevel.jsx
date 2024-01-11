@@ -30,6 +30,7 @@ const QuestionLevel = ({ level, type, bg }) => {
     const questionsByTypeLevelSet = queryClient.getQueryData([
         "questionsByTypeLevelSet",
     ]);
+
     let ctr = 0;
     let gradedCtr = 0;
 
