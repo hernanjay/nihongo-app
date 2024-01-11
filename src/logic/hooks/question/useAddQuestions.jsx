@@ -19,6 +19,9 @@ export function useAddQuestions() {
             await queryClient.invalidateQueries({
                 queryKey: ["questions"],
             });
+            await queryClient.invalidateQueries({
+                queryKey: ["questionsByTypeLevelSet"],
+            });
         },
         onError: (err) => {
             toast({

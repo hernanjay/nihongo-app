@@ -30,8 +30,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
-import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { useUpdateQuestion } from "../../../logic/hooks/question/useUpdateQuestion";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddViewEditQuestionModal = ({
     isAdd,
@@ -64,27 +64,15 @@ const AddViewEditQuestionModal = ({
     const [hasSubmit, setHasSubmit] = useState(false);
 
     const { updateQuestion, isUpdating } = useUpdateQuestion();
-
-    const { countBySetVocab, countBySetGrammar, countBySetKanji } =
-        useQuestionContext();
-
-    //**** GET THE LENGTH OF SETS PER LEVEL AND TYPE TO TRACK MAX SET NUMBER*/
-    const maxSetLengthKanji = countBySetKanji.filter(
-        (kanji) => kanji._id.level === qn.level && kanji._id.type === qn.type
-    ).length;
-
-    const maxSetLengthVocab = countBySetVocab.filter(
-        (vocab) => vocab._id.level === qn.level && vocab._id.type === qn.type
-    ).length;
-
-    const maxSetLengthGrammar = countBySetGrammar.filter(
-        (grammar) =>
-            grammar._id.level === qn.level && grammar._id.type === qn.type
-    ).length;
+    const queryClient = useQueryClient();
+    const questionsByTypeLevelSet = queryClient.getQueryData([
+        "questionsByTypeLevelSet",
+    ]);
 
     // This is the maxlength of all types depending on type and level
-    const maxSetLength =
-        maxSetLengthKanji || maxSetLengthVocab || maxSetLengthGrammar;
+    const maxSetLength = questionsByTypeLevelSet.filter(
+        (data) => data._id.level == qn.level && data._id.type == qn.type
+    ).length;
 
     const isKanji = qn.type === "kanji";
 

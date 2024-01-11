@@ -1,9 +1,7 @@
-// const token = JSON.parse(localStorage.getItem("token"));
-
 // LOGIN RETURNS A TOKEN
 export const loginAPI = async (email, password) => {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API}/api/users/login`,
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/users/login`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
