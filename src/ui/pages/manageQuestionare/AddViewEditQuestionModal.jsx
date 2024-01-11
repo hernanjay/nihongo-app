@@ -76,8 +76,6 @@ const AddViewEditQuestionModal = ({
         return maxSet;
     }, 0);
 
-    console.log(maxSet);
-
     const isKanji = qn.type === "kanji";
 
     const hasBracket = qn.question.includes("[") && qn.question.includes("]");
