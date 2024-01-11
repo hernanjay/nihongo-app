@@ -1,7 +1,9 @@
+const token = JSON.parse(localStorage.getItem("token"));
+
 // LOGIN RETURNS A TOKEN
 export const loginAPI = async (email, password) => {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/users/login`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/login`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -75,7 +77,6 @@ export const retrieveProfileAPI = async (token) => {
 };
 
 export const fetchAllUsersAPI = async () => {
-    const token = JSON.parse(localStorage.getItem("token"));
     const res = await fetch(
         `${import.meta.env.VITE_LOCALHOST_API}/api/users/all`,
         {
@@ -94,7 +95,6 @@ export const fetchAllUsersAPI = async () => {
 };
 
 export const updateUserRoleAPI = async (userId, role) => {
-    const token = JSON.parse(localStorage.getItem("token"));
     const res = await fetch(
         `${import.meta.env.VITE_LOCALHOST_API}/api/users/update-role`,
         {
@@ -106,6 +106,31 @@ export const updateUserRoleAPI = async (userId, role) => {
             body: JSON.stringify({
                 userId,
                 role,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
+};
+
+export const deleteUserAPI = async (userId) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/delete`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId,
             }),
         }
     );

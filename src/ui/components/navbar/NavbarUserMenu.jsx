@@ -9,7 +9,6 @@ import {
     MenuList,
     Text,
 } from "@chakra-ui/react";
-import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import NavbarLogoutButton from "./NavbarLogoutButton";
 import { useLogout } from "../../../logic/hooks/user/useLogout";
@@ -105,7 +104,6 @@ function NavbarUserMenu() {
                     _hover={{ bg: hover }}
                     onClick={() => {
                         logout();
-                        // queryClient.invalidateQueries(["user"]);
                     }}
                 >
                     Logout
@@ -115,4 +113,4 @@ function NavbarUserMenu() {
     );
 }
 
-export default memo(NavbarUserMenu);
+export default NavbarUserMenu;

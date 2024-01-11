@@ -53,10 +53,6 @@ const UserProfileModal = ({
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent minW="100vw">
-                    {/* <ModalHeader mx="auto" fontSize="5vh" p={0}>
-                        User Profile
-                    </ModalHeader> */}
-
                     <ModalBody mx="auto" my={0}>
                         <Grid templateColumns="repeat(9, 1fr)" w="90vw">
                             <GridItem colSpan={6}>
@@ -576,6 +572,9 @@ const UserProfileModal = ({
                                                                 size="sm"
                                                                 colorScheme="blue"
                                                                 bg="blue.500"
+                                                                disabled={
+                                                                    isUpdatingUserRole
+                                                                }
                                                                 onClick={() => {
                                                                     updateUserRole(
                                                                         {
@@ -668,13 +667,6 @@ const UserProfileModal = ({
                             </GridItem>
                         </Grid>
                     </ModalBody>
-
-                    {/* <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant="ghost">Secondary Action</Button>
-                    </ModalFooter> */}
                 </ModalContent>
             </Modal>
         );
