@@ -13,6 +13,7 @@ function ManageQuestionRow({
     function handleDeleteButton(questionId) {
         deleteQuestion({ questionId });
     }
+
     return (
         <Tr>
             <Td>{question._id}</Td>

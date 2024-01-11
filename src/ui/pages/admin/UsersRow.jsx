@@ -10,34 +10,47 @@ import {
     Flex,
     Heading,
     Icon,
+    IconButton,
     Td,
+    Tooltip,
     Tr,
     useBoolean,
     useDisclosure,
 } from "@chakra-ui/react";
-import { FiEdit, FiEye, FiTrash } from "react-icons/fi";
+import { FiEdit, FiEye, FiTrash, FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useDeleteUser } from "../../../logic/hooks/user/useDeleteUser";
 import { useRef } from "react";
 import UserProfileModal from "./UserProfileModal";
 import AlerPopUp from "../../components/AlerPopUp";
+import { useState } from "react";
 
 const UsersRow = ({ user }) => {
     const { deleteUser } = useDeleteUser();
+    const [isView, setIsView] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [isVisible, setIsVisible] = useBoolean();
+    const {
+        isOpen: isOpenDelete,
+        onOpen: onOpenDelete,
+        onClose: onCloseDelete,
+    } = useDisclosure();
 
-    async function handleSubmit(userId) {
+    async function handleDelete(userId) {
         await deleteUser(userId);
     }
 
     return (
         <Tr borderBottom="1px" borderColor="darkslategray">
-            {isVisible && (
+            {(isOpen || isView || isEdit) && (
                 <UserProfileModal
-                    isVisible={isVisible}
-                    setIsVisible={setIsVisible}
                     user={user}
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    isView={isView}
+                    setIsView={setIsView}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
                 />
             )}
             <Td>
@@ -51,30 +64,70 @@ const UsersRow = ({ user }) => {
                 </Flex>
             </Td>
             <Td>{user.email}</Td>
-            <Td>N1</Td>
-            <Td isNumeric>
-                <Link>
-                    <Icon
-                        as={FiEye}
-                        fontSize="lg"
-                        mr="0.5em"
-                        onClick={setIsVisible.on}
+            <Td py="-2.5em">
+                <Tooltip
+                    label="View"
+                    fontSize="md"
+                    offset={[0, -70]}
+                    closeOnClick
+                >
+                    <IconButton
+                        icon={<FiEye />}
+                        colorScheme="green"
+                        bg="green.400"
+                        size="md"
+                        cursor="pointer"
+                        onClick={() => {
+                            onOpen();
+                            setIsView(true);
+                        }}
                     />
-                </Link>
-                <Link>
-                    <Icon as={FiEdit} fontSize="lg" mr="0.5em" />
-                </Link>
-
-                <Link>
-                    <Icon as={FiTrash} onClick={onOpen} fontSize="lg" />
-
-                    <AlerPopUp
-                        isOpen={isOpen}
-                        onClose={onClose}
-                        onClick={() => handleSubmit(user._id)}
-                        message={"User"}
+                </Tooltip>
+                &nbsp;&nbsp;
+                <Tooltip
+                    label="Edit"
+                    fontSize="md"
+                    offset={[0, -70]}
+                    closeOnClick
+                >
+                    <IconButton
+                        icon={<FiEdit />}
+                        colorScheme="blue"
+                        bg="blue.400"
+                        size="md"
+                        cursor="pointer"
+                        onClick={() => {
+                            onOpen();
+                            setIsEdit(true);
+                        }}
                     />
-                </Link>
+                </Tooltip>
+                &nbsp;&nbsp;
+                <Tooltip
+                    label="Delete"
+                    fontSize="md"
+                    offset={[0, -70]}
+                    closeOnClick
+                >
+                    <IconButton
+                        icon={<FiTrash2 />}
+                        colorScheme="red"
+                        bg="red.400"
+                        size="md"
+                        cursor="pointer"
+                        onClick={onOpenDelete}
+                    />
+                </Tooltip>
+                &nbsp;
+                <AlerPopUp
+                    isOpen={isOpenDelete}
+                    onClose={onCloseDelete}
+                    onClick={() => {
+                        handleDelete;
+                        onCloseDelete();
+                    }}
+                    message={"User"}
+                />
             </Td>
         </Tr>
     );

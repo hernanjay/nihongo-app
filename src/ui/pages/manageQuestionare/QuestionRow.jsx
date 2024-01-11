@@ -6,7 +6,7 @@ import AlerPopUp from "../../components/AlerPopUp";
 const QuestionRow = ({
     question,
     index,
-    setIsView,
+    setIsViewLocal,
     setQnPreview,
     deleteQuestion,
     setIsEditLocal,
@@ -42,7 +42,7 @@ const QuestionRow = ({
                         size="md"
                         cursor="pointer"
                         onClick={() => {
-                            setIsView(true);
+                            setIsViewLocal(true);
                             setQnPreview(question);
                             setPreviewIndex(index);
                         }}

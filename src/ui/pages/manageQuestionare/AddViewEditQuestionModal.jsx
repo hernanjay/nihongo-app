@@ -31,6 +31,7 @@ import { useEffect } from "react";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi";
 import ThemeColors from "../main/ThemeColors";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
+import { useUpdateQuestion } from "../../../logic/hooks/question/useUpdateQuestion";
 
 const AddViewEditQuestionModal = ({
     isAdd,
@@ -52,7 +53,7 @@ const AddViewEditQuestionModal = ({
         options: [],
         type: "vocab",
         level: "5",
-        set: "1",
+        set: 1,
         answer: "",
         optionsTranslate: [],
         questionTranslate: "",
@@ -61,6 +62,8 @@ const AddViewEditQuestionModal = ({
     const toast = useToast();
     const { fontColor, border, bg } = ThemeColors();
     const [hasSubmit, setHasSubmit] = useState(false);
+
+    const { updateQuestion, isUpdating } = useUpdateQuestion();
 
     const { countBySetVocab, countBySetGrammar, countBySetKanji } =
         useQuestionContext();
@@ -198,6 +201,7 @@ const AddViewEditQuestionModal = ({
 
                 if (isEditDatabase) {
                     console.log("Hello World! isEdit Database");
+                    updateQuestion({ question: qn });
                 }
             }
             resetQn();
@@ -274,11 +278,12 @@ const AddViewEditQuestionModal = ({
                         {/* LEVEL */}
                         <GridItem>
                             <FormControl isRequired>
-                                <FormLabel>Select Level</FormLabel>
+                                <FormLabel htmlFor="level">
+                                    Select Level
+                                </FormLabel>
                                 <Select
                                     bg={bg}
                                     name="level"
-                                    defaultValue="5"
                                     value={qn.level}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isViewLocal || isViewDatabase}
@@ -330,11 +335,12 @@ const AddViewEditQuestionModal = ({
                         {/* TYPE */}
                         <GridItem>
                             <FormControl isRequired>
-                                <FormLabel>Select Type</FormLabel>
+                                <FormLabel htmlFor="type">
+                                    Select Type
+                                </FormLabel>
                                 <Select
                                     bg={bg}
                                     name="type"
-                                    defaultValue="vocab"
                                     value={qn.type}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isViewLocal || isViewDatabase}
@@ -380,7 +386,7 @@ const AddViewEditQuestionModal = ({
                             >
                                 <FormLabel>Set No.</FormLabel>
                                 <NumberInput
-                                    defaultValue={1}
+                                    value={qn.set}
                                     min={1}
                                     max={maxSetLength + 1}
                                     onChange={(valueString) => {
@@ -460,7 +466,9 @@ const AddViewEditQuestionModal = ({
                             >
                                 <Flex alignItems="center">
                                     <FormLabel mt={2}>Options</FormLabel>
-                                    {(isAdd || isEditLocal) && (
+                                    {(isAdd ||
+                                        isEditLocal ||
+                                        isEditDatabase) && (
                                         <Tooltip
                                             hasArrow
                                             label="Add options and options translate"
@@ -668,13 +676,17 @@ const AddViewEditQuestionModal = ({
                     <Button
                         colorScheme="blue"
                         mr={3}
+                        disabled={isUpdating}
                         onClick={() => {
-                            (isAdd || isEditLocal, isEditDatabase) &&
+                            if (isAdd || isEditLocal || isEditDatabase) {
                                 addUpdateQuestion();
+                            }
+
                             if (isViewLocal) {
                                 setIsEditLocal(true);
                                 setIsViewLocal(false);
                             }
+
                             if (isViewDatabase) {
                                 setIsEditDatabase(true);
                                 setIsViewDatabase(false);

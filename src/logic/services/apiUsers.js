@@ -17,7 +17,7 @@ export const loginAPI = async (email, password) => {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
+        console.error(json.error);
         throw new Error(json.error);
     }
 
@@ -43,7 +43,7 @@ export const signupAPI = async (username, email, password, confirmPassword) => {
     const json = await res.json();
 
     if (!res.ok) {
-        console.log(json.error);
+        console.error(json.error);
         throw new Error(json.error);
     }
 
@@ -71,6 +71,52 @@ export const retrieveProfileAPI = async (token) => {
             throw new Error("Token has been expired, Please Log-in again");
         }
         throw new Error("Failed to retrieve Profile");
+    }
+
+    return json;
+};
+
+export const fetchAllUsersAPI = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/all`,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
+};
+
+export const updateUserRoleAPI = async (userId, role) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/update-role`,
+        {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId,
+                role,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(`${json.error}`);
     }
 
     return json;
