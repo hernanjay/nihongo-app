@@ -1,4 +1,3 @@
-import { UserContextProvider } from "../../logic/context/UserContext";
 import { QuestionContextProvider } from "../../logic/context/QuestionContext";
 import { KanaContextProvider } from "../../logic/context/KanaContext";
 import { GradeContextProvider } from "../../logic/context/GradeContext";
@@ -15,7 +14,6 @@ const queryClient = new QueryClient({
 
 function ContextWrapper({ children }) {
     return (
-        // <UserContextProvider>
         <QueryClientProvider client={queryClient}>
             <KanaContextProvider>
                 <QuestionContextProvider>
@@ -26,7 +24,6 @@ function ContextWrapper({ children }) {
                 </QuestionContextProvider>
             </KanaContextProvider>
         </QueryClientProvider>
-        // </UserContextProvider>
     );
 }
 

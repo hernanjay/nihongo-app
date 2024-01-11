@@ -2,7 +2,6 @@ import { Grid, useColorModeValue, Box, Spacer } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import { useGradeContext } from "./../../../logic/hooks/grade/useGradeContext";
 import { useQuestionContext } from "./../../../logic/hooks/question/useQuestionContext";
 
@@ -19,8 +18,6 @@ import {
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
 import { useQueryClient } from "@tanstack/react-query";
-// import { useQueries, useQuery } from "@tanstack/react-query";
-// import { useCallback } from "react";
 
 const QuestionLayout = () => {
     const { bg, border } = ThemeColors();

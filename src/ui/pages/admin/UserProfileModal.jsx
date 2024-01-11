@@ -1,6 +1,5 @@
 import {
     Heading,
-    Image,
     Center,
     Input,
     Card,
@@ -17,28 +16,21 @@ import {
     Container,
     InputGroup,
     InputLeftAddon,
-    CloseButton,
-    useOutsideClick,
-    AbsoluteCenter,
     Avatar,
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalCloseButton,
     ModalBody,
-    ModalFooter,
     Button,
     IconButton,
     Tooltip,
     Flex,
     Select,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
-import { useRef } from "react";
-import { FiEdit, FiEdit3 } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { useUpdateUserRole } from "../../../logic/hooks/user/useUpdateUserRole";
 
 const UserProfileModal = ({
