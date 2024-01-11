@@ -31,10 +31,11 @@ function AddQuestionsPanel({
     isLoading,
     handleSubmit,
     questions,
-    setIsView,
+    setIsViewLocal,
     setQnPreview,
     setIsEditLocal,
     setPreviewIndex,
+    deleteQuestion,
 }) {
     return (
         <TabPanel>
@@ -99,10 +100,11 @@ function AddQuestionsPanel({
                                     question={question}
                                     key={index}
                                     index={index}
-                                    setIsView={setIsView}
+                                    setIsViewLocal={setIsViewLocal}
                                     setQnPreview={setQnPreview}
                                     setIsEditLocal={setIsEditLocal}
                                     setPreviewIndex={setPreviewIndex}
+                                    deleteQuestion={deleteQuestion}
                                 />
                             ))}
                         </Tbody>
