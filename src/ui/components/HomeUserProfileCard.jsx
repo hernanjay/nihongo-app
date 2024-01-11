@@ -23,16 +23,26 @@ import {
     Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useUserContext } from "../../logic/hooks/user/useUserContext";
 import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useGradeContext } from "../../logic/hooks/grade/useGradeContext";
-import { fetchTotalScoresAndItems } from "../../logic/services/apiGrades";
+import {
+    fetchGrades,
+    fetchTotalScoresAndItems,
+} from "../../logic/services/apiGrades";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 function HomeUserProfileCard() {
     const { bg } = ThemeColors();
-    const { user } = useUserContext();
-    const { totalScoresNumItems, dispatch: gradeDispatch } = useGradeContext();
+    const queryClient = useQueryClient();
+    const user = queryClient.getQueryData(["user"]);
+    const { dispatch: gradeDispatch } = useGradeContext();
+
+    const { data: totalScoresNumItems } = useQuery({
+        queryKey: ["totalScoresNumItems"],
+        queryFn: () => fetchTotalScoresAndItems(user._id),
+        enabled: !!user,
+    });
 
     const [level, setLevel] = useState("N5");
     const [score, setScore] = useState({});
@@ -40,12 +50,12 @@ function HomeUserProfileCard() {
 
     const kanjiScores = totalScoresNumItems
         ?.map((grade) => {
-            const { totalItems, totalScore, _id } = grade;
+            const { totalItems, totalScore, questionSetId } = grade;
             return (
-                _id.questionSetId.includes("kanji") && {
+                questionSetId.includes("kanji") && {
                     totalItems,
                     totalScore,
-                    lvl: "N" + _id.questionSetId.slice(0, 1),
+                    lvl: "N" + questionSetId.slice(0, 1),
                 }
             );
         })
@@ -53,12 +63,12 @@ function HomeUserProfileCard() {
 
     const vocabScores = totalScoresNumItems
         ?.map((grade) => {
-            const { totalItems, totalScore, _id } = grade;
+            const { totalItems, totalScore, questionSetId } = grade;
             return (
-                _id.questionSetId.includes("vocab") && {
+                questionSetId.includes("vocab") && {
                     totalItems,
                     totalScore,
-                    lvl: "N" + _id.questionSetId.slice(0, 1),
+                    lvl: "N" + questionSetId.slice(0, 1),
                 }
             );
         })
@@ -66,12 +76,12 @@ function HomeUserProfileCard() {
 
     const grammarScores = totalScoresNumItems
         ?.map((grade) => {
-            const { totalItems, totalScore, _id } = grade;
+            const { totalItems, totalScore, questionSetId } = grade;
             return (
-                _id.questionSetId.includes("grammar") && {
+                questionSetId.includes("grammar") && {
                     totalItems,
                     totalScore,
-                    lvl: "N" + _id.questionSetId.slice(0, 1),
+                    lvl: "N" + questionSetId.slice(0, 1),
                 }
             );
         })
@@ -216,7 +226,11 @@ function HomeUserProfileCard() {
                     >
                         <Image
                             borderRadius="full"
-                            boxSize={{ base: "25vw", lg: "10vw", xl: "8vw" }}
+                            boxSize={{
+                                base: "25vw",
+                                lg: "10vw",
+                                xl: "8vw",
+                            }}
                             src="https://w0.peakpx.com/wallpaper/167/11/HD-wallpaper-lazy-egg6-egg-gudetama-kawaii-lazy-egg.jpg"
                             alt="Dan Abramov"
                         />
@@ -232,7 +246,11 @@ function HomeUserProfileCard() {
                         <Heading
                             fontWeight="normal"
                             textAlign="center"
-                            fontSize={{ base: "5vh", lg: "1.5em ", xl: "2em" }}
+                            fontSize={{
+                                base: "5vh",
+                                lg: "1.5em ",
+                                xl: "2em",
+                            }}
                         >
                             @{user.username}
                         </Heading>

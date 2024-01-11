@@ -87,13 +87,12 @@ export async function addScore(
 
     const json = await res.json();
 
-    if (!res.ok) {
+    if (!res.created) {
         console.log(json.error);
         return 0; // it means false
     }
 
-    if (res.ok) {
-        console.log("Score added");
+    if (res.created) {
         return 1; // it means true
     }
 }

@@ -50,10 +50,16 @@ import KanjiQuestionSample from "../../components/landingPage/KanjiQuestionSampl
 import VocabQuestionSample from "../../components/landingPage/VocabQuestionSample";
 import GrammarQuestionSample from "../../components/landingPage/GrammarQuestionSample";
 import ThemeColors from "../main/ThemeColors";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function LandingPage() {
   const { bg, border } = ThemeColors();
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+    const user = queryClient.getQueryData(["user"]);
+    const isLoading = queryClient.isFetching(["user"]);
   const sample = [
     {
       id: 1,

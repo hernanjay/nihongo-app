@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import { createContext } from "react";
 import { fetchGrades, fetchTotalScoresAndItems } from "../services/apiGrades";
 import { useUserContext } from "./../hooks/user/useUserContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const GradeContext = createContext();
 
@@ -102,22 +103,25 @@ const gradeReducer = (state, action) => {
 export const GradeContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(gradeReducer, initialGradeState);
 
-    const { user } = useUserContext();
+    // const { user } = useUserContext();
+    const queryClient = useQueryClient();
 
-    useEffect(() => {
-        async function fetchGrd() {
-            const grades = await fetchGrades(user._id);
-            const scores = await fetchTotalScoresAndItems(user._id);
+    // const user = queryClient.getQueryData(["user"]);
 
-            if (grades) dispatch({ type: "receivedGrades", payload: grades });
-            if (scores)
-                dispatch({
-                    type: "receivedTotalScoresNumItems",
-                    payload: scores,
-                });
-        }
-        user && fetchGrd();
-    }, [user]);
+    // useEffect(() => {
+    //     async function fetchGrd() {
+    //         const grades = await fetchGrades(user._id);
+    //         const scores = await fetchTotalScoresAndItems(user._id);
+
+    //         if (grades) dispatch({ type: "receivedGrades", payload: grades });
+    //         if (scores)
+    //             dispatch({
+    //                 type: "receivedTotalScoresNumItems",
+    //                 payload: scores,
+    //             });
+    //     }
+    //     user && fetchGrd();
+    // }, [user]);
 
     return (
         <GradeContext.Provider value={{ ...state, dispatch }}>

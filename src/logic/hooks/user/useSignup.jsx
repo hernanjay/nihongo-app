@@ -1,65 +1,40 @@
 import { useToast } from "@chakra-ui/react";
-import { useState } from "react";
-import { useRetrieveProfile } from "./useRetrieveProfile";
-// import { useAuthContext } from "./useAuthContext";
-// import { useRetrieveProfile } from "./useRetrieveProfile";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { retrieveProfileAPI, signupAPI } from "../../services/apiUsers";
 
 export const useSignup = () => {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
   const toast = useToast();
-  const { retrieveProfile } = useRetrieveProfile();
 
-  const signup = async (username, email, password, confirmPassword) => {
-    setIsLoading(true);
-    const response = await fetch(
-      `${import.meta.env.VITE_LOCALHOST_API}/api/users/signup`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-          confirmPassword,
-        }),
-      }
-    );
+  const { mutate: signup, isLoading } = useMutation({
+    mutationFn: ({ username, email, password, confirmPassword }) =>
+      signupAPI(username, email, password, confirmPassword),
+    onSuccess: async (token) => {
+      const user = await retrieveProfileAPI(token);
+      queryClient.setQueryData(["user"], user);
 
-    const json = await response.json();
+      localStorage.setItem("token", JSON.stringify(token));
 
-    if (!response.ok) {
-      setError({
-        stauts: response.status,
-        error: json.error,
-      });
-      // Swal.fire(`Somethings Not Right!`, `${json.error}`, "error");
       toast({
-        title: "Signup Failed",
+        title: "Logged In Successfully",
         position: "top",
-        description: `${json.error}`,
+        description: `Welcome ${user.username}`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+    onError: (err) => {
+      toast({
+        title: "Sign-up Failed",
+        position: "top",
+        description: `${err.message}`,
         status: "error",
         duration: 2500,
         isClosable: true,
       });
-      setIsLoading(false);
-    }
+    },
+  });
 
-    if (response.ok) {
-      // save the token to local storage
-      localStorage.setItem("token", JSON.stringify(json));
-
-      retrieveProfile(json);
-      toast({
-        title: "Registration Complete",
-        position: "top",
-        status: "success",
-        duration: 2500,
-        isClosable: true,
-      });
-      setIsLoading(false);
-    }
-  };
-
-  return { signup, isLoading, error };
+  return { signup, isLoading };
 };
