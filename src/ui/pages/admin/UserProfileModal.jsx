@@ -1,6 +1,5 @@
 import {
     Heading,
-    Image,
     Center,
     Input,
     Card,
@@ -17,28 +16,21 @@ import {
     Container,
     InputGroup,
     InputLeftAddon,
-    CloseButton,
-    useOutsideClick,
-    AbsoluteCenter,
     Avatar,
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalCloseButton,
     ModalBody,
-    ModalFooter,
     Button,
     IconButton,
     Tooltip,
     Flex,
     Select,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
+import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
-import { useRef } from "react";
-import { FiEdit, FiEdit3 } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { useUpdateUserRole } from "../../../logic/hooks/user/useUpdateUserRole";
 
 const UserProfileModal = ({
@@ -61,10 +53,6 @@ const UserProfileModal = ({
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent minW="100vw">
-                    {/* <ModalHeader mx="auto" fontSize="5vh" p={0}>
-                        User Profile
-                    </ModalHeader> */}
-
                     <ModalBody mx="auto" my={0}>
                         <Grid templateColumns="repeat(9, 1fr)" w="90vw">
                             <GridItem colSpan={6}>
@@ -584,6 +572,9 @@ const UserProfileModal = ({
                                                                 size="sm"
                                                                 colorScheme="blue"
                                                                 bg="blue.500"
+                                                                disabled={
+                                                                    isUpdatingUserRole
+                                                                }
                                                                 onClick={() => {
                                                                     updateUserRole(
                                                                         {
@@ -676,13 +667,6 @@ const UserProfileModal = ({
                             </GridItem>
                         </Grid>
                     </ModalBody>
-
-                    {/* <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant="ghost">Secondary Action</Button>
-                    </ModalFooter> */}
                 </ModalContent>
             </Modal>
         );

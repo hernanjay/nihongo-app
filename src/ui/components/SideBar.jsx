@@ -6,18 +6,14 @@ import {
     IconButton,
     List,
     ListItem,
-    Slide,
     VStack,
 } from "@chakra-ui/react";
-// import { useState } from "react";
-// import React from "react";
 import {
     FiHome,
     FiBook,
     FiUser,
     FiUserCheck,
     FiPaperclip,
-    FiMenu,
     FiLogOut,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +21,6 @@ import ThemeColors from "../pages/main/ThemeColors";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useUserContext } from "../../logic/hooks/user/useUserContext";
 import { useUser } from "../../logic/hooks/user/useUser";
 
 const menus = [

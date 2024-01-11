@@ -1,26 +1,15 @@
 import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogOverlay,
     Avatar,
-    Button,
     Flex,
     Heading,
-    Icon,
     IconButton,
     Td,
     Tooltip,
     Tr,
-    useBoolean,
     useDisclosure,
 } from "@chakra-ui/react";
-import { FiEdit, FiEye, FiTrash, FiTrash2 } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 import { useDeleteUser } from "../../../logic/hooks/user/useDeleteUser";
-import { useRef } from "react";
 import UserProfileModal from "./UserProfileModal";
 import AlerPopUp from "../../components/AlerPopUp";
 import { useState } from "react";
@@ -36,8 +25,8 @@ const UsersRow = ({ user }) => {
         onClose: onCloseDelete,
     } = useDisclosure();
 
-    async function handleDelete(userId) {
-        await deleteUser(userId);
+    function handleDelete(userId) {
+        deleteUser({ userId });
     }
 
     return (
@@ -123,7 +112,7 @@ const UsersRow = ({ user }) => {
                     isOpen={isOpenDelete}
                     onClose={onCloseDelete}
                     onClick={() => {
-                        handleDelete;
+                        handleDelete(user._id);
                         onCloseDelete();
                     }}
                     message={"User"}

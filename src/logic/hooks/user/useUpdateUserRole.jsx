@@ -17,8 +17,14 @@ export function useUpdateUserRole() {
                     duration: 3000,
                     isClosable: true,
                 });
+                // To refetch the users which are list of users in manage users
                 await queryClient.invalidateQueries({
                     queryKey: ["users"],
+                });
+
+                // To refetch the user which is the user that logged in
+                await queryClient.invalidateQueries({
+                    queryKey: ["user"],
                 });
             },
             onError: (err) => {

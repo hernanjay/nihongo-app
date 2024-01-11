@@ -20,24 +20,12 @@ import {
     InputGroup,
     InputLeftAddon,
 } from "@chakra-ui/react";
-import React from "react";
-import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 import ThemeColors from "../main/ThemeColors";
 import UserProfileDrawerButton from "./UserProfileDrawerButton";
 import { useProfile } from "../../../logic/hooks/user/useProfile";
 
 const UserProfile = () => {
-    const {
-        body,
-        bg,
-        border,
-        fontColor,
-        success,
-        error,
-        warning,
-        info,
-        hover,
-    } = ThemeColors();
+    const { bg } = ThemeColors();
     const { user } = useProfile();
     return (
         <Grid
