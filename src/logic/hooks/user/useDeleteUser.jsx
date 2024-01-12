@@ -9,6 +9,8 @@ export function useDeleteUser() {
     const { mutate: deleteUser, isPending: isDeletingUser } = useMutation({
         mutationFn: ({ userId }) => deleteUserAPI(userId),
         onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["users"] });
+
             toast({
                 title: "Deleted Succesfully!",
                 position: "top",
@@ -16,7 +18,6 @@ export function useDeleteUser() {
                 duration: 2500,
                 isClosable: true,
             });
-            await queryClient.invalidateQueries({ queryKey: ["users"] });
         },
         onError: (err) => {
             toast({

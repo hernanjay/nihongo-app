@@ -28,7 +28,6 @@ const QuestionLayout = () => {
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
-    // const { user } = useUserContext();
     const queryClient = useQueryClient();
 
     const user = queryClient.getQueryData(["user"]);

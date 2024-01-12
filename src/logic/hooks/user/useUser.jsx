@@ -20,6 +20,7 @@ export function useUser() {
     if (error) {
         localStorage.removeItem("token");
         localStorage.removeItem("questions");
+        queryClient.setQueryData(["user"], null);
 
         toast({
             title: "Logged Out",
@@ -29,7 +30,6 @@ export function useUser() {
             duration: 2500,
             isClosable: true,
         });
-        queryClient.setQueryData(["user"], null);
     }
 
     return { user, isLoading };

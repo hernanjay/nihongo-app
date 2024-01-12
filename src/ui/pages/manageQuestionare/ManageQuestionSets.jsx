@@ -6,6 +6,7 @@ import {
     AccordionPanel,
     Box,
     Collapse,
+    IconButton,
     Table,
     TableContainer,
     Tbody,
@@ -13,10 +14,14 @@ import {
     Thead,
     Tr,
 } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import ManageQuestionRow from "./ManageQuestionRow";
+import { FiTrash2 } from "react-icons/fi";
+import { useDeleteQuestionBySet } from "./../../../logic/hooks/question/useDeleteQuestionBySet";
+import AlerPopUp from "./../../components/AlerPopUp";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 const ManageQuestionSets = ({
     type,
@@ -31,12 +36,20 @@ const ManageQuestionSets = ({
     const [isPreview, setIsPreview] = useState(false);
     const queryClient = useQueryClient();
     const questions = queryClient.getQueryData(["questions"]);
+    const { deleteQuestionBySet, isDeletingQuestionBySet } =
+        useDeleteQuestionBySet();
     const filteredQuestions = questions.filter(
         (question) =>
             question.type == type &&
             question.level == level &&
             question.set == set
     );
+
+    const {
+        isOpen: isAlertOpen,
+        onOpen: onAlertOpen,
+        onClose: onAlertClose,
+    } = useDisclosure();
 
     return (
         <>
@@ -54,7 +67,8 @@ const ManageQuestionSets = ({
                         <AccordionItem my="1">
                             <AccordionButton
                                 pr="2em"
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     if (currentlySelectedQn === `Q${set}`) {
                                         setCurrenlySelectedQn("none");
                                         setIsPreview(false);
@@ -63,6 +77,7 @@ const ManageQuestionSets = ({
                                         setIsPreview(true);
                                     }
                                 }}
+                                zIndex={0}
                             >
                                 <Box
                                     ml="1em"
@@ -73,6 +88,40 @@ const ManageQuestionSets = ({
                                     <ChevronRightIcon />{" "}
                                     {`Question Set : ${set}`}
                                 </Box>
+                                {!isPreview && (
+                                    <Box
+                                        hidden={isDeletingQuestionBySet}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            onAlertOpen();
+                                        }}
+                                        bg="red.500"
+                                        color="white"
+                                        me="1rem"
+                                        zIndex={1}
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        cursor="pointer"
+                                        p={1.5}
+                                        borderRadius={"md"}
+                                    >
+                                        <DeleteIcon />
+                                    </Box>
+                                )}
+                                <AlerPopUp
+                                    isOpen={isAlertOpen}
+                                    onClose={onAlertClose}
+                                    onClick={() => {
+                                        deleteQuestionBySet({
+                                            level,
+                                            type,
+                                            set,
+                                        });
+                                        onAlertClose();
+                                    }}
+                                    message={`Question Set ${set}`}
+                                />
                                 <AccordionIcon />
                             </AccordionButton>
                             {isPreview && (
@@ -96,7 +145,6 @@ const ManageQuestionSets = ({
                                         <Table>
                                             <Thead>
                                                 <Tr>
-                                                    <Th w="10%">ID</Th>
                                                     <Th w="100%">QUESTION</Th>
                                                     <Th w="30%">ACTIONS</Th>
                                                 </Tr>
