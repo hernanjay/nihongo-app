@@ -20,6 +20,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import ManageQuestionRow from "./ManageQuestionRow";
 import { FiTrash2 } from "react-icons/fi";
 import { useDeleteQuestionBySet } from "./../../../logic/hooks/question/useDeleteQuestionBySet";
+import AlerPopUp from "./../../components/AlerPopUp";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 const ManageQuestionSets = ({
     type,
@@ -42,6 +44,12 @@ const ManageQuestionSets = ({
             question.level == level &&
             question.set == set
     );
+
+    const {
+        isOpen: isAlertOpen,
+        onOpen: onAlertOpen,
+        onClose: onAlertClose,
+    } = useDisclosure();
 
     return (
         <>
@@ -83,11 +91,7 @@ const ManageQuestionSets = ({
                                     name="delete"
                                     onClick={(e) => {
                                         e.stopPropagation(); // Stop event propagation
-                                        deleteQuestionBySet({
-                                            level,
-                                            type,
-                                            set,
-                                        });
+                                        onAlertOpen();
                                     }}
                                     icon={<FiTrash2 />}
                                     bg="red.500"
@@ -96,6 +100,19 @@ const ManageQuestionSets = ({
                                     zIndex={1}
                                     size={"xs"}
                                     hidden={isPreview}
+                                />
+                                <AlerPopUp
+                                    isOpen={isAlertOpen}
+                                    onClose={onAlertClose}
+                                    onClick={() => {
+                                        deleteQuestionBySet({
+                                            level,
+                                            type,
+                                            set,
+                                        });
+                                        onAlertClose();
+                                    }}
+                                    message={`Question Set ${set}`}
                                 />
                                 <AccordionIcon />
                             </AccordionButton>
