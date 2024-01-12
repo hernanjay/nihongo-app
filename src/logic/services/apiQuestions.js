@@ -189,6 +189,43 @@ export async function deleteQuestionWithGradesAPI(questionId) {
     return json;
 }
 
+export async function deleteQuestionBySetAPI(level, type, set) {
+    if (!token) {
+        throw new Error("Authentication failed! Please login first!");
+    }
+
+    if (!level) throw new Error(`level is ${level}`);
+    if (!type) throw new Error(`type is ${type}`);
+    if (!set) throw new Error(`set is ${set}`);
+
+    const res = await fetch(
+        `${
+            import.meta.env.VITE_LOCALHOST_API_3000
+        }/api/questions/delete-by-set`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                level,
+                type,
+                set,
+            }),
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(json.error);
+    }
+
+    return json;
+}
+
 export async function updateQuestionAPI(question) {
     const {
         _id: questionId,

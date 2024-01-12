@@ -20,6 +20,9 @@ export function useDeleteQuestion() {
                 isClosable: true,
             });
             await queryClient.invalidateQueries({ queryKey: ["questions"] });
+            await queryClient.invalidateQueries({
+                queryKey: ["questionsByTypeLevelSet"],
+            });
             await queryClient.invalidateQueries({ queryKey: ["grades"] });
         },
         onError: (err) => {

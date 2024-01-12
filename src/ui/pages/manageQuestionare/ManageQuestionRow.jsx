@@ -23,7 +23,6 @@ function ManageQuestionRow({
 
     return (
         <Tr>
-            <Td>{question._id}</Td>
             <Td>{question.question}</Td>
             <Td>
                 <Tooltip label="View" fontSize="md" offset={[0, -70]}>

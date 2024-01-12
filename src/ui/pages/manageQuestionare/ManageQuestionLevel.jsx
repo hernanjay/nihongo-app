@@ -72,6 +72,12 @@ const ManageQuestionLevel = ({
                         <ChevronRightIcon />
                         <Text fontSize="1em">{`N${level}`}</Text>
                     </HStack>
+                    {ctr != 0 && (
+                        <Text me="2">
+                            Total Sets: {""}
+                            {String(ctr).length === 1 ? "0" + ctr : ctr}
+                        </Text>
+                    )}
                     <AccordionIcon />
                 </AccordionButton>
 

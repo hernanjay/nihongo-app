@@ -6,6 +6,7 @@ import {
     AccordionPanel,
     Box,
     Collapse,
+    IconButton,
     Table,
     TableContainer,
     Tbody,
@@ -17,6 +18,8 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import ManageQuestionRow from "./ManageQuestionRow";
+import { FiTrash2 } from "react-icons/fi";
+import { useDeleteQuestionBySet } from "./../../../logic/hooks/question/useDeleteQuestionBySet";
 
 const ManageQuestionSets = ({
     type,
@@ -31,6 +34,8 @@ const ManageQuestionSets = ({
     const [isPreview, setIsPreview] = useState(false);
     const queryClient = useQueryClient();
     const questions = queryClient.getQueryData(["questions"]);
+    const { deleteQuestionBySet, isDeletingQuestionBySet } =
+        useDeleteQuestionBySet();
     const filteredQuestions = questions.filter(
         (question) =>
             question.type == type &&
@@ -63,6 +68,7 @@ const ManageQuestionSets = ({
                                         setIsPreview(true);
                                     }
                                 }}
+                                zIndex={0}
                             >
                                 <Box
                                     ml="1em"
@@ -73,6 +79,24 @@ const ManageQuestionSets = ({
                                     <ChevronRightIcon />{" "}
                                     {`Question Set : ${set}`}
                                 </Box>
+                                <IconButton
+                                    name="delete"
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // Stop event propagation
+                                        deleteQuestionBySet({
+                                            level,
+                                            type,
+                                            set,
+                                        });
+                                    }}
+                                    icon={<FiTrash2 />}
+                                    bg="red.500"
+                                    colorScheme="red"
+                                    me="1rem"
+                                    zIndex={1}
+                                    size={"xs"}
+                                    hidden={isPreview}
+                                />
                                 <AccordionIcon />
                             </AccordionButton>
                             {isPreview && (
@@ -96,7 +120,6 @@ const ManageQuestionSets = ({
                                         <Table>
                                             <Thead>
                                                 <Tr>
-                                                    <Th w="10%">ID</Th>
                                                     <Th w="100%">QUESTION</Th>
                                                     <Th w="30%">ACTIONS</Th>
                                                 </Tr>
