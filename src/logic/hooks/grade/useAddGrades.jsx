@@ -16,6 +16,8 @@ export const useAddGrades = () => {
         }) =>
             addScore(user, questions, questionIds, userAnswers, correctAnswers),
         onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["grades"] });
+
             toast({
                 title: "Score Added Successfully!",
                 position: "top",
@@ -23,7 +25,6 @@ export const useAddGrades = () => {
                 duration: 3000,
                 isClosable: true,
             });
-            await queryClient.invalidateQueries({ queryKey: ["grades"] });
         },
         onError: (err) =>
             toast({

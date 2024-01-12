@@ -32,7 +32,7 @@ const ManageQuestionLevel = ({
         (question) => question._id.type == type && question._id.level == level
     );
 
-    questionsByTypeLevelSet.map(
+    questionsByTypeLevelSet?.map(
         (question) =>
             question._id.type == type && question._id.level == level && ctr++
     );

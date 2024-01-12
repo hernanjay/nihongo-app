@@ -11,13 +11,6 @@ export function useDeleteQuestionBySet() {
             mutationFn: ({ level, type, set }) =>
                 deleteQuestionBySetAPI(level, type, set),
             onSuccess: async (data) => {
-                toast({
-                    title: `${data.message}`,
-                    position: "top",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                });
                 await queryClient.invalidateQueries({
                     queryKey: ["questions"],
                 });
@@ -25,6 +18,14 @@ export function useDeleteQuestionBySet() {
                     queryKey: ["questionsByTypeLevelSet"],
                 });
                 await queryClient.invalidateQueries({ queryKey: ["grades"] });
+
+                toast({
+                    title: `${data.message}`,
+                    position: "top",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
             },
             onError: (err) => {
                 toast({

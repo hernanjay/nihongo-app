@@ -14,7 +14,7 @@ import {
     Thead,
     Tr,
 } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import ManageQuestionRow from "./ManageQuestionRow";
@@ -67,7 +67,8 @@ const ManageQuestionSets = ({
                         <AccordionItem my="1">
                             <AccordionButton
                                 pr="2em"
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     if (currentlySelectedQn === `Q${set}`) {
                                         setCurrenlySelectedQn("none");
                                         setIsPreview(false);
@@ -87,20 +88,27 @@ const ManageQuestionSets = ({
                                     <ChevronRightIcon />{" "}
                                     {`Question Set : ${set}`}
                                 </Box>
-                                <IconButton
-                                    name="delete"
-                                    onClick={(e) => {
-                                        e.stopPropagation(); // Stop event propagation
-                                        onAlertOpen();
-                                    }}
-                                    icon={<FiTrash2 />}
-                                    bg="red.500"
-                                    colorScheme="red"
-                                    me="1rem"
-                                    zIndex={1}
-                                    size={"xs"}
-                                    hidden={isPreview}
-                                />
+                                {!isPreview && (
+                                    <Box
+                                        hidden={isDeletingQuestionBySet}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            onAlertOpen();
+                                        }}
+                                        bg="red.500"
+                                        color="white"
+                                        me="1rem"
+                                        zIndex={1}
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        cursor="pointer"
+                                        p={1.5}
+                                        borderRadius={"md"}
+                                    >
+                                        <DeleteIcon />
+                                    </Box>
+                                )}
                                 <AlerPopUp
                                     isOpen={isAlertOpen}
                                     onClose={onAlertClose}

@@ -12,6 +12,12 @@ export function useDeleteQuestion() {
     const { mutate: deleteQuestion, isLoading: isDeleting } = useMutation({
         mutationFn: ({ questionId }) => deleteQuestionWithGradesAPI(questionId),
         onSuccess: async (data) => {
+            await queryClient.invalidateQueries({ queryKey: ["questions"] });
+            await queryClient.invalidateQueries({
+                queryKey: ["questionsByTypeLevelSet"],
+            });
+            await queryClient.invalidateQueries({ queryKey: ["grades"] });
+
             toast({
                 title: `${data.message}`,
                 position: "top",
@@ -19,11 +25,6 @@ export function useDeleteQuestion() {
                 duration: 3000,
                 isClosable: true,
             });
-            await queryClient.invalidateQueries({ queryKey: ["questions"] });
-            await queryClient.invalidateQueries({
-                queryKey: ["questionsByTypeLevelSet"],
-            });
-            await queryClient.invalidateQueries({ queryKey: ["grades"] });
         },
         onError: (err) => {
             toast({
