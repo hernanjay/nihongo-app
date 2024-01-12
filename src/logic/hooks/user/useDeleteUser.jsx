@@ -1,44 +1,16 @@
 import { useToast } from "@chakra-ui/toast";
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteUserAPI } from "../../services/apiUsers";
 
 export function useDeleteUser() {
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const queryClient = useQueryClient();
     const toast = useToast();
 
-    const deleteUser = async (userId) => {
-        const token = JSON.parse(localStorage.getItem("token"));
-        setIsLoading(true);
-        const response = await fetch(
-            `${import.meta.env.VITE_LOCALHOST_API}/api/users/delete`,
-            {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userId,
-                }),
-            }
-        );
+    const { mutate: deleteUser, isPending: isDeletingUser } = useMutation({
+        mutationFn: ({ userId }) => deleteUserAPI(userId),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["users"] });
 
-        const json = await response.json();
-
-        if (!response.ok) {
-            setError(json.error);
-            toast({
-                title: "Deleting Failed",
-                position: "top",
-                description: `${json.error}`,
-                status: "error",
-                duration: 2500,
-                isClosable: true,
-            });
-            setIsLoading(false);
-        }
-
-        if (response.ok) {
             toast({
                 title: "Deleted Succesfully!",
                 position: "top",
@@ -46,9 +18,18 @@ export function useDeleteUser() {
                 duration: 2500,
                 isClosable: true,
             });
-            setIsLoading(false);
-        }
-    };
+        },
+        onError: (err) => {
+            toast({
+                title: "Deleting Failed",
+                position: "top",
+                description: `${err.message}`,
+                status: "error",
+                duration: 2500,
+                isClosable: true,
+            });
+        },
+    });
 
-    return { deleteUser, isLoading, error };
+    return { deleteUser, isDeletingUser };
 }

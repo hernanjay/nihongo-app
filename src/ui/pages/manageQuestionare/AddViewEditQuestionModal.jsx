@@ -69,10 +69,12 @@ const AddViewEditQuestionModal = ({
         "questionsByTypeLevelSet",
     ]);
 
-    // This is the maxlength of all types depending on type and level
-    const maxSetLength = questionsByTypeLevelSet.filter(
-        (data) => data._id.level == qn.level && data._id.type == qn.type
-    ).length;
+    const maxSet = questionsByTypeLevelSet.reduce((maxSet, data) => {
+        if (data._id.level === qn.level && data._id.type === qn.type) {
+            return Math.max(maxSet, data._id.set);
+        }
+        return maxSet;
+    }, 0);
 
     const isKanji = qn.type === "kanji";
 
@@ -376,7 +378,7 @@ const AddViewEditQuestionModal = ({
                                 <NumberInput
                                     value={qn.set}
                                     min={1}
-                                    max={maxSetLength + 1}
+                                    max={maxSet + 1}
                                     onChange={(valueString) => {
                                         const value = parseInt(valueString, 10); // Parse the string to an integer
                                         handleChange({
@@ -389,7 +391,7 @@ const AddViewEditQuestionModal = ({
                                         value={qn.set}
                                         name="set"
                                         placeholder={`min: 1, max: ${
-                                            maxSetLength + 1
+                                            maxSet + 1
                                         }`}
                                         _disabled={{
                                             color: fontColor,
@@ -572,7 +574,9 @@ const AddViewEditQuestionModal = ({
                                             }}
                                         />
 
-                                        {(isAdd || isEditLocal) && (
+                                        {(isAdd ||
+                                            isEditLocal ||
+                                            isEditDatabase) && (
                                             <IconButton
                                                 onClick={() =>
                                                     deleteOption(index)
