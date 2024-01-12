@@ -574,7 +574,9 @@ const AddViewEditQuestionModal = ({
                                             }}
                                         />
 
-                                        {(isAdd || isEditLocal) && (
+                                        {(isAdd ||
+                                            isEditLocal ||
+                                            isEditDatabase) && (
                                             <IconButton
                                                 onClick={() =>
                                                     deleteOption(index)
