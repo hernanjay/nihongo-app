@@ -199,9 +199,7 @@ export async function deleteQuestionBySetAPI(level, type, set) {
     if (!set) throw new Error(`set is ${set}`);
 
     const res = await fetch(
-        `${
-            import.meta.env.VITE_LOCALHOST_API_3000
-        }/api/questions/delete-by-set`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/delete-by-set`,
         {
             method: "DELETE",
             headers: {
@@ -248,7 +246,7 @@ export async function updateQuestionAPI(question) {
     }
 
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/questions/update`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/questions/update`,
         {
             method: "PATCH",
             headers: {
