@@ -361,8 +361,6 @@ function HomeUserProfileCard() {
                         </Table>
                     </TableContainer>
                 </CardBody>
-
-                {/* <CardFooter bg={bg} roundedBottom="xl"></CardFooter> */}
             </Card>
         </Box>
     );
