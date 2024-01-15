@@ -1,5 +1,7 @@
 import {
     Accordion,
+    Box,
+    Divider,
     HStack,
     Heading,
     Tab,
@@ -11,7 +13,8 @@ import {
 // import QuestionType from "../questionHomePage/QuestionType";
 import ThemeColors from "../main/ThemeColors";
 import ManageQuestionLevel from "./ManageQuestionLevel";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import QuestionType from "../questionHomePage/QuestionType";
 
 function DeleteUpdateQuestionPanel({
     setQnPreview,
@@ -23,6 +26,14 @@ function DeleteUpdateQuestionPanel({
     const { bg, fontColor } = ThemeColors();
     const [currentlySelected, setCurrentlySelected] = useState("none");
     const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
+    const [isExpand, setIsExpand] = useState("false");
+
+    const [selectedQuestion, setSelectedQuestion] = useState({
+        level: null,
+        type: "kanji",
+        set: null,
+        isExpand: "false",
+    });
 
     return (
         <TabPanel>
@@ -60,6 +71,15 @@ function DeleteUpdateQuestionPanel({
                             onClick={() => {
                                 setCurrentlySelected("none");
                                 setCurrenlySelectedQn("none");
+                                setIsExpand("false");
+                                setSelectedQuestion({
+                                    level: null,
+                                    type,
+                                    set: null,
+                                    isExpand: "false",
+                                });
+
+                                console.log(selectedQuestion);
                             }}
                         >
                             {type.toUpperCase()}
@@ -69,31 +89,27 @@ function DeleteUpdateQuestionPanel({
 
                 <TabPanels>
                     {questionTypes.map((type) => (
-                        <Accordion
-                            allowToggle
-                            m="1.25em"
-                            bg={bg}
-                            key={type}
-                            borderRadius="lg"
-                        >
-                            {numberOfLevel.map((num, index) => (
-                                <ManageQuestionLevel
-                                    key={`${type}-${num}`}
-                                    type={type}
-                                    level={num}
-                                    index={index}
-                                    currentlySelected={currentlySelected}
-                                    setCurrentlySelected={setCurrentlySelected}
-                                    currentlySelectedQn={currentlySelectedQn}
-                                    setCurrenlySelectedQn={
-                                        setCurrenlySelectedQn
-                                    }
-                                    setQnPreview={setQnPreview}
-                                    setIsEditDatabase={setIsEditDatabase}
-                                    setIsViewDatabase={setIsViewDatabase}
-                                />
-                            ))}
-                        </Accordion>
+                        <TabPanel key={type}>
+                            <Accordion
+                                allowToggle
+                                bg={bg}
+                                key={type}
+                                borderRadius="lg"
+                            >
+                                {numberOfLevel.map((num, index) => (
+                                    <ManageQuestionLevel
+                                        key={`${type}-${num}`}
+                                        type={type}
+                                        level={num}
+                                        index={index}
+                                        setIsExpand={setIsExpand}
+                                        setQnPreview={setQnPreview}
+                                        setIsEditDatabase={setIsEditDatabase}
+                                        setIsViewDatabase={setIsViewDatabase}
+                                    />
+                                ))}
+                            </Accordion>
+                        </TabPanel>
                     ))}
                 </TabPanels>
             </Tabs>
