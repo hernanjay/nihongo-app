@@ -14,13 +14,15 @@ import { useQueryClient } from "@tanstack/react-query";
 const ManageQuestionLevel = ({
     level,
     type,
+    index,
     setQnPreview,
     setIsEditDatabase,
     setIsViewDatabase,
+    currentlySelected,
+    setCurrentlySelected,
 }) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
-    const [currentlySelected, setCurrentlySelected] = useState("none");
     const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
     const questionsByTypeLevelSet = queryClient.getQueryData([
         "questionsByTypeLevelSet",
@@ -54,6 +56,8 @@ const ManageQuestionLevel = ({
                 my="1"
                 isDisabled={!ctr}
                 verticalAlign="center"
+                borderTop="none"
+                borderBottom={index !== 4 ? "solid" : "none"}
             >
                 <AccordionButton
                     onClick={() => {
