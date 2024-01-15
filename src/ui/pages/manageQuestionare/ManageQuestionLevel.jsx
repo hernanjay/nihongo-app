@@ -7,6 +7,7 @@ import {
     AccordionIcon,
     AccordionItem,
     AccordionPanel,
+    TabPanel,
 } from "@chakra-ui/react";
 import ManageQuestionSets from "./ManageQuestionSets";
 import { useState } from "react";
@@ -14,14 +15,18 @@ import { useQueryClient } from "@tanstack/react-query";
 const ManageQuestionLevel = ({
     level,
     type,
+    index,
+    currentlySelected,
+    setCurrentlySelected,
+    currentlySelectedQn,
+    setCurrenlySelectedQn,
     setQnPreview,
     setIsEditDatabase,
     setIsViewDatabase,
 }) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
-    const [currentlySelected, setCurrentlySelected] = useState("none");
-    const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
+
     const questionsByTypeLevelSet = queryClient.getQueryData([
         "questionsByTypeLevelSet",
     ]);
@@ -48,79 +53,85 @@ const ManageQuestionLevel = ({
     }
 
     return (
-        <Collapse animateOpacity in={checkIfOpen()}>
-            <AccordionItem
-                key={level}
-                my="1"
-                isDisabled={!ctr}
-                verticalAlign="center"
-            >
-                <AccordionButton
-                    onClick={() => {
-                        if (currentlySelected === `N${level}`) {
-                            setCurrentlySelected("none");
-                            setIsPreview(false);
-                        } else {
-                            setCurrentlySelected(`N${level}`);
-                            setIsPreview(true);
-                        }
-                        setCurrenlySelectedQn("none");
-                    }}
-                    variant="solid"
+        <TabPanel p={0}>
+            <Collapse animateOpacity in={checkIfOpen()}>
+                <AccordionItem
+                    key={level}
+                    my="1"
+                    isDisabled={!ctr}
+                    verticalAlign="center"
+                    borderTop="none"
+                    borderBottom={index !== 4 ? "1px" : "0"}
                 >
-                    <HStack as="span" flex="1" textAlign="left">
-                        <ChevronRightIcon />
-                        <Text fontSize="1em">{`N${level}`}</Text>
-                    </HStack>
-                    {ctr != 0 && (
-                        <Text me="2">
-                            Total Sets: {""}
-                            {String(ctr).length === 1 ? "0" + ctr : ctr}
-                        </Text>
-                    )}
-                    <AccordionIcon />
-                </AccordionButton>
+                    <AccordionButton
+                        onClick={() => {
+                            if (currentlySelected === `N${level}`) {
+                                setCurrentlySelected("none");
+                                setIsPreview(false);
+                            } else {
+                                setCurrentlySelected(`N${level}`);
+                                setIsPreview(true);
+                            }
+                            setCurrenlySelectedQn("none");
+                        }}
+                        variant="solid"
+                    >
+                        <HStack as="span" flex="1" textAlign="left">
+                            <ChevronRightIcon />
+                            <Text fontSize="1em">{`N${level}`}</Text>
+                        </HStack>
+                        {ctr != 0 && (
+                            <Text me="2">
+                                Total Sets: {""}
+                                {String(ctr).length === 1 ? "0" + ctr : ctr}
+                            </Text>
+                        )}
+                        <AccordionIcon />
+                    </AccordionButton>
 
-                <AccordionPanel
-                    pb={4}
-                    maxH={currentlySelectedQn === "none" ? "50vh" : "auto"}
-                    overflowY={
-                        currentlySelectedQn === "none" ? "auto" : "hidden"
-                    }
-                    borderRadius="lg"
-                    sx={{
-                        "&::-webkit-scrollbar": {
-                            width: "10px",
-                            backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                            borderRightRadius: "lg",
-                        },
-                        "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: `rgba(0, 0, 0, 0.15)`,
-                            borderRightRadius: "lg",
-                        },
-                    }}
-                >
-                    {isPreview &&
-                        filteredQuestions.map((questions, index) => (
-                            <ManageQuestionSets
-                                currentlySelectedQn={currentlySelectedQn}
-                                setCurrenlySelectedQn={setCurrenlySelectedQn}
-                                setQnPreview={setQnPreview}
-                                setIsEditDatabase={setIsEditDatabase}
-                                setIsViewDatabase={setIsViewDatabase}
-                                key={
-                                    questions._id.type +
-                                    questions._id.level +
-                                    index
-                                }
-                                type={questions._id.type}
-                                level={questions._id.level}
-                                set={questions._id.set}
-                            />
-                        ))}
-                </AccordionPanel>
-            </AccordionItem>
-        </Collapse>
+                    <AccordionPanel
+                        pb={4}
+                        maxH={currentlySelectedQn === "none" ? "50vh" : "auto"}
+                        overflowY={
+                            currentlySelectedQn === "none" ? "auto" : "hidden"
+                        }
+                        borderRadius="lg"
+                        sx={{
+                            "&::-webkit-scrollbar": {
+                                width: "10px",
+                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                                borderRightRadius: "lg",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: `rgba(0, 0, 0, 0.15)`,
+                                borderRightRadius: "lg",
+                            },
+                        }}
+                    >
+                        {isPreview &&
+                            filteredQuestions.map((questions, index) => (
+                                <ManageQuestionSets
+                                    currentlySelectedQn={currentlySelectedQn}
+                                    setCurrenlySelectedQn={
+                                        setCurrenlySelectedQn
+                                    }
+                                    setQnPreview={setQnPreview}
+                                    setIsEditDatabase={setIsEditDatabase}
+                                    setIsViewDatabase={setIsViewDatabase}
+                                    key={
+                                        questions._id.type +
+                                        questions._id.level +
+                                        index
+                                    }
+                                    type={questions._id.type}
+                                    level={questions._id.level}
+                                    set={questions._id.set}
+                                />
+                            ))}
+                    </AccordionPanel>
+                </AccordionItem>
+            </Collapse>
+        </TabPanel>
     );
 };
 export default ManageQuestionLevel;

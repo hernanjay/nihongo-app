@@ -262,11 +262,11 @@ function HomeUserProfileCard() {
 
                     {/* Scoreboard */}
                     <TableContainer mt="5vh">
-                        <Table fontSize="0.75em" variant="simple">
+                        <Table fontSize=".8rem" variant="simple">
                             <Thead>
-                                <Tr fontSize="0.75em">
+                                <Tr>
                                     <Th>
-                                        <Text fontSize="0.75em">Category </Text>
+                                        <Text>Category </Text>
                                     </Th>
                                     <Th>
                                         <Menu>
@@ -277,9 +277,10 @@ function HomeUserProfileCard() {
                                                 variant="unstyled"
                                                 as={Button}
                                                 rightIcon={<ChevronDownIcon />}
+                                                fontSize=".8rem"
                                             >
                                                 <Text display="inline">
-                                                    Level
+                                                    LEVEL
                                                 </Text>
                                             </MenuButton>
                                             <MenuList>
@@ -330,32 +331,47 @@ function HomeUserProfileCard() {
                                             </MenuList>
                                         </Menu>
                                     </Th>
-                                    <Th isNumeric>
-                                        <Text fontSize="0.75em">Score </Text>
+                                    <Th>
+                                        <Text>Score </Text>
                                     </Th>
-                                    <Th isNumeric>
-                                        <Text fontSize="0.75em">Total </Text>
+                                    <Th>
+                                        <Text>Total </Text>
                                     </Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 <Tr>
-                                    <Td>Kanji</Td>
-                                    <Td>{level}</Td>
-                                    <Td isNumeric>{score?.kanji || "0"}</Td>
-                                    <Td isNumeric>{total?.kanji || "0"}</Td>
+                                    <Td textAlign={"center"}>KANJI</Td>
+
+                                    <Td ms="5px">{level}</Td>
+
+                                    <Td textAlign={"center"}>
+                                        {score?.kanji || "0"}
+                                    </Td>
+
+                                    <Td textAlign={"center"}>
+                                        {total?.kanji || "0"}
+                                    </Td>
                                 </Tr>
                                 <Tr>
-                                    <Td>Vocab</Td>
+                                    <Td textAlign={"center"}>VOCAB</Td>
                                     <Td>{level}</Td>
-                                    <Td isNumeric>{score?.vocab || "0"}</Td>
-                                    <Td isNumeric>{total?.vocab || "0"}</Td>
+                                    <Td textAlign={"center"}>
+                                        {score?.vocab || "0"}
+                                    </Td>
+                                    <Td textAlign={"center"}>
+                                        {total?.vocab || "0"}
+                                    </Td>
                                 </Tr>
                                 <Tr>
-                                    <Td>Grammar</Td>
+                                    <Td textAlign={"center"}>GRAMMAR</Td>
                                     <Td>{level}</Td>
-                                    <Td isNumeric>{score?.grammar || "0"}</Td>
-                                    <Td isNumeric>{total?.grammar || "0"}</Td>
+                                    <Td textAlign={"center"}>
+                                        {score?.grammar || "0"}
+                                    </Td>
+                                    <Td textAlign={"center"}>
+                                        {total?.grammar || "0"}
+                                    </Td>
                                 </Tr>
                             </Tbody>
                         </Table>

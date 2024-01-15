@@ -667,6 +667,8 @@ const AddViewEditQuestionModal = ({
                 <ModalFooter>
                     <Button
                         colorScheme="blue"
+                        bg="blue.500"
+                        color="white"
                         mr={3}
                         disabled={isUpdating}
                         onClick={() => {
@@ -692,6 +694,8 @@ const AddViewEditQuestionModal = ({
                     </Button>
                     <Button
                         colorScheme="red"
+                        bg="red.500"
+                        color="white"
                         onClick={() => {
                             resetQn();
                         }}

@@ -48,13 +48,13 @@ function AddQuestionsPanel({
                     size="sm"
                     my="-1em"
                     fontSize="0.75em"
-                    variant="outline"
+                    // variant="outline"
                     leftIcon={<FiPlusCircle />}
                     onClick={onOpen}
-                    bg={bg}
-                    borderColor={border}
+                    colorScheme="green"
+                    bg="green.500"
                 >
-                    Add Question
+                    ADD
                 </Button>
             </HStack>
             {/* ======================================================================================= */}

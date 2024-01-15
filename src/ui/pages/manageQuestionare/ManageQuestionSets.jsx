@@ -96,7 +96,7 @@ const ManageQuestionSets = ({
                                             onAlertOpen();
                                         }}
                                         bg="red.500"
-                                        color="white"
+                                        color="black"
                                         me="1rem"
                                         zIndex={1}
                                         display="flex"
@@ -105,8 +105,9 @@ const ManageQuestionSets = ({
                                         cursor="pointer"
                                         p={1.5}
                                         borderRadius={"md"}
+                                        _hover={{ bg: "red" }}
                                     >
-                                        <DeleteIcon />
+                                        <FiTrash2 />
                                     </Box>
                                 )}
                                 <AlerPopUp
