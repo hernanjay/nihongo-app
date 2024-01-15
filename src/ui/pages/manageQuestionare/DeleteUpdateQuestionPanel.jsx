@@ -25,15 +25,6 @@ function DeleteUpdateQuestionPanel({
     const questionTypes = ["kanji", "vocab", "grammar"];
     const { bg, fontColor } = ThemeColors();
     const [currentlySelected, setCurrentlySelected] = useState("none");
-    const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
-    const [isExpand, setIsExpand] = useState("false");
-
-    const [selectedQuestion, setSelectedQuestion] = useState({
-        level: null,
-        type: "kanji",
-        set: null,
-        isExpand: "false",
-    });
 
     return (
         <TabPanel>
@@ -70,14 +61,6 @@ function DeleteUpdateQuestionPanel({
                             key={type}
                             onClick={() => {
                                 setCurrentlySelected("none");
-                                setCurrenlySelectedQn("none");
-                                setIsExpand("false");
-                                setSelectedQuestion({
-                                    level: null,
-                                    type,
-                                    set: null,
-                                    isExpand: "false",
-                                });
                             }}
                         >
                             {type.toUpperCase()}
@@ -100,10 +83,13 @@ function DeleteUpdateQuestionPanel({
                                         type={type}
                                         level={num}
                                         index={index}
-                                        setIsExpand={setIsExpand}
                                         setQnPreview={setQnPreview}
                                         setIsEditDatabase={setIsEditDatabase}
                                         setIsViewDatabase={setIsViewDatabase}
+                                        currentlySelected={currentlySelected}
+                                        setCurrentlySelected={
+                                            setCurrentlySelected
+                                        }
                                     />
                                 ))}
                             </Accordion>

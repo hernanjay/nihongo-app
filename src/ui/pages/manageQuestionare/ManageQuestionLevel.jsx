@@ -18,10 +18,11 @@ const ManageQuestionLevel = ({
     setQnPreview,
     setIsEditDatabase,
     setIsViewDatabase,
+    currentlySelected,
+    setCurrentlySelected,
 }) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
-    const [currentlySelected, setCurrentlySelected] = useState("none");
     const [currentlySelectedQn, setCurrenlySelectedQn] = useState("none");
     const questionsByTypeLevelSet = queryClient.getQueryData([
         "questionsByTypeLevelSet",
