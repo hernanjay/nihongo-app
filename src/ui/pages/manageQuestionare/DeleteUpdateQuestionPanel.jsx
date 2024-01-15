@@ -78,8 +78,6 @@ function DeleteUpdateQuestionPanel({
                                     set: null,
                                     isExpand: "false",
                                 });
-
-                                console.log(selectedQuestion);
                             }}
                         >
                             {type.toUpperCase()}
