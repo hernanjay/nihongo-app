@@ -11,7 +11,7 @@ import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuest
 import { Fragment } from "react";
 
 export default function Home() {
-    const { bg } = ThemeColors();
+    const { bg, body, hover } = ThemeColors();
     const numberOfLevel = [1, 2, 3, 4, 5];
     const questionTypes = ["kanji", "vocab", "grammar"];
     const navigate = useNavigate();
@@ -90,12 +90,14 @@ export default function Home() {
                                 boxShadow="lg"
                             >
                                 <QuestionType type={type} bg={bg}>
-                                    {numberOfLevel.map((num, index) => (
+                                    {numberOfLevel.map((num) => (
                                         <QuestionLevel
                                             level={num}
                                             key={`${type}-${num}`}
                                             type={type}
                                             bg={bg}
+                                            body={body}
+                                            hover={hover}
                                         />
                                     ))}
                                 </QuestionType>
