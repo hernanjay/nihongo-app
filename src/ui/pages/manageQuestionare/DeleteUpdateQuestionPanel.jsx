@@ -13,7 +13,7 @@ import {
 // import QuestionType from "../questionHomePage/QuestionType";
 import ThemeColors from "../main/ThemeColors";
 import ManageQuestionLevel from "./ManageQuestionLevel";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import QuestionType from "../questionHomePage/QuestionType";
 
 function DeleteUpdateQuestionPanel({
@@ -24,7 +24,19 @@ function DeleteUpdateQuestionPanel({
     const numberOfLevel = [1, 2, 3, 4, 5];
     const questionTypes = ["kanji", "vocab", "grammar"];
     const { bg, fontColor } = ThemeColors();
-    const [currentlySelected, setCurrentlySelected] = useState("none");
+    const [selectedType, setSelectedType] = useState("kanji");
+    const [selectedLevel, setSelectedLevel] = useState(null);
+
+    useEffect(() => {
+        const initialLevels = {};
+        questionTypes.forEach((type) => {
+            initialLevels[type] = numberOfLevel.map((level) => ({
+                level,
+                isShow: true,
+            }));
+        });
+        setSelectedLevel(initialLevels);
+    }, []); // Empty array in object means it will run only at first render
 
     return (
         <TabPanel>
@@ -33,36 +45,11 @@ function DeleteUpdateQuestionPanel({
                 <Heading fontSize="1.25em">List of Questions</Heading>
             </HStack>
             {/* ======================================================================================= */}
-            {/* {questionTypes.map((type) => (
-                <Fragment key={type}>
-                    <Box bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
-                        <QuestionType type={type} bg={bg}>
-                            {numberOfLevel.map((num, index) => (
-                                <ManageQuestionLevel
-                                    key={`${type}-${num}`}
-                                    type={type}
-                                    level={num}
-                                    setQnPreview={setQnPreview}
-                                    setIsEditDatabase={setIsEditDatabase}
-                                    setIsViewDatabase={setIsViewDatabase}
-                                />
-                            ))}
-                        </QuestionType>
-                    </Box>
-                    <Divider maxW={{ base: "90vw", lg: "60vw" }} my="2.5vh" />
-                </Fragment>
-            ))} */}
 
-            <Tabs isFitted variant="solid-rounded" colorScheme="whiteAlpha">
+            <Tabs isFitted variant="solid-rounded">
                 <TabList bg={bg} borderRadius={"3xl"}>
                     {questionTypes.map((type) => (
-                        <Tab
-                            color={fontColor}
-                            key={type}
-                            onClick={() => {
-                                setCurrentlySelected("none");
-                            }}
-                        >
+                        <Tab color={fontColor} key={type}>
                             {type.toUpperCase()}
                         </Tab>
                     ))}
@@ -77,19 +64,18 @@ function DeleteUpdateQuestionPanel({
                                 key={type}
                                 borderRadius="lg"
                             >
-                                {numberOfLevel.map((num, index) => (
+                                {numberOfLevel.map((level, index) => (
                                     <ManageQuestionLevel
-                                        key={`${type}-${num}`}
+                                        key={`${type}-${level}`}
                                         type={type}
-                                        level={num}
+                                        level={level}
                                         index={index}
                                         setQnPreview={setQnPreview}
                                         setIsEditDatabase={setIsEditDatabase}
                                         setIsViewDatabase={setIsViewDatabase}
-                                        currentlySelected={currentlySelected}
-                                        setCurrentlySelected={
-                                            setCurrentlySelected
-                                        }
+                                        selectedType={selectedType}
+                                        selectedLevel={selectedLevel}
+                                        setSelectedLevel={setSelectedLevel}
                                     />
                                 ))}
                             </Accordion>
