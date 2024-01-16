@@ -94,6 +94,24 @@ export const fetchAllUsersAPI = async () => {
     return json;
 };
 
+export const fetchStudentUsersAPI = async () => {
+    const res = await fetch(
+        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/users/list-of-students`,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+        console.error(json.error);
+        throw new Error(`${json.error}`);
+    }
+
+    return json;
+};
+
 export const updateUserRoleAPI = async (userId, role) => {
     const res = await fetch(
         `${import.meta.env.VITE_LOCALHOST_API}/api/users/update-role`,

@@ -12,11 +12,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuestionContext } from "../../../logic/hooks/question/useQuestionContext";
 import { scrollTo } from "scroll-js";
 import { useQueryClient } from "@tanstack/react-query";
+import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
+import Loader from "../../components/Loader";
 
-const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
-    const questionsByTypeLevelSet = useQueryClient().getQueryData([
-        "questionsByTypeLevelSet",
-    ]);
+const QuestionSideSets = ({
+    bg,
+    hoverColor,
+    type,
+    level,
+    setHasSubmit,
+    questionsByTypeLevelSet,
+}) => {
     const filteredQuestions = questionsByTypeLevelSet.filter(
         (question) =>
             question._id.type == type && question._id.level == level[1]
@@ -24,7 +30,6 @@ const QuestionSideSets = ({ bg, hoverColor, type, level, setHasSubmit }) => {
 
     const { set } = useParams();
     const navigate = useNavigate();
-
     return (
         <GridItem colSpan="1" display={{ base: "none", lg: "inline-block" }}>
             <Card

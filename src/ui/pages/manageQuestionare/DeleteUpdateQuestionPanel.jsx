@@ -24,7 +24,6 @@ function DeleteUpdateQuestionPanel({
     const numberOfLevel = [1, 2, 3, 4, 5];
     const questionTypes = ["kanji", "vocab", "grammar"];
     const { bg, fontColor } = ThemeColors();
-    const [selectedType, setSelectedType] = useState("kanji");
     const [selectedLevel, setSelectedLevel] = useState(null);
 
     useEffect(() => {
@@ -46,7 +45,7 @@ function DeleteUpdateQuestionPanel({
             </HStack>
             {/* ======================================================================================= */}
 
-            <Tabs isFitted variant="solid-rounded">
+            <Tabs isFitted variant="solid-rounded" colorScheme="linkedin">
                 <TabList bg={bg} borderRadius={"3xl"}>
                     {questionTypes.map((type) => (
                         <Tab color={fontColor} key={type}>
@@ -73,7 +72,6 @@ function DeleteUpdateQuestionPanel({
                                         setQnPreview={setQnPreview}
                                         setIsEditDatabase={setIsEditDatabase}
                                         setIsViewDatabase={setIsViewDatabase}
-                                        selectedType={selectedType}
                                         selectedLevel={selectedLevel}
                                         setSelectedLevel={setSelectedLevel}
                                     />
