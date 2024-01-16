@@ -26,9 +26,6 @@ function DeleteUpdateQuestionPanel({
     const { bg, fontColor } = ThemeColors();
     const [selectedType, setSelectedType] = useState("kanji");
     const [selectedLevel, setSelectedLevel] = useState(null);
-    const isHidden =
-        selectedLevel &&
-        selectedLevel[selectedType].some((level) => !level.isShow);
 
     useEffect(() => {
         const initialLevels = {};
@@ -39,7 +36,7 @@ function DeleteUpdateQuestionPanel({
             }));
         });
         setSelectedLevel(initialLevels);
-    }, []);
+    }, []); // Empty array in object means it will run only at first render
 
     return (
         <TabPanel>
@@ -52,18 +49,7 @@ function DeleteUpdateQuestionPanel({
             <Tabs isFitted variant="solid-rounded">
                 <TabList bg={bg} borderRadius={"3xl"}>
                     {questionTypes.map((type) => (
-                        <Tab
-                            color={fontColor}
-                            key={type}
-                            isDisabled={selectedType === type}
-                            _disabled={{
-                                bg: "blue.500",
-                                cursor: "not-allowed",
-                            }}
-                            onClick={() => {
-                                setSelectedType(type);
-                            }}
-                        >
+                        <Tab color={fontColor} key={type}>
                             {type.toUpperCase()}
                         </Tab>
                     ))}
@@ -90,7 +76,6 @@ function DeleteUpdateQuestionPanel({
                                         selectedType={selectedType}
                                         selectedLevel={selectedLevel}
                                         setSelectedLevel={setSelectedLevel}
-                                        isHidden={isHidden}
                                     />
                                 ))}
                             </Accordion>

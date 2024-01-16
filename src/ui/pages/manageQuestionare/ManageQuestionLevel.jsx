@@ -20,7 +20,6 @@ const ManageQuestionLevel = ({
     setIsViewDatabase,
     selectedLevel,
     setSelectedLevel,
-    isHidden,
 }) => {
     const queryClient = useQueryClient();
     const [isPreview, setIsPreview] = useState(false);
@@ -54,7 +53,11 @@ const ManageQuestionLevel = ({
                     <AccordionButton
                         onClick={() => {
                             // If others is hidden we need to toggle back to true
-                            if (isHidden) {
+                            if (
+                                selectedLevel[type].some(
+                                    (level) => !level.isShow
+                                )
+                            ) {
                                 setSelectedLevel((prevData) => ({
                                     ...prevData,
                                     [type]: prevData[type].map((data) => ({
