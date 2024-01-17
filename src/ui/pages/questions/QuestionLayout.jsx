@@ -18,6 +18,7 @@ import {
 } from "../../../logic/services/apiQuestions";
 import QuestionAnsweredTrackerMobileWrapper from "./QuestionAnsweredTrackerMobileWrapper";
 import { useQueryClient } from "@tanstack/react-query";
+import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
 
 const QuestionLayout = () => {
     const { bg, border } = ThemeColors();
@@ -25,6 +26,8 @@ const QuestionLayout = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [hasSubmit, setHasSubmit] = useState(false);
     const { level, type, set } = useParams();
+    const { questionsByTypeLevelSet, isGettingQuestionsByTypeLevelSet } =
+        useQuestionsTypeLevelSet();
 
     const { dispatch: questionDispatch } = useQuestionContext();
 
@@ -98,65 +101,73 @@ const QuestionLayout = () => {
 
     return (
         <Box minW="100vw">
-            {isLoading && <Loader isLoading={isLoading} />}
-            <Spacer minH="10vh" />
-            <Box
-                id="questionLayoutContainer"
-                pb={{ base: "10vh", lg: "0" }}
-                overflow="auto"
-                overscrollBehavior="auto"
-                sx={{
-                    "&::-webkit-scrollbar": {
-                        width: "10px",
-                        borderRadius: "8px",
-                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                        backgroundColor: `rgba(0, 0, 0, 0.25)`,
-                    },
-                }}
-            >
-                <Grid
-                    mx="2vw"
-                    h="90vh"
-                    templateRows="repeat(1, 1fr)"
-                    templateColumns="repeat(4, 1fr)"
-                    gap={3}
-                    pt="2.5vw"
-                >
-                    <QuestionSideSets
-                        bg={bg}
-                        hoverColor={hoverColor}
-                        type={type}
-                        level={level}
-                        setHasSubmit={setHasSubmit}
-                    />
-                    {isLoading ? (
-                        <QuestionSkeletonLoader />
-                    ) : (
-                        <QuestionList
-                            bg={bg}
-                            hoverColor={hoverColor}
-                            hasSubmit={hasSubmit}
-                        />
-                    )}
-                    <QuestionAnsweredTracker
-                        bg={bg}
-                        border={border}
-                        hasSubmit={hasSubmit}
-                        setHasSubmit={setHasSubmit}
-                        display={{ base: "none", lg: "block" }}
-                    />
-                    <QuestionAnsweredTrackerMobileWrapper>
-                        <QuestionAnsweredTracker
-                            bg={bg}
-                            border={border}
-                            hasSubmit={hasSubmit}
-                            setHasSubmit={setHasSubmit}
-                        />
-                    </QuestionAnsweredTrackerMobileWrapper>
-                </Grid>
-            </Box>
+            {isGettingQuestionsByTypeLevelSet ? (
+                <Loader isLoading={isLoading} />
+            ) : (
+                <>
+                    <Spacer minH="10vh" />
+                    <Box
+                        id="questionLayoutContainer"
+                        pb={{ base: "10vh", lg: "0" }}
+                        overflow="auto"
+                        overscrollBehavior="auto"
+                        sx={{
+                            "&::-webkit-scrollbar": {
+                                width: "10px",
+                                borderRadius: "8px",
+                                backgroundColor: `rgba(0, 0, 0, 0.25)`,
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: `rgba(0, 0, 0, 0.25)`,
+                            },
+                        }}
+                    >
+                        <Grid
+                            mx="2vw"
+                            h="90vh"
+                            templateRows="repeat(1, 1fr)"
+                            templateColumns="repeat(4, 1fr)"
+                            gap={3}
+                            pt="2.5vw"
+                        >
+                            <QuestionSideSets
+                                bg={bg}
+                                hoverColor={hoverColor}
+                                type={type}
+                                level={level}
+                                setHasSubmit={setHasSubmit}
+                                questionsByTypeLevelSet={
+                                    questionsByTypeLevelSet
+                                }
+                            />
+                            {isLoading ? (
+                                <QuestionSkeletonLoader />
+                            ) : (
+                                <QuestionList
+                                    bg={bg}
+                                    hoverColor={hoverColor}
+                                    hasSubmit={hasSubmit}
+                                />
+                            )}
+                            <QuestionAnsweredTracker
+                                bg={bg}
+                                border={border}
+                                hasSubmit={hasSubmit}
+                                setHasSubmit={setHasSubmit}
+                                display={{ base: "none", lg: "block" }}
+                            />
+                            <QuestionAnsweredTrackerMobileWrapper>
+                                <QuestionAnsweredTracker
+                                    bg={bg}
+                                    border={border}
+                                    hasSubmit={hasSubmit}
+                                    setHasSubmit={setHasSubmit}
+                                />
+                            </QuestionAnsweredTrackerMobileWrapper>
+                        </Grid>
+                    </Box>
+                </>
+            )}
         </Box>
     );
 };

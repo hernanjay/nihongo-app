@@ -6,13 +6,11 @@ import {
     Box,
     useDisclosure,
     useBoolean,
-    HStack,
     Spacer,
     Tabs,
     TabList,
     TabPanels,
     Tab,
-    Text,
     useColorMode,
 } from "@chakra-ui/react";
 
@@ -136,35 +134,23 @@ function ManageQuestioner() {
                 }}
             >
                 <Box mt="3vh" minH="80vh" pb={{ base: "10vh", lg: "2em" }}>
-                    <Tabs
-                        variant="soft-rounded"
-                        colorScheme={
-                            colorMode === "light" ? "blackAlpha" : "whiteAlpha"
-                        }
-                    >
+                    <Tabs variant="soft-rounded">
                         {/*Start of Headers at the very top of the page */}
                         {/* ======================================================================================= */}
-                        <HStack
-                            bg={bg}
-                            p="1em"
-                            boxShadow="lg"
-                            borderRadius="lg"
-                        >
+                        <Flex bg={bg} p="1em" boxShadow="lg" borderRadius="lg">
                             <Heading fontSize="1.75em">
-                                Manage Questionnaires
+                                Manage Questionaires
                             </Heading>
                             <Spacer />
                             <TabList>
-                                <Tab border={"1px"} mx="1">
-                                    <Text color={fontColor}>Add Question</Text>
+                                <Tab border={"1px"} mx="1" color={fontColor}>
+                                    Add Question
                                 </Tab>
-                                <Tab border={"1px"} mx="1">
-                                    <Text color={fontColor}>
-                                        Delete/Update Question
-                                    </Text>
+                                <Tab border={"1px"} mx="1" color={fontColor}>
+                                    Delete/Update Question
                                 </Tab>
                             </TabList>
-                        </HStack>
+                        </Flex>
                         {/* ======================================================================================= */}
                         <TabPanels>
                             {/*QUESTION ADD PANEL */}
