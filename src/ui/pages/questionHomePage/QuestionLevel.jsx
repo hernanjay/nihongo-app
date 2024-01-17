@@ -20,7 +20,7 @@ import QuestionSets from "./QuestionSets";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGrades } from "../../../logic/hooks/grade/useGrades";
 
-const QuestionLevel = ({ level, type, bg }) => {
+const QuestionLevel = ({ level, type, bg, body, hover }) => {
     const queryClient = useQueryClient();
 
     const user = queryClient.getQueryData(["user"]);
@@ -92,10 +92,11 @@ const QuestionLevel = ({ level, type, bg }) => {
                         backgroundColor: `rgba(0, 0, 0, 0.15)`,
                     },
                 }}
+                bg={bg}
             >
                 <TableContainer>
-                    <Table variant="simple" colorScheme={bg}>
-                        <Thead>
+                    <Table variant="simple">
+                        <Thead bg={body}>
                             <Tr>
                                 <Th>Question #</Th>
                                 <Th>Number of Items</Th>

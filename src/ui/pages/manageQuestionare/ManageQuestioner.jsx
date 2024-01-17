@@ -76,8 +76,6 @@ function ManageQuestioner() {
         );
     }
 
-    console.log(colorMode);
-
     useEffect(() => {
         const lsQuestions = JSON.parse(localStorage.getItem("questions"));
         lsQuestions && setQuestions(lsQuestions);
