@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { ChakraProvider, flattenTokens } from "@chakra-ui/react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import { useUserContext } from "../../../logic/hooks/user/useUserContext";
 
 //Importing Website Components
 import NavBar from "../../components/NavBar";
@@ -20,18 +19,15 @@ import Admindashboard from "../admin/Admindashboard";
 import AdminChart from "../admin/AdminChart";
 import UserProfile from "../userProfile/UserProfile";
 import KanaLayout from "../kanas/KanaLayout";
-import List from "../admin/List";
+import StudentList from "../admin/StudentList";
 import Grading from "../admin/Grading";
 import ManageQuestioner from "../manageQuestionare/ManageQuestioner";
-import Side from "../dummies/Side";
 import Users from "../admin/Users";
 import LearnVocab from "../learnVocab/LearnVocab";
 
 // Under development version of Register page
-import RegisterStepper from "../register/RegisterStepper";
 import BatchQnAdd from "../dummies/BatchQnAdd";
 import { useUser } from "../../../logic/hooks/user/useUser";
-import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
     const { user, isLoading } = useUser();
@@ -69,13 +65,7 @@ function App() {
                             {/* Goes to student profile page where users can view their account details */}
                             <Route
                                 path="/userprofile"
-                                element={
-                                    user?.role === "student" ? (
-                                        <UserProfile />
-                                    ) : (
-                                        <Navigate to="/" />
-                                    )
-                                }
+                                element={<UserProfile />}
                             />
                             {/* Goes to a page where users can practice typing hiragana or katakana characters */}
                             <Route
@@ -147,10 +137,11 @@ function App() {
                                 }
                             />
                             <Route
-                                path="/list"
+                                path="/student-list"
                                 element={
-                                    user?.role === "admin" ? (
-                                        <List />
+                                    user?.role === "admin" ||
+                                    user?.role === "teacher" ? (
+                                        <StudentList />
                                     ) : (
                                         <Navigate to="/" />
                                     )
