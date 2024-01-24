@@ -542,7 +542,9 @@ const UserProfileModal = ({
                                                 justifyContent="center"
                                                 alignItems="center"
                                             >
-                                                {isUpdateRole ? (
+                                                {isUpdateRole &&
+                                                signedInUser.role ===
+                                                    "admin" ? (
                                                     <>
                                                         <Select
                                                             size="md"
@@ -620,25 +622,27 @@ const UserProfileModal = ({
                                                         >
                                                             {user.role}
                                                         </Text>
-                                                        {isEdit && (
-                                                            <Tooltip
-                                                                label="Update Role"
-                                                                placement="top"
-                                                            >
-                                                                <IconButton
-                                                                    ms={2}
-                                                                    icon={
-                                                                        <FiEdit />
-                                                                    }
-                                                                    size="sm"
-                                                                    onClick={() =>
-                                                                        setIsUpdateRole(
-                                                                            true
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </Tooltip>
-                                                        )}
+                                                        {isEdit &&
+                                                            signedInUser.role ===
+                                                                "admin" && (
+                                                                <Tooltip
+                                                                    label="Update Role"
+                                                                    placement="top"
+                                                                >
+                                                                    <IconButton
+                                                                        ms={2}
+                                                                        icon={
+                                                                            <FiEdit />
+                                                                        }
+                                                                        size="sm"
+                                                                        onClick={() =>
+                                                                            setIsUpdateRole(
+                                                                                true
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </Tooltip>
+                                                            )}
                                                     </>
                                                 )}
                                             </Flex>
@@ -658,10 +662,10 @@ const UserProfileModal = ({
                                                                 setIsEdit(true);
                                                             } else {
                                                                 toast({
-                                                                    title: "Edit not available yet!",
+                                                                    title: "Edit not available yet to teachers!",
                                                                     position:
                                                                         "top",
-                                                                    description: `We are sorry to inform you that is under maintenance`,
+                                                                    description: `We are sorry to inform you that it is under maintenance`,
                                                                     status: "info",
                                                                     duration: 2500,
                                                                     isClosable: true,
