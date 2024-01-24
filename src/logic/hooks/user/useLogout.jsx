@@ -9,7 +9,7 @@ export const useLogout = () => {
     const { dispatch: kanaDispatch } = useKanaContext();
     const queryClient = useQueryClient();
 
-    const logout = () => {
+    const logout = async () => {
         // remove token from local storage
         localStorage.removeItem("token");
         localStorage.removeItem("questions");
@@ -17,6 +17,8 @@ export const useLogout = () => {
         queryClient.setQueryData(["user"], null);
         // Remove the token
         queryClient.removeQueries(["token"]);
+
+        await queryClient.invalidateQueries(["user"]);
 
         kanaDispatch({ type: "clear" });
         // dispatch({ type: "LOGOUT" });
