@@ -1,15 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginAPI, retrieveProfileAPI } from "../../services/apiUsers";
 import { useToast } from "@chakra-ui/react";
-import { useUser } from "./useUser";
 
 export function useLogin() {
     const queryClient = useQueryClient();
     const toast = useToast();
 
-    // const { refetch: refetchUser } = useUser(); // destructure refetch function
-
-    const { mutate: login, isLoading } = useMutation({
+    const { mutate: login, isPending: isLoading } = useMutation({
         mutationFn: ({ email, password }) => loginAPI(email, password),
         onSuccess: async (token) => {
             const user = await retrieveProfileAPI(token);

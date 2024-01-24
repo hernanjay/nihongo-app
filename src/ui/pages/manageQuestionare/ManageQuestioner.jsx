@@ -51,7 +51,6 @@ function ManageQuestioner() {
 
     const [toggle, setToggle] = useBoolean();
     const { bg, fontColor, body, hover, border } = ThemeColors();
-    const colorMode = useColorMode().colorMode;
 
     function deleteQuestion(i) {
         const updatedQuestions = questions.filter((qn, index) => index !== i);

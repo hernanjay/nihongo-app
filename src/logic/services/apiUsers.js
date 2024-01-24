@@ -7,6 +7,7 @@ export const loginAPI = async (email, password) => {
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            mode: "cors",
             body: JSON.stringify({
                 email,
                 password,
@@ -31,6 +32,7 @@ export const signupAPI = async (username, email, password, confirmPassword) => {
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            mode: "cors",
             body: JSON.stringify({
                 username,
                 email,
@@ -56,6 +58,7 @@ export const retrieveProfileAPI = async (token) => {
         `${import.meta.env.VITE_LOCALHOST_API}/api/users/profile`,
         {
             headers: { Authorization: `Bearer ${token}` },
+            mode: "cors",
         }
     );
 
@@ -96,18 +99,20 @@ export const fetchAllUsersAPI = async () => {
 
 export const fetchStudentUsersAPI = async () => {
     const res = await fetch(
-        `${import.meta.env.VITE_LOCALHOST_API_3000}/api/users/list-of-students`,
+        `${import.meta.env.VITE_LOCALHOST_API}/api/users/student-list`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
     );
 
+    console.log("hello");
     const json = await res.json();
 
     if (!res.ok) {
         console.error(json.error);
         throw new Error(`${json.error}`);
     }
+    console.log(json);
 
     return json;
 };

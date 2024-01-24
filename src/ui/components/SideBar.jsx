@@ -15,6 +15,9 @@ import {
     FiUserCheck,
     FiPaperclip,
     FiLogOut,
+    FiList,
+    FiBookOpen,
+    FiUsers,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import ThemeColors from "../pages/main/ThemeColors";
@@ -29,25 +32,25 @@ const menus = [
         link: "/admin",
         icon: <FiHome></FiHome>,
     },
-    {
-        title: "Grading",
-        link: "/grading",
-        icon: <FiBook />,
-    },
+    // {
+    //     title: "Grading",
+    //     link: "/grading",
+    //     icon: <FiBook />,
+    // },
     {
         title: "List of Students",
-        link: "/list",
-        icon: <FiUser />,
+        link: "/student-list",
+        icon: <FiList />,
     },
     {
-        title: "Manage Questionnaire",
+        title: "Manage Questionaire",
         link: "/manage-questionaire",
-        icon: <FiPaperclip />,
+        icon: <FiBookOpen />,
     },
     {
         title: "Manage Users",
         link: "/users",
-        icon: <FiUserCheck />,
+        icon: <FiUsers />,
     },
 ];
 
