@@ -24,6 +24,7 @@ import DeleteUpdateQuestionPanel from "./DeleteUpdateQuestionPanel";
 import { useAddQuestions } from "../../../logic/hooks/question/useAddQuestions";
 import { useQuestionsTypeLevelSet } from "../../../logic/hooks/question/useQuestionsTypeLevelSet";
 import { useQuestions } from "../../../logic/hooks/question/useQuestions";
+import { useQueryClient } from "@tanstack/react-query";
 
 function ManageQuestioner() {
     const [questions, setQuestions] = useState([]);
@@ -33,6 +34,8 @@ function ManageQuestioner() {
     const [isEditDatabase, setIsEditDatabase] = useState(false);
     const [qnPreview, setQnPreview] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
+
+    const { username } = useQueryClient().getQueryData(["user"]);
 
     const {
         isOpen: isAlertOpen,
@@ -95,6 +98,7 @@ function ManageQuestioner() {
                 isEditDatabase) && (
                 <Box h="10%" alignSelf="flex-end">
                     <AddViewEditQuestionModal
+                        username={username}
                         isAdd={isOpen}
                         onClose={onClose}
                         setQuestions={setQuestions}

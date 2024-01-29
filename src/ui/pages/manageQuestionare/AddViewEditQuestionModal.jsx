@@ -34,6 +34,7 @@ import { useUpdateQuestion } from "../../../logic/hooks/question/useUpdateQuesti
 import { useQueryClient } from "@tanstack/react-query";
 
 const AddViewEditQuestionModal = ({
+    username,
     isAdd,
     onClose,
     setQuestions,
@@ -57,6 +58,7 @@ const AddViewEditQuestionModal = ({
         answer: "",
         optionsTranslate: [],
         questionTranslate: "",
+        createdBy: username,
     });
 
     const toast = useToast();
@@ -190,7 +192,6 @@ const AddViewEditQuestionModal = ({
                 }
 
                 if (isEditDatabase) {
-                    console.log("Hello World! isEdit Database");
                     updateQuestion({ question: qn });
                 }
             }

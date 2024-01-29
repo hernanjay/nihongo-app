@@ -13,8 +13,7 @@ import {
 // import QuestionType from "../questionHomePage/QuestionType";
 import ThemeColors from "../main/ThemeColors";
 import ManageQuestionLevel from "./ManageQuestionLevel";
-import { Fragment, useEffect, useState } from "react";
-import QuestionType from "../questionHomePage/QuestionType";
+import { useEffect, useState } from "react";
 
 function DeleteUpdateQuestionPanel({
     setQnPreview,
