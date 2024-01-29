@@ -27,11 +27,13 @@ import {
     Tooltip,
     Flex,
     Select,
+    useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
 import { FiEdit } from "react-icons/fi";
 import { useUpdateUserRole } from "../../../logic/hooks/user/useUpdateUserRole";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UserProfileModal = ({
     user,
@@ -43,20 +45,17 @@ const UserProfileModal = ({
     setIsEdit,
 }) => {
     const { bg } = ThemeColors();
-
+    const toast = useToast();
     const [isUpdateRole, setIsUpdateRole] = useState(false);
     const { updateUserRole, isUpdatingUserRole } = useUpdateUserRole();
     const [selectedRole, setSelectedRole] = useState(user.role);
+    const signedInUser = useQueryClient().getQueryData(["user"]);
 
     if (isOpen)
         return (
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent minW="100vw">
-                    {/* <ModalHeader mx="auto" fontSize="5vh" p={0}>
-                        User Profile
-                    </ModalHeader> */}
-
+                <ModalContent maxW="100vw" maxH="100vh">
                     <ModalBody mx="auto" my={0}>
                         <Grid templateColumns="repeat(9, 1fr)" w="90vw">
                             <GridItem colSpan={6}>
@@ -576,6 +575,9 @@ const UserProfileModal = ({
                                                                 size="sm"
                                                                 colorScheme="blue"
                                                                 bg="blue.500"
+                                                                disabled={
+                                                                    isUpdatingUserRole
+                                                                }
                                                                 onClick={() => {
                                                                     updateUserRole(
                                                                         {
@@ -646,8 +648,25 @@ const UserProfileModal = ({
                                                         colorScheme="blue"
                                                         bg="blue.500"
                                                         onClick={() => {
-                                                            setIsView(false);
-                                                            setIsEdit(true);
+                                                            if (
+                                                                signedInUser.role ===
+                                                                "admin"
+                                                            ) {
+                                                                setIsView(
+                                                                    false
+                                                                );
+                                                                setIsEdit(true);
+                                                            } else {
+                                                                toast({
+                                                                    title: "Edit not available yet!",
+                                                                    position:
+                                                                        "top",
+                                                                    description: `We are sorry to inform you that is under maintenance`,
+                                                                    status: "info",
+                                                                    duration: 2500,
+                                                                    isClosable: true,
+                                                                });
+                                                            }
                                                         }}
                                                     >
                                                         Edit
@@ -668,13 +687,6 @@ const UserProfileModal = ({
                             </GridItem>
                         </Grid>
                     </ModalBody>
-
-                    {/* <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant="ghost">Secondary Action</Button>
-                    </ModalFooter> */}
                 </ModalContent>
             </Modal>
         );

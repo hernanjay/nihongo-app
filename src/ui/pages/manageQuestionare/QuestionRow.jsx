@@ -38,7 +38,7 @@ const QuestionRow = ({
                     <IconButton
                         icon={<FiEye />}
                         colorScheme="green"
-                        bg="green.400"
+                        bg="green.500"
                         size="md"
                         cursor="pointer"
                         onClick={() => {
@@ -58,7 +58,7 @@ const QuestionRow = ({
                     <IconButton
                         icon={<FiEdit />}
                         colorScheme="blue"
-                        bg="blue.400"
+                        bg="blue.500"
                         size="md"
                         cursor="pointer"
                         onClick={() => {
@@ -78,7 +78,7 @@ const QuestionRow = ({
                     <IconButton
                         icon={<FiTrash2 />}
                         colorScheme="red"
-                        bg="red.400"
+                        bg="red.500"
                         size="md"
                         cursor="pointer"
                         onClick={onAlertRowOpen}

@@ -1,36 +1,14 @@
-import {
-    Avatar,
-    Flex,
-    Heading,
-    IconButton,
-    Td,
-    Tooltip,
-    Tr,
-    useDisclosure,
-} from "@chakra-ui/react";
-import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
-import { useDeleteUser } from "../../../logic/hooks/user/useDeleteUser";
+import { IconButton, Td, Tooltip, Tr, useDisclosure } from "@chakra-ui/react";
 import UserProfileModal from "./UserProfileModal";
-import AlerPopUp from "../../components/AlerPopUp";
 import { useState } from "react";
+import { FiEdit, FiEye } from "react-icons/fi";
 
-const UsersRow = ({ user }) => {
-    const { deleteUser } = useDeleteUser();
+function StudentRow({ user }) {
     const [isView, setIsView] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const {
-        isOpen: isOpenDelete,
-        onOpen: onOpenDelete,
-        onClose: onCloseDelete,
-    } = useDisclosure();
-
-    function handleDelete(userId) {
-        deleteUser({ userId });
-    }
-
     return (
-        <Tr borderBottom="1px" borderColor="darkslategray">
+        <Tr key={user.id}>
             {(isOpen || isView || isEdit) && (
                 <UserProfileModal
                     user={user}
@@ -42,17 +20,10 @@ const UsersRow = ({ user }) => {
                     setIsEdit={setIsEdit}
                 />
             )}
-            <Td textAlign="center">
-                <Flex align="center">
-                    <Avatar size="sm" mr={2} src="" />
-                    <Heading size="sm" letterSpacing="tight">
-                        {user.username}
-                    </Heading>
-                </Flex>
-            </Td>
+            <Td textAlign="center">{user.username}</Td>
             <Td textAlign="center">{user.email}</Td>
-            <Td textAlign="center">{user.role}</Td>
-            <Td py="-2.5em" textAlign="center">
+            {/* <Td>{user.level}</Td> */}
+            <Td textAlign="center">
                 <Tooltip
                     label="View"
                     fontSize="md"
@@ -90,34 +61,8 @@ const UsersRow = ({ user }) => {
                         }}
                     />
                 </Tooltip>
-                &nbsp;&nbsp;
-                <Tooltip
-                    label="Delete"
-                    fontSize="md"
-                    offset={[0, -70]}
-                    closeOnClick
-                >
-                    <IconButton
-                        icon={<FiTrash2 />}
-                        colorScheme="red"
-                        bg="red.400"
-                        size="md"
-                        cursor="pointer"
-                        onClick={onOpenDelete}
-                    />
-                </Tooltip>
-                &nbsp;
-                <AlerPopUp
-                    isOpen={isOpenDelete}
-                    onClose={onCloseDelete}
-                    onClick={() => {
-                        handleDelete(user._id);
-                        onCloseDelete();
-                    }}
-                    message={"User"}
-                />
             </Td>
         </Tr>
     );
-};
-export default UsersRow;
+}
+export default StudentRow;

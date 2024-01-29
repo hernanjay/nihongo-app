@@ -9,15 +9,16 @@ export function useUpdateQuestion() {
     const { mutate: updateQuestion, isPending: isUpdating } = useMutation({
         mutationFn: ({ question }) => updateQuestionAPI(question),
         onSuccess: async (data) => {
+            await queryClient.invalidateQueries({
+                queryKey: ["questions"],
+            });
+
             toast({
                 title: `${data.message}`,
                 position: "top",
                 status: "success",
                 duration: 3000,
                 isClosable: true,
-            });
-            await queryClient.invalidateQueries({
-                queryKey: ["questions"],
             });
         },
         onError: (err) => {
