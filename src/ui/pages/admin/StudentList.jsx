@@ -12,17 +12,13 @@ import {
     Tbody,
     Tr,
     Th,
-    Td,
-    Tooltip,
-    IconButton,
     TableContainer,
     useDisclosure,
 } from "@chakra-ui/react";
-import { FiEdit, FiEye, FiSearch } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import SideBar from "../../components/SideBar";
 import { useFetchStudentUser } from "../../../logic/hooks/user/useFetchStudentUser";
 import ThemeColors from "../main/ThemeColors";
-import UserProfileModal from "./UserProfileModal";
 import StudentRow from "./StudentRow";
 
 export default function StudentList() {
