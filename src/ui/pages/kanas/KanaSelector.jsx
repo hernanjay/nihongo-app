@@ -172,14 +172,7 @@ function KanaSelector({ type }) {
                                 type: "modeSet",
                                 payload: setMode(),
                             });
-                            kanaDispatch({
-                                type: "groupSet",
-                                payload: [
-                                    ...mainKanaSelected,
-                                    ...dakutenKanaSelected,
-                                    ...combinationKanaSelected,
-                                ],
-                            });
+
                             kanaDispatch({ type: "typeSet", payload: type });
                             onOpen();
                         }}

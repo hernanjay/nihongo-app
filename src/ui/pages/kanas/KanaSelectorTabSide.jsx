@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Button, Container } from "@chakra-ui/react";
 import {
@@ -101,6 +101,18 @@ function KanaSelectorTabSide() {
         /* ================================================================================ */
     }
 
+    useEffect(() => {
+        console.log("Added");
+        kanaDispatch({
+            type: "groupSet",
+            payload: [
+                ...mainKanaSelected,
+                ...dakutenKanaSelected,
+                ...combinationKanaSelected,
+            ],
+        });
+    }, [mainKanaSelected, dakutenKanaSelected, combinationKanaSelected]);
+
     return (
         <Container
             h="90vh"
@@ -188,7 +200,7 @@ function KanaSelectorTabSide() {
                     variant="outline"
                     borderColor={border}
                     loadingText="Custom Kana"
-                    // isDisabled={kanaGroup.length || kanaMode.length}
+                    isDisabled={kanaGroup.length || kanaMode.length}
                     w="45%"
                     fontSize="2vh"
                     fontWeight="light"
