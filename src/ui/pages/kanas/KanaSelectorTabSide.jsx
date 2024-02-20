@@ -102,7 +102,7 @@ function KanaSelectorTabSide() {
     }
 
     useEffect(() => {
-        console.log("Added");
+        kanaDispatch({ type: "modeSet", payload: setMode() });
         kanaDispatch({
             type: "groupSet",
             payload: [
@@ -111,6 +111,7 @@ function KanaSelectorTabSide() {
                 ...combinationKanaSelected,
             ],
         });
+        kanaDispatch({ type: "typeSet", payload: kanaType });
     }, [mainKanaSelected, dakutenKanaSelected, combinationKanaSelected]);
 
     return (

@@ -1,15 +1,6 @@
-import {
-    Box,
-    Button,
-    Checkbox,
-    Flex,
-    SimpleGrid,
-    Text,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import ThemeColors from "../main/ThemeColors";
-import { useEffect } from "react";
 
 function KanaSelectorButtonGroup({
     mode,
@@ -38,6 +29,9 @@ function KanaSelectorButtonGroup({
 
     const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
 
+    //Checks if every buttons are checked
+    const allChecked = checkedItems.every(Boolean);
+
     // Function to handle button click
     const handleButtonClick = (index) => {
         const newCheckedItems = [...checkedItems];
@@ -61,8 +55,19 @@ function KanaSelectorButtonGroup({
         selectedGroupSetter(selectedKana);
     };
 
-    //Checks if all buttons are checked
-    const allChecked = checkedItems.every(Boolean);
+    const handleSelectAllButton = () => {
+        let items = [];
+        if (allChecked) {
+            items = kanaGroup.map(() => false);
+            setCheckedItems(items);
+            selectedGroupSetter([]);
+        } else {
+            items = kanaGroup.map(() => true);
+            setCheckedItems(items);
+            let selectedKana = kanaGroup.map((kana) => kana.split("・")[1]);
+            selectedGroupSetter(selectedKana);
+        }
+    };
 
     return (
         <Box textAlign="center">
@@ -80,31 +85,34 @@ function KanaSelectorButtonGroup({
                     fontWeight="normal"
                     minW="100%"
                     onClick={() => {
-                        let items = [];
-                        let selectedKana = selectedGroup;
-                        checkedItems.map((isChecked, index) => {
-                            //Checks which kana character is chosen
-                            if (isChecked) {
-                                selectedKana.splice(
-                                    selectedKana.indexOf(
-                                        kanaGroup[index].split("・")[1]
-                                    ),
-                                    1
-                                );
-                            } else {
-                                selectedKana.push(
-                                    kanaGroup[index].split("・")[1]
-                                );
-                            }
-                            //Checks which button is marked checked
-                            if (isChecked && !allChecked) {
-                                items.push(isChecked);
-                            } else {
-                                items.push(!isChecked);
-                            }
-                        });
-                        setCheckedItems(items);
-                        selectedGroupSetter(selectedKana);
+                        // let items = [];
+                        // let selectedKana = selectedGroup;
+                        // checkedItems.map((isChecked, index) => {
+                        //     //Checks which kana character is chosen
+                        //     if (isChecked) {
+                        //         console.log("CHECKED");
+                        //         selectedKana.splice(
+                        //             selectedKana.indexOf(
+                        //                 kanaGroup[index].split("・")[1]
+                        //             ),
+                        //             1
+                        //         );
+                        //     } else {
+                        //         console.log("NOT CHECKED");
+                        //         selectedKana.push(
+                        //             kanaGroup[index].split("・")[1]
+                        //         );
+                        //     }
+                        //     //Checks which button is marked checked
+                        //     if (isChecked && !allChecked) {
+                        //         items.push(isChecked);
+                        //     } else {
+                        //         items.push(!isChecked);
+                        //     }
+                        // });
+                        handleSelectAllButton();
+                        // setCheckedItems(items);
+                        // selectedGroupSetter(selectedKana);
                     }}
                 >
                     <Text
