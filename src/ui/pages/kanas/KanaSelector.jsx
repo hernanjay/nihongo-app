@@ -110,8 +110,14 @@ function KanaSelector({ type }) {
                         fontWeight="normal"
                         onClick={() => {
                             kanaDispatch({ type: "modeSet", payload: [] });
-                            kanaDispatch({ type: "typeSet", payload: type });
+                            kanaDispatch({
+                                type: "typeSet",
+                                payload: type,
+                            });
                             kanaDispatch({ type: "groupSet", payload: [] });
+                            setMainKanaSelected([]);
+                            setDakutenKanaSelected([]);
+                            setCombinationKanaSelected([]);
                             navigate("/kana-quiz");
                         }}
                     >

@@ -1,5 +1,5 @@
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThemeColors from "../main/ThemeColors";
 
 function KanaSelectorButtonGroup({
@@ -28,6 +28,14 @@ function KanaSelectorButtonGroup({
     );
 
     const [checkedItems, setCheckedItems] = useState(initialCheckedItems);
+
+    useEffect(() => {
+        let items = kanaGroup.map((kana) =>
+            // Check if the selectedGroup includes the kana
+            selectedGroup.includes(kana.split("・")[1])
+        );
+        setCheckedItems(items);
+    }, [kanaGroup, selectedGroup]);
 
     //Checks if every buttons are checked
     const allChecked = checkedItems.every(Boolean);

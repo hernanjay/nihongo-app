@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Box, Button, Container } from "@chakra-ui/react";
+import { Box, Button, Container, Text } from "@chakra-ui/react";
 import {
     getKanaCombinationList,
     getKanaDakutenList,
@@ -180,7 +180,7 @@ function KanaSelectorTabSide() {
                     variant="outline"
                     borderColor={border}
                     loadingText="All Kana"
-                    isDisabled={!kanaGroup.length || !kanaMode.length}
+                    isDisabled={kanaGroup.length === 0}
                     w="45%"
                     mr="1vw"
                     fontSize="2vh"
@@ -198,25 +198,20 @@ function KanaSelectorTabSide() {
                 </Button>
                 {/* ================================================================================  */}
                 <Button
+                    as={Text}
                     variant="outline"
                     borderColor={border}
                     loadingText="Custom Kana"
-                    isDisabled={kanaGroup.length || kanaMode.length}
+                    isDisabled={kanaGroup.length > 0}
                     w="45%"
                     fontSize="2vh"
                     fontWeight="light"
-                    onClick={() => {
-                        kanaDispatch({ type: "modeSet", payload: setMode() });
-                        kanaDispatch({
-                            type: "groupSet",
-                            payload: [
-                                ...mainKanaSelected,
-                                ...dakutenKanaSelected,
-                                ...combinationKanaSelected,
-                            ],
-                        });
-                        kanaDispatch({ type: "typeSet", payload: kanaType });
-                    }}
+                    _hover={
+                        {
+                            textDecoration: "none", // Remove underline on hover
+                            backgroundColor: "initial",
+                        } // Remove background color change on hover
+                    }
                 >
                     Selected Kana
                 </Button>
