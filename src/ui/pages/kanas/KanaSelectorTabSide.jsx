@@ -11,7 +11,7 @@ import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
 import ThemeColors from "../main/ThemeColors";
 
 // Gets stored values for the following data
-function KanaSelectorTabSide() {
+function KanaSelectorTabSide({ isLoading }) {
     const {
         // kanaMode values are Main, Dakuten or Combination
         kanaMode,
@@ -234,6 +234,7 @@ function KanaSelectorTabSide() {
                     kanaGroup={mainKana}
                     selectedGroup={mainKanaSelected}
                     selectedGroupSetter={setMainKanaSelected}
+                    isLoading={isLoading}
                 />
             </Box>
 
@@ -254,6 +255,7 @@ function KanaSelectorTabSide() {
                     kanaGroup={dakutenKana}
                     selectedGroup={dakutenKanaSelected}
                     selectedGroupSetter={setDakutenKanaSelected}
+                    isLoading={isLoading}
                 />
             </Box>
 
@@ -274,6 +276,7 @@ function KanaSelectorTabSide() {
                     kanaGroup={combinationKana}
                     selectedGroup={combinationKanaSelected}
                     selectedGroupSetter={setCombinationKanaSelected}
+                    isLoading={isLoading}
                 />
             </Box>
         </Container>

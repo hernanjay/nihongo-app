@@ -8,6 +8,7 @@ function KanaSelectorButtonGroup({
     selectedGroup,
     selectedGroupSetter,
     label,
+    isLoading,
 }) {
     const {
         body,
@@ -92,35 +93,9 @@ function KanaSelectorButtonGroup({
                     py="1vh"
                     fontWeight="normal"
                     minW="100%"
+                    isDisabled={isLoading}
                     onClick={() => {
-                        // let items = [];
-                        // let selectedKana = selectedGroup;
-                        // checkedItems.map((isChecked, index) => {
-                        //     //Checks which kana character is chosen
-                        //     if (isChecked) {
-                        //         console.log("CHECKED");
-                        //         selectedKana.splice(
-                        //             selectedKana.indexOf(
-                        //                 kanaGroup[index].split("・")[1]
-                        //             ),
-                        //             1
-                        //         );
-                        //     } else {
-                        //         console.log("NOT CHECKED");
-                        //         selectedKana.push(
-                        //             kanaGroup[index].split("・")[1]
-                        //         );
-                        //     }
-                        //     //Checks which button is marked checked
-                        //     if (isChecked && !allChecked) {
-                        //         items.push(isChecked);
-                        //     } else {
-                        //         items.push(!isChecked);
-                        //     }
-                        // });
                         handleSelectAllButton();
-                        // setCheckedItems(items);
-                        // selectedGroupSetter(selectedKana);
                     }}
                 >
                     <Text
@@ -151,6 +126,7 @@ function KanaSelectorButtonGroup({
                             minW="47.5%"
                             cursor="pointer"
                             fontWeight="normal"
+                            isDisabled={isLoading}
                             onClick={() => handleButtonClick(index)}
                         >
                             <Text
