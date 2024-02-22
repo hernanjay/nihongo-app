@@ -105,14 +105,12 @@ export const fetchStudentUsersAPI = async () => {
         }
     );
 
-    console.log("hello");
     const json = await res.json();
 
     if (!res.ok) {
         console.error(json.error);
         throw new Error(`${json.error}`);
     }
-    console.log(json);
 
     return json;
 };

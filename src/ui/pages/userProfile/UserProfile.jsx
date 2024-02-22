@@ -210,7 +210,7 @@ const UserProfile = () => {
                                         pl="1vw"
                                         type="text"
                                         variant="flushed"
-                                        Value="とと"
+                                        value="とと"
                                         isReadOnly
                                     />
                                 </InputGroup>
@@ -224,7 +224,7 @@ const UserProfile = () => {
                                         pl="1vw"
                                         type="text"
                                         variant="flushed"
-                                        Value="Sr."
+                                        value="Sr."
                                         isReadOnly
                                     />
                                 </InputGroup>

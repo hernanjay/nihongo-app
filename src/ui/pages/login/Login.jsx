@@ -40,7 +40,6 @@ export default function Login() {
     const handleSubmit = async (e) => {
         onToggle();
         e.preventDefault();
-        console.log(isLoading);
         if (!isEmailEmpty() && !isPasswordEmpty()) {
             login({ email: email + "@awsys-i.com", password });
         }

@@ -126,7 +126,10 @@ export default function StudentList() {
                                 </Thead>
                                 <Tbody>
                                     {filteredUser?.map((user) => (
-                                        <StudentRow user={user} key={user.id} />
+                                        <StudentRow
+                                            user={user}
+                                            key={user._id}
+                                        />
                                     ))}
                                 </Tbody>
                             </Table>

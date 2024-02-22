@@ -13,8 +13,6 @@ import ThemeColors from "../main/ThemeColors";
 // Gets stored values for the following data
 function KanaSelectorTabSide({ isLoading }) {
     const {
-        // kanaMode values are Main, Dakuten or Combination
-        kanaMode,
         // kanatype are Hiragana or Katakana
         kanaType,
         // Groups are individual selected kanas 'grouped'
@@ -181,6 +179,14 @@ function KanaSelectorTabSide({ isLoading }) {
                     borderColor={border}
                     loadingText="All Kana"
                     isDisabled={kanaGroup.length === 0}
+                    _disabled={{
+                        backgroundColor: success,
+                        animation: "none",
+                        cursor: "default",
+                    }}
+                    _hover={
+                        kanaGroup.length === 0 && { backgroundColor: success }
+                    }
                     w="45%"
                     mr="1vw"
                     fontSize="2vh"
@@ -202,15 +208,17 @@ function KanaSelectorTabSide({ isLoading }) {
                     variant="outline"
                     borderColor={border}
                     loadingText="Custom Kana"
-                    isDisabled={kanaGroup.length > 0}
                     w="45%"
                     fontSize="2vh"
                     fontWeight="light"
+                    isDisabled={kanaGroup.length > 0}
+                    _disabled={{
+                        backgroundColor: success,
+                        animation: "none",
+                        cursor: "default",
+                    }}
                     _hover={
-                        {
-                            textDecoration: "none", // Remove underline on hover
-                            backgroundColor: "initial",
-                        } // Remove background color change on hover
+                        kanaGroup.length > 0 && { backgroundColor: success }
                     }
                 >
                     Selected Kana
