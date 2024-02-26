@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 
-const Timer = () => {
+const Timer = ({ isActive }) => {
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
-    const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
         let intervalId;
@@ -32,10 +31,6 @@ const Timer = () => {
         return () => clearInterval(intervalId);
     }, [isActive]);
 
-    const toggleTimer = () => {
-        setIsActive((prevIsActive) => !prevIsActive);
-    };
-
     return (
         <Box
             position="fixed"
@@ -46,7 +41,6 @@ const Timer = () => {
             borderRadius="md"
             boxShadow="lg"
             cursor="pointer"
-            onClick={toggleTimer}
             zIndex={100}
         >
             <Text fontSize="lg" color="white">

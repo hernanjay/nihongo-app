@@ -11,7 +11,7 @@ import KanaSelectorButtonGroup from "./KanaSelectorButtonGroup";
 import ThemeColors from "../main/ThemeColors";
 
 // Gets stored values for the following data
-function KanaSelectorTabSide({ isLoading }) {
+function KanaSelectorTabSide({ isLoading, setKanaAnswered }) {
     const {
         // kanatype are Hiragana or Katakana
         kanaType,
@@ -147,6 +147,7 @@ function KanaSelectorTabSide({ isLoading }) {
                     fontSize="2vh"
                     fontWeight="light"
                     onClick={() => {
+                        setKanaAnswered([]);
                         kanaDispatch({
                             type: "typeSet",
                             payload:
@@ -192,6 +193,7 @@ function KanaSelectorTabSide({ isLoading }) {
                     fontSize="2vh"
                     fontWeight="light"
                     onClick={() => {
+                        setKanaAnswered([]);
                         kanaDispatch({ type: "modeSet", payload: [] });
                         kanaDispatch({ type: "typeSet", payload: kanaType });
                         kanaDispatch({ type: "groupSet", payload: [] });

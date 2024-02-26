@@ -11,7 +11,10 @@ import {
     fetchSpecificMode,
     fetchSpecificKana,
 } from "../../../logic/services/apiKana";
+// import useWindowSize from "react-use/lib/useWindowSize";
 import Timer from "../../components/Timer";
+import Confetti from "react-confetti";
+import StartKanaPage from "./StartKanaPage";
 
 function KanaLayout() {
     const navigate = useNavigate();
@@ -26,6 +29,16 @@ function KanaLayout() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [kanaAnswered, setKanaAnswered] = useState([]);
+    const [hasAllAnswered, setHasAllAnswered] = useState(false);
+
+    useEffect(() => {
+        if (kanaData.length !== 0 && kanaAnswered.length === kanaData.length) {
+            // alert(hasAllAnswered);
+            setHasAllAnswered(true);
+        } else {
+            setHasAllAnswered(false);
+        }
+    }, [kanaAnswered, kanaData]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -95,7 +108,9 @@ function KanaLayout() {
                     },
                 }}
             >
-                {/* <Timer /> */}
+                {hasAllAnswered && <Confetti />}
+                <Timer isActive={!hasAllAnswered} />
+
                 <Box
                     position="fixed"
                     minW="25vw"
@@ -103,14 +118,20 @@ function KanaLayout() {
                     display={{ base: "none", lg: "block" }}
                 >
                     {/* ================================================================================ */}
-                    <KanaSelectorTabSide key="Tabside" isLoading={isLoading} />
+                    <KanaSelectorTabSide
+                        key="Tabside"
+                        isLoading={isLoading}
+                        setKanaAnswered={setKanaAnswered}
+                    />
                     {/* ================================================================================ */}
                 </Box>
+
                 <Box
                     minW={{ base: "25vw", lg: "50vw", xl: "62.5vw" }}
                     ml={{ base: "2.5vw", lg: "28vw", xl: "30vw" }}
                     mr={{ base: "2.5vw", lg: "0", xl: "0" }}
                 >
+                    {/* <StartKanaPage /> */}
                     <SimpleGrid
                         id="kanaBody"
                         columns={{ base: 2, lg: 3 }}
@@ -130,6 +151,7 @@ function KanaLayout() {
                                         totalItems={kanaData.length}
                                         kana={kana}
                                         index={index}
+                                        setKanaAnswered={setKanaAnswered}
                                     />
                                 </Skeleton>
                             );
