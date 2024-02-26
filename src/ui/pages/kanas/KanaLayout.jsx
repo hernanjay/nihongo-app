@@ -4,14 +4,12 @@ import { useState } from "react";
 import { Box, Flex, SimpleGrid, Skeleton, Spacer } from "@chakra-ui/react";
 import KanaCards from "./KanaCards";
 import KanaSelectorTabSide from "./KanaSelectorTabSide";
-import Loader from "../../components/Loader";
 import { useNavigate } from "react-router-dom";
 import {
     fetchAllKana,
     fetchSpecificMode,
     fetchSpecificKana,
 } from "../../../logic/services/apiKana";
-// import useWindowSize from "react-use/lib/useWindowSize";
 import Timer from "../../components/Timer";
 import Confetti from "react-confetti";
 import StartKanaPage from "./StartKanaPage";
