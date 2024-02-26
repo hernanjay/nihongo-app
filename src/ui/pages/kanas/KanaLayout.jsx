@@ -11,6 +11,7 @@ import {
     fetchSpecificMode,
     fetchSpecificKana,
 } from "../../../logic/services/apiKana";
+import Timer from "../../components/Timer";
 
 function KanaLayout() {
     const navigate = useNavigate();
@@ -23,6 +24,8 @@ function KanaLayout() {
     } = useKanaContext();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [kanaAnswered, setKanaAnswered] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -92,6 +95,7 @@ function KanaLayout() {
                     },
                 }}
             >
+                {/* <Timer /> */}
                 <Box
                     position="fixed"
                     minW="25vw"

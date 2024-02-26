@@ -72,7 +72,7 @@ const QuestionSets = ({
             onClick={() => navigate(`questions/n${level}/${type}/${set}`)}
             cursor={"pointer"}
         >
-            <Td>{`Question : ${set}`}</Td>
+            <Td>{`Question Set: ${set}`}</Td>
             <Td>{numOfItems}</Td>
             <Td isNumeric>{(score === 0 && "0") || score || null}</Td>
             <Td isNumeric>

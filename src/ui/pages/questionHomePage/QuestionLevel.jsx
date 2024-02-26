@@ -98,7 +98,7 @@ const QuestionLevel = ({ level, type, bg, body, hover }) => {
                     <Table variant="simple">
                         <Thead bg={body}>
                             <Tr>
-                                <Th>Question #</Th>
+                                <Th>Question Set #</Th>
                                 <Th>Number of Items</Th>
                                 <Th isNumeric>Score</Th>
                                 <Th isNumeric>Status</Th>

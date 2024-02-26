@@ -27,7 +27,9 @@ const QuestionRow = ({
             <Td>{level}</Td>
             <Td>{type}</Td>
             <Td>{set}</Td>
-            <Td>{qn}</Td>
+            <Td maxW="xs" overflow="hidden">
+                {qn}
+            </Td>
             <Td py="-2.5em">
                 <Tooltip
                     label="View"

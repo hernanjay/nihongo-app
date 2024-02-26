@@ -24,6 +24,7 @@ export default function Home() {
     ) : (
         <Box data-testid="home-container" pb={"5vw"}>
             <Divider minH="10vh" />
+
             <Box
                 pt={{ base: "2.5vh", lg: "5vh" }}
                 h="90vh"

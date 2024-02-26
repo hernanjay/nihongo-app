@@ -1,6 +1,7 @@
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
     Button,
+    Divider,
     Flex,
     FormControl,
     FormErrorMessage,
@@ -21,6 +22,7 @@ import {
     NumberInputField,
     NumberInputStepper,
     Select,
+    Text,
     Textarea,
     Tooltip,
     usePrevious,
@@ -88,7 +90,7 @@ const AddViewEditQuestionModal = ({
     const isErrorQuestion = qn.question === "";
     const isErrorOptions = optLength === 0;
     const isErrorOptionChoices = qn.options.includes("");
-    const isErrorAnswer = qn.answer === "";
+    const isErrorAnswer = qn.answer === "" || !qn.options.includes(qn.answer);
     const isErrorKanji = isKanji && !hasBracket;
 
     const addOption = () => {
@@ -147,6 +149,7 @@ const AddViewEditQuestionModal = ({
         });
     };
 
+    // This is to add or update the question
     const addUpdateQuestion = () => {
         setHasSubmit(true);
         if (
@@ -268,20 +271,33 @@ const AddViewEditQuestionModal = ({
                     <Grid templateColumns="repeat(3, 1fr)" gap={4}>
                         {/* LEVEL */}
                         <GridItem>
-                            <FormControl isRequired>
+                            <FormControl
+                                isRequired={isAdd || isEditLocal ? true : false}
+                                autoFocus={false}
+                            >
                                 <FormLabel htmlFor="level">
                                     Select Level
+                                    {(isAdd || isEditLocal) && (
+                                        <Tooltip
+                                            hasArrow
+                                            label="Select what nihongo level, default is 5"
+                                        >
+                                            <QuestionOutlineIcon ms={1} />
+                                        </Tooltip>
+                                    )}
                                 </FormLabel>
+
                                 <Select
                                     bg={bg}
                                     name="level"
                                     value={qn.level}
                                     onChange={(e) => handleChange(e)}
                                     isDisabled={isViewLocal || isViewDatabase}
+                                    borderColor={border}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
-                                        opacity: 1,
+                                        opacity: 0.7,
                                     }}
                                 >
                                     <option
@@ -325,20 +341,31 @@ const AddViewEditQuestionModal = ({
 
                         {/* TYPE */}
                         <GridItem>
-                            <FormControl isRequired>
+                            <FormControl
+                                isRequired={isAdd || isEditLocal ? true : false}
+                            >
                                 <FormLabel htmlFor="type">
                                     Select Type
+                                    {(isAdd || isEditLocal) && (
+                                        <Tooltip
+                                            hasArrow
+                                            label="Select what type of question, default is vocab"
+                                        >
+                                            <QuestionOutlineIcon ms={1} />
+                                        </Tooltip>
+                                    )}
                                 </FormLabel>
                                 <Select
                                     bg={bg}
                                     name="type"
                                     value={qn.type}
                                     onChange={(e) => handleChange(e)}
+                                    borderColor={border}
                                     isDisabled={isViewLocal || isViewDatabase}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
-                                        opacity: 1,
+                                        opacity: 0.7,
                                     }}
                                 >
                                     <option
@@ -372,14 +399,25 @@ const AddViewEditQuestionModal = ({
                         {/* SET */}
                         <GridItem>
                             <FormControl
-                                isRequired
+                                isRequired={isAdd || isEditLocal ? true : false}
                                 isInvalid={hasSubmit && isErrorSet}
                             >
-                                <FormLabel>Set No.</FormLabel>
+                                <FormLabel>
+                                    Set No.
+                                    {(isAdd || isEditLocal) && (
+                                        <Tooltip
+                                            hasArrow
+                                            label="Select what question set number, default is 1"
+                                        >
+                                            <QuestionOutlineIcon ms={1} />
+                                        </Tooltip>
+                                    )}
+                                </FormLabel>
                                 <NumberInput
                                     value={qn.set}
                                     min={1}
                                     max={maxSet + 1}
+                                    borderColor={border}
                                     onChange={(valueString) => {
                                         const value = parseInt(valueString, 10); // Parse the string to an integer
                                         handleChange({
@@ -397,6 +435,7 @@ const AddViewEditQuestionModal = ({
                                         _disabled={{
                                             color: fontColor,
                                             borderColor: border,
+                                            opacity: 0.7,
                                         }}
                                     />
                                     <NumberInputStepper>
@@ -415,8 +454,7 @@ const AddViewEditQuestionModal = ({
                         {/* QUESTION */}
                         <GridItem colSpan={3}>
                             <FormControl
-                                isRequired
-                                mt={4}
+                                isRequired={isAdd || isEditLocal ? true : false}
                                 isInvalid={
                                     hasSubmit &&
                                     (isErrorQuestion || isErrorKanji)
@@ -424,7 +462,14 @@ const AddViewEditQuestionModal = ({
                             >
                                 <FormLabel>Question</FormLabel>
                                 <Textarea
-                                    placeholder="Write Question"
+                                    borderColor={border}
+                                    placeholder={
+                                        qn.type !== "kanji"
+                                            ? "Write a question\nEx: 私 _____ ハンサムです"
+                                            : "Write a question\nEx: [山]を登りま"
+                                    }
+                                    resize="none"
+                                    minH="28"
                                     name="question"
                                     onChange={(e) => handleChange(e)}
                                     value={qn.question}
@@ -432,6 +477,7 @@ const AddViewEditQuestionModal = ({
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
+                                        opacity: 0.7,
                                     }}
                                 />
                                 {isErrorQuestion && (
@@ -441,7 +487,7 @@ const AddViewEditQuestionModal = ({
                                 )}
                                 {isErrorKanji && (
                                     <FormErrorMessage>
-                                        Kanji question requires
+                                        Kanji question requires bracket [ ]
                                         &quot;[kanji/hiragana]&quot; ex. [山] or
                                         [やま]
                                     </FormErrorMessage>
@@ -452,11 +498,22 @@ const AddViewEditQuestionModal = ({
                         {/* OPTIONS ADD BUTTON */}
                         <GridItem colSpan={1}>
                             <FormControl
-                                isRequired
+                                isRequired={isAdd || isEditLocal ? true : false}
                                 isInvalid={hasSubmit && isErrorOptions}
                             >
                                 <Flex alignItems="center">
-                                    <FormLabel mt={2}>Options</FormLabel>
+                                    <FormLabel mt={2}>
+                                        Options
+                                        {(isAdd || isEditLocal) && (
+                                            <Tooltip
+                                                hasArrow
+                                                label="Click + Add to add options"
+                                            >
+                                                <QuestionOutlineIcon ms={1} />
+                                            </Tooltip>
+                                        )}
+                                    </FormLabel>
+
                                     {(isAdd ||
                                         isEditLocal ||
                                         isEditDatabase) && (
@@ -471,7 +528,6 @@ const AddViewEditQuestionModal = ({
                                                 onClick={addOption}
                                                 leftIcon={<FiPlusCircle />}
                                                 isDisabled={optLength === 4}
-                                                size={"sm"}
                                             >
                                                 Add
                                             </Button>
@@ -489,41 +545,42 @@ const AddViewEditQuestionModal = ({
                         {/* ANSWER */}
                         <GridItem colSpan={2}>
                             <FormControl
-                                isRequired
+                                isRequired={isAdd || isEditLocal ? true : false}
                                 isInvalid={hasSubmit && isErrorAnswer}
                             >
-                                <Flex alignItems="center">
-                                    <FormLabel mt={2}>Answer</FormLabel>
-                                    {(isAdd || isEditLocal) && (
-                                        <Tooltip
-                                            hasArrow
-                                            label="Make sure options are not empty"
-                                            openDelay={300}
-                                        >
-                                            <QuestionOutlineIcon me={2} />
-                                        </Tooltip>
-                                    )}
+                                <Flex
+                                    alignItems="center"
+                                    justifyContent="flex-end"
+                                >
+                                    <FormLabel mt={2}>
+                                        Answer
+                                        {(isAdd || isEditLocal) && (
+                                            <Tooltip
+                                                hasArrow
+                                                label="Make sure options are not empty"
+                                            >
+                                                <QuestionOutlineIcon ms={1} />
+                                            </Tooltip>
+                                        )}
+                                    </FormLabel>
                                     <Select
                                         bg={bg}
-                                        size="sm"
+                                        maxW="xs"
                                         name="answer"
                                         value={qn.answer}
                                         onChange={(e) => handleChange(e)}
+                                        borderColor={border}
                                         placeholder="Select Answer"
                                         isDisabled={
                                             isErrorOptions ||
                                             isViewLocal ||
                                             isViewDatabase
                                         }
-                                        _disabled={
-                                            isViewLocal || isViewDatabase
-                                                ? {
-                                                      color: fontColor,
-                                                      borderColor: border,
-                                                      opacity: 1,
-                                                  }
-                                                : {}
-                                        }
+                                        _disabled={{
+                                            color: fontColor,
+                                            borderColor: border,
+                                            opacity: 0.7,
+                                        }}
                                     >
                                         {qn.options.map((opt, index) => (
                                             <option
@@ -544,7 +601,7 @@ const AddViewEditQuestionModal = ({
                         {/* OPTIONS CHOICES */}
                         <GridItem colSpan={3}>
                             <FormControl
-                                isRequired
+                                isRequired={isAdd || isEditLocal ? true : false}
                                 isInvalid={hasSubmit && isErrorOptionChoices}
                             >
                                 {qn.options.map((value, index) => (
@@ -560,6 +617,7 @@ const AddViewEditQuestionModal = ({
                                             id={`options-${index + 1}`}
                                             value={value}
                                             name="options"
+                                            borderColor={border}
                                             onChange={(e) => {
                                                 handleOptionsChange(
                                                     index,
@@ -572,6 +630,7 @@ const AddViewEditQuestionModal = ({
                                             _disabled={{
                                                 color: fontColor,
                                                 borderColor: border,
+                                                opacity: 0.7,
                                             }}
                                         />
 
@@ -600,7 +659,9 @@ const AddViewEditQuestionModal = ({
                         </GridItem>
 
                         <GridItem colSpan={3}>
-                            <FormControl>
+                            <FormControl
+                                isReadOnly={isViewLocal || isViewDatabase}
+                            >
                                 <FormLabel>
                                     Options Translate (optional)
                                 </FormLabel>
@@ -624,6 +685,7 @@ const AddViewEditQuestionModal = ({
                                                     }`}
                                                     name="optionsTranslate"
                                                     value={value}
+                                                    borderColor={border}
                                                     onChange={(e) =>
                                                         handleOptionsTranslateChange(
                                                             index,
@@ -637,6 +699,7 @@ const AddViewEditQuestionModal = ({
                                                     _disabled={{
                                                         color: fontColor,
                                                         borderColor: border,
+                                                        opacity: 0.7,
                                                     }}
                                                 />
                                             </>
@@ -648,16 +711,22 @@ const AddViewEditQuestionModal = ({
 
                         <GridItem colSpan={3}>
                             <FormControl>
-                                <FormLabel>Question Translate</FormLabel>
+                                <FormLabel>
+                                    Question Translate (optional)
+                                </FormLabel>
                                 <Textarea
                                     placeholder="Enter Translation"
                                     name="questionTranslate"
                                     value={qn.questionTranslate}
                                     onChange={(e) => handleChange(e)}
+                                    resize="none"
+                                    minH="28"
+                                    borderColor={border}
                                     isDisabled={isViewLocal || isViewDatabase}
                                     _disabled={{
                                         color: fontColor,
                                         borderColor: border,
+                                        opacity: 0.7,
                                     }}
                                 />
                             </FormControl>
